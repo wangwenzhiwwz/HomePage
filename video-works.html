@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>WWZ.iM - Video Works</title>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="format-detection" content="telephone=no">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="author" content="Wang Wenzhi">
+  <meta name="keywords" content="video portfolio, motion design, video works">
+  <meta name="description" content="Video works and motion design portfolio of Wang Wenzhi">
+  <link rel="stylesheet" type="text/css" href="css/vendor.css">
+  <link href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.1/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;700;900&display=swap" rel="stylesheet">
+  <link rel="apple-touch-icon" sizes="180x180" href="https://wangwenzhi.eu.org/images/favicon_io/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="https://wangwenzhi.eu.org/images/favicon_io/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="https://wangwenzhi.eu.org/images/favicon_io/favicon-16x16.png">
+  <link rel="manifest" href="https://wangwenzhi.eu.org/images/favicon_io/site.webmanifest">
+  
+  <style>
+    .video-thumbnail {
+      position: relative;
+      cursor: pointer;
+      overflow: hidden;
+      border-radius: 8px;
+    }
+    .video-thumbnail img {
+      transition: transform 0.4s ease;
+    }
+    .video-thumbnail:hover img {
+      transform: scale(1.08);
+    }
+    .play-icon {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 70px;
+      height: 70px;
+      background: rgba(0,0,0,0.6);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    .video-thumbnail:hover .play-icon {
+      opacity: 1;
+    }
+    .play-icon::after {
+      content: '';
+      width: 0;
+      height: 0;
+      border-left: 20px solid white;
+      border-top: 12px transparent solid;
+      border-bottom: 12px transparent solid;
+      margin-left: 5px;
+    }
+  </style>
+</head>
+
+<body class="bg-body homepage" data-bs-spy="scroll" data-bs-target="#header-nav" tabindex="0">
+
+  <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+    <!-- 所有原有的 symbol 定义保持不变，省略以节省篇幅 -->
+    <symbol id="github" viewBox="0 0 15 15">/* ... */</symbol>
+    <!-- 其他 symbol 如 facebook, twitter, youtube 等保持原样 -->
+    <symbol xmlns="http://www.w3.org/2000/svg" id="play-circle" viewBox="0 0 24 24">
+      <path fill="currentColor" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10s10-4.48 10-10S17.52 2 12 2zm-2 14.5v-9l6 4.5l-6 4.5z"/>
+    </symbol>
+  </svg>
+
+  <a class="menu-btn"><span></span></a>
+
+  <div class="container-fluid overflow-hidden">
+    <header id="header-nav" class="col-lg-2 position-fixed px-5 bg-white h-100">
+      <div class="header-wrap d-flex flex-column justify-content-between h-100">
+        <div class="navigation">
+          <div class="site-logo mt-5">
+            <a href="index.html">
+              <img src="images/main-logo.png" alt="logo" class="img-fluid">
+            </a>
+          </div>
+
+          <nav id="one-page-menu" class="vertical-menu my-5">
+            <ul class="menu-list list-unstyled">
+              <li><a href="index.html#home" class="nav-link">Home</a></li>
+              <li><a href="index.html#about" class="nav-link">About</a></li>
+              <li><a href="index.html#experience" class="nav-link">Experience</a></li>
+              <li><a href="index.html#portfolio" class="nav-link">Works</a></li>
+              <li><a href="index.html#contact" class="nav-link">Contact</a></li>
+              <li><a href="videos.html" class="nav-link active">Videos</a></li>
+            </ul>
+          </nav>
+        </div>
+
+        <div class="mt-5">
+          <div class="email-links">
+            <a href="mailto:wwz.im@outlook.com" class="py-3 my-3 border-bottom d-flex">wwz.im@outlook.com</a>
+          </div>
+          <ul class="list-unstyled d-flex justify-content-start flex-wrap gap-3">
+            <li><a href="https://github.com/wangwenzhiwwz" class="text-dark"><svg width="24" height="24"><use xlink:href="#github"></use></svg></a></li>
+            <li><a href="https://www.facebook.com/wangwenzhiwwz" class="text-dark"><svg width="24" height="24"><use xlink:href="#facebook"></use></svg></a></li>
+            <li><a href="https://x.com/wwz_im" class="text-dark"><svg width="24" height="24"><use xlink:href="#twitter"></use></svg></a></li>
+            <li><a href="https://www.youtube.com/@wangwenzhi" class="text-dark"><svg width="24" height="24"><use xlink:href="#youtube"></use></svg></a></li>
+            <li><a href="https://www.pinterest.com/wangwenzhiwwz/" class="text-dark"><svg width="24" height="24"><use xlink:href="#pinterest"></use></svg></a></li>
+            <li><a href="https://www.instagram.com/wangwenzhiwwz/" class="text-dark"><svg width="24" height="24"><use xlink:href="#instagram"></use></svg></a></li>
+          </ul>
+          <div class="py-4 border-top">
+            <p>APP <a target="_blank" href="https://app.wwz.im/">Navigation website</a></p>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main class="col-lg-10 offset-lg-2">
+      <div class="container">
+        <div class="justify-content-center p-1 m-1 p-md-5 m-md-5">
+
+          <div class="row">
+            <div class="col-lg-8 offset-lg-2 mt-5 pt-5 text-center" data-aos="fade-up">
+              <span class="text-muted text-uppercase">Video Portfolio</span>
+              <h1 class="display-1 txt-fx slide-up">Video Works</h1>
+              <p class="lead">Selected motion design, short films, and video projects.</p>
+            </div>
+          </div>
+
+          <!-- Video Grid -->
+          <div class="row g-4 mt-4">
+            
+            <!-- Video Item 1 -->
+            <div class="col-md-6 col-lg-4" data-aos="fade-up">
+              <div class="video-thumbnail" data-bs-toggle="modal" data-bs-target="#videoModal1">
+                <img src="images/video/maxresdefault.jpg" alt="Video 1" class="img-fluid w-100">
+                <div class="play-icon"></div>
+              </div>
+              <div class="mt-3">
+                <h4>Project Title One</h4>
+                <p class="text-muted">Motion Graphics • 2024</p>
+              </div>
+            </div>
+
+            <!-- Video Item 2 -->
+            <div class="col-md-6 col-lg-4" data-aos="fade-up">
+              <div class="video-thumbnail" data-bs-toggle="modal" data-bs-target="#videoModal2">
+                <img src="images/video-thumb2.jpg" alt="Video 2" class="img-fluid w-100">
+                <div class="play-icon"></div>
+              </div>
+              <div class="mt-3">
+                <h4>Brand Animation Reel</h4>
+                <p class="text-muted">Commercial • 2024</p>
+              </div>
+            </div>
+
+            <!-- Video Item 3 -->
+            <div class="col-md-6 col-lg-4" data-aos="fade-up">
+              <div class="video-thumbnail" data-bs-toggle="modal" data-bs-target="#videoModal3">
+                <img src="images/video-thumb3.jpg" alt="Video 3" class="img-fluid w-100">
+                <div class="play-icon"></div>
+              </div>
+              <div class="mt-3">
+                <h4>Short Film – Echoes</h4>
+                <p class="text-muted">Narrative • 2023</p>
+              </div>
+            </div>
+
+            <!-- Video Item 4 -->
+            <div class="col-md-6 col-lg-4" data-aos="fade-up">
+              <div class="video-thumbnail" data-bs-toggle="modal" data-bs-target="#videoModal4">
+                <img src="images/video-thumb4.jpg" alt="Video 4" class="img-fluid w-100">
+                <div class="play-icon"></div>
+              </div>
+              <div class="mt-3">
+                <h4>Product Promo</h4>
+                <p class="text-muted">Advertising • 2023</p>
+              </div>
+            </div>
+
+            <!-- Video Item 5 -->
+            <div class="col-md-6 col-lg-4" data-aos="fade-up">
+              <div class="video-thumbnail" data-bs-toggle="modal" data-bs-target="#videoModal5">
+                <img src="images/video-thumb5.jpg" alt="Video 5" class="img-fluid w-100">
+                <div class="play-icon"></div>
+              </div>
+              <div class="mt-3">
+                <h4>Music Video</h4>
+                <p class="text-muted">Direction • 2023</p>
+              </div>
+            </div>
+
+            <!-- Video Item 6 -->
+            <div class="col-md-6 col-lg-4" data-aos="fade-up">
+              <div class="video-thumbnail" data-bs-toggle="modal" data-bs-target="#videoModal6">
+                <img src="images/video-thumb6.jpg" alt="Video 6" class="img-fluid w-100">
+                <div class="play-icon"></div>
+              </div>
+              <div class="mt-3">
+                <h4>Experimental Animation</h4>
+                <p class="text-muted">Art • 2024</p>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- Video Modals -->
+  <div class="modal fade" id="videoModal1" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+      <div class="modal-content">
+        <div class="ratio ratio-16x9">
+          <iframe src="https://www.youtube.com/embed/tDARtYjUiHs?autoplay=1" allowfullscreen></iframe>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="videoModal2" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+      <div class="modal-content">
+        <div class="ratio ratio-16x9">
+          <iframe src="https://www.youtube.com/embed/VIDEO_ID_2?autoplay=1" allowfullscreen></iframe>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="videoModal3" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+      <div class="modal-content">
+        <div class="ratio ratio-16x9">
+          <iframe src="https://www.youtube.com/embed/VIDEO_ID_3?autoplay=1" allowfullscreen></iframe>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="videoModal4" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+      <div class="modal-content">
+        <div class="ratio ratio-16x9">
+          <iframe src="https://player.vimeo.com/video/VIDEO_ID_4?autoplay=1" allowfullscreen></iframe>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="videoModal5" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+      <div class="modal-content">
+        <div class="ratio ratio-16x9">
+          <iframe src="https://www.youtube.com/embed/VIDEO_ID_5?autoplay=1" allowfullscreen></iframe>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="videoModal6" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+      <div class="modal-content">
+        <div class="ratio ratio-16x9">
+          <iframe src="https://www.youtube.com/embed/VIDEO_ID_6?autoplay=1" allowfullscreen></iframe>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/jquery-1.11.0.min.js"></script>
+  <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.1/js/bootstrap.bundle.min.js"></script>
+  <script src="js/plugins.js"></script>
+  <script src="https://unpkg.com/isotope-layout@3/dist/isotope.pkgd.min.js"></script>
+  <script src="js/script.js"></script>
+</body>
+</html>
