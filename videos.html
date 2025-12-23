@@ -61,27 +61,44 @@
       margin-left: 5px;
     }
 
-    /* 让视频弹窗更大 */
+    /* 解决 4K 屏幕下视频弹窗显示不全的问题 */
+    /* 移除所有 max-width 限制，让 modal 宽度随容器自适应 */
+    #videoModal .modal-dialog {
+      width: 96vw;           /* 占用视口宽度的 96% */
+      max-width: none !important;  /* 强制取消 Bootstrap 的 max-width 限制 */
+      margin: 1rem auto;     /* 上下留一点边距 */
+    }
+
     @media (min-width: 1200px) {
       #videoModal .modal-dialog {
-        max-width: 85vw;
-        margin: 1.75rem auto;
-      }
-    }
-    @media (min-width: 1400px) {
-      #videoModal .modal-dialog {
-        max-width: 90vw;
-      }
-    }
-    @media (min-width: 1600px) {
-      #videoModal .modal-dialog {
-        max-width: 92vw;
+        width: 94vw;
       }
     }
 
-    /* 可选：给 iframe 加圆角 */
+    @media (min-width: 1920px) {
+      #videoModal .modal-dialog {
+        width: 92vw;         /* 4K 屏幕下留更多呼吸空间，但仍很大 */
+      }
+    }
+
+    @media (min-width: 2560px) {
+      #videoModal .modal-dialog {
+        width: 90vw;
+      }
+    }
+
+    /* iframe 圆角 + 确保填满容器 */
     #videoIframe {
       border-radius: 12px;
+      width: 100%;
+      height: 100%;
+    }
+
+    /* 确保 modal 内容不被裁剪 */
+    #videoModal .modal-content {
+      background: transparent;
+      border: none;
+      box-shadow: none;
     }
   </style>
 </head>
