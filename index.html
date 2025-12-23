@@ -24,6 +24,71 @@
   <link rel="icon" type="image/png" sizes="16x16" href="https://wangwenzhi.eu.org/images/favicon_io/favicon-16x16.png">
   <link rel="manifest" href="https://wangwenzhi.eu.org/images/favicon_io/site.webmanifest">
 </head>
+<style>
+    /* Video thumbnail hover effect */
+    .video-thumbnail {
+      position: relative;
+      cursor: pointer;
+      overflow: hidden;
+      border-radius: 8px;
+    }
+    .video-thumbnail img {
+      transition: transform 0.4s ease;
+      width: 100%;
+      height: auto;
+    }
+    .video-thumbnail:hover img {
+      transform: scale(1.08);
+    }
+    .play-icon {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 70px;
+      height: 70px;
+      background: rgba(0,0,0,0.6);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    .video-thumbnail:hover .play-icon {
+      opacity: 1;
+    }
+    .play-icon::after {
+      content: '';
+      width: 0;
+      height: 0;
+      border-left: 20px solid white;
+      border-top: 12px transparent solid;
+      border-bottom: 12px transparent solid;
+      margin-left: 5px;
+    }
+
+    /* Responsive modal */
+    #videoModal .modal-dialog {
+      max-width: 90vw;
+      width: 90vw;
+      margin: 2rem auto;
+    }
+    @media (min-width: 992px) and (max-width: 1399px) {
+      #videoModal .modal-dialog { max-width: 85vw; width: 85vw; }
+    }
+    @media (min-width: 1400px) {
+      #videoModal .modal-dialog { max-width: 1200px; width: 80vw; }
+    }
+    @media (min-width: 1920px) {
+      #videoModal .modal-dialog { max-width: 1400px; width: 75vw; }
+    }
+    @media (min-width: 2560px) {
+      #videoModal .modal-dialog { max-width: 1600px; width: 70vw; }
+    }
+    #videoIframe { border-radius: 12px; }
+    #videoModal .modal-content { background: transparent; border: none; box-shadow: none; }
+  </style>
 
 <body class="bg-body homepage post-template" data-bs-spy="scroll" data-bs-target="#header-nav" tabindex="0">
   <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
@@ -186,10 +251,10 @@
           <nav id="one-page-menu" class="vertical-menu my-5">
             <ul class="menu-list list-unstyled">
               <li><a href="#home" class="nav-link">Home</a></li>
+	      <li><a href="#videos" class="nav-link">Videos</a></li>
               <li><a href="#about" class="nav-link">About</a></li>
               <li><a href="#experience" class="nav-link">Experience</a></li>
               <li><a href="#portfolio" class="nav-link">Works</a></li>
-              <li><a href="videos.html" class="nav-link">Videos</a></li>
               <li><a href="#contact" class="nav-link">Contact</a></li>
               <li>
                 <a class="nav-link btn-toggle d-flex justify-content-between align-items-center collapsed"
@@ -331,6 +396,25 @@
               </div>
             </div>
           </section>
+
+          <!-- ==================== 02 Video Works ==================== -->
+          <section id="videos" class="my-5 py-5 bg-text" data-text="02">
+            <div class="section-header my-5" data-aos="fade-up">
+              <div class="row justify-content-center g-5">
+                <div class="col-lg-4">
+                  <span class="text-muted text-uppercase">selected motion works</span>
+                  <h2 class="display-1 txt-fx slide-up">Videos</h2>
+                </div>
+                <div class="col-lg-4" data-aos="fade-up">
+                  <p>Selected motion design, short films, and commercial video projects.</p>
+                  <a href="videos.html" class="btn btn-dark px-5 py-4">View All Videos</a>
+                </div>
+              </div>
+            </div>
+
+            <div class="row g-4 mt-4" id="videoGrid"></div>
+          </section>
+
 
           <section id="about" class="my-5 py-5 bg-text" data-text="02">
             <h2 class="display-1">Unlimited Creativity</h2>
@@ -670,6 +754,17 @@
     
 
   </div>
+ 
+<!-- Video Modal -->
+  <div class="modal fade" id="videoModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-xl modal-dialog-centered">
+      <div class="modal-content bg-transparent border-0 shadow-none">
+        <div class="ratio ratio-16x9">
+          <iframe id="videoIframe" src="" allow="autoplay; encrypted-media; fullscreen" allowfullscreen></iframe>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <script src="js/jquery-1.11.0.min.js"></script>
   <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.1/js/bootstrap.bundle.min.js"
@@ -677,6 +772,60 @@
     crossorigin="anonymous"></script>
   <script src="js/plugins.js"></script>
   <script src="js/script.js"></script>
+
+  <!-- Video generation script - 放在最底部确保执行 -->
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const videos = [
+        { title: "Ulefone Armor 34 Pro", desc: "Autofocus Projector Phone • 2025", thumbnail: "images/video/maxresdefault.jpg", url: "https://www.youtube.com/embed/a7RQgUMkpwI", type: "youtube" },
+        { title: "RugOne Xever 7 Series", desc: "Removable Battery Rugged Phone • 2025", thumbnail: "images/video/Screenshot_2025-12-11_134113.png", url: "https://www.youtube.com/embed/QMoOo6zw1eE", type: "youtube" },
+        { title: "Armor Mini 20T Pro", desc: "Thermal Mini Rugged Phone • 2024", thumbnail: "images/video/Screenshot_2025-12-11_140000.png", url: "https://www.youtube.com/embed/diWNAaazdoM", type: "youtube" },
+        { title: "Ulefone Armor 27T Pro", desc: "FLIR Thermal Pro with IR Night Vision • 2024", thumbnail: "images/video/Screenshot_2025-03-05_142413.png", url: "https://player.vimeo.com/video/aW8FSVuJY7U", type: "vimeo" },
+        { title: "Ulefone Armor 26 Ultra", desc: "Mega Performance 5G Rugged Flagship • 2024", thumbnail: "images/video/Screenshot_2025-03-05_142626.png", url: "https://www.youtube.com/embed/Y2yPBSYQkfw", type: "youtube" },
+        { title: "Ulefone Armor 23 Ultra", desc: "Flagship Rugged with Satellite Communication • 2024", thumbnail: "images/video/Screenshot_2025-12-11_135753.png", url: "https://www.youtube.com/embed/ynM2jFYncnE", type: "youtube" },
+        { title: "Ulefone Armor 22", desc: "NightElf Ultra 2.0 Camera • 2023", thumbnail: "images/video/Screenshot_2025-03-05_142821.png", url: "https://www.youtube.com/embed/GVeko9aDHzw", type: "youtube" }
+      ];
+
+      const displayedVideos = videos.slice(0, 6);
+      const videoGrid = document.getElementById("videoGrid");
+
+      if (videoGrid) {
+        displayedVideos.forEach((video, index) => {
+          const col = document.createElement("div");
+          col.className = "col-md-6 col-lg-4";
+          col.setAttribute("data-aos", "fade-up");
+          col.setAttribute("data-aos-delay", (index % 3) * 100);
+
+          col.innerHTML = `
+            <div class="video-thumbnail" data-bs-toggle="modal" data-bs-target="#videoModal" data-video-url="${video.url}" data-video-type="${video.type}">
+              <img src="${video.thumbnail}" alt="${video.title}" class="img-fluid w-100">
+              <div class="play-icon"></div>
+            </div>
+            <div class="mt-3">
+              <h4>${video.title}</h4>
+              <p class="text-muted">${video.desc}</p>
+            </div>
+          `;
+          videoGrid.appendChild(col);
+        });
+      }
+
+      const videoModal = document.getElementById("videoModal");
+      if (videoModal) {
+        videoModal.addEventListener("show.bs.modal", function (event) {
+          const button = event.relatedTarget;
+          const url = button.getAttribute("data-video-url");
+          const type = button.getAttribute("data-video-type");
+          const iframe = document.getElementById("videoIframe");
+          iframe.src = url + (type === "youtube" || type === "vimeo" ? "?autoplay=1" : "");
+        });
+
+        videoModal.addEventListener("hidden.bs.modal", function () {
+          document.getElementById("videoIframe").src = "";
+        });
+      }
+    });
+  </script>
 </body>
 
 </html>
