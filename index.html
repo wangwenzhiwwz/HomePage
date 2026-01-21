@@ -6,6 +6,8 @@
     <title>WWZ.iM - Wang Wenzhi</title>
     <meta name="description" content="Wang Wenzhi (wwz) - Developer, Tech Enthusiast.">
     
+    <meta name="theme-color" content="#f3f3f3">
+
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://wwz.im/">
     <meta property="og:title" content="Wang Wenzhi">
@@ -22,6 +24,7 @@
 
         /* LIGHT THEME */
         :root[data-theme="light"] {
+            /* Keep top color matches theme-color meta tag */
             --bg-gradient: linear-gradient(-45deg, #e0e0e0, #f8f8f8, #ffffff, #eff1f3);
             --text-primary: #1a1a1a;
             --text-secondary: #666;
@@ -33,8 +36,8 @@
             --tag-bg: rgba(0, 0, 0, 0.05);
             --cursor-color: rgba(0, 0, 0, 0.1);
             --icon-bg: rgba(255, 255, 255, 0.5);
-            /* Fix: Explicit color for hover state in light mode */
-            --icon-hover-color: #ffffff; 
+            --icon-hover-color: #ffffff;
+            --theme-color-hex: #f3f3f3; /* Used for JS toggle */
         }
 
         /* DARK THEME */
@@ -50,26 +53,32 @@
             --tag-bg: rgba(255, 255, 255, 0.08);
             --cursor-color: rgba(255, 255, 255, 0.2);
             --icon-bg: rgba(255, 255, 255, 0.05);
-            /* Fix: Explicit color for hover state in dark mode */
             --icon-hover-color: #000000;
+            --theme-color-hex: #1a1a1a; /* Used for JS toggle */
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; cursor: none; }
         @media (pointer: coarse) { * { cursor: auto; } }
 
+        /* Fix: Apply background to HTML to prevent white overscroll */
+        html {
+            min-height: 100%;
+            background: var(--bg-gradient); 
+        }
+
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', Roboto, sans-serif;
-            background: var(--bg-gradient);
-            background-attachment: fixed;
+            /* Background is handled by HTML tag now for mobile fix, but we keep it here for continuity */
+            background: transparent; 
             color: var(--text-primary);
             min-height: 100vh;
             display: flex; flex-direction: column; align-items: center;
             padding: 80px 20px 40px;
             overflow-x: hidden;
-            transition: background var(--transition-speed), color var(--transition-speed);
+            transition: color var(--transition-speed); /* Removed bg transition to avoid flashing */
         }
 
-        /* Texture */
+        /* Texture Overlay (Fixed) */
         .noise {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             pointer-events: none; z-index: 9000; opacity: 0.04;
@@ -126,7 +135,7 @@
             border: 1px solid var(--card-border);
         }
 
-        /* Social Dock (FIXED HOVER) */
+        /* Social Dock */
         .social-dock { display: flex; justify-content: center; gap: 14px; margin-bottom: 10px; }
         .social-icon { 
             width: 48px; height: 48px; border-radius: 50%; background: var(--icon-bg); 
@@ -138,12 +147,11 @@
         .social-icon:hover { 
             transform: translateY(-4px); 
             background: var(--text-primary); 
-            /* Fixed: Uses explicit color instead of gradient */
             color: var(--icon-hover-color); 
             border-color: transparent; 
         }
 
-        /* Glass Cards (Standard) */
+        /* Glass Cards */
         .glass-card {
             background: var(--card-bg); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
             border-radius: 24px; padding: 22px; text-decoration: none; color: var(--text-primary);
@@ -310,13 +318,23 @@
     <div id="toast" class="toast"><i class="fa-solid fa-check"></i> Email Copied!</div>
 
     <script>
-        // 1. Theme Manager
+        // 1. Theme Manager (Fixed Mobile Overscroll)
         const themeBtn = document.getElementById('theme-btn');
         const root = document.documentElement;
+        const metaThemeColor = document.querySelector("meta[name=theme-color]");
+        
         let isDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+        
         function setTheme(dark) {
-            root.setAttribute('data-theme', dark ? 'dark' : 'light');
-            themeBtn.innerHTML = dark ? '<i class="fa-solid fa-sun"></i>' : '<i class="fa-solid fa-moon"></i>';
+            if(dark) {
+                root.setAttribute('data-theme', 'dark');
+                themeBtn.innerHTML = '<i class="fa-solid fa-sun"></i>';
+                metaThemeColor.setAttribute("content", "#1a1a1a");
+            } else {
+                root.setAttribute('data-theme', 'light');
+                themeBtn.innerHTML = '<i class="fa-solid fa-moon"></i>';
+                metaThemeColor.setAttribute("content", "#e0e0e0");
+            }
         }
         setTheme(isDark);
         themeBtn.addEventListener('click', () => { isDark = !isDark; setTheme(isDark); });
