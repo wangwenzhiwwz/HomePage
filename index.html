@@ -3,369 +3,288 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>WWZ.iM - Wang Wenzhi</title>
-    <meta name="description" content="Wang Wenzhi (wwz) - Developer, Tech Enthusiast.">
+    <title>WWZ.iM - Create. Optimize. Automate.</title>
+    <meta name="description" content="Wang Wenzhi (wwz) - Commercial Director & Network Engineer.">
     
-    <meta name="theme-color" content="#f3f3f3">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://cdn.bootcdn.net">
 
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://wwz.im/">
-    <meta property="og:title" content="Wang Wenzhi">
-    <meta property="og:image" content="https://wangwenzhi.eu.org/images/favicon_io/android-chrome-512x512.png">
-    
+    <meta name="theme-color" content="#1a1a1a">
     <link rel="icon" href="https://wangwenzhi.eu.org/images/favicon_io/favicon.ico">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Wang Wenzhi",
+      "url": "https://wwz.im",
+      "image": "https://wangwenzhi.eu.org/images/favicon_io/android-chrome-512x512.png",
+      "jobTitle": "Commercial Director & Network Engineer"
+    }
+    </script>
+    
+    <link href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.1/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=SF+Pro+Display:wght@300;400;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
     <style>
-        /* --- 1. Variables --- */
-        :root {
-            --transition-speed: 0.5s;
-        }
-
-        /* LIGHT THEME */
-        :root[data-theme="light"] {
-            --bg-gradient: linear-gradient(-45deg, #e0e0e0, #f8f8f8, #ffffff, #eff1f3);
-            --bg-solid: #f3f3f3; 
-            --text-primary: #1a1a1a;
-            --text-secondary: #666;
-            --card-bg: rgba(255, 255, 255, 0.65);
-            --card-border: rgba(255, 255, 255, 0.4);
-            --card-highlight: rgba(255, 255, 255, 0.8);
-            --shadow-soft: 0 10px 30px -10px rgba(0, 0, 0, 0.08);
-            --shadow-hover: 0 20px 40px -10px rgba(0, 0, 0, 0.12);
-            --tag-bg: rgba(0, 0, 0, 0.05);
-            --cursor-color: rgba(0, 0, 0, 0.1);
-            --icon-bg: rgba(255, 255, 255, 0.5);
-            --icon-hover-color: #ffffff;
-            --theme-color-hex: #f3f3f3;
-        }
-
-        /* DARK THEME */
+        :root { --transition-speed: 0.4s; --font-main: 'SF Pro Display', sans-serif; --font-mono: 'JetBrains Mono', monospace; }
+        
         :root[data-theme="dark"] {
-            --bg-gradient: radial-gradient(circle at 50% 0%, #1a1a1a, #050505);
-            --bg-solid: #1a1a1a;
-            --text-primary: #f0f0f0;
-            --text-secondary: #888;
-            --card-bg: rgba(20, 20, 20, 0.6);
-            --card-border: rgba(255, 255, 255, 0.08);
-            --card-highlight: rgba(255, 255, 255, 0.15);
-            --shadow-soft: 0 10px 40px -10px rgba(0, 0, 0, 0.8);
-            --shadow-hover: 0 20px 50px -10px rgba(0, 0, 0, 1);
-            --tag-bg: rgba(255, 255, 255, 0.08);
-            --cursor-color: rgba(255, 255, 255, 0.2);
-            --icon-bg: rgba(255, 255, 255, 0.05);
-            --icon-hover-color: #000000;
-            --theme-color-hex: #1a1a1a;
+            --bg-body: #0a0a0a; --bg-gradient: radial-gradient(circle at 15% 50%, #1a1a1a 0%, #000000 100%);
+            --text-primary: #ffffff; --text-secondary: #a0a0a0;
+            --glass-bg: rgba(20, 20, 20, 0.65); --glass-border: rgba(255, 255, 255, 0.08);
+            --accent-color: #0d6efd; --pill-bg: rgba(255, 255, 255, 0.1); --active-bg: rgba(255, 255, 255, 0.15);
+        }
+        :root[data-theme="light"] {
+            --bg-body: #f0f2f5; --bg-gradient: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            --text-primary: #1a1a1a; --text-secondary: #555555;
+            --glass-bg: rgba(255, 255, 255, 0.7); --glass-border: rgba(255, 255, 255, 0.4);
+            --accent-color: #0d6efd; --pill-bg: rgba(0, 0, 0, 0.05); --active-bg: rgba(0, 0, 0, 0.08);
         }
 
-        * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; cursor: none; }
-        @media (pointer: coarse) { * { cursor: auto; } }
-
-        html {
-            min-height: 100%;
-            background-color: var(--bg-solid); 
-            background-image: var(--bg-gradient);
-        }
-
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', Roboto, sans-serif;
-            background: transparent; 
-            color: var(--text-primary);
-            min-height: 100vh;
-            display: flex; flex-direction: column; align-items: center;
-            padding: 80px 20px 40px;
-            overflow-x: hidden;
-            transition: color var(--transition-speed); 
-        }
-
-        /* Texture Overlay */
-        .noise {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            pointer-events: none; z-index: 9000; opacity: 0.04;
-            background: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
-        }
-        /* [New] Hide noise in dark mode */
-        :root[data-theme="dark"] .noise {
-            display: none;
-        }
-
-        /* Toggle */
-        .theme-toggle {
-            position: fixed; top: 20px; right: 20px; z-index: 9998;
-            width: 44px; height: 44px; border-radius: 50%;
-            background: var(--card-bg); backdrop-filter: blur(10px);
-            border: 1px solid var(--card-border);
-            color: var(--text-primary); display: flex; align-items: center; justify-content: center;
-            cursor: pointer; transition: all 0.3s ease; box-shadow: var(--shadow-soft);
-        }
-        .theme-toggle:hover { transform: scale(1.1); background: var(--tag-bg); }
-
-        /* Loader */
-        #loader {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background-color: var(--bg-solid);
-            background-image: var(--bg-gradient);
-            z-index: 10000;
-            display: flex; justify-content: center; align-items: center;
-            transition: opacity 0.6s ease, visibility 0.6s;
-        }
-        .spinner { width: 40px; height: 40px; border: 2px solid rgba(128,128,128,0.2); border-radius: 50%; border-top-color: var(--text-primary); animation: spin 0.8s linear infinite; }
-        @keyframes spin { to { transform: rotate(360deg); } }
-
-        /* Cursor */
-        .cursor-dot, .cursor-circle { position: fixed; top: 0; left: 0; transform: translate(-50%, -50%); border-radius: 50%; pointer-events: none; z-index: 9999; display: none; }
-        .cursor-dot { width: 6px; height: 6px; background: var(--text-primary); }
-        .cursor-circle { width: 40px; height: 40px; border: 1px solid var(--cursor-color); transition: 0.15s; opacity: 0.6; }
-        body.hovering .cursor-circle { width: 60px; height: 60px; background: var(--cursor-color); border-color: transparent; backdrop-filter: blur(1px); }
-
-        /* Container & Animations */
-        .container { 
-            width: 100%; max-width: 500px; display: flex; flex-direction: column; gap: 20px; z-index: 1; 
-            opacity: 0; transform: translateY(20px); transition: opacity 0.8s ease, transform 0.8s ease;
-        }
-        .container.loaded { opacity: 1; transform: translateY(0); }
-
-        /* Header */
-        .header { text-align: center; margin-bottom: 20px; }
-        .profile-img { 
-            width: 110px; height: 110px; border-radius: 50%; object-fit: cover; 
-            box-shadow: var(--shadow-soft); margin-bottom: 15px; border: 2px solid var(--card-border);
-        }
-        h1 { font-size: 1.8rem; font-weight: 800; margin-bottom: 4px; letter-spacing: -0.5px; }
-        .tagline { font-size: 0.9rem; opacity: 0.6; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 8px; font-weight: 600; }
-        .live-status { font-size: 0.75rem; color: var(--text-secondary); opacity: 0.8; font-family: 'SF Mono', monospace; margin-bottom: 15px; }
-        .tech-stack { display: flex; justify-content: center; gap: 8px; margin-bottom: 24px; }
-        .tech-tag { 
-            background: var(--tag-bg); padding: 6px 14px; border-radius: 20px; 
-            font-size: 0.75rem; font-weight: 600; color: var(--text-secondary); 
-            border: 1px solid var(--card-border);
-        }
-
-        /* Social Dock */
-        .social-dock { display: flex; justify-content: center; gap: 14px; margin-bottom: 10px; }
-        .social-icon { 
-            width: 48px; height: 48px; border-radius: 50%; background: var(--icon-bg); 
-            backdrop-filter: blur(10px); display: flex; align-items: center; justify-content: center; 
-            color: var(--text-primary); font-size: 1.2rem; text-decoration: none; 
-            box-shadow: var(--shadow-soft); border: 1px solid var(--card-border);
-            transition: transform 0.2s, background 0.2s, color 0.2s;
-        }
-        .social-icon:hover { 
-            transform: translateY(-4px); 
-            background: var(--text-primary); 
-            color: var(--icon-hover-color); 
-            border-color: transparent; 
-        }
-
-        /* Glass Cards */
-        .glass-card {
-            background: var(--card-bg); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
-            border-radius: 24px; padding: 22px; text-decoration: none; color: var(--text-primary);
-            position: relative; overflow: hidden; box-shadow: var(--shadow-soft);
-            border: 1px solid var(--card-border); border-top: 1px solid var(--card-highlight);
-            transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
-        }
-        .glass-card:active { transform: scale(0.98); }
-        .glass-card::before {
-            content: ''; position: absolute; top: 0; left: -100%; width: 50%; height: 100%;
-            background: linear-gradient(to right, transparent, rgba(255,255,255,0.08), transparent);
-            transform: skewX(-25deg); transition: 0.5s; pointer-events: none;
-        }
-        @media (hover: hover) { .glass-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-hover); } .glass-card:hover::before { left: 150%; transition: 0.7s; } }
-
-        /* BORDERLESS VIDEO CARD */
-        .video-card-3d { 
-            padding: 0; transform-style: preserve-3d; perspective: 1000px; cursor: pointer; 
-            border: none; background: transparent; box-shadow: none;
-        }
-        .video-content {
-            position: relative; width: 100%; padding-top: 56.25%; background: #000;
-            border-radius: 24px; overflow: hidden; 
-            box-shadow: var(--shadow-soft);
-            border: none; 
-        }
-        .video-cover { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0.95; transition: 0.5s; }
-        .video-card-3d:hover .video-cover { opacity: 0.8; transform: scale(1.03); }
+        html { scroll-behavior: smooth; }
+        body { font-family: var(--font-main); background: var(--bg-body); background-image: var(--bg-gradient); background-attachment: fixed; color: var(--text-primary); transition: 0.5s ease; }
+        a { text-decoration: none; color: inherit; cursor: none; }
         
-        .play-btn {
-            position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%) scale(0.8); opacity: 0;
-            width: 60px; height: 60px; border-radius: 50%;
-            background: rgba(255,255,255,0.2); backdrop-filter: blur(12px); border: 1px solid rgba(255,255,255,0.3);
-            display: flex; align-items: center; justify-content: center; color: #fff; font-size: 1.4rem;
-            transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        * { cursor: none !important; }
+        .cursor-dot { position: fixed; top: 0; left: 0; width: 6px; height: 6px; background: var(--text-primary); border-radius: 50%; pointer-events: none; z-index: 9999; }
+        .cursor-circle { position: fixed; top: 0; left: 0; width: 40px; height: 40px; border: 1px solid var(--text-secondary); opacity: 0.5; border-radius: 50%; pointer-events: none; z-index: 9999; transition: 0.1s; }
+        body.hovering .cursor-circle { width: 60px; height: 60px; background: rgba(128,128,128,0.1); border-color: transparent; backdrop-filter: blur(2px); }
+
+        .glass-panel { background: var(--glass-bg); backdrop-filter: blur(20px); border: 1px solid var(--glass-border); border-radius: 24px; }
+        .glass-card { background: var(--glass-bg); backdrop-filter: blur(12px); border: 1px solid var(--glass-border); border-radius: 16px; padding: 20px; transition: 0.3s; height: 100%; position: relative; overflow: hidden; }
+        .glass-card:hover { transform: translateY(-5px); border-color: var(--text-primary); }
+        .list-item { display: flex; justify-content: space-between; align-items: center; font-weight: 600; padding: 15px; }
+        .badge-pro { background: var(--accent-color); color: #fff; font-size: 0.6rem; padding: 2px 6px; border-radius: 4px; margin-left: 6px; font-family: var(--font-mono); }
+
+        .sidebar { position: fixed; top: 30px; bottom: 30px; left: 30px; width: 290px; z-index: 100; padding: 40px 24px; display: flex; flex-direction: column; overflow-y: auto; scrollbar-width: none; }
+        .main-content { margin-left: 350px; padding: 40px 60px 40px 0; min-height: 100vh; }
+
+        .theme-toggle { position: fixed; top: 30px; right: 40px; z-index: 1000; width: 44px; height: 44px; border-radius: 50%; background: var(--glass-bg); backdrop-filter: blur(10px); border: 1px solid var(--glass-border); color: var(--text-primary); display: flex; align-items: center; justify-content: center; cursor: pointer; transition: 0.2s; }
+        .theme-toggle:hover { transform: scale(1.1); }
+        .mobile-toggle-btn { display: none; width: 36px; height: 36px; border-radius: 10px; background: rgba(255, 255, 255, 0.05); border: 1px solid var(--glass-border); color: var(--text-secondary); align-items: center; justify-content: center; }
+
+        .sidebar-header { text-align: center; margin-bottom: 20px; }
+        .profile-img { width: 100px; height: 100px; border-radius: 50%; object-fit: cover; border: 3px solid var(--glass-border); margin-bottom: 15px; }
+        .profile-name { font-weight: 800; font-size: 1.5rem; margin-bottom: 5px; background: linear-gradient(to right, var(--text-primary), var(--text-secondary)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .handle-pill { display: inline-block; font-family: var(--font-mono); font-size: 0.8rem; background: var(--pill-bg); padding: 4px 14px; border-radius: 50px; opacity: 0.8; }
+
+        .nav-section-title { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1.5px; margin: 25px 0 10px 10px; opacity: 0.5; font-weight: 700; }
+        .nav-menu { list-style: none; padding: 0; margin: 0; }
+        .nav-link { color: var(--text-secondary); font-weight: 600; padding: 10px 14px; border-radius: 12px; display: flex; align-items: center; gap: 12px; transition: 0.3s; margin-bottom: 5px; }
+        .nav-link:hover { color: var(--text-primary); background: var(--pill-bg); transform: translateX(4px); }
+        .nav-link.active { color: var(--text-primary); background: var(--active-bg); }
+        .nav-link i { width: 20px; text-align: center; }
+
+        .social-dock { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; margin-top: auto; padding-top: 30px; border-top: 1px solid var(--glass-border); }
+        .social-icon { width: 38px; height: 38px; border-radius: 50%; display: flex; align-items: center; justify-content: center; border: 1px solid var(--glass-border); color: var(--text-secondary); transition: 0.3s; }
+        .social-icon:hover { background: var(--text-primary); color: var(--bg-body); transform: translateY(-3px); }
+
+        @media (max-width: 991px) {
+            .sidebar { position: relative; width: 100%; top: 0; left: 0; bottom: auto; margin-bottom: 30px; padding: 20px; border-radius: 0 0 24px 24px; height: auto; overflow: visible; display: block; }
+            .main-content { margin-left: 0; padding: 20px; }
+            .sidebar-header { display: flex; align-items: center; text-align: left; margin-bottom: 0; }
+            .profile-img { width: 50px; height: 50px; margin: 0 15px 0 0; border-width: 2px; }
+            .profile-name { font-size: 1.2rem; margin: 0; }
+            .sidebar-controls { margin-left: auto; display: flex; gap: 10px; }
+            .mobile-toggle-btn { display: flex; }
+            .theme-toggle { position: static; transform: none; width: 36px; height: 36px; border-radius: 10px; background: rgba(255, 255, 255, 0.05); color: var(--text-secondary); }
+            .theme-toggle:hover { background: var(--text-primary); color: var(--bg-body); transform: none; }
+            .sidebar-content { max-height: 0; overflow: hidden; opacity: 0; transition: 0.4s; }
+            .sidebar-content.show { max-height: 1000px; opacity: 1; margin-top: 20px; padding-top: 10px; border-top: 1px solid var(--glass-border); }
+            .social-dock { padding-top: 20px; margin-top: 20px; }
         }
-        .video-card-3d:hover .play-btn { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+
+        section { margin-bottom: 100px; padding-top: 20px; scroll-margin-top: 80px; }
+        .hero-tagline { font-size: 4rem; font-weight: 800; background: linear-gradient(to right, var(--text-primary), var(--text-secondary)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .tech-tag { padding: 6px 14px; background: rgba(128,128,128,0.1); border-radius: 20px; font-size: 0.8rem; font-family: var(--font-mono); border: 1px solid var(--glass-border); margin-right: 10px; }
         
-        .video-meta {
-            position: absolute; bottom: 16px; left: 20px; z-index: 2; color: #fff;
-            text-shadow: 0 2px 10px rgba(0,0,0,0.5); pointer-events: none;
+        /* [FIXED] Hero Card Aspect Ratio Fix */
+        .video-card-3d-wrapper { perspective: 1000px; }
+        .video-card-content {
+            width: 100%;
+            aspect-ratio: 16/9; /* Force 16:9 ratio */
+            border-radius: 20px;
+            overflow: hidden;
+            transform-style: preserve-3d;
+            transition: 0.1s;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+            position: relative;
+            background: #000; /* Fallback bg */
         }
-        .v-title { font-weight: 700; font-size: 1.1rem; display: block; }
-        .v-sub { font-size: 0.8rem; opacity: 0.8; }
+        .video-cover {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Ensure image fills container */
+            display: block;
+        }
+        .play-btn-overlay { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 70px; height: 70px; background: rgba(255,255,255,0.2); backdrop-filter: blur(10px); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; color: white; opacity: 0; transition: 0.3s; }
+        .video-card-content:hover .play-btn-overlay { opacity: 1; transform: translate(-50%, -50%) scale(1.1); }
         
-        /* List Items */
-        .list-item { display: flex; justify-content: space-between; align-items: center; font-weight: 600; font-size: 0.95rem; }
-        .list-left { display: flex; align-items: center; gap: 14px; }
-        .list-icon { opacity: 0.7; }
-        .project-row { display: flex; flex-direction: column; gap: 6px; }
-        .p-head { font-weight: 700; display: flex; align-items: center; gap: 8px; }
-        .p-desc { font-size: 0.85rem; color: var(--text-secondary); line-height: 1.5; }
-        .p-tags { display: flex; gap: 6px; margin-top: 6px; }
+        .section-title { font-size: 2rem; font-weight: 700; margin-bottom: 40px; display: flex; align-items: center; gap: 15px; }
+        .section-title::after { content: ''; height: 1px; flex-grow: 1; background: var(--glass-border); opacity: 0.5; }
+        
+        .accordion-button { background: var(--glass-bg); color: var(--text-primary); border-radius: 12px !important; border: 1px solid var(--glass-border); box-shadow: none !important; }
+        .accordion-button:not(.collapsed) { background: rgba(255,255,255,0.1); }
+        .accordion-body { background: rgba(0,0,0,0.05); color: var(--text-secondary); border: 1px solid var(--glass-border); border-top: none; border-radius: 0 0 12px 12px; }
+        .accordion-item { background: transparent; border: none; margin-bottom: 10px; }
 
-        /* Modal */
-        .modal-overlay {
-            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 10000;
-            background: rgba(0,0,0,0.95); backdrop-filter: blur(15px);
-            justify-content: center; align-items: center; opacity: 0; transition: opacity 0.3s;
-        }
-        .modal-overlay.active { display: flex; opacity: 1; }
-        .modal-content { width: 95%; max-width: 1100px; position: relative; }
-        .close-btn { 
-            position: absolute; top: -60px; right: 0; width: 44px; height: 44px;
-            background: rgba(255,255,255,0.1); border-radius: 50%; color: #fff;
-            display: flex; align-items: center; justify-content: center; cursor: pointer;
-            border: 1px solid rgba(255,255,255,0.1); transition: 0.2s;
-        }
-        .close-btn:hover { background: #fff; color: #000; }
-        .video-wrapper { position: relative; padding-bottom: 56.25%; height: 0; background: #000; border-radius: 16px; overflow: hidden; box-shadow: 0 20px 50px rgba(0,0,0,0.5); }
-        .video-wrapper iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
-
-        /* Toast */
-        .toast {
-            position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%) translateY(50px);
-            background: var(--text-primary); color: var(--bg-gradient); padding: 12px 24px; border-radius: 30px;
-            opacity: 0; transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); z-index: 10001; pointer-events: none;
-            display: flex; align-items: center; gap: 8px; font-weight: 600; box-shadow: var(--shadow-hover);
-        }
-        .toast.show { transform: translateX(-50%) translateY(0); opacity: 1; }
-
-        footer { margin-top: 50px; font-size: 0.8rem; color: var(--text-secondary); opacity: 0.5; }
+        #loader { position: fixed; inset: 0; background: var(--bg-body); z-index: 10000; display: flex; justify-content: center; align-items: center; transition: 0.5s; }
     </style>
 </head>
+
 <body>
 
-    <div class="noise"></div>
-    <div id="loader"><div class="spinner"></div></div>
     <div class="cursor-dot"></div><div class="cursor-circle"></div>
-    
-    <div class="theme-toggle" id="theme-btn"><i class="fa-solid fa-moon"></i></div>
+    <div id="loader"><div class="spinner-border text-secondary" role="status"></div></div>
 
-    <div class="container">
-        <div class="header">
-            <img src="https://wangwenzhi.eu.org/images/favicon_io/android-chrome-512x512.png" alt="WWZ" class="profile-img">
-            <h1>Wang Wenzhi</h1>
-            <p class="tagline">Create. Optimize. Automate.</p>
-            <div class="live-status"><span id="clock">--:--:--</span> Local Time</div>
-            
-            <div class="tech-stack">
-                <span class="tech-tag">Next.js</span>
-                <span class="tech-tag">Cloud</span>
-                <span class="tech-tag">AI / LLM</span>
-            </div>
-
-            <div class="social-dock">
-                <a href="https://x.com/wwz_im" target="_blank" class="social-icon" data-hover><i class="fa-brands fa-x-twitter"></i></a>
-                <a href="https://github.com/wangwenzhiwwz" target="_blank" class="social-icon" data-hover><i class="fa-brands fa-github"></i></a>
-                <a href="https://www.youtube.com/@wangwenzhi" target="_blank" class="social-icon" data-hover><i class="fa-brands fa-youtube"></i></a>
-                <a href="#" id="email-btn" class="social-icon" data-hover><i class="fa-solid fa-envelope"></i></a>
-            </div>
-        </div>
-
-        <div class="video-card-3d" id="video-trigger" data-hover 
-             data-vimeo-url="https://player.vimeo.com/video/1149403074?badge=0&autopause=0&player_id=0&app_id=58479">
-            <div class="video-content">
-                <img src="https://www.wwz.im/images/video/Screenshot_2025-12-11_134113.png" alt="Cover" class="video-cover">
-                <div class="play-btn"><i class="fa-solid fa-play"></i></div>
-                <div class="video-meta">
-                    <span class="v-title">RugOne Xever 7 Series</span>
-                    <span class="v-sub">Featured Video • 2025</span>
+    <aside class="sidebar glass-panel">
+        <div class="sidebar-header">
+            <div class="d-flex align-items-center justify-content-between w-100 d-lg-block">
+                <div class="d-flex align-items-center d-lg-block">
+                    <img src="https://wangwenzhi.eu.org/images/favicon_io/android-chrome-512x512.png" alt="WWZ" class="profile-img">
+                    <div class="profile-info text-start text-lg-center">
+                        <h4 class="profile-name">Wang Wenzhi</h4>
+                        <div class="handle-pill">@WWZ.iM</div>
+                    </div>
+                </div>
+                <div class="sidebar-controls">
+                    <button class="theme-toggle" id="theme-btn" title="Toggle Theme" data-hover><i class="fa-solid fa-moon"></i></button>
+                    <button class="mobile-toggle-btn" id="mobile-toggle" data-hover><i class="fa-solid fa-bars"></i></button>
                 </div>
             </div>
         </div>
 
-        <a href="https://www.wwz.im/videos" target="_blank" class="glass-card list-item" data-hover>
-            <div class="list-left"><i class="fa-solid fa-film list-icon"></i> More Video Works</div>
-            <i class="fa-solid fa-arrow-right list-icon"></i>
-        </a>
+        <div class="sidebar-content d-flex flex-column flex-grow-1" id="sidebar-content">
+            <span class="nav-section-title">Menu</span>
+            <ul class="nav-menu" id="nav-menu">
+                <li class="nav-item"><a href="#home" class="nav-link active" data-hover><i class="fa-solid fa-house"></i> Home</a></li>
+                <li class="nav-item"><a href="#videos" class="nav-link" data-hover><i class="fa-solid fa-film"></i> Videos</a></li>
+                <li class="nav-item"><a href="#portfolio" class="nav-link" data-hover><i class="fa-solid fa-layer-group"></i> Works</a></li>
+                <li class="nav-item"><a href="#about" class="nav-link" data-hover><i class="fa-solid fa-user-astronaut"></i> About</a></li>
+                <li class="nav-item"><a href="#contact" class="nav-link" data-hover><i class="fa-solid fa-paper-plane"></i> Contact</a></li>
+            </ul>
 
-        <a href="https://github.com/wangwenzhiwwz/SUB" target="_blank" class="glass-card project-row" data-hover>
-            <div class="p-head"><i class="fa-solid fa-bolt"></i> SUB Converter</div>
-            <div class="p-desc">Pure frontend secure node conversion tool supporting Hysteria 2.</div>
-            <div class="p-tags"><span class="tech-tag">Tool</span><span class="tech-tag">Security</span></div>
-        </a>
+            <span class="nav-section-title">Resources</span>
+            <ul class="nav-menu">
+                <li class="nav-item"><a href="https://blog.wwz.im/" target="_blank" class="nav-link" data-hover><i class="fa-brands fa-blogger"></i> Blog <span class="badge-pro">PRO</span></a></li>
+                <li class="nav-item"><a href="https://app.wwz.im/" target="_blank" class="nav-link" data-hover><i class="fa-solid fa-compass"></i> App Nav <span class="badge-pro">PRO</span></a></li>
+                <li class="nav-item"><a href="https://www.wwz.im/article/xui/" target="_blank" class="nav-link" data-hover><i class="fa-solid fa-server"></i> 3X-UI <span class="badge-pro">PRO</span></a></li>
+                <li class="nav-item"><a href="team.html" class="nav-link" data-hover><i class="fa-solid fa-users"></i> My Team</a></li>
+            </ul>
 
-        <a href="https://github.com/wangwenzhiwwz/WX" target="_blank" class="glass-card project-row" data-hover>
-            <div class="p-head"><i class="fa-solid fa-camera"></i> WX Photography</div>
-            <div class="p-desc">Refined photography showcase module for WeChat Mini Programs.</div>
-            <div class="p-tags"><span class="tech-tag">UI/UX</span></div>
-        </a>
-
-        <a href="https://wwz.im" target="_blank" class="glass-card list-item" data-hover>
-            <div class="list-left"><i class="fa-solid fa-globe list-icon"></i> Official Website</div>
-            <i class="fa-solid fa-arrow-right list-icon"></i>
-        </a>
-
-        <a href="https://blog.wwz.im" target="_blank" class="glass-card list-item" data-hover>
-            <div class="list-left"><i class="fa-solid fa-pen-nib list-icon"></i> Tech Blog</div>
-            <i class="fa-solid fa-arrow-right list-icon"></i>
-        </a>
-
-        <footer><p>&copy; 2025 Wang Wenzhi.</p></footer>
-    </div>
-
-    <div id="video-modal" class="modal-overlay">
-        <div class="modal-content">
-            <div class="close-btn" data-hover><i class="fa-solid fa-xmark"></i></div>
-            <div class="video-wrapper">
-                <iframe id="modal-iframe" src="" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen playsinline></iframe>
+            <div class="social-dock">
+                <a href="https://x.com/wwz_im" target="_blank" class="social-icon" title="Twitter/X" data-hover><i class="fa-brands fa-x-twitter"></i></a>
+                <a href="https://github.com/wangwenzhiwwz" target="_blank" class="social-icon" title="GitHub" data-hover><i class="fa-brands fa-github"></i></a>
+                <a href="https://www.youtube.com/@wangwenzhi" target="_blank" class="social-icon" title="YouTube" data-hover><i class="fa-brands fa-youtube"></i></a>
+                <a href="https://www.facebook.com/wangwenzhiwwz" target="_blank" class="social-icon" title="Facebook" data-hover><i class="fa-brands fa-facebook"></i></a>
+                <a href="https://www.pinterest.com/wangwenzhiwwz/" target="_blank" class="social-icon" title="Pinterest" data-hover><i class="fa-brands fa-pinterest"></i></a>
+                <a href="https://www.instagram.com/wangwenzhiwwz/" target="_blank" class="social-icon" title="Instagram" data-hover><i class="fa-brands fa-instagram"></i></a>
+                <a href="mailto:wwz.im@outlook.com" class="social-icon" title="Email" data-hover><i class="fa-solid fa-envelope"></i></a>
             </div>
         </div>
-    </div>
-    <div id="toast" class="toast"><i class="fa-solid fa-check"></i> Email Copied!</div>
+    </aside>
 
+    <main class="main-content">
+        <section id="home" class="container-fluid">
+            <div class="row align-items-center g-5">
+                <div class="col-lg-7">
+                    <div class="tech-tags"><span class="tech-tag">Commercial Director</span><span class="tech-tag">Network Engineer</span></div>
+                    <h1 class="hero-tagline">Create.<br>Optimize.<br>Automate.</h1>
+                    <p class="lead text-secondary mb-4">Hello, I am a <strong>Digital Craftsman</strong> blending high-end Cinematography with robust Network Infrastructure.</p>
+                    <div class="d-flex gap-3"><a href="#portfolio" class="btn btn-light rounded-pill px-4 py-2 fw-bold" data-hover>Explore Design</a><a href="portfolio-masonry.html" class="btn btn-outline-secondary rounded-pill px-4 py-2" data-hover>Portfolio Masonry</a></div>
+                </div>
+                <div class="col-lg-5 video-card-3d-wrapper" id="hero-3d-card">
+                    <div class="video-card-content" data-hover data-bs-toggle="modal" data-bs-target="#videoModal" data-video-url="https://player.vimeo.com/video/1149403074" data-video-type="vimeo">
+                        <img src="https://www.wwz.im/images/video/Screenshot_2025-12-11_134113.png" alt="Showreel" class="video-cover">
+                        <div class="play-btn-overlay"><i class="fa-solid fa-play"></i></div>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-5 pt-4 g-4">
+                <div class="col-md-4"><div class="d-flex gap-3 align-items-center"><div class="h2 mb-0 fw-bold opacity-50">01</div><div><h6 class="fw-bold mb-0">Directing</h6><small class="text-secondary">Visual stories for brands</small></div></div></div>
+                <div class="col-md-4"><div class="d-flex gap-3 align-items-center"><div class="h2 mb-0 fw-bold opacity-50">02</div><div><h6 class="fw-bold mb-0">Cinematography</h6><small class="text-secondary">Film-level lighting</small></div></div></div>
+                <div class="col-md-4"><div class="d-flex gap-3 align-items-center"><div class="h2 mb-0 fw-bold opacity-50">03</div><div><h6 class="fw-bold mb-0">Network Eng.</h6><small class="text-secondary">Infrastructure design</small></div></div></div>
+            </div>
+        </section>
+
+        <section id="videos">
+            <h2 class="section-title">Selected Motion Works</h2>
+            <div class="row g-4" id="videoGrid"></div>
+            <div class="mt-5">
+                <a href="https://www.wwz.im/videos" target="_blank" class="glass-card list-item" data-hover>
+                    <div class="list-left"><i class="fa-solid fa-film list-icon"></i> More Video Works</div>
+                    <i class="fa-solid fa-arrow-right list-icon"></i>
+                </a>
+            </div>
+        </section>
+
+        <section id="portfolio">
+            <h2 class="section-title">Recent Works & Tools</h2>
+            <div class="row g-4">
+                <div class="col-md-6"><a href="https://app.wwz.im/" target="_blank" class="glass-card d-block text-reset" data-hover><div class="d-flex justify-content-between mb-3"><i class="fa-solid fa-compass fa-2x"></i><span class="badge-pro">PRO TOOL</span></div><h3>APP.WWZ.iM</h3><p class="text-secondary">Personal Navigation & Tool Hub.</p><div class="mt-3"><span class="tech-tag">Vue</span><span class="tech-tag">PWA</span></div></a></div>
+                <div class="col-md-6"><a href="https://github.com/wangwenzhiwwz/SUB" target="_blank" class="glass-card d-block text-reset" data-hover><div class="d-flex justify-content-between mb-3"><i class="fa-solid fa-bolt fa-2x"></i><i class="fa-brands fa-github fa-lg"></i></div><h3>SUB Converter</h3><p class="text-secondary">Pure frontend secure node conversion.</p><div class="mt-3"><span class="tech-tag">Security</span><span class="tech-tag">JS</span></div></a></div>
+                <div class="col-md-4"><div class="glass-card p-0" data-hover><img src="images/port-item1.jpg" class="w-100" style="height: 200px; object-fit: cover;" loading="lazy"><div class="p-3"><h5 class="mb-1">Nostalgia Portrait</h5><small class="text-secondary">Creative Photography</small></div></div></div>
+                <div class="col-md-4"><div class="glass-card p-0" data-hover><img src="images/port-item2.jpg" class="w-100" style="height: 200px; object-fit: cover;" loading="lazy"><div class="p-3"><h5 class="mb-1">Workoholic City</h5><small class="text-secondary">Urban Design</small></div></div></div>
+                <div class="col-md-4"><div class="glass-card p-0" data-hover><img src="images/port-item3.jpg" class="w-100" style="height: 200px; object-fit: cover;" loading="lazy"><div class="p-3"><h5 class="mb-1">Zoo Keeper</h5><small class="text-secondary">Print Design</small></div></div></div>
+            </div>
+        </section>
+
+        <section id="about">
+            <h2 class="section-title">About Me</h2>
+            <div class="glass-panel p-4 p-md-5">
+                <p class="lead mb-4">I am a minimalist at heart, active as a <strong>Commercial Creative Director</strong> and <strong>Photographer</strong>.</p>
+                <div class="row">
+                    <div class="col-lg-6">
+                        <h4 class="mb-4">Education</h4>
+                        <div class="mb-4 ps-3 border-start border-2"><strong>Masters in Data Analysis</strong><br><small class="text-secondary">Harvard School of Science (2004-2006)</small></div>
+                        <div class="mb-4 ps-3 border-start border-2"><strong>Bachelors in Engineering</strong><br><small class="text-secondary">Harvard School of Science (1998-2004)</small></div>
+                    </div>
+                    <div class="col-lg-6">
+                        <h4 class="mb-4">Skills</h4>
+                        <div class="mb-3"><div class="d-flex justify-content-between small mb-1"><span>Directing</span><span>95%</span></div><div class="progress" style="height:4px"><div class="progress-bar bg-white" style="width:95%"></div></div></div>
+                        <div class="mb-3"><div class="d-flex justify-content-between small mb-1"><span>Network Security</span><span>90%</span></div><div class="progress" style="height:4px"><div class="progress-bar bg-white" style="width:90%"></div></div></div>
+                        <div class="mb-3"><div class="d-flex justify-content-between small mb-1"><span>Full-Stack</span><span>80%</span></div><div class="progress" style="height:4px"><div class="progress-bar bg-white" style="width:80%"></div></div></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact">
+            <h2 class="section-title">Get in Touch</h2>
+            <div class="row">
+                <div class="col-lg-6 mb-4">
+                    <div class="accordion accordion-glass" id="faqAccordion">
+                        <div class="accordion-item"><h2 class="accordion-header"><button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse1">Engineering background?</button></h2><div id="collapse1" class="accordion-collapse collapse show"><div class="accordion-body">My technical background provides a logical framework for creative storytelling.</div></div></div>
+                        <div class="accordion-item"><h2 class="accordion-header"><button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse2">Minimalist approach?</button></h2><div id="collapse2" class="accordion-collapse collapse"><div class="accordion-body">Stripping away the unnecessary to ensure the core message resonates.</div></div></div>
+                    </div>
+                    <div class="mt-4"><a href="mailto:wwz.im@outlook.com" class="h5 fw-bold text-decoration-underline">wwz.im@outlook.com</a></div>
+                </div>
+                <div class="col-lg-6">
+                    <form class="glass-card">
+                        <div class="mb-3"><input type="email" class="form-control bg-transparent text-white border-secondary" placeholder="Email" style="border:1px solid var(--glass-border)"></div>
+                        <div class="mb-3"><textarea class="form-control bg-transparent text-white border-secondary" rows="4" placeholder="Message" style="border:1px solid var(--glass-border)"></textarea></div>
+                        <button class="btn btn-light w-100 fw-bold" data-hover>Send</button>
+                    </form>
+                </div>
+            </div>
+            <footer class="mt-5 pt-5 text-center text-secondary small opacity-50 border-top border-secondary"><p>&copy; 2025 WWZ.iM</p></footer>
+        </section>
+    </main>
+
+    <div class="modal fade" id="videoModal" tabindex="-1" aria-hidden="true"><div class="modal-dialog modal-xl modal-dialog-centered"><div class="modal-content bg-transparent border-0"><div class="position-relative"><button type="button" class="btn-close btn-close-white position-absolute top-0 end-0 m-3 z-3" data-bs-dismiss="modal"></button><div class="ratio ratio-16x9 rounded-4 overflow-hidden shadow-lg"><iframe id="videoIframe" src="" allowfullscreen></iframe></div></div></div></div></div>
+
+    <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.1/js/bootstrap.bundle.min.js"></script>
     <script>
-        // 1. Theme Manager (Fixed Mobile Overscroll)
-        const themeBtn = document.getElementById('theme-btn');
-        const root = document.documentElement;
-        const metaThemeColor = document.querySelector("meta[name=theme-color]");
+        window.addEventListener('load', () => { document.getElementById('loader').style.display='none'; });
         
-        let isDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-        
-        function setTheme(dark) {
-            if(dark) {
-                root.setAttribute('data-theme', 'dark');
-                themeBtn.innerHTML = '<i class="fa-solid fa-sun"></i>';
-                metaThemeColor.setAttribute("content", "#1a1a1a");
-            } else {
-                root.setAttribute('data-theme', 'light');
-                themeBtn.innerHTML = '<i class="fa-solid fa-moon"></i>';
-                metaThemeColor.setAttribute("content", "#f3f3f3");
-            }
-        }
-        setTheme(isDark);
-        themeBtn.addEventListener('click', () => { isDark = !isDark; setTheme(isDark); });
-
-        // 2. Loader
-        window.addEventListener('load', () => {
-            document.getElementById('loader').style.opacity = '0';
-            setTimeout(() => {
-                document.getElementById('loader').style.visibility = 'hidden';
-                document.querySelector('.container').classList.add('loaded');
-            }, 500);
-        });
-
-        // 3. Cursor
         if (window.matchMedia("(pointer: fine)").matches) {
-            const dot = document.querySelector('.cursor-dot');
-            const circle = document.querySelector('.cursor-circle');
-            dot.style.display = 'block'; circle.style.display = 'block';
-            let mx = 0, my = 0, cx = 0, cy = 0;
-            document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; dot.style.left = mx+'px'; dot.style.top = my+'px'; });
-            function animate() {
-                cx += (mx - cx) * 0.15; cy += (my - cy) * 0.15;
-                circle.style.left = cx+'px'; circle.style.top = cy+'px';
-                requestAnimationFrame(animate);
-            }
+            const dot = document.querySelector('.cursor-dot'), circle = document.querySelector('.cursor-circle');
+            let mx=0, my=0, cx=0, cy=0;
+            document.addEventListener('mousemove', e => { mx=e.clientX; my=e.clientY; dot.style.left=mx+'px'; dot.style.top=my+'px'; });
+            function animate() { cx+=(mx-cx)*0.15; cy+=(my-cy)*0.15; circle.style.left=cx+'px'; circle.style.top=cy+'px'; requestAnimationFrame(animate); }
             animate();
             document.querySelectorAll('[data-hover]').forEach(el => {
                 el.addEventListener('mouseenter', () => document.body.classList.add('hovering'));
@@ -373,53 +292,69 @@
             });
         }
 
-        // 4. Clock
-        setInterval(() => {
-            document.getElementById('clock').innerText = new Date().toLocaleTimeString('en-US', {hour12:false});
-        }, 1000);
+        const themeBtn = document.getElementById('theme-btn');
+        let isDark = true;
+        themeBtn.addEventListener('click', () => {
+            isDark = !isDark;
+            document.documentElement.setAttribute('data-theme', isDark ? 'dark' : 'light');
+            themeBtn.innerHTML = isDark ? '<i class="fa-solid fa-moon"></i>' : '<i class="fa-solid fa-sun"></i>';
+        });
+        document.documentElement.setAttribute('data-theme', 'dark');
 
-        // 5. Video Tilt
-        const vCard = document.querySelector('.video-card-3d');
-        const vContent = document.querySelector('.video-content');
-        document.addEventListener('mousemove', (e) => {
-            if (window.innerWidth < 768) return; 
-            const rect = vCard.getBoundingClientRect();
-            const x = e.clientX - rect.left; const y = e.clientY - rect.top;
-            if (x > -50 && x < rect.width + 50 && y > -50 && y < rect.height + 50) {
-                const cx = rect.width / 2; const cy = rect.height / 2;
-                const rx = ((y - cy) / cy) * -4; const ry = ((x - cx) / cx) * 4;
-                vContent.style.transform = `perspective(1000px) rotateX(${rx}deg) rotateY(${ry}deg) scale(1.02)`;
-            } else {
-                vContent.style.transform = `perspective(1000px) rotateX(0) rotateY(0) scale(1)`;
+        const mobileToggle = document.getElementById('mobile-toggle'), sidebarContent = document.getElementById('sidebar-content');
+        mobileToggle.addEventListener('click', () => {
+            sidebarContent.classList.toggle('show');
+            mobileToggle.querySelector('i').classList.toggle('fa-xmark');
+            mobileToggle.querySelector('i').classList.toggle('fa-bars');
+        });
+        const closeMenu = () => { if(window.innerWidth < 992 && sidebarContent.classList.contains('show')) mobileToggle.click(); };
+        document.querySelectorAll('.nav-link').forEach(l => l.addEventListener('click', closeMenu));
+        document.querySelector('.main-content').addEventListener('click', closeMenu);
+
+        const videos = [
+            { title: "Ulefone Armor 34 Pro", desc: "Autofocus Projector • 2025", thumbnail: "images/video/maxresdefault.jpg", url: "https://www.youtube.com/embed/a7RQgUMkpwI", type: "youtube" },
+            { title: "Armor Mini 20T Pro", desc: "Thermal Mini • 2024", thumbnail: "images/video/Screenshot_2025-12-11_140000.png", url: "https://www.youtube.com/embed/diWNAaazdoM", type: "youtube" },
+            { title: "Ulefone Armor 27T Pro", desc: "FLIR Thermal Pro • 2024", thumbnail: "images/video/Screenshot_2025-03-05_142413.png", url: "https://www.youtube.com/embed/aW8FSVuJY7U", type: "youtube" },
+            { title: "Ulefone Armor 26 Ultra", desc: "Mega Performance 5G • 2024", thumbnail: "images/video/Screenshot_2025-03-05_142626.png", url: "https://www.youtube.com/embed/Y2yPBSYQkfw", type: "youtube" },
+            { title: "Ulefone Armor 23 Ultra", desc: "Satellite Comm • 2024", thumbnail: "images/video/Screenshot_2025-12-11_135753.png", url: "https://www.youtube.com/embed/ynM2jFYncnE", type: "youtube" },
+            { title: "Ulefone Armor 22", desc: "NightElf Ultra 2.0 • 2023", thumbnail: "images/video/Screenshot_2025-03-05_142821.png", url: "https://www.youtube.com/embed/GVeko9aDHzw", type: "youtube" }
+        ];
+        const vGrid = document.getElementById("videoGrid");
+        videos.forEach(v => {
+            vGrid.innerHTML += `<div class="col-md-6 col-lg-4"><div class="glass-card p-2 h-100" style="cursor:pointer" data-bs-toggle="modal" data-bs-target="#videoModal" data-video-url="${v.url}" data-video-type="${v.type}" data-hover><div class="position-relative overflow-hidden rounded-3 mb-3"><img src="${v.thumbnail}" class="w-100" style="aspect-ratio:16/9;object-fit:cover" onerror="this.src='https://via.placeholder.com/640x360?text=No+Image'" loading="lazy"><div class="play-btn-overlay"><i class="fa-solid fa-play"></i></div></div><div class="px-2"><div class="v-title text-truncate">${v.title}</div><div class="v-desc text-truncate">${v.desc}</div></div></div></div>`;
+        });
+
+        const vModal = document.getElementById('videoModal'), vFrame = document.getElementById('videoIframe');
+        vModal.addEventListener('show.bs.modal', e => {
+            const btn = e.relatedTarget;
+            vFrame.src = btn.getAttribute('data-video-url') + (btn.getAttribute('data-video-type')==='youtube'?'?autoplay=1&rel=0':'?autoplay=1');
+        });
+        vModal.addEventListener('hidden.bs.modal', () => vFrame.src='');
+
+        const observer = new IntersectionObserver(entries => {
+            entries.forEach(e => {
+                if(e.isIntersecting) {
+                    document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+                    document.querySelector(`.nav-link[href="#${e.target.id}"]`)?.classList.add('active');
+                }
+            });
+        }, {rootMargin: "-30% 0px -60% 0px"});
+        document.querySelectorAll('section').forEach(s => observer.observe(s));
+
+        // Fixed Hero Aspect Ratio Logic in CSS now, only tilt here
+        const card = document.querySelector('.video-card-content');
+        document.addEventListener('mousemove', e => {
+            if(window.innerWidth > 992) {
+                const x = (window.innerWidth/2 - e.clientX)/20, y = (window.innerHeight/2 - e.clientY)/20;
+                card.style.transform = `rotateY(${x}deg) rotateX(${y}deg)`;
             }
         });
 
-        // Modal Logic
-        const modal = document.getElementById('video-modal');
-        const iframe = document.getElementById('modal-iframe');
-        const trigger = document.getElementById('video-trigger');
-        const closeBtn = document.querySelector('.close-btn');
-
-        trigger.addEventListener('click', () => {
-            const url = trigger.dataset.vimeoUrl;
-            iframe.src = url + (url.includes('?') ? '&' : '?') + 'autoplay=1&playsinline=1';
-            modal.classList.add('active');
-            document.body.style.overflow = 'hidden';
-        });
-        
-        const closeModal = () => { modal.classList.remove('active'); setTimeout(() => iframe.src = '', 300); document.body.style.overflow = ''; };
-        closeBtn.addEventListener('click', closeModal);
-        modal.addEventListener('click', (e) => { if(e.target === modal) closeModal(); });
-
-        // 6. Copy Email
-        document.getElementById('email-btn').addEventListener('click', (e) => {
-            e.preventDefault();
-            navigator.clipboard.writeText("hi@wwz.im");
-            const t = document.getElementById('toast');
-            t.classList.add('show');
-            setTimeout(() => t.classList.remove('show'), 2000);
-        });
+        document.addEventListener('error', function(e) {
+            if (e.target.tagName.toLowerCase() === 'img') {
+                e.target.src = 'https://via.placeholder.com/640x360?text=No+Image';
+            }
+        }, true);
     </script>
 </body>
-
 </html>

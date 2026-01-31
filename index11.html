@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>WWZ.iM - Wang Wenzhi</title>
+    <meta name="description" content="Wang Wenzhi (wwz) - Developer, Tech Enthusiast.">
+    
+    <meta name="theme-color" content="#f3f3f3">
+
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://wwz.im/">
+    <meta property="og:title" content="Wang Wenzhi">
+    <meta property="og:image" content="https://wangwenzhi.eu.org/images/favicon_io/android-chrome-512x512.png">
+    
+    <link rel="icon" href="https://wangwenzhi.eu.org/images/favicon_io/favicon.ico">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <style>
+        /* --- 1. Variables --- */
+        :root {
+            --transition-speed: 0.5s;
+        }
+
+        /* LIGHT THEME */
+        :root[data-theme="light"] {
+            --bg-gradient: linear-gradient(-45deg, #e0e0e0, #f8f8f8, #ffffff, #eff1f3);
+            --bg-solid: #f3f3f3; 
+            --text-primary: #1a1a1a;
+            --text-secondary: #666;
+            --card-bg: rgba(255, 255, 255, 0.65);
+            --card-border: rgba(255, 255, 255, 0.4);
+            --card-highlight: rgba(255, 255, 255, 0.8);
+            --shadow-soft: 0 10px 30px -10px rgba(0, 0, 0, 0.08);
+            --shadow-hover: 0 20px 40px -10px rgba(0, 0, 0, 0.12);
+            --tag-bg: rgba(0, 0, 0, 0.05);
+            --cursor-color: rgba(0, 0, 0, 0.1);
+            --icon-bg: rgba(255, 255, 255, 0.5);
+            --icon-hover-color: #ffffff;
+            --theme-color-hex: #f3f3f3;
+        }
+
+        /* DARK THEME */
+        :root[data-theme="dark"] {
+            --bg-gradient: radial-gradient(circle at 50% 0%, #1a1a1a, #050505);
+            --bg-solid: #1a1a1a;
+            --text-primary: #f0f0f0;
+            --text-secondary: #888;
+            --card-bg: rgba(20, 20, 20, 0.6);
+            --card-border: rgba(255, 255, 255, 0.08);
+            --card-highlight: rgba(255, 255, 255, 0.15);
+            --shadow-soft: 0 10px 40px -10px rgba(0, 0, 0, 0.8);
+            --shadow-hover: 0 20px 50px -10px rgba(0, 0, 0, 1);
+            --tag-bg: rgba(255, 255, 255, 0.08);
+            --cursor-color: rgba(255, 255, 255, 0.2);
+            --icon-bg: rgba(255, 255, 255, 0.05);
+            --icon-hover-color: #000000;
+            --theme-color-hex: #1a1a1a;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; cursor: none; }
+        @media (pointer: coarse) { * { cursor: auto; } }
+
+        html {
+            min-height: 100%;
+            background-color: var(--bg-solid); 
+            background-image: var(--bg-gradient);
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', Roboto, sans-serif;
+            background: transparent; 
+            color: var(--text-primary);
+            min-height: 100vh;
+            display: flex; flex-direction: column; align-items: center;
+            padding: 80px 20px 40px;
+            overflow-x: hidden;
+            transition: color var(--transition-speed); 
+        }
+
+        /* Texture Overlay */
+        .noise {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            pointer-events: none; z-index: 9000; opacity: 0.04;
+            background: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+        }
+        /* [New] Hide noise in dark mode */
+        :root[data-theme="dark"] .noise {
+            display: none;
+        }
+
+        /* Toggle */
+        .theme-toggle {
+            position: fixed; top: 20px; right: 20px; z-index: 9998;
+            width: 44px; height: 44px; border-radius: 50%;
+            background: var(--card-bg); backdrop-filter: blur(10px);
+            border: 1px solid var(--card-border);
+            color: var(--text-primary); display: flex; align-items: center; justify-content: center;
+            cursor: pointer; transition: all 0.3s ease; box-shadow: var(--shadow-soft);
+        }
+        .theme-toggle:hover { transform: scale(1.1); background: var(--tag-bg); }
+
+        /* Loader */
+        #loader {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background-color: var(--bg-solid);
+            background-image: var(--bg-gradient);
+            z-index: 10000;
+            display: flex; justify-content: center; align-items: center;
+            transition: opacity 0.6s ease, visibility 0.6s;
+        }
+        .spinner { width: 40px; height: 40px; border: 2px solid rgba(128,128,128,0.2); border-radius: 50%; border-top-color: var(--text-primary); animation: spin 0.8s linear infinite; }
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        /* Cursor */
+        .cursor-dot, .cursor-circle { position: fixed; top: 0; left: 0; transform: translate(-50%, -50%); border-radius: 50%; pointer-events: none; z-index: 9999; display: none; }
+        .cursor-dot { width: 6px; height: 6px; background: var(--text-primary); }
+        .cursor-circle { width: 40px; height: 40px; border: 1px solid var(--cursor-color); transition: 0.15s; opacity: 0.6; }
+        body.hovering .cursor-circle { width: 60px; height: 60px; background: var(--cursor-color); border-color: transparent; backdrop-filter: blur(1px); }
+
+        /* Container & Animations */
+        .container { 
+            width: 100%; max-width: 500px; display: flex; flex-direction: column; gap: 20px; z-index: 1; 
+            opacity: 0; transform: translateY(20px); transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+        .container.loaded { opacity: 1; transform: translateY(0); }
+
+        /* Header */
+        .header { text-align: center; margin-bottom: 20px; }
+        .profile-img { 
+            width: 110px; height: 110px; border-radius: 50%; object-fit: cover; 
+            box-shadow: var(--shadow-soft); margin-bottom: 15px; border: 2px solid var(--card-border);
+        }
+        h1 { font-size: 1.8rem; font-weight: 800; margin-bottom: 4px; letter-spacing: -0.5px; }
+        .tagline { font-size: 0.9rem; opacity: 0.6; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 8px; font-weight: 600; }
+        .live-status { font-size: 0.75rem; color: var(--text-secondary); opacity: 0.8; font-family: 'SF Mono', monospace; margin-bottom: 15px; }
+        .tech-stack { display: flex; justify-content: center; gap: 8px; margin-bottom: 24px; }
+        .tech-tag { 
+            background: var(--tag-bg); padding: 6px 14px; border-radius: 20px; 
+            font-size: 0.75rem; font-weight: 600; color: var(--text-secondary); 
+            border: 1px solid var(--card-border);
+        }
+
+        /* Social Dock */
+        .social-dock { display: flex; justify-content: center; gap: 14px; margin-bottom: 10px; }
+        .social-icon { 
+            width: 48px; height: 48px; border-radius: 50%; background: var(--icon-bg); 
+            backdrop-filter: blur(10px); display: flex; align-items: center; justify-content: center; 
+            color: var(--text-primary); font-size: 1.2rem; text-decoration: none; 
+            box-shadow: var(--shadow-soft); border: 1px solid var(--card-border);
+            transition: transform 0.2s, background 0.2s, color 0.2s;
+        }
+        .social-icon:hover { 
+            transform: translateY(-4px); 
+            background: var(--text-primary); 
+            color: var(--icon-hover-color); 
+            border-color: transparent; 
+        }
+
+        /* Glass Cards */
+        .glass-card {
+            background: var(--card-bg); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+            border-radius: 24px; padding: 22px; text-decoration: none; color: var(--text-primary);
+            position: relative; overflow: hidden; box-shadow: var(--shadow-soft);
+            border: 1px solid var(--card-border); border-top: 1px solid var(--card-highlight);
+            transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+        .glass-card:active { transform: scale(0.98); }
+        .glass-card::before {
+            content: ''; position: absolute; top: 0; left: -100%; width: 50%; height: 100%;
+            background: linear-gradient(to right, transparent, rgba(255,255,255,0.08), transparent);
+            transform: skewX(-25deg); transition: 0.5s; pointer-events: none;
+        }
+        @media (hover: hover) { .glass-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-hover); } .glass-card:hover::before { left: 150%; transition: 0.7s; } }
+
+        /* BORDERLESS VIDEO CARD */
+        .video-card-3d { 
+            padding: 0; transform-style: preserve-3d; perspective: 1000px; cursor: pointer; 
+            border: none; background: transparent; box-shadow: none;
+        }
+        .video-content {
+            position: relative; width: 100%; padding-top: 56.25%; background: #000;
+            border-radius: 24px; overflow: hidden; 
+            box-shadow: var(--shadow-soft);
+            border: none; 
+        }
+        .video-cover { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0.95; transition: 0.5s; }
+        .video-card-3d:hover .video-cover { opacity: 0.8; transform: scale(1.03); }
+        
+        .play-btn {
+            position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%) scale(0.8); opacity: 0;
+            width: 60px; height: 60px; border-radius: 50%;
+            background: rgba(255,255,255,0.2); backdrop-filter: blur(12px); border: 1px solid rgba(255,255,255,0.3);
+            display: flex; align-items: center; justify-content: center; color: #fff; font-size: 1.4rem;
+            transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .video-card-3d:hover .play-btn { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+        
+        .video-meta {
+            position: absolute; bottom: 16px; left: 20px; z-index: 2; color: #fff;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.5); pointer-events: none;
+        }
+        .v-title { font-weight: 700; font-size: 1.1rem; display: block; }
+        .v-sub { font-size: 0.8rem; opacity: 0.8; }
+        
+        /* List Items */
+        .list-item { display: flex; justify-content: space-between; align-items: center; font-weight: 600; font-size: 0.95rem; }
+        .list-left { display: flex; align-items: center; gap: 14px; }
+        .list-icon { opacity: 0.7; }
+        .project-row { display: flex; flex-direction: column; gap: 6px; }
+        .p-head { font-weight: 700; display: flex; align-items: center; gap: 8px; }
+        .p-desc { font-size: 0.85rem; color: var(--text-secondary); line-height: 1.5; }
+        .p-tags { display: flex; gap: 6px; margin-top: 6px; }
+
+        /* Modal */
+        .modal-overlay {
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 10000;
+            background: rgba(0,0,0,0.95); backdrop-filter: blur(15px);
+            justify-content: center; align-items: center; opacity: 0; transition: opacity 0.3s;
+        }
+        .modal-overlay.active { display: flex; opacity: 1; }
+        .modal-content { width: 95%; max-width: 1100px; position: relative; }
+        .close-btn { 
+            position: absolute; top: -60px; right: 0; width: 44px; height: 44px;
+            background: rgba(255,255,255,0.1); border-radius: 50%; color: #fff;
+            display: flex; align-items: center; justify-content: center; cursor: pointer;
+            border: 1px solid rgba(255,255,255,0.1); transition: 0.2s;
+        }
+        .close-btn:hover { background: #fff; color: #000; }
+        .video-wrapper { position: relative; padding-bottom: 56.25%; height: 0; background: #000; border-radius: 16px; overflow: hidden; box-shadow: 0 20px 50px rgba(0,0,0,0.5); }
+        .video-wrapper iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
+
+        /* Toast */
+        .toast {
+            position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%) translateY(50px);
+            background: var(--text-primary); color: var(--bg-gradient); padding: 12px 24px; border-radius: 30px;
+            opacity: 0; transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); z-index: 10001; pointer-events: none;
+            display: flex; align-items: center; gap: 8px; font-weight: 600; box-shadow: var(--shadow-hover);
+        }
+        .toast.show { transform: translateX(-50%) translateY(0); opacity: 1; }
+
+        footer { margin-top: 50px; font-size: 0.8rem; color: var(--text-secondary); opacity: 0.5; }
+    </style>
+</head>
+<body>
+
+    <div class="noise"></div>
+    <div id="loader"><div class="spinner"></div></div>
+    <div class="cursor-dot"></div><div class="cursor-circle"></div>
+    
+    <div class="theme-toggle" id="theme-btn"><i class="fa-solid fa-moon"></i></div>
+
+    <div class="container">
+        <div class="header">
+            <img src="https://wangwenzhi.eu.org/images/favicon_io/android-chrome-512x512.png" alt="WWZ" class="profile-img">
+            <h1>Wang Wenzhi</h1>
+            <p class="tagline">Create. Optimize. Automate.</p>
+            <div class="live-status"><span id="clock">--:--:--</span> Local Time</div>
+            
+            <div class="tech-stack">
+                <span class="tech-tag">Next.js</span>
+                <span class="tech-tag">Cloud</span>
+                <span class="tech-tag">AI / LLM</span>
+            </div>
+
+            <div class="social-dock">
+                <a href="https://x.com/wwz_im" target="_blank" class="social-icon" data-hover><i class="fa-brands fa-x-twitter"></i></a>
+                <a href="https://github.com/wangwenzhiwwz" target="_blank" class="social-icon" data-hover><i class="fa-brands fa-github"></i></a>
+                <a href="https://www.youtube.com/@wangwenzhi" target="_blank" class="social-icon" data-hover><i class="fa-brands fa-youtube"></i></a>
+                <a href="#" id="email-btn" class="social-icon" data-hover><i class="fa-solid fa-envelope"></i></a>
+            </div>
+        </div>
+
+        <div class="video-card-3d" id="video-trigger" data-hover 
+             data-vimeo-url="https://player.vimeo.com/video/1149403074?badge=0&autopause=0&player_id=0&app_id=58479">
+            <div class="video-content">
+                <img src="https://www.wwz.im/images/video/Screenshot_2025-12-11_134113.png" alt="Cover" class="video-cover">
+                <div class="play-btn"><i class="fa-solid fa-play"></i></div>
+                <div class="video-meta">
+                    <span class="v-title">RugOne Xever 7 Series</span>
+                    <span class="v-sub">Featured Video • 2025</span>
+                </div>
+            </div>
+        </div>
+
+        <a href="https://www.wwz.im/video" target="_blank" class="glass-card list-item" data-hover>
+            <div class="list-left"><i class="fa-solid fa-film list-icon"></i> More Video Works</div>
+            <i class="fa-solid fa-arrow-right list-icon"></i>
+        </a>
+
+        <a href="https://github.com/wangwenzhiwwz/SUB" target="_blank" class="glass-card project-row" data-hover>
+            <div class="p-head"><i class="fa-solid fa-bolt"></i> SUB Converter</div>
+            <div class="p-desc">Pure frontend secure node conversion tool supporting Hysteria 2.</div>
+            <div class="p-tags"><span class="tech-tag">Tool</span><span class="tech-tag">Security</span></div>
+        </a>
+
+        <a href="https://github.com/wangwenzhiwwz/WX" target="_blank" class="glass-card project-row" data-hover>
+            <div class="p-head"><i class="fa-solid fa-camera"></i> WX Photography</div>
+            <div class="p-desc">Refined photography showcase module for WeChat Mini Programs.</div>
+            <div class="p-tags"><span class="tech-tag">UI/UX</span></div>
+        </a>
+
+        <a href="https://wwz.im" target="_blank" class="glass-card list-item" data-hover>
+            <div class="list-left"><i class="fa-solid fa-globe list-icon"></i> Official Website</div>
+            <i class="fa-solid fa-arrow-right list-icon"></i>
+        </a>
+
+        <a href="https://blog.wwz.im" target="_blank" class="glass-card list-item" data-hover>
+            <div class="list-left"><i class="fa-solid fa-pen-nib list-icon"></i> Tech Blog</div>
+            <i class="fa-solid fa-arrow-right list-icon"></i>
+        </a>
+
+        <footer><p>&copy; 2025 Wang Wenzhi.</p></footer>
+    </div>
+
+    <div id="video-modal" class="modal-overlay">
+        <div class="modal-content">
+            <div class="close-btn" data-hover><i class="fa-solid fa-xmark"></i></div>
+            <div class="video-wrapper">
+                <iframe id="modal-iframe" src="" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen playsinline></iframe>
+            </div>
+        </div>
+    </div>
+    <div id="toast" class="toast"><i class="fa-solid fa-check"></i> Email Copied!</div>
+
+    <script>
+        // 1. Theme Manager (Fixed Mobile Overscroll)
+        const themeBtn = document.getElementById('theme-btn');
+        const root = document.documentElement;
+        const metaThemeColor = document.querySelector("meta[name=theme-color]");
+        
+        let isDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+        
+        function setTheme(dark) {
+            if(dark) {
+                root.setAttribute('data-theme', 'dark');
+                themeBtn.innerHTML = '<i class="fa-solid fa-sun"></i>';
+                metaThemeColor.setAttribute("content", "#1a1a1a");
+            } else {
+                root.setAttribute('data-theme', 'light');
+                themeBtn.innerHTML = '<i class="fa-solid fa-moon"></i>';
+                metaThemeColor.setAttribute("content", "#f3f3f3");
+            }
+        }
+        setTheme(isDark);
+        themeBtn.addEventListener('click', () => { isDark = !isDark; setTheme(isDark); });
+
+        // 2. Loader
+        window.addEventListener('load', () => {
+            document.getElementById('loader').style.opacity = '0';
+            setTimeout(() => {
+                document.getElementById('loader').style.visibility = 'hidden';
+                document.querySelector('.container').classList.add('loaded');
+            }, 500);
+        });
+
+        // 3. Cursor
+        if (window.matchMedia("(pointer: fine)").matches) {
+            const dot = document.querySelector('.cursor-dot');
+            const circle = document.querySelector('.cursor-circle');
+            dot.style.display = 'block'; circle.style.display = 'block';
+            let mx = 0, my = 0, cx = 0, cy = 0;
+            document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; dot.style.left = mx+'px'; dot.style.top = my+'px'; });
+            function animate() {
+                cx += (mx - cx) * 0.15; cy += (my - cy) * 0.15;
+                circle.style.left = cx+'px'; circle.style.top = cy+'px';
+                requestAnimationFrame(animate);
+            }
+            animate();
+            document.querySelectorAll('[data-hover]').forEach(el => {
+                el.addEventListener('mouseenter', () => document.body.classList.add('hovering'));
+                el.addEventListener('mouseleave', () => document.body.classList.remove('hovering'));
+            });
+        }
+
+        // 4. Clock
+        setInterval(() => {
+            document.getElementById('clock').innerText = new Date().toLocaleTimeString('en-US', {hour12:false});
+        }, 1000);
+
+        // 5. Video Tilt
+        const vCard = document.querySelector('.video-card-3d');
+        const vContent = document.querySelector('.video-content');
+        document.addEventListener('mousemove', (e) => {
+            if (window.innerWidth < 768) return; 
+            const rect = vCard.getBoundingClientRect();
+            const x = e.clientX - rect.left; const y = e.clientY - rect.top;
+            if (x > -50 && x < rect.width + 50 && y > -50 && y < rect.height + 50) {
+                const cx = rect.width / 2; const cy = rect.height / 2;
+                const rx = ((y - cy) / cy) * -4; const ry = ((x - cx) / cx) * 4;
+                vContent.style.transform = `perspective(1000px) rotateX(${rx}deg) rotateY(${ry}deg) scale(1.02)`;
+            } else {
+                vContent.style.transform = `perspective(1000px) rotateX(0) rotateY(0) scale(1)`;
+            }
+        });
+
+        // Modal Logic
+        const modal = document.getElementById('video-modal');
+        const iframe = document.getElementById('modal-iframe');
+        const trigger = document.getElementById('video-trigger');
+        const closeBtn = document.querySelector('.close-btn');
+
+        trigger.addEventListener('click', () => {
+            const url = trigger.dataset.vimeoUrl;
+            iframe.src = url + (url.includes('?') ? '&' : '?') + 'autoplay=1&playsinline=1';
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        });
+        
+        const closeModal = () => { modal.classList.remove('active'); setTimeout(() => iframe.src = '', 300); document.body.style.overflow = ''; };
+        closeBtn.addEventListener('click', closeModal);
+        modal.addEventListener('click', (e) => { if(e.target === modal) closeModal(); });
+
+        // 6. Copy Email
+        document.getElementById('email-btn').addEventListener('click', (e) => {
+            e.preventDefault();
+            navigator.clipboard.writeText("hi@wwz.im");
+            const t = document.getElementById('toast');
+            t.classList.add('show');
+            setTimeout(() => t.classList.remove('show'), 2000);
+        });
+    </script>
+</body>
+</html>
