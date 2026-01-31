@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>WWZ.iM · Hysteria 2 一键安装教程</title>
+    <meta name="description" content="Hysteria 2 一键安装脚本与配置教程，助你快速搭建高性能网络服务。">
+    <meta name="author" content="WWZ">
+    
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Hysteria 2 一键安装教程">
+    <meta property="og:url" content="https://wwz.im">
+
+    <script>
+        (function() {
+            var savedTheme = localStorage.getItem('theme');
+            var systemIsDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            var theme = savedTheme ? savedTheme : (systemIsDark ? 'dark' : 'light');
+            document.documentElement.setAttribute('data-theme', theme);
+        })();
+    </script>
+    <style>html { background-color: #0a0a0a; }</style>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://cdn.bootcdn.net">
+
+    <link rel="icon" href="https://wangwenzhi.eu.org/images/favicon_io/favicon.ico">
+    
+    <link href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.1/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=SF+Pro+Display:wght@300;400;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+    <style>
+        /* --- 核心设计系统 --- */
+        :root { --transition-speed: 0.4s; --font-main: 'SF Pro Display', sans-serif; --font-mono: 'JetBrains Mono', monospace; }
+        
+        :root[data-theme="dark"] {
+            --bg-body: #0a0a0a; --bg-gradient: radial-gradient(circle at 15% 50%, #1a1a1a 0%, #000000 100%);
+            --text-primary: #ffffff; --text-secondary: #a0a0a0;
+            --glass-bg: rgba(20, 20, 20, 0.65); --glass-border: rgba(255, 255, 255, 0.08);
+            --accent-color: #0d6efd; --pill-bg: rgba(255, 255, 255, 0.1); --active-bg: rgba(255, 255, 255, 0.15);
+            --code-bg: #1e1e1e; --code-text: #d4d4d4;
+        }
+        :root[data-theme="light"] {
+            --bg-body: #f0f2f5; --bg-gradient: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            --text-primary: #1a1a1a; --text-secondary: #555555;
+            --glass-bg: rgba(255, 255, 255, 0.7); --glass-border: rgba(255, 255, 255, 0.4);
+            --accent-color: #0d6efd; --pill-bg: rgba(0, 0, 0, 0.05); --active-bg: rgba(0, 0, 0, 0.08);
+            --code-bg: #f5f5f5; --code-text: #24292e;
+        }
+
+        html { scroll-behavior: smooth; }
+        body { font-family: var(--font-main); background: var(--bg-body); background-image: var(--bg-gradient); background-attachment: fixed; color: var(--text-primary); transition: background 0.5s ease, color 0.5s ease; }
+        a { text-decoration: none; color: inherit; transition: 0.3s; }
+        
+        /* 鼠标优化 */
+        * { cursor: auto; }
+        .cursor-dot, .cursor-circle { display: none; }
+        @media (pointer: fine) {
+            * { cursor: none !important; }
+            .cursor-dot { display: block; position: fixed; top: 0; left: 0; width: 6px; height: 6px; background: var(--text-primary); border-radius: 50%; pointer-events: none; z-index: 9999; }
+            .cursor-circle { display: block; position: fixed; top: 0; left: 0; width: 40px; height: 40px; border: 1px solid var(--text-secondary); opacity: 0.5; border-radius: 50%; pointer-events: none; z-index: 9999; transition: transform 0.1s ease-out, width 0.3s ease, height 0.3s ease, background 0.3s, opacity 0.3s; }
+            body.hovering .cursor-circle { width: 50px; height: 50px; background: rgba(128,128,128,0.1); border-color: var(--text-primary); backdrop-filter: blur(1px); opacity: 0.8; }
+        }
+
+        /* --- 布局组件 --- */
+        .glass-panel { background: var(--glass-bg); backdrop-filter: blur(20px); border: 1px solid var(--glass-border); border-radius: 24px; }
+        .glass-card { background: var(--glass-bg); backdrop-filter: blur(12px); border: 1px solid var(--glass-border); border-radius: 16px; padding: 30px; transition: 0.3s; margin-bottom: 30px; }
+        
+        .sidebar { position: fixed; top: 30px; bottom: 30px; left: 30px; width: 290px; z-index: 100; padding: 40px 24px; display: flex; flex-direction: column; overflow-y: auto; scrollbar-width: none; }
+        .main-content { margin-left: 350px; padding: 40px 60px 40px 0; min-height: 100vh; }
+
+        /* 电脑端右上角独立按钮 */
+        #theme-btn-desktop { 
+            position: fixed; top: 30px; right: 40px; z-index: 10000;
+            width: 44px; height: 44px; border-radius: 50%; 
+            background: var(--glass-bg); backdrop-filter: blur(10px); border: 1px solid var(--glass-border);
+            color: var(--text-primary); display: flex; align-items: center; justify-content: center;
+            cursor: pointer; transition: 0.2s;
+        }
+        #theme-btn-desktop:hover { transform: scale(1.1); background: var(--text-primary); color: var(--bg-body); }
+
+        /* 移动端控制按钮 */
+        .mobile-btn { 
+            width: 36px; height: 36px; border-radius: 10px; 
+            background: rgba(255, 255, 255, 0.05); border: 1px solid var(--glass-border); 
+            color: var(--text-secondary); display: flex; align-items: center; justify-content: center; 
+            transition: 0.2s; cursor: pointer;
+        }
+        .mobile-btn:hover, .mobile-btn:active { background: var(--text-primary); color: var(--bg-body); }
+
+        /* Sidebar Header */
+        .sidebar-header { text-align: center; margin-bottom: 20px; width: 100%; }
+        .profile-img { width: 100px; height: 100px; border-radius: 50%; object-fit: cover; border: 3px solid var(--glass-border); margin-bottom: 15px; }
+        .profile-name { font-weight: 800; font-size: 1.5rem; margin-bottom: 5px; color: var(--text-primary); }
+        .handle-pill { display: inline-block; font-family: var(--font-mono); font-size: 0.8rem; background: var(--pill-bg); padding: 4px 14px; border-radius: 50px; opacity: 0.8; }
+
+        .nav-section-title { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1.5px; margin: 25px 0 10px 10px; opacity: 0.5; font-weight: 700; }
+        .nav-menu { list-style: none; padding: 0; margin: 0; }
+        .nav-link { color: var(--text-secondary); font-weight: 600; padding: 10px 14px; border-radius: 12px; display: flex; align-items: center; gap: 12px; transition: 0.3s; margin-bottom: 5px; font-size: 0.9rem; }
+        .nav-link:hover { color: var(--text-primary); background: var(--pill-bg); transform: translateX(4px); }
+        .nav-link.active { color: var(--text-primary); background: var(--active-bg); }
+        
+        /* 社交图标栏 */
+        .social-dock { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; margin-top: auto; padding-top: 30px; border-top: 1px solid var(--glass-border); }
+        .social-icon { width: 38px; height: 38px; border-radius: 50%; display: flex; align-items: center; justify-content: center; border: 1px solid var(--glass-border); color: var(--text-secondary); transition: 0.3s; }
+        .social-icon:hover { background: var(--text-primary); color: var(--bg-body); transform: translateY(-3px); }
+
+        /* --- 教程内容样式优化 --- */
+        h1.display-4 { font-weight: 800; font-size: 2.5rem; margin-bottom: 20px; color: var(--text-primary); }
+        h4 { margin-top: 2.5rem; margin-bottom: 1.2rem; font-weight: 700; color: var(--text-primary); position: relative; padding-left: 1rem; }
+        h4::before { content: ''; position: absolute; left: 0; top: 6px; bottom: 6px; width: 4px; background: var(--accent-color); border-radius: 2px; }
+        
+        p, li { line-height: 1.7; color: var(--text-secondary); }
+        strong { color: var(--text-primary); }
+
+        .post-meta { font-family: var(--font-mono); font-size: 0.85rem; opacity: 0.7; }
+        
+        /* 代码块美化 (Mac 风格 + 玻璃拟态) */
+        pre {
+            position: relative;
+            background: var(--code-bg); /* 跟随主题变色 */
+            color: var(--code-text);
+            padding: 3.5rem 1.5rem 1.5rem 1.5rem;
+            border-radius: 12px;
+            margin: 1.5rem 0;
+            border: 1px solid var(--glass-border);
+            overflow-x: auto;
+            font-family: var(--font-mono);
+        }
+        pre::before {
+            content: ''; position: absolute; top: 18px; left: 18px;
+            width: 12px; height: 12px; border-radius: 50%;
+            background: #ff5f56;
+            box-shadow: 20px 0 0 #ffbd2e, 40px 0 0 #27c93f;
+        }
+        pre code { font-family: var(--font-mono); font-size: 0.85rem; line-height: 1.6; color: inherit; }
+
+        /* 复制按钮 */
+        .copy-btn {
+            position: absolute; top: 12px; right: 12px;
+            background: var(--pill-bg);
+            border: 1px solid var(--glass-border);
+            color: var(--text-secondary);
+            padding: 4px 10px; border-radius: 6px;
+            cursor: pointer; font-size: 0.75rem; font-family: var(--font-main);
+            transition: 0.2s; z-index: 10;
+        }
+        .copy-btn:hover { background: var(--text-primary); color: var(--bg-body); }
+        
+        .copy-feedback {
+            position: absolute; top: 45px; right: 12px;
+            background: var(--accent-color); color: white;
+            padding: 2px 8px; border-radius: 4px;
+            font-size: 0.75rem; opacity: 0; transition: opacity 0.3s; pointer-events: none;
+        }
+        .copy-feedback.show { opacity: 1; }
+
+        /* 卡片下载区 */
+        .download-card {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 12px;
+            transition: 0.3s;
+        }
+        .download-card:hover { transform: translateY(-5px); border-color: var(--text-primary); }
+        .download-card .card-title { color: var(--text-primary); font-weight: 600; }
+
+        /* Tag 标签 */
+        .tag-pill {
+            display: inline-block; padding: 4px 12px; margin-right: 5px;
+            border-radius: 50px; font-size: 0.8rem;
+            background: var(--pill-bg); color: var(--text-secondary);
+            border: 1px solid var(--glass-border); transition: 0.2s;
+        }
+        .tag-pill:hover { background: var(--accent-color); color: #fff; border-color: var(--accent-color); }
+
+        /* 引用块 */
+        .alert-info {
+            background: rgba(13, 110, 253, 0.1);
+            border: 1px solid rgba(13, 110, 253, 0.2);
+            color: var(--text-primary);
+            border-radius: 12px;
+        }
+
+        @media (max-width: 991px) {
+            .sidebar { position: relative; width: 100%; top: 0; left: 0; bottom: auto; margin-bottom: 30px; padding: 20px; border-radius: 0 0 24px 24px; height: auto; overflow: visible; display: block; }
+            .main-content { margin-left: 0; padding: 20px; }
+            .sidebar-header { display: flex; align-items: center; text-align: left; margin-bottom: 0; }
+            .profile-img { width: 50px; height: 50px; margin: 0 15px 0 0; border-width: 2px; }
+            .profile-name { font-size: 1.2rem; margin: 0; }
+            .sidebar-controls { margin-left: auto; display: flex; gap: 10px; }
+            .sidebar-content { max-height: 0; overflow: hidden; opacity: 0; transition: 0.4s; }
+            .sidebar-content.show { max-height: 1000px; opacity: 1; margin-top: 20px; padding-top: 10px; border-top: 1px solid var(--glass-border); }
+            .social-dock { padding-top: 20px; margin-top: 20px; }
+        }
+
+        #loader { position: fixed; inset: 0; background: var(--bg-body); z-index: 10000; display: flex; justify-content: center; align-items: center; transition: 0.5s; }
+    </style>
+</head>
+
+<body data-bs-spy="scroll" data-bs-target="#nav-menu" data-bs-offset="100" tabindex="0">
+
+    <div class="cursor-dot"></div><div class="cursor-circle"></div>
+    <div id="loader"><div class="spinner-border text-secondary" role="status"></div></div>
+
+    <button id="theme-btn-desktop" class="d-none d-lg-flex" title="Toggle Theme" data-hover><i class="fa-solid fa-moon"></i></button>
+
+    <aside class="sidebar glass-panel">
+        <div class="sidebar-header">
+            <div class="d-flex align-items-center justify-content-between w-100 d-lg-block">
+                
+                <div class="d-flex align-items-center d-lg-block">
+                    <a href="https://www.wwz.im/" class="text-decoration-none" data-hover>
+                        <img src="https://wangwenzhi.eu.org/images/favicon_io/android-chrome-512x512.png" alt="WWZ" class="profile-img d-block mx-lg-auto">
+                        <div class="profile-info text-start text-lg-center">
+                            <h4 class="profile-name">Wang Wenzhi</h4>
+                            <div class="handle-pill">@WWZ.iM</div>
+                        </div>
+                    </a>
+                </div>
+                
+                <div class="sidebar-controls d-lg-none">
+                    <button class="mobile-btn me-2" id="theme-btn-mobile" data-hover><i class="fa-solid fa-moon"></i></button>
+                    <button class="mobile-btn" id="mobile-toggle" data-hover><i class="fa-solid fa-bars"></i></button>
+                </div>
+            </div>
+        </div>
+
+        <div class="sidebar-content d-flex flex-column flex-grow-1" id="sidebar-content">
+            <span class="nav-section-title">Table of Contents</span>
+            <ul class="nav-menu" id="nav-menu">
+                <li class="nav-item"><a href="#intro" class="nav-link" data-hover><i class="fas fa-rocket me-2"></i> Intro</a></li>
+                <li class="nav-item"><a href="#install" class="nav-link" data-hover><i class="fas fa-terminal me-2"></i> Install</a></li>
+                <li class="nav-item"><a href="#manage" class="nav-link" data-hover><i class="fas fa-tasks me-2"></i> Commands</a></li>
+                <li class="nav-item"><a href="#config" class="nav-link" data-hover><i class="fas fa-code me-2"></i> Config</a></li>
+                <li class="nav-item"><a href="#download" class="nav-link" data-hover><i class="fas fa-download me-2"></i> Download</a></li>
+            </ul>
+
+            <span class="nav-section-title">Links</span>
+            <ul class="nav-menu">
+                <li class="nav-item"><a href="https://www.wwz.im/" class="nav-link" data-hover><i class="fa-solid fa-house"></i> Home</a></li>
+                <li class="nav-item"><a href="styles.html" target="_blank" class="nav-link" data-hover><i class="fa-solid fa-palette"></i> Styles</a></li>
+                <li class="nav-item"><a href="https://blog.wwz.im/" target="_blank" class="nav-link" data-hover><i class="fa-brands fa-blogger"></i> Blog</a></li>
+            </ul>
+
+            <div class="social-dock">
+                <a href="https://github.com/wangwenzhiwwz" target="_blank" class="social-icon" title="GitHub" data-hover><i class="fa-brands fa-github"></i></a>
+                <a href="mailto:wwz.im@outlook.com" class="social-icon" title="Email" data-hover><i class="fa-solid fa-envelope"></i></a>
+            </div>
+        </div>
+    </aside>
+
+    <main class="main-content">
+        <div class="container-fluid">
+            <div class="row justify-content-center">
+                <div class="col-lg-10">
+                    
+                    <section class="mt-4 mb-5">
+                        <div class="post-meta d-flex gap-3 mb-3">
+                            <span class="d-flex align-items-center gap-2"><i class="fa-regular fa-folder"></i> 技术教程</span>
+                            <span class="d-flex align-items-center gap-2"><i class="fa-regular fa-clock"></i> 2025-12-24</span>
+                        </div>
+                        <h1 class="display-4">💡 Hysteria 2 一键安装</h1>
+                        <p class="lead">拯救吃灰小鸡，暴力加速，突破限制。</p>
+                        <div class="glass-card p-2 mt-4" style="overflow: hidden;">
+                            <img src="image.png" onerror="this.src='https://placehold.co/800x300?text=Hysteria+2+Banner'" alt="Hysteria 2 Banner" class="w-100 rounded-3" style="object-fit: cover; height: 300px;">
+                        </div>
+                    </section>
+
+                    <article class="glass-card">
+                        
+                        <div id="intro" class="mb-5">
+                            <h4>1. 前言</h4>
+                            <p>Hysteria 2 是基于 QUIC 协议的重构版本，专为高延迟和高丢包网络环境优化。它不使用多倍发包，而是通过改进的拥塞控制算法实现暴力加速，是目前突破带宽限制最有效的协议之一。</p>
+                        </div>
+
+                        <div id="install" class="mb-5">
+                            <h4>二、Hysteria 2 一键安装脚本</h4>
+                            <p>首先更新系统组件（Debian/Ubuntu）：</p>
+                            <pre><code>apt update -y && apt install curl sudo wget -y</code><button class="copy-btn" onclick="copyCode(this)"><i class="fas fa-copy"></i> 复制</button><div class="copy-feedback">已复制！</div></pre>
+                            
+                            <p>执行安装脚本（官方推荐）：</p>
+                            <pre><code>wget -N --no-check-certificate https://raw.githubusercontent.com/flame1ce/hysteria2-install/main/hysteria2-install-main/hy2/hysteria.sh && bash hysteria.sh</code><button class="copy-btn" onclick="copyCode(this)"><i class="fas fa-copy"></i> 复制</button><div class="copy-feedback">已复制！</div></pre>
+                        </div>
+
+                        <div id="manage" class="mb-5">
+                            <h4>三、Hysteria 服务相关命令</h4>
+                            <pre><code>systemctl start hysteria-server.service    # 启动服务
+systemctl restart hysteria-server.service  # 重启服务
+systemctl stop hysteria-server.service     # 停止服务
+systemctl status hysteria-server.service   # 查看状态
+systemctl enable hysteria-server.service   # 开机自启</code><button class="copy-btn" onclick="copyCode(this)"><i class="fas fa-copy"></i> 复制</button><div class="copy-feedback">已复制！</div></pre>
+                        </div>
+
+                        <div id="config" class="mb-5">
+                            <h4>四、sing-box 配置文件</h4>
+                            <p>在客户端中使用 sing-box 核心时，参考以下出站配置（Outbounds）：</p>
+                            <pre><code>{
+  "type": "hysteria2",
+  "tag": "proxy",
+  "server": "你的服务器IP",
+  "server_port": 443,
+  "up_mbps": 20,
+  "down_mbps": 100,
+  "password": "你的服务密码",
+  "tls": {
+    "enabled": true,
+    "server_name": "www.bing.com",
+    "insecure": true
+  }
+}</code><button class="copy-btn" onclick="copyCode(this)"><i class="fas fa-copy"></i> 复制</button><div class="copy-feedback">已复制！</div></pre>
+                        </div>
+
+                        <div id="faq" class="mb-5">
+                            <h4>五、常见问题排查</h4>
+                            <p><strong>无法连接？</strong> 请务必放行 UDP 端口（默认 443）：</p>
+                            <pre><code>iptables -I INPUT -p udp --dport 443 -j ACCEPT</code><button class="copy-btn" onclick="copyCode(this)"><i class="fas fa-copy"></i> 复制</button><div class="copy-feedback">已复制！</div></pre>
+                            <div class="alert alert-info d-flex align-items-center" role="alert">
+                                <i class="fas fa-info-circle me-2"></i>
+                                <div>
+                                    <strong>注意：</strong> Hysteria 主要走 UDP 协议，若运营商对 UDP 限制严重，建议开启端口跳跃（Port Hopping）功能。
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="download" class="mb-4">
+                            <h4>六、客户端下载资源</h4>
+                            <div class="row g-3">
+                                <div class="col-md-4">
+                                    <div class="download-card p-3 h-100 text-center">
+                                        <div class="mb-2"><i class="fab fa-windows fa-2x text-primary"></i></div>
+                                        <h6 class="card-title">Windows</h6>
+                                        <a href="#" class="btn btn-sm btn-outline-primary w-100 mt-2" data-hover>v2rayN (With-Core)</a>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="download-card p-3 h-100 text-center">
+                                        <div class="mb-2"><i class="fab fa-android fa-2x text-success"></i></div>
+                                        <h6 class="card-title">Android</h6>
+                                        <div class="d-flex gap-2 mt-2 justify-content-center">
+                                            <a href="#" class="btn btn-sm btn-outline-success" data-hover>sing-box</a>
+                                            <a href="#" class="btn btn-sm btn-outline-secondary" data-hover>NekoBox</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="download-card p-3 h-100 text-center">
+                                        <div class="mb-2"><i class="fab fa-apple fa-2x text-secondary"></i></div>
+                                        <h6 class="card-title">iOS</h6>
+                                        <a href="#" class="btn btn-sm btn-outline-dark w-100 mt-2" data-hover>Shadowrocket</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="border-top border-secondary border-opacity-10 pt-4 mt-5 d-flex flex-wrap justify-content-between align-items-center">
+                            <div class="mb-3 mb-md-0">
+                                <a href="#" class="tag-pill">Hysteria2</a>
+                                <a href="#" class="tag-pill">One-Click</a>
+                                <a href="#" class="tag-pill">Network</a>
+                            </div>
+                            <div class="d-flex align-items-center gap-2">
+                                <span class="text-secondary small me-2">Share:</span>
+                                <a href="#" class="btn btn-outline-secondary btn-sm rounded-circle" style="width:32px;height:32px;padding:0;display:flex;align-items:center;justify-content:center"><i class="fab fa-twitter"></i></a>
+                                <a href="#" class="btn btn-outline-secondary btn-sm rounded-circle" style="width:32px;height:32px;padding:0;display:flex;align-items:center;justify-content:center"><i class="fab fa-telegram"></i></a>
+                            </div>
+                        </div>
+
+                    </article>
+
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.1/js/bootstrap.bundle.min.js"></script>
+    <script>
+        window.addEventListener('load', () => { document.getElementById('loader').style.display='none'; });
+        
+        // 鼠标跟随
+        if (window.matchMedia("(pointer: fine)").matches) {
+            const dot = document.querySelector('.cursor-dot'), circle = document.querySelector('.cursor-circle');
+            let mx=0, my=0, cx=0, cy=0;
+            document.addEventListener('mousemove', e => { mx=e.clientX; my=e.clientY; dot.style.left=mx+'px'; dot.style.top=my+'px'; });
+            function animate() { cx+=(mx-cx)*0.15; cy+=(my-cy)*0.15; circle.style.left=cx+'px'; circle.style.top=cy+'px'; requestAnimationFrame(animate); }
+            animate();
+            document.querySelectorAll('[data-hover]').forEach(el => {
+                el.addEventListener('mouseenter', () => document.body.classList.add('hovering'));
+                el.addEventListener('mouseleave', () => document.body.classList.remove('hovering'));
+            });
+        }
+
+        // --- 主题控制逻辑 ---
+        const desktopBtn = document.getElementById('theme-btn-desktop');
+        const mobileBtn = document.getElementById('theme-btn-mobile');
+        
+        let isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+
+        const updateIcons = () => {
+            const iconHtml = isDark ? '<i class="fa-solid fa-moon"></i>' : '<i class="fa-solid fa-sun"></i>';
+            if(desktopBtn) desktopBtn.innerHTML = iconHtml;
+            if(mobileBtn) mobileBtn.innerHTML = iconHtml;
+        };
+        updateIcons();
+
+        function toggleTheme() {
+            isDark = !isDark;
+            const newTheme = isDark ? 'dark' : 'light';
+            document.documentElement.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            updateIcons();
+        }
+
+        if(desktopBtn) desktopBtn.addEventListener('click', toggleTheme);
+        if(mobileBtn) mobileBtn.addEventListener('click', toggleTheme);
+
+        // 系统主题跟随
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
+            isDark = e.matches;
+            const newTheme = isDark ? 'dark' : 'light';
+            document.documentElement.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            updateIcons();
+        });
+
+        // 移动端菜单
+        const mobileToggle = document.getElementById('mobile-toggle'), sidebarContent = document.getElementById('sidebar-content');
+        mobileToggle.addEventListener('click', () => {
+            sidebarContent.classList.toggle('show');
+            mobileToggle.querySelector('i').classList.toggle('fa-xmark');
+            mobileToggle.querySelector('i').classList.toggle('fa-bars');
+        });
+        const closeMenu = () => { if(window.innerWidth < 992 && sidebarContent.classList.contains('show')) mobileToggle.click(); };
+        document.querySelectorAll('.nav-link').forEach(l => l.addEventListener('click', closeMenu));
+        document.querySelector('.main-content').addEventListener('click', closeMenu);
+
+        // 复制功能脚本 (保留原逻辑，适配新样式)
+        function copyCode(button) {
+            const codeBlock = button.parentElement.querySelector('code');
+            const text = codeBlock.innerText;
+
+            navigator.clipboard.writeText(text).then(() => {
+                const feedback = button.parentElement.querySelector('.copy-feedback');
+                feedback.classList.add('show');
+                const originalHtml = button.innerHTML;
+                button.innerHTML = '<i class="fas fa-check"></i>';
+                
+                setTimeout(() => {
+                    feedback.classList.remove('show');
+                    button.innerHTML = '<i class="fas fa-copy"></i> 复制';
+                }, 2000);
+            }).catch(err => {
+                console.error('复制失败: ', err);
+                alert('复制失败，请手动选择复制');
+            });
+        }
+    </script>
+</body>
+</html>
