@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>WWZ.iM - Wang Wenzhi</title>
-    <meta name="description" content="Wang Wenzhi (wwz) - Developer, Tech Enthusiast.">
+    <title>WWZ.iM - Create. Optimize. Automate.</title>
+    <meta name="description" content="Wang Wenzhi (wwz) - Commercial Director & Network Engineer.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://wwz.im/">
     <meta property="og:title" content="Wang Wenzhi">
@@ -34,7 +34,7 @@
       "name": "Wang Wenzhi",
       "url": "https://wwz.im",
       "image": "https://wangwenzhi.eu.org/images/favicon_io/android-chrome-512x512.png",
-      "jobTitle": "Developer & Tech Enthusiast"
+      "jobTitle": "Commercial Director & Network Engineer"
     }
     </script>
     
@@ -134,7 +134,6 @@
         .hero-tagline { font-size: 4rem; font-weight: 800; color: var(--text-primary); }
         .tech-tag { padding: 6px 14px; background: rgba(128,128,128,0.1); border-radius: 20px; font-size: 0.8rem; font-family: var(--font-mono); border: 1px solid var(--glass-border); margin-right: 10px; }
         
-        /* 视频卡片样式 */
         .video-card-3d-wrapper { perspective: 1000px; }
         .video-card-content { 
             width: 100%; aspect-ratio: 16/9; 
@@ -142,11 +141,11 @@
             transform-style: preserve-3d; transition: 0.1s; 
             box-shadow: 0 20px 50px rgba(0,0,0,0.3); 
             position: relative; 
-            background: #000; /* 图片加载失败时的底色 */
+            background: #000; 
         }
         .video-cover { 
             width: 100%; height: 100%; object-fit: cover; display: block; 
-            position: relative; z-index: 1; /* 确保图片在最底层 */
+            position: relative; z-index: 1;
         }
         .play-btn-overlay { 
             position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); 
@@ -154,10 +153,17 @@
             background: rgba(255,255,255,0.2); backdrop-filter: blur(10px); 
             border-radius: 50%; display: flex; align-items: center; justify-content: center; 
             font-size: 1.5rem; color: white; opacity: 0; transition: 0.3s; 
-            z-index: 2; /* 确保播放按钮在图片之上 */
+            z-index: 2; 
         }
         .video-card-content:hover .play-btn-overlay { opacity: 1; transform: translate(-50%, -50%) scale(1.1); }
         
+        /* [核心修改] 全屏图片预览 Modal - 强制放大 */
+        #imagePreviewModal .modal-dialog { max-width: 100%; margin: 0; width: 100%; height: 100%; }
+        #imagePreviewModal .modal-content { background: rgba(0,0,0,0.9); border: none; width: 100%; height: 100%; }
+        #imagePreviewModal .modal-body { display: flex; align-items: center; justify-content: center; padding: 0; width: 100%; height: 100%; cursor: zoom-out; }
+        /* 关键 CSS：max-width/height 95% 配合 contain，确保大图完整显示且尽可能大 */
+        #imagePreviewModal img { width: 100%; height: 100%; object-fit: contain; max-width: 95vw; max-height: 95vh; transition: transform 0.3s; }
+
         .section-title { font-size: 2rem; font-weight: 700; margin-bottom: 40px; display: flex; align-items: center; gap: 15px; }
         .section-title::after { content: ''; height: 1px; flex-grow: 1; background: var(--glass-border); opacity: 0.5; }
         
@@ -230,7 +236,7 @@
         <section id="home" class="container-fluid">
             <div class="row align-items-center g-5">
                 <div class="col-lg-7">
-                    <div class="tech-tags"><span class="tech-tag">Developer</span><span class="tech-tag">Tech Enthusiast</span></div>
+                    <div class="tech-tags"><span class="tech-tag">Commercial Director</span><span class="tech-tag">Network Engineer</span></div>
                     <h1 class="hero-tagline">Create.<br>Optimize.<br>Automate.</h1>
                     <p class="lead text-secondary mb-4">Hello, I am a <strong>Digital Craftsman</strong> blending high-end Cinematography with robust Network Infrastructure.</p>
                     <div class="d-flex gap-3"><a href="#portfolio" class="btn btn-light rounded-pill px-4 py-2 fw-bold" data-hover>Explore Design</a><a href="portfolio-masonry.html" class="btn btn-outline-secondary rounded-pill px-4 py-2" data-hover>Portfolio Masonry</a></div>
@@ -265,16 +271,17 @@
             <div class="row g-4">
                 <div class="col-md-6"><a href="https://app.wwz.im/" target="_blank" class="glass-card d-block text-reset" data-hover><div class="d-flex justify-content-between mb-3"><i class="fa-solid fa-compass fa-2x"></i><span class="badge-pro">PRO TOOL</span></div><h3>APP.WWZ.iM</h3><p class="text-secondary">Personal Navigation & Tool Hub.</p><div class="mt-3"><span class="tech-tag">Vue</span><span class="tech-tag">PWA</span></div></a></div>
                 <div class="col-md-6"><a href="https://github.com/wangwenzhiwwz/SUB" target="_blank" class="glass-card d-block text-reset" data-hover><div class="d-flex justify-content-between mb-3"><i class="fa-solid fa-bolt fa-2x"></i><i class="fa-brands fa-github fa-lg"></i></div><h3>SUB Converter</h3><p class="text-secondary">Pure frontend secure node conversion.</p><div class="mt-3"><span class="tech-tag">Security</span><span class="tech-tag">JS</span></div></a></div>
-                <div class="col-md-4"><div class="glass-card p-0" data-hover><img src="images/port-item1.jpg" class="w-100" style="height: 200px; object-fit: cover;" loading="lazy"><div class="p-3"><h5 class="mb-1">Nostalgia Portrait</h5><small class="text-secondary">Creative Photography</small></div></div></div>
-                <div class="col-md-4"><div class="glass-card p-0" data-hover><img src="images/port-item2.jpg" class="w-100" style="height: 200px; object-fit: cover;" loading="lazy"><div class="p-3"><h5 class="mb-1">Workoholic City</h5><small class="text-secondary">Urban Design</small></div></div></div>
-                <div class="col-md-4"><div class="glass-card p-0" data-hover><img src="images/port-item3.jpg" class="w-100" style="height: 200px; object-fit: cover;" loading="lazy"><div class="p-3"><h5 class="mb-1">Zoo Keeper</h5><small class="text-secondary">Print Design</small></div></div></div>
+                
+                <div class="col-md-4"><div class="glass-card p-0 zoom-trigger" data-hover style="cursor:zoom-in"><img src="images/portfolio-thumbnail-1.jpg" class="w-100" style="height: 200px; object-fit: cover;" loading="lazy"><div class="p-3"><h5 class="mb-1">Nostalgia Portrait</h5><small class="text-secondary">Creative Photography</small></div></div></div>
+                <div class="col-md-4"><div class="glass-card p-0 zoom-trigger" data-hover style="cursor:zoom-in"><img src="images/portfolio-thumbnail-2.jpg" class="w-100" style="height: 200px; object-fit: cover;" loading="lazy"><div class="p-3"><h5 class="mb-1">Workoholic City</h5><small class="text-secondary">Urban Design</small></div></div></div>
+                <div class="col-md-4"><div class="glass-card p-0 zoom-trigger" data-hover style="cursor:zoom-in"><img src="images/portfolio-thumbnail-3.jpg" class="w-100" style="height: 200px; object-fit: cover;" loading="lazy"><div class="p-3"><h5 class="mb-1">Zoo Keeper</h5><small class="text-secondary">Print Design</small></div></div></div>
             </div>
         </section>
 
         <section id="about">
             <h2 class="section-title">About Me</h2>
             <div class="glass-panel p-4 p-md-5">
-                <p class="lead mb-4">I am a minimalist at heart, active as a <strong>Developer</strong> and <strong>Tech Enthusiast</strong>.</p>
+                <p class="lead mb-4">I am a minimalist at heart, active as a <strong>Commercial Creative Director</strong> and <strong>Photographer</strong>.</p>
                 <div class="row">
                     <div class="col-lg-6">
                         <h4 class="mb-4">Education</h4>
@@ -315,6 +322,16 @@
 
     <div class="modal fade" id="videoModal" tabindex="-1" aria-hidden="true"><div class="modal-dialog modal-xl modal-dialog-centered"><div class="modal-content bg-transparent border-0"><div class="position-relative"><button type="button" class="btn-close btn-close-white position-absolute top-0 end-0 m-3 z-3" data-bs-dismiss="modal"></button><div class="ratio ratio-16x9 rounded-4 overflow-hidden shadow-lg"><iframe id="videoIframe" src="" allowfullscreen></iframe></div></div></div></div></div>
 
+    <div class="modal fade" id="imagePreviewModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-fullscreen">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <img id="previewImage" src="" alt="Full Preview">
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.1/js/bootstrap.bundle.min.js"></script>
     <script>
         window.addEventListener('load', () => { document.getElementById('loader').style.display='none'; });
@@ -332,7 +349,7 @@
             });
         }
 
-        // --- 主题控制 ---
+        // --- 主题控制逻辑 ---
         const desktopBtn = document.getElementById('theme-btn-desktop');
         const mobileBtn = document.getElementById('theme-btn-mobile');
         
@@ -356,12 +373,12 @@
         if(desktopBtn) desktopBtn.addEventListener('click', toggleTheme);
         if(mobileBtn) mobileBtn.addEventListener('click', toggleTheme);
 
-        // 系统主题变化监听 (修复版：强制覆盖手动设置)
+        // 系统主题跟随
         window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
             isDark = e.matches;
             const newTheme = isDark ? 'dark' : 'light';
             document.documentElement.setAttribute('data-theme', newTheme);
-            localStorage.setItem('theme', newTheme); // 同步更新缓存
+            localStorage.setItem('theme', newTheme);
             updateIcons();
         });
 
@@ -375,6 +392,7 @@
         document.querySelectorAll('.nav-link').forEach(l => l.addEventListener('click', closeMenu));
         document.querySelector('.main-content').addEventListener('click', closeMenu);
 
+        // [视频填充逻辑] 
         const videos = [
             { title: "Ulefone Armor 34 Pro", desc: "Autofocus Projector • 2025", thumbnail: "images/video/maxresdefault.jpg", url: "https://www.youtube.com/embed/a7RQgUMkpwI", type: "youtube" },
             { title: "Armor Mini 20T Pro", desc: "Thermal Mini • 2024", thumbnail: "images/video/Screenshot_2025-12-11_140000.png", url: "https://www.youtube.com/embed/diWNAaazdoM", type: "youtube" },
@@ -388,12 +406,42 @@
             vGrid.innerHTML += `<div class="col-md-6 col-lg-4"><div class="glass-card p-2 h-100" style="cursor:pointer" data-bs-toggle="modal" data-bs-target="#videoModal" data-video-url="${v.url}" data-video-type="${v.type}" data-hover><div class="position-relative overflow-hidden rounded-3 mb-3"><img src="${v.thumbnail}" class="w-100" style="aspect-ratio:16/9;object-fit:cover" onerror="this.src='https://via.placeholder.com/640x360?text=No+Image'" loading="lazy"><div class="play-btn-overlay"><i class="fa-solid fa-play"></i></div></div><div class="px-2"><div class="v-title text-truncate">${v.title}</div><div class="v-desc text-truncate">${v.desc}</div></div></div></div>`;
         });
 
+        // 视频播放器逻辑
         const vModal = document.getElementById('videoModal'), vFrame = document.getElementById('videoIframe');
         vModal.addEventListener('show.bs.modal', e => {
             const btn = e.relatedTarget;
             vFrame.src = btn.getAttribute('data-video-url') + (btn.getAttribute('data-video-type')==='youtube'?'?autoplay=1&rel=0':'?autoplay=1');
         });
         vModal.addEventListener('hidden.bs.modal', () => vFrame.src='');
+
+        // [新增] 图片灯箱逻辑 - 自动替换高清图
+        const imgModalElement = document.getElementById('imagePreviewModal');
+        const imgModal = new bootstrap.Modal(imgModalElement);
+        const previewImg = document.getElementById('previewImage');
+
+        document.querySelectorAll('.zoom-trigger').forEach(trigger => {
+            trigger.addEventListener('click', function(e) {
+                e.preventDefault();
+                const img = this.querySelector('img');
+                if (img) {
+                    // 将文件名中的 'thumbnail' 替换为 'large'
+                    let largeSrc = img.src.replace('thumbnail', 'large');
+                    previewImg.src = largeSrc;
+                    
+                    // 容错：如果高清图不存在，回退到缩略图
+                    previewImg.onerror = function() {
+                        this.src = img.src;
+                    };
+                    
+                    imgModal.show();
+                }
+            });
+        });
+
+        // 点击背景关闭
+        imgModalElement.addEventListener('click', function() {
+            imgModal.hide();
+        });
 
         const observer = new IntersectionObserver(entries => {
             entries.forEach(e => {
@@ -405,6 +453,7 @@
         }, {rootMargin: "-30% 0px -60% 0px"});
         document.querySelectorAll('section').forEach(s => observer.observe(s));
 
+        // Hero 3D Card Effect
         const card = document.querySelector('.video-card-content');
         document.addEventListener('mousemove', e => {
             if(window.innerWidth > 992) {
