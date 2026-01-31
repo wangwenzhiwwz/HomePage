@@ -3,7 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    
     <title>WWZ.iM - Wang Wenzhi</title>
     <meta name="description" content="Wang Wenzhi (wwz) - Developer, Tech Enthusiast.">
     <meta property="og:type" content="website">
@@ -11,6 +10,17 @@
     <meta property="og:title" content="Wang Wenzhi">
     <meta property="og:image" content="https://wangwenzhi.eu.org/images/favicon_io/android-chrome-512x512.png">
     <link rel="icon" href="https://wangwenzhi.eu.org/images/favicon_io/favicon.ico">
+
+    <script>
+        (function() {
+            var savedTheme = localStorage.getItem('theme');
+            var systemIsDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            var theme = savedTheme ? savedTheme : (systemIsDark ? 'dark' : 'light');
+            document.documentElement.setAttribute('data-theme', theme);
+        })();
+    </script>
+    <style>html { background-color: #0a0a0a; }</style>
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="preconnect" href="https://cdn.bootcdn.net">
@@ -49,52 +59,19 @@
         }
 
         html { scroll-behavior: smooth; }
-        body { font-family: var(--font-main); background: var(--bg-body); background-image: var(--bg-gradient); background-attachment: fixed; color: var(--text-primary); transition: 0.5s ease; }
+        body { font-family: var(--font-main); background: var(--bg-body); background-image: var(--bg-gradient); background-attachment: fixed; color: var(--text-primary); transition: background 0.5s ease, color 0.5s ease; }
         a { text-decoration: none; color: inherit; }
         
-        /* =========================================
-           CURSOR OPTIMIZATION (保留优化逻辑)
-           ========================================= */
-        /* 默认隐藏自定义光标，使用系统默认，适配触摸屏 */
+        /* 鼠标优化 */
         * { cursor: auto; }
         .cursor-dot, .cursor-circle { display: none; }
-
-        /* 仅在有精细指针（鼠标）的设备上启用 */
         @media (pointer: fine) {
             * { cursor: none !important; }
             a, button, [role="button"], input, textarea, select { cursor: none !important; }
-
-            .cursor-dot { 
-                display: block; 
-                position: fixed; 
-                top: 0; left: 0; 
-                width: 6px; height: 6px; 
-                background: var(--text-primary); 
-                border-radius: 50%; 
-                pointer-events: none; 
-                z-index: 9999; 
-            }
-            .cursor-circle { 
-                display: block; 
-                position: fixed; 
-                top: 0; left: 0; 
-                width: 40px; height: 40px; 
-                border: 1px solid var(--text-secondary); 
-                opacity: 0.5; 
-                border-radius: 50%; 
-                pointer-events: none; 
-                z-index: 9999; 
-                transition: transform 0.1s ease-out, width 0.3s ease, height 0.3s ease, background 0.3s, opacity 0.3s; 
-            }
-            body.hovering .cursor-circle { 
-                width: 50px; height: 50px; 
-                background: rgba(128,128,128,0.1); 
-                border-color: var(--text-primary); 
-                backdrop-filter: blur(1px);
-                opacity: 0.8;
-            }
+            .cursor-dot { display: block; position: fixed; top: 0; left: 0; width: 6px; height: 6px; background: var(--text-primary); border-radius: 50%; pointer-events: none; z-index: 9999; }
+            .cursor-circle { display: block; position: fixed; top: 0; left: 0; width: 40px; height: 40px; border: 1px solid var(--text-secondary); opacity: 0.5; border-radius: 50%; pointer-events: none; z-index: 9999; transition: transform 0.1s ease-out, width 0.3s ease, height 0.3s ease, background 0.3s, opacity 0.3s; }
+            body.hovering .cursor-circle { width: 50px; height: 50px; background: rgba(128,128,128,0.1); border-color: var(--text-primary); backdrop-filter: blur(1px); opacity: 0.8; }
         }
-        /* ========================================= */
 
         .glass-panel { background: var(--glass-bg); backdrop-filter: blur(20px); border: 1px solid var(--glass-border); border-radius: 24px; }
         .glass-card { background: var(--glass-bg); backdrop-filter: blur(12px); border: 1px solid var(--glass-border); border-radius: 16px; padding: 20px; transition: 0.3s; height: 100%; position: relative; overflow: hidden; }
@@ -105,13 +82,29 @@
         .sidebar { position: fixed; top: 30px; bottom: 30px; left: 30px; width: 290px; z-index: 100; padding: 40px 24px; display: flex; flex-direction: column; overflow-y: auto; scrollbar-width: none; }
         .main-content { margin-left: 350px; padding: 40px 60px 40px 0; min-height: 100vh; }
 
-        .theme-toggle { position: fixed; top: 30px; right: 40px; z-index: 1000; width: 44px; height: 44px; border-radius: 50%; background: var(--glass-bg); backdrop-filter: blur(10px); border: 1px solid var(--glass-border); color: var(--text-primary); display: flex; align-items: center; justify-content: center; cursor: pointer; transition: 0.2s; }
-        .theme-toggle:hover { transform: scale(1.1); }
-        .mobile-toggle-btn { display: none; width: 36px; height: 36px; border-radius: 10px; background: rgba(255, 255, 255, 0.05); border: 1px solid var(--glass-border); color: var(--text-secondary); align-items: center; justify-content: center; }
+        /* 电脑端右上角独立按钮 */
+        #theme-btn-desktop { 
+            position: fixed; top: 30px; right: 40px; z-index: 10000;
+            width: 44px; height: 44px; border-radius: 50%; 
+            background: var(--glass-bg); backdrop-filter: blur(10px); border: 1px solid var(--glass-border);
+            color: var(--text-primary); display: flex; align-items: center; justify-content: center;
+            cursor: pointer; transition: 0.2s;
+        }
+        #theme-btn-desktop:hover { transform: scale(1.1); background: var(--text-primary); color: var(--bg-body); }
 
-        .sidebar-header { text-align: center; margin-bottom: 20px; }
+        /* 移动端控制按钮 */
+        .mobile-btn { 
+            width: 36px; height: 36px; border-radius: 10px; 
+            background: rgba(255, 255, 255, 0.05); border: 1px solid var(--glass-border); 
+            color: var(--text-secondary); display: flex; align-items: center; justify-content: center; 
+            transition: 0.2s; cursor: pointer;
+        }
+        .mobile-btn:hover, .mobile-btn:active { background: var(--text-primary); color: var(--bg-body); }
+
+        /* Sidebar Header */
+        .sidebar-header { text-align: center; margin-bottom: 20px; width: 100%; }
         .profile-img { width: 100px; height: 100px; border-radius: 50%; object-fit: cover; border: 3px solid var(--glass-border); margin-bottom: 15px; }
-        .profile-name { font-weight: 800; font-size: 1.5rem; margin-bottom: 5px; background: linear-gradient(to right, var(--text-primary), var(--text-secondary)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .profile-name { font-weight: 800; font-size: 1.5rem; margin-bottom: 5px; color: var(--text-primary); }
         .handle-pill { display: inline-block; font-family: var(--font-mono); font-size: 0.8rem; background: var(--pill-bg); padding: 4px 14px; border-radius: 50px; opacity: 0.8; }
 
         .nav-section-title { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1.5px; margin: 25px 0 10px 10px; opacity: 0.5; font-weight: 700; }
@@ -132,37 +125,37 @@
             .profile-img { width: 50px; height: 50px; margin: 0 15px 0 0; border-width: 2px; }
             .profile-name { font-size: 1.2rem; margin: 0; }
             .sidebar-controls { margin-left: auto; display: flex; gap: 10px; }
-            .mobile-toggle-btn { display: flex; }
-            .theme-toggle { position: static; transform: none; width: 36px; height: 36px; border-radius: 10px; background: rgba(255, 255, 255, 0.05); color: var(--text-secondary); }
-            .theme-toggle:hover { background: var(--text-primary); color: var(--bg-body); transform: none; }
             .sidebar-content { max-height: 0; overflow: hidden; opacity: 0; transition: 0.4s; }
             .sidebar-content.show { max-height: 1000px; opacity: 1; margin-top: 20px; padding-top: 10px; border-top: 1px solid var(--glass-border); }
             .social-dock { padding-top: 20px; margin-top: 20px; }
         }
 
         section { margin-bottom: 100px; padding-top: 20px; scroll-margin-top: 80px; }
-        .hero-tagline { font-size: 4rem; font-weight: 800; background: linear-gradient(to right, var(--text-primary), var(--text-secondary)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .hero-tagline { font-size: 4rem; font-weight: 800; color: var(--text-primary); }
         .tech-tag { padding: 6px 14px; background: rgba(128,128,128,0.1); border-radius: 20px; font-size: 0.8rem; font-family: var(--font-mono); border: 1px solid var(--glass-border); margin-right: 10px; }
         
+        /* 视频卡片样式 */
         .video-card-3d-wrapper { perspective: 1000px; }
-        .video-card-content {
-            width: 100%;
-            aspect-ratio: 16/9;
-            border-radius: 20px;
-            overflow: hidden;
-            transform-style: preserve-3d;
-            transition: 0.1s;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.3);
-            position: relative;
-            background: #000;
+        .video-card-content { 
+            width: 100%; aspect-ratio: 16/9; 
+            border-radius: 20px; overflow: hidden; 
+            transform-style: preserve-3d; transition: 0.1s; 
+            box-shadow: 0 20px 50px rgba(0,0,0,0.3); 
+            position: relative; 
+            background: #000; /* 图片加载失败时的底色 */
         }
-        .video-cover {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            display: block;
+        .video-cover { 
+            width: 100%; height: 100%; object-fit: cover; display: block; 
+            position: relative; z-index: 1; /* 确保图片在最底层 */
         }
-        .play-btn-overlay { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 70px; height: 70px; background: rgba(255,255,255,0.2); backdrop-filter: blur(10px); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; color: white; opacity: 0; transition: 0.3s; }
+        .play-btn-overlay { 
+            position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); 
+            width: 70px; height: 70px; 
+            background: rgba(255,255,255,0.2); backdrop-filter: blur(10px); 
+            border-radius: 50%; display: flex; align-items: center; justify-content: center; 
+            font-size: 1.5rem; color: white; opacity: 0; transition: 0.3s; 
+            z-index: 2; /* 确保播放按钮在图片之上 */
+        }
         .video-card-content:hover .play-btn-overlay { opacity: 1; transform: translate(-50%, -50%) scale(1.1); }
         
         .section-title { font-size: 2rem; font-weight: 700; margin-bottom: 40px; display: flex; align-items: center; gap: 15px; }
@@ -182,19 +175,23 @@
     <div class="cursor-dot"></div><div class="cursor-circle"></div>
     <div id="loader"><div class="spinner-border text-secondary" role="status"></div></div>
 
+    <button id="theme-btn-desktop" class="d-none d-lg-flex" title="Toggle Theme" data-hover><i class="fa-solid fa-moon"></i></button>
+
     <aside class="sidebar glass-panel">
         <div class="sidebar-header">
             <div class="d-flex align-items-center justify-content-between w-100 d-lg-block">
+                
                 <div class="d-flex align-items-center d-lg-block">
-                    <img src="https://wangwenzhi.eu.org/images/favicon_io/android-chrome-512x512.png" alt="WWZ" class="profile-img">
+                    <img src="https://wangwenzhi.eu.org/images/favicon_io/android-chrome-512x512.png" alt="WWZ" class="profile-img d-block mx-lg-auto">
                     <div class="profile-info text-start text-lg-center">
                         <h4 class="profile-name">Wang Wenzhi</h4>
                         <div class="handle-pill">@WWZ.iM</div>
                     </div>
                 </div>
-                <div class="sidebar-controls">
-                    <button class="theme-toggle" id="theme-btn" title="Toggle Theme" data-hover><i class="fa-solid fa-moon"></i></button>
-                    <button class="mobile-toggle-btn" id="mobile-toggle" data-hover><i class="fa-solid fa-bars"></i></button>
+                
+                <div class="sidebar-controls d-lg-none">
+                    <button class="mobile-btn me-2" id="theme-btn-mobile" data-hover><i class="fa-solid fa-moon"></i></button>
+                    <button class="mobile-btn" id="mobile-toggle" data-hover><i class="fa-solid fa-bars"></i></button>
                 </div>
             </div>
         </div>
@@ -211,9 +208,9 @@
 
             <span class="nav-section-title">Resources</span>
             <ul class="nav-menu">
+                <li class="nav-item"><a href="styles.html" target="_blank" class="nav-link" data-hover><i class="fa-solid fa-palette"></i> Styles <span class="badge-pro">PRO</span></a></li>
                 <li class="nav-item"><a href="https://blog.wwz.im/" target="_blank" class="nav-link" data-hover><i class="fa-brands fa-blogger"></i> Blog <span class="badge-pro">PRO</span></a></li>
                 <li class="nav-item"><a href="https://app.wwz.im/" target="_blank" class="nav-link" data-hover><i class="fa-solid fa-compass"></i> App Nav <span class="badge-pro">PRO</span></a></li>
-                <li class="nav-item"><a href="https://www.wwz.im/article/xui/" target="_blank" class="nav-link" data-hover><i class="fa-solid fa-server"></i> 3X-UI <span class="badge-pro">PRO</span></a></li>
                 <li class="nav-item"><a href="team.html" class="nav-link" data-hover><i class="fa-solid fa-users"></i> My Team</a></li>
             </ul>
 
@@ -240,7 +237,7 @@
                 </div>
                 <div class="col-lg-5 video-card-3d-wrapper" id="hero-3d-card">
                     <div class="video-card-content" data-hover data-bs-toggle="modal" data-bs-target="#videoModal" data-video-url="https://player.vimeo.com/video/1149403074" data-video-type="vimeo">
-                        <img src="https://www.wwz.im/images/video/Screenshot_2025-12-11_134113.png" alt="Showreel" class="video-cover">
+                        <img src="images/video/Screenshot_2025-12-11_134113.png" alt="Showreel" class="video-cover" onerror="this.onerror=null;this.src='https://via.placeholder.com/640x360?text=Cover+Missing';">
                         <div class="play-btn-overlay"><i class="fa-solid fa-play"></i></div>
                     </div>
                 </div>
@@ -322,7 +319,7 @@
     <script>
         window.addEventListener('load', () => { document.getElementById('loader').style.display='none'; });
         
-        // 鼠标跟随逻辑：仅在检测到 Fine Pointer（鼠标）时启用
+        // 鼠标跟随
         if (window.matchMedia("(pointer: fine)").matches) {
             const dot = document.querySelector('.cursor-dot'), circle = document.querySelector('.cursor-circle');
             let mx=0, my=0, cx=0, cy=0;
@@ -335,14 +332,38 @@
             });
         }
 
-        const themeBtn = document.getElementById('theme-btn');
-        let isDark = true;
-        themeBtn.addEventListener('click', () => {
+        // --- 主题控制 ---
+        const desktopBtn = document.getElementById('theme-btn-desktop');
+        const mobileBtn = document.getElementById('theme-btn-mobile');
+        
+        let isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+
+        const updateIcons = () => {
+            const iconHtml = isDark ? '<i class="fa-solid fa-moon"></i>' : '<i class="fa-solid fa-sun"></i>';
+            if(desktopBtn) desktopBtn.innerHTML = iconHtml;
+            if(mobileBtn) mobileBtn.innerHTML = iconHtml;
+        };
+        updateIcons();
+
+        function toggleTheme() {
             isDark = !isDark;
-            document.documentElement.setAttribute('data-theme', isDark ? 'dark' : 'light');
-            themeBtn.innerHTML = isDark ? '<i class="fa-solid fa-moon"></i>' : '<i class="fa-solid fa-sun"></i>';
+            const newTheme = isDark ? 'dark' : 'light';
+            document.documentElement.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            updateIcons();
+        }
+
+        if(desktopBtn) desktopBtn.addEventListener('click', toggleTheme);
+        if(mobileBtn) mobileBtn.addEventListener('click', toggleTheme);
+
+        // 系统主题变化监听 (修复版：强制覆盖手动设置)
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
+            isDark = e.matches;
+            const newTheme = isDark ? 'dark' : 'light';
+            document.documentElement.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme); // 同步更新缓存
+            updateIcons();
         });
-        document.documentElement.setAttribute('data-theme', 'dark');
 
         const mobileToggle = document.getElementById('mobile-toggle'), sidebarContent = document.getElementById('sidebar-content');
         mobileToggle.addEventListener('click', () => {
@@ -384,7 +405,6 @@
         }, {rootMargin: "-30% 0px -60% 0px"});
         document.querySelectorAll('section').forEach(s => observer.observe(s));
 
-        // Fixed Hero Aspect Ratio Logic in CSS now, only tilt here
         const card = document.querySelector('.video-card-content');
         document.addEventListener('mousemove', e => {
             if(window.innerWidth > 992) {
