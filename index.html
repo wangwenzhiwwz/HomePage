@@ -67,12 +67,29 @@
     
     <!-- Home page specific -->
     <style>
-        .hero-tagline span {
-            display: inline-block;
-            background: linear-gradient(135deg, var(--accent-color), #ec4899);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+        .quick-links {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 60px;
+        }
+        .quick-link-card {
+            padding: 25px;
+            text-align: center;
+        }
+        .quick-link-card i {
+            font-size: 2rem;
+            margin-bottom: 15px;
+            color: var(--accent-color);
+        }
+        .quick-link-card h4 {
+            font-size: 1.1rem;
+            margin-bottom: 8px;
+        }
+        .quick-link-card p {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            margin: 0;
         }
     </style>
 </head>
@@ -160,7 +177,7 @@
                     </div>
                     <h2 class="hero-tagline">
                         Create.<br>
-                        <span>Optimize.</span><br>
+                        Optimize.<br>
                         Automate.
                     </h2>
                     <p class="lead text-secondary mb-4">
@@ -224,7 +241,7 @@
             <h2 class="section-title">Selected Motion Works</h2>
             <div class="row g-4" id="videoGrid"></div>
             <div class="mt-5">
-                <a href="https://www.wwz.im/videos" target="_blank" class="glass-card list-item" data-hover>
+                <a href="videos/" class="glass-card list-item" data-hover>
                     <div class="d-flex align-items-center gap-3">
                         <i class="fa-solid fa-film"></i>
                         <span>More Video Works</span>
@@ -399,6 +416,30 @@
                         <button type="submit" class="btn btn-light w-100" data-hover>Send Message</button>
                     </form>
                 </div>
+            </div>
+            
+            <!-- Quick Links to Other Pages -->
+            <div class="quick-links">
+                <a href="videos/" class="glass-card quick-link-card" data-hover>
+                    <i class="fa-solid fa-film"></i>
+                    <h4>Videos</h4>
+                    <p>All video works & showreels</p>
+                </a>
+                <a href="portfolio-masonry.html" class="glass-card quick-link-card" data-hover>
+                    <i class="fa-solid fa-layer-group"></i>
+                    <h4>Portfolio</h4>
+                    <p>Full collection with filters</p>
+                </a>
+                <a href="team.html" class="glass-card quick-link-card" data-hover>
+                    <i class="fa-solid fa-users"></i>
+                    <h4>Team</h4>
+                    <p>Meet the creative minds</p>
+                </a>
+                <a href="styles.html" class="glass-card quick-link-card" data-hover>
+                    <i class="fa-solid fa-palette"></i>
+                    <h4>Design System</h4>
+                    <p>Colors, typography & UI kit</p>
+                </a>
             </div>
             
             <footer>
