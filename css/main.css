@@ -818,16 +818,16 @@ footer a {
         top: 0;
         left: 0;
         bottom: auto;
-        margin-bottom: 30px;
-        padding: 20px;
-        border-radius: 0 0 24px 24px;
+        margin-bottom: 20px;
+        padding: 15px 20px;
+        border-radius: 0 0 20px 20px;
         height: auto;
         overflow: visible;
     }
     
     .main-content {
         margin-left: 0;
-        padding: 20px;
+        padding: 15px;
     }
     
     .sidebar-header {
@@ -837,15 +837,15 @@ footer a {
     }
     
     .profile-img {
-        width: 50px;
-        height: 50px;
-        margin: 0 15px 0 0;
+        width: 45px;
+        height: 45px;
+        margin: 0 12px 0 0;
         border-width: 2px;
         animation: none;
     }
     
     .profile-name {
-        font-size: 1.2rem;
+        font-size: 1.1rem;
         margin: 0;
     }
     
@@ -856,7 +856,7 @@ footer a {
     .sidebar-controls {
         margin-left: auto;
         display: flex;
-        gap: 10px;
+        gap: 8px;
     }
     
     .sidebar-content {
@@ -869,7 +869,7 @@ footer a {
     .sidebar-content.show {
         max-height: 1000px;
         opacity: 1;
-        margin-top: 20px;
+        margin-top: 15px;
         padding-top: 10px;
         border-top: 1px solid var(--glass-border);
     }
@@ -878,12 +878,191 @@ footer a {
         display: none !important;
     }
     
+    /* Mobile Hero */
     .hero-tagline {
-        font-size: 2.5rem;
+        font-size: 2.2rem;
+        line-height: 1.15;
     }
     
+    /* Mobile sections */
     section {
-        margin-bottom: 60px;
+        margin-bottom: 50px;
+    }
+    
+    .section-title {
+        font-size: 1.5rem;
+        margin-bottom: 25px;
+    }
+    
+    /* Mobile cards */
+    .glass-card {
+        padding: 15px;
+    }
+    
+    /* Mobile service items */
+    .service-item {
+        padding: 12px 0;
+    }
+    
+    .service-number {
+        font-size: 1.8rem;
+    }
+    
+    /* Mobile video card */
+    .video-card-3d-wrapper {
+        margin-top: 30px;
+    }
+    
+    .video-card-content {
+        transform: none !important;
+    }
+    
+    /* Mobile buttons */
+    .btn {
+        padding: 10px 20px;
+        font-size: 0.9rem;
+    }
+    
+    /* Mobile quick links */
+    .quick-links {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+    }
+    
+    .quick-link-card {
+        padding: 20px 15px;
+    }
+    
+    .quick-link-card i {
+        font-size: 1.5rem;
+        margin-bottom: 10px;
+    }
+    
+    .quick-link-card h4 {
+        font-size: 0.95rem;
+    }
+    
+    .quick-link-card p {
+        font-size: 0.75rem;
+    }
+    
+    /* Mobile contact cards */
+    .col-md-4 .glass-card {
+        padding: 20px 15px;
+    }
+    
+    /* Mobile Google Form */
+    .glass-card iframe {
+        height: 480px !important;
+    }
+    
+    /* Mobile tech tags */
+    .tech-tag {
+        padding: 6px 12px;
+        font-size: 0.75rem;
+    }
+    
+    /* Mobile blog cards */
+    .blog-card-img {
+        height: 140px !important;
+    }
+    
+    /* Mobile accordion */
+    .accordion-button {
+        font-size: 0.9rem;
+        padding: 12px 15px;
+    }
+    
+    .accordion-body {
+        padding: 15px;
+        font-size: 0.9rem;
+    }
+    
+    /* Mobile footer */
+    footer {
+        padding: 30px 0;
+        margin-top: 40px;
+    }
+    
+    footer p {
+        font-size: 0.85rem;
+    }
+    
+    /* Mobile social dock */
+    .social-dock {
+        padding-top: 20px;
+        gap: 6px;
+    }
+    
+    .social-icon {
+        width: 36px;
+        height: 36px;
+        font-size: 0.85rem;
+    }
+    
+    /* Mobile nav menu */
+    .nav-link {
+        padding: 10px 12px;
+        font-size: 0.9rem;
+    }
+    
+    /* Mobile progress bars */
+    .progress {
+        height: 5px;
+    }
+    
+    /* Hide play button overlay on touch */
+    .play-btn-overlay {
+        opacity: 0.8;
+        width: 60px;
+        height: 60px;
+        font-size: 1.2rem;
+    }
+}
+
+/* Extra small devices */
+@media (max-width: 576px) {
+    .main-content {
+        padding: 12px;
+    }
+    
+    .hero-tagline {
+        font-size: 1.9rem;
+    }
+    
+    .quick-links {
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+    }
+    
+    .quick-link-card {
+        padding: 15px 10px;
+    }
+    
+    .quick-link-card h4 {
+        font-size: 0.85rem;
+    }
+    
+    .quick-link-card p {
+        display: none;
+    }
+    
+    .col-md-4 .glass-card h5 {
+        font-size: 1rem;
+    }
+    
+    .blog-card-img {
+        height: 120px !important;
+    }
+    
+    .glass-card h4 {
+        font-size: 1.1rem;
+    }
+    
+    /* Stack contact method cards */
+    .row.g-4.mb-5 > .col-md-4 {
+        flex: 0 0 100%;
+        max-width: 100%;
     }
 }
 
