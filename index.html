@@ -64,6 +64,17 @@
     
     <!-- Main CSS -->
     <link rel="stylesheet" href="css/main.css">
+    
+    <!-- Home page specific -->
+    <style>
+        .hero-tagline span {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--accent-color), #ec4899);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+    </style>
 </head>
 
 <body>
@@ -423,6 +434,16 @@
 
     <!-- Scripts -->
     <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.1/js/bootstrap.bundle.min.js"></script>
+    <script src="js/shared.js"></script>
     <script src="js/main.js"></script>
+    <script>
+        // Initialize sidebar
+        document.addEventListener('DOMContentLoaded', () => {
+            const sidebar = document.querySelector('.sidebar');
+            if (sidebar && !sidebar.innerHTML.includes('sidebar-header')) {
+                // Sidebar content is already in HTML for homepage
+            }
+        });
+    </script>
 </body>
 </html>

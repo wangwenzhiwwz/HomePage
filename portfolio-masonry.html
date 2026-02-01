@@ -2,14 +2,15 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>WWZ.iM · Portfolio Masonry</title>
-    <meta name="description" content="A curated collection of creative works and projects.">
-    <meta name="author" content="WWZ">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio - WWZ.iM</title>
+    <meta name="description" content="A curated collection of creative works and projects by Wang Wenzhi.">
+    <meta name="author" content="Wang Wenzhi">
     
     <meta property="og:type" content="website">
-    <meta property="og:title" content="WWZ.iM Portfolio">
     <meta property="og:url" content="https://wwz.im/portfolio-masonry.html">
+    <meta property="og:title" content="Portfolio - WWZ.iM">
+    <meta property="og:image" content="https://wangwenzhi.eu.org/images/favicon_io/android-chrome-512x512.png">
 
     <script>
         (function() {
@@ -23,303 +24,170 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="preconnect" href="https://cdn.bootcdn.net">
-
     <link rel="icon" href="https://wangwenzhi.eu.org/images/favicon_io/favicon.ico">
+    <meta name="theme-color" content="#0a0a0a">
     
     <link href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.1/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=SF+Pro+Display:wght@300;400;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/main.css">
+    
     <style>
-        /* --- 核心设计系统 --- */
-        :root { --transition-speed: 0.4s; --font-main: 'SF Pro Display', sans-serif; --font-mono: 'JetBrains Mono', monospace; }
-        
-        :root[data-theme="dark"] {
-            --bg-body: #0a0a0a; --bg-gradient: radial-gradient(circle at 15% 50%, #1a1a1a 0%, #000000 100%);
-            --text-primary: #ffffff; --text-secondary: #a0a0a0;
-            --glass-bg: rgba(20, 20, 20, 0.65); --glass-border: rgba(255, 255, 255, 0.08);
-            --accent-color: #0d6efd; --pill-bg: rgba(255, 255, 255, 0.1); --active-bg: rgba(255, 255, 255, 0.15);
+        /* Portfolio specific styles */
+        .filter-menu {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 40px;
         }
-        :root[data-theme="light"] {
-            --bg-body: #f0f2f5; --bg-gradient: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-            --text-primary: #1a1a1a; --text-secondary: #555555;
-            --glass-bg: rgba(255, 255, 255, 0.7); --glass-border: rgba(255, 255, 255, 0.4);
-            --accent-color: #0d6efd; --pill-bg: rgba(0, 0, 0, 0.05); --active-bg: rgba(0, 0, 0, 0.08);
-        }
-
-        html { scroll-behavior: smooth; }
-        body { font-family: var(--font-main); background: var(--bg-body); background-image: var(--bg-gradient); background-attachment: fixed; color: var(--text-primary); transition: background 0.5s ease, color 0.5s ease; }
-        a { text-decoration: none; color: inherit; transition: 0.3s; }
         
-        /* 鼠标优化 */
-        * { cursor: auto; }
-        .cursor-dot, .cursor-circle { display: none; }
-        @media (pointer: fine) {
-            * { cursor: none !important; }
-            a, button, [role="button"], input, textarea, select { cursor: none !important; }
-            .cursor-dot { display: block; position: fixed; top: 0; left: 0; width: 6px; height: 6px; background: var(--text-primary); border-radius: 50%; pointer-events: none; z-index: 9999; }
-            .cursor-circle { display: block; position: fixed; top: 0; left: 0; width: 40px; height: 40px; border: 1px solid var(--text-secondary); opacity: 0.5; border-radius: 50%; pointer-events: none; z-index: 9999; transition: transform 0.1s ease-out, width 0.3s ease, height 0.3s ease, background 0.3s, opacity 0.3s; }
-            body.hovering .cursor-circle { width: 50px; height: 50px; background: rgba(128,128,128,0.1); border-color: var(--text-primary); backdrop-filter: blur(1px); opacity: 0.8; }
-        }
-
-        /* --- 布局组件 --- */
-        .glass-panel { background: var(--glass-bg); backdrop-filter: blur(20px); border: 1px solid var(--glass-border); border-radius: 24px; }
-        .glass-card { background: var(--glass-bg); backdrop-filter: blur(12px); border: 1px solid var(--glass-border); border-radius: 16px; padding: 20px; transition: 0.3s; height: 100%; position: relative; overflow: hidden; }
-        .glass-card:hover { transform: translateY(-5px); border-color: var(--text-primary); box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
-        
-        .sidebar { position: fixed; top: 30px; bottom: 30px; left: 30px; width: 290px; z-index: 100; padding: 40px 24px; display: flex; flex-direction: column; overflow-y: auto; scrollbar-width: none; }
-        .main-content { margin-left: 350px; padding: 40px 60px 40px 0; min-height: 100vh; }
-
-        /* 电脑端右上角独立按钮 */
-        #theme-btn-desktop { 
-            position: fixed; top: 30px; right: 40px; z-index: 10000;
-            width: 44px; height: 44px; border-radius: 50%; 
-            background: var(--glass-bg); backdrop-filter: blur(10px); border: 1px solid var(--glass-border);
-            color: var(--text-primary); display: flex; align-items: center; justify-content: center;
-            cursor: pointer; transition: 0.2s;
-        }
-        #theme-btn-desktop:hover { transform: scale(1.1); background: var(--text-primary); color: var(--bg-body); }
-
-        /* 移动端控制按钮 */
-        .mobile-btn { 
-            width: 36px; height: 36px; border-radius: 10px; 
-            background: rgba(255, 255, 255, 0.05); border: 1px solid var(--glass-border); 
-            color: var(--text-secondary); display: flex; align-items: center; justify-content: center; 
-            transition: 0.2s; cursor: pointer;
-        }
-        .mobile-btn:hover, .mobile-btn:active { background: var(--text-primary); color: var(--bg-body); }
-
-        /* Sidebar Header */
-        .sidebar-header { text-align: center; margin-bottom: 20px; width: 100%; }
-        .sidebar-logo-img { max-width: 160px; height: auto; margin-bottom: 15px; display: block; margin-left: auto; margin-right: auto; }
-        
-        .nav-section-title { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1.5px; margin: 25px 0 10px 10px; opacity: 0.5; font-weight: 700; }
-        .nav-menu { list-style: none; padding: 0; margin: 0; }
-        .nav-link { color: var(--text-secondary); font-weight: 600; padding: 10px 14px; border-radius: 12px; display: flex; align-items: center; gap: 12px; transition: 0.3s; margin-bottom: 5px; font-size: 0.9rem; }
-        .nav-link:hover { color: var(--text-primary); background: var(--pill-bg); transform: translateX(4px); }
-        .nav-link.active { color: var(--text-primary); background: var(--active-bg); }
-        .badge-pro { background: var(--accent-color); color: #fff; font-size: 0.6rem; padding: 2px 6px; border-radius: 4px; margin-left: auto; font-family: var(--font-mono); }
-
-        .social-dock { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; margin-top: auto; padding-top: 30px; border-top: 1px solid var(--glass-border); }
-        .social-icon { width: 38px; height: 38px; border-radius: 50%; display: flex; align-items: center; justify-content: center; border: 1px solid var(--glass-border); color: var(--text-secondary); transition: 0.3s; }
-        .social-icon:hover { background: var(--text-primary); color: var(--bg-body); transform: translateY(-3px); }
-
-        /* --- Masonry Portfolio Styles --- */
-        .page-title h1 { font-weight: 800; font-size: 3rem; color: var(--text-primary); }
-        
-        /* 筛选按钮组 */
         .filter-btn {
-            background: transparent;
+            padding: 10px 20px;
+            background: var(--glass-bg);
             border: 1px solid var(--glass-border);
+            border-radius: 25px;
             color: var(--text-secondary);
-            padding: 8px 20px;
-            border-radius: 50px;
-            font-size: 0.85rem;
             font-weight: 600;
-            text-transform: uppercase;
-            transition: 0.3s;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
             cursor: pointer;
-            text-decoration: none;
         }
-        .filter-btn:hover, .filter-btn.is-checked {
-            background: var(--text-primary);
-            color: var(--bg-body);
-            border-color: var(--text-primary);
+        
+        .filter-btn:hover,
+        .filter-btn.active {
+            background: var(--accent-color);
+            border-color: var(--accent-color);
+            color: white;
         }
-
-        /* 玻璃卡片优化 */
-        .portfolio-item .glass-card {
-            padding: 0;
+        
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 24px;
+        }
+        
+        .portfolio-item {
+            opacity: 1;
+            transform: scale(1);
+            transition: all 0.4s ease;
+        }
+        
+        .portfolio-item.hidden {
+            opacity: 0;
+            transform: scale(0.8);
+            position: absolute;
+            pointer-events: none;
+        }
+        
+        .portfolio-card {
+            position: relative;
             overflow: hidden;
-            border-radius: 12px;
-            cursor: zoom-in; /* 提示可点击放大 */
+            border-radius: 16px;
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
         }
-        .portfolio-item img {
+        
+        .portfolio-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            border-color: var(--accent-color);
+        }
+        
+        .portfolio-img {
             width: 100%;
-            height: auto;
-            display: block;
+            aspect-ratio: 4/3;
+            object-fit: cover;
             transition: transform 0.5s ease;
         }
-        .portfolio-item:hover img {
+        
+        .portfolio-card:hover .portfolio-img {
             transform: scale(1.05);
         }
-
-        /* 全屏图片预览 Modal - 强制放大 */
-        #imagePreviewModal .modal-dialog { max-width: 100%; margin: 0; width: 100%; height: 100%; }
-        #imagePreviewModal .modal-content { background: rgba(0,0,0,0.9); border: none; width: 100%; height: 100%; }
-        #imagePreviewModal .modal-body { display: flex; align-items: center; justify-content: center; padding: 0; width: 100%; height: 100%; cursor: zoom-out; }
-        #imagePreviewModal img { width: 100%; height: 100%; object-fit: contain; max-width: 95vw; max-height: 95vh; transition: transform 0.3s; }
         
-        @media (max-width: 991px) {
-            .sidebar { position: relative; width: 100%; top: 0; left: 0; bottom: auto; margin-bottom: 30px; padding: 20px; border-radius: 0 0 24px 24px; height: auto; overflow: visible; display: block; }
-            .main-content { margin-left: 0; padding: 20px; }
-            .sidebar-header { display: flex; align-items: center; text-align: left; margin-bottom: 0; }
-            
-            .sidebar-logo-img { max-width: 120px; margin: 0 15px 0 0; }
-            
-            .sidebar-controls { margin-left: auto; display: flex; gap: 10px; }
-            .sidebar-content { max-height: 0; overflow: hidden; opacity: 0; transition: 0.4s; }
-            .sidebar-content.show { max-height: 1000px; opacity: 1; margin-top: 20px; padding-top: 10px; border-top: 1px solid var(--glass-border); }
-            .social-dock { padding-top: 20px; margin-top: 20px; }
+        .portfolio-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, transparent 60%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            display: flex;
+            align-items: flex-end;
+            padding: 20px;
         }
-
-        #loader { position: fixed; inset: 0; background: var(--bg-body); z-index: 10000; display: flex; justify-content: center; align-items: center; transition: 0.5s; }
+        
+        .portfolio-card:hover .portfolio-overlay {
+            opacity: 1;
+        }
+        
+        .portfolio-info h4 {
+            color: white;
+            margin: 0 0 5px;
+            font-size: 1.1rem;
+        }
+        
+        .portfolio-info span {
+            color: rgba(255,255,255,0.7);
+            font-size: 0.85rem;
+        }
+        
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--text-secondary);
+            font-weight: 600;
+            margin-bottom: 30px;
+            transition: all 0.3s ease;
+        }
+        
+        .back-link:hover {
+            color: var(--accent-color);
+            transform: translateX(-5px);
+        }
     </style>
 </head>
 
-<body data-bs-spy="scroll" data-bs-target="#nav-menu" data-bs-offset="100" tabindex="0">
+<body>
+    <div class="cursor-dot"></div>
+    <div class="cursor-circle"></div>
+    
+    <div id="loader">
+        <div class="loader-spinner"></div>
+    </div>
 
-    <div class="cursor-dot"></div><div class="cursor-circle"></div>
-    <div id="loader"><div class="spinner-border text-secondary" role="status"></div></div>
+    <button id="theme-btn-desktop" class="d-none d-lg-flex" title="Toggle Theme" data-hover>
+        <i class="fa-solid fa-moon"></i>
+    </button>
 
-    <button id="theme-btn-desktop" class="d-none d-lg-flex" title="Toggle Theme" data-hover><i class="fa-solid fa-moon"></i></button>
-
-    <aside class="sidebar glass-panel">
-        <div class="sidebar-header">
-            <div class="d-flex align-items-center justify-content-between w-100 d-lg-block">
-                
-                <div class="d-flex align-items-center d-lg-block">
-                    <a href="https://www.wwz.im/" class="text-decoration-none" data-hover>
-                        <img src="images/main-logo.png" alt="logo" class="sidebar-logo-img">
-                    </a>
-                </div>
-                
-                <div class="sidebar-controls d-lg-none">
-                    <button class="mobile-btn me-2" id="theme-btn-mobile" data-hover><i class="fa-solid fa-moon"></i></button>
-                    <button class="mobile-btn" id="mobile-toggle" data-hover><i class="fa-solid fa-bars"></i></button>
-                </div>
-            </div>
-        </div>
-
-        <div class="sidebar-content d-flex flex-column flex-grow-1" id="sidebar-content">
-            <span class="nav-section-title">Menu</span>
-            <ul class="nav-menu" id="nav-menu">
-                <li class="nav-item"><a href="index.html#home" class="nav-link" data-hover><i class="fa-solid fa-house"></i> Home</a></li>
-                <li class="nav-item"><a href="index.html#videos" class="nav-link" data-hover><i class="fa-solid fa-film"></i> Videos</a></li>
-                <li class="nav-item"><a href="portfolio-masonry.html" class="nav-link active" data-hover><i class="fa-solid fa-layer-group"></i> Works</a></li>
-                <li class="nav-item"><a href="index.html#about" class="nav-link" data-hover><i class="fa-solid fa-user-astronaut"></i> About</a></li>
-                <li class="nav-item"><a href="index.html#contact" class="nav-link" data-hover><i class="fa-solid fa-paper-plane"></i> Contact</a></li>
-            </ul>
-
-            <span class="nav-section-title">Resources</span>
-            <ul class="nav-menu">
-                <li class="nav-item"><a href="styles.html" class="nav-link" data-hover><i class="fa-solid fa-palette"></i> Styles <span class="badge-pro">PRO</span></a></li>
-                <li class="nav-item"><a href="https://blog.wwz.im/" target="_blank" class="nav-link" data-hover><i class="fa-brands fa-blogger"></i> Blog <span class="badge-pro">PRO</span></a></li>
-                <li class="nav-item"><a href="https://app.wwz.im/" target="_blank" class="nav-link" data-hover><i class="fa-solid fa-compass"></i> App Nav <span class="badge-pro">PRO</span></a></li>
-                <li class="nav-item"><a href="team.html" class="nav-link" data-hover><i class="fa-solid fa-users"></i> My Team</a></li>
-            </ul>
-
-            <div class="social-dock">
-                <a href="https://x.com/wwz_im" target="_blank" class="social-icon" title="Twitter/X" data-hover><i class="fa-brands fa-x-twitter"></i></a>
-                <a href="https://github.com/wangwenzhiwwz" target="_blank" class="social-icon" title="GitHub" data-hover><i class="fa-brands fa-github"></i></a>
-                <a href="https://www.youtube.com/@wangwenzhi" target="_blank" class="social-icon" title="YouTube" data-hover><i class="fa-brands fa-youtube"></i></a>
-                <a href="https://www.facebook.com/wangwenzhiwwz" target="_blank" class="social-icon" title="Facebook" data-hover><i class="fa-brands fa-facebook"></i></a>
-                <a href="https://www.pinterest.com/wangwenzhiwwz/" target="_blank" class="social-icon" title="Pinterest" data-hover><i class="fa-brands fa-pinterest"></i></a>
-                <a href="https://www.instagram.com/wangwenzhiwwz/" target="_blank" class="social-icon" title="Instagram" data-hover><i class="fa-brands fa-instagram"></i></a>
-                <a href="mailto:wwz.im@outlook.com" class="social-icon" title="Email" data-hover><i class="fa-solid fa-envelope"></i></a>
-            </div>
-        </div>
-    </aside>
+    <aside class="sidebar glass-panel" id="sidebar"></aside>
 
     <main class="main-content">
-        <div class="container-fluid">
-            
-            <section class="page-title mb-5 mt-4">
-                <div class="d-flex flex-wrap flex-column justify-content-between align-items-start">
-                    <span class="text-secondary text-uppercase small letter-spacing-2 mb-2 fw-bold">Recent Works</span>
-                    <h1 class="display-3 fw-bold">Portfolio</h1>
-                    <p class="lead text-secondary">A selection of my recent projects and designs.</p>
-                </div>
-            </section>
-
-            <div id="filters" class="button-group d-flex flex-wrap gap-3 justify-content-start mb-5">
-                <a href="#" class="filter-btn is-checked" data-filter="*">All</a>
-                <a href="#" class="filter-btn" data-filter=".fashion">Fashion</a>
-                <a href="#" class="filter-btn" data-filter=".portrait">Portrait</a>
-                <a href="#" class="filter-btn" data-filter=".urban">Urban</a>
-                <a href="#" class="filter-btn" data-filter=".events">Events</a>
-            </div>
-
-            <div class="grid row row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xl-4 g-4" style="min-height: 500px;">
-                
-                <div class="col portfolio-item fashion urban">
-                    <div class="glass-card zoom-trigger" data-hover>
-                        <img src="images/portfolio-thumbnail-1.jpg" alt="portfolio" onerror="this.src='https://placehold.co/600x800/222/999?text=Image+1'">
-                    </div>
-                </div>
-
-                <div class="col portfolio-item fashion portrait events">
-                    <div class="glass-card zoom-trigger" data-hover>
-                        <img src="images/portfolio-thumbnail-2.jpg" alt="portfolio" onerror="this.src='https://placehold.co/600x800/222/999?text=Image+2'">
-                    </div>
-                </div>
-
-                <div class="col portfolio-item portrait fashion">
-                    <div class="glass-card zoom-trigger" data-hover>
-                        <img src="images/portfolio-thumbnail-3.jpg" alt="portfolio" onerror="this.src='https://placehold.co/600x800/222/999?text=Image+3'">
-                    </div>
-                </div>
-
-                <div class="col portfolio-item fashion">
-                    <div class="glass-card zoom-trigger" data-hover>
-                        <img src="images/portfolio-thumbnail-4.jpg" alt="portfolio" onerror="this.src='https://placehold.co/600x800/222/999?text=Image+4'">
-                    </div>
-                </div>
-
-                <div class="col portfolio-item urban events">
-                    <div class="glass-card zoom-trigger" data-hover>
-                        <img src="images/portfolio-thumbnail-5.jpg" alt="portfolio" onerror="this.src='https://placehold.co/600x800/222/999?text=Image+5'">
-                    </div>
-                </div>
-
-                <div class="col portfolio-item urban">
-                    <div class="glass-card zoom-trigger" data-hover>
-                        <img src="images/portfolio-thumbnail-6.jpg" alt="portfolio" onerror="this.src='https://placehold.co/600x800/222/999?text=Image+6'">
-                    </div>
-                </div>
-
-                <div class="col portfolio-item urban portrait">
-                    <div class="glass-card zoom-trigger" data-hover>
-                        <img src="images/portfolio-thumbnail-7.jpg" alt="portfolio" onerror="this.src='https://placehold.co/600x800/222/999?text=Image+7'">
-                    </div>
-                </div>
-
-                <div class="col portfolio-item portrait events">
-                    <div class="glass-card zoom-trigger" data-hover>
-                        <img src="images/portfolio-thumbnail-8.jpg" alt="portfolio" onerror="this.src='https://placehold.co/600x800/222/999?text=Image+8'">
-                    </div>
-                </div>
-
-                <div class="col portfolio-item events urban fashion">
-                    <div class="glass-card zoom-trigger" data-hover>
-                        <img src="images/portfolio-thumbnail-9.jpg" alt="portfolio" onerror="this.src='https://placehold.co/600x800/222/999?text=Image+9'">
-                    </div>
-                </div>
-
-                <div class="col portfolio-item events portrait fashion">
-                    <div class="glass-card zoom-trigger" data-hover>
-                        <img src="images/portfolio-thumbnail-10.jpg" alt="portfolio" onerror="this.src='https://placehold.co/600x800/222/999?text=Image+10'">
-                    </div>
-                </div>
-
-                <div class="col portfolio-item fashion">
-                    <div class="glass-card zoom-trigger" data-hover>
-                        <img src="images/portfolio-thumbnail-11.jpg" alt="portfolio" onerror="this.src='https://placehold.co/600x800/222/999?text=Image+11'">
-                    </div>
-                </div>
-
-                <div class="col portfolio-item portrait events">
-                    <div class="glass-card zoom-trigger" data-hover>
-                        <img src="images/portfolio-thumbnail-12.jpg" alt="portfolio" onerror="this.src='https://placehold.co/600x800/222/999?text=Image+12'">
-                    </div>
-                </div>
-
-            </div>
-
+        <a href="index.html" class="back-link" data-hover>
+            <i class="fa-solid fa-arrow-left"></i>
+            Back to Home
+        </a>
+        
+        <h1 class="section-title">Portfolio</h1>
+        
+        <div class="filter-menu">
+            <button class="filter-btn active" data-filter="all" data-hover>All Works</button>
+            <button class="filter-btn" data-filter="video" data-hover>Video</button>
+            <button class="filter-btn" data-filter="photo" data-hover>Photography</button>
+            <button class="filter-btn" data-filter="design" data-hover>Design</button>
+            <button class="filter-btn" data-filter="web" data-hover>Web</button>
         </div>
+        
+        <div class="portfolio-grid" id="portfolioGrid">
+            <!-- Items will be populated by JS -->
+        </div>
+        
+        <footer>
+            <p>&copy; <span id="copyright-year"></span> WWZ.iM. Crafted with passion.</p>
+        </footer>
     </main>
 
+    <!-- Image Preview Modal -->
     <div class="modal fade" id="imagePreviewModal" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-fullscreen">
             <div class="modal-content">
@@ -331,120 +199,69 @@
     </div>
 
     <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.1/js/bootstrap.bundle.min.js"></script>
-    <script src="https://unpkg.com/isotope-layout@3/dist/isotope.pkgd.min.js"></script>
-    
+    <script src="js/shared.js"></script>
     <script>
-        window.addEventListener('load', () => { 
-            document.getElementById('loader').style.display='none'; 
-            
-            // 初始化 Isotope 瀑布流
-            var iso = new Isotope( '.grid', {
-                itemSelector: '.portfolio-item',
-                layoutMode: 'fitRows' // 或者 'masonry'
-            });
+        // Portfolio data
+        const portfolioItems = [
+            { title: "Ulefone Commercial", category: "video", image: "images/video/maxresdefault.jpg" },
+            { title: "Armor 27T Pro", category: "video", image: "images/video/Screenshot_2025-03-05_142413.png" },
+            { title: "Armor 26 Ultra", category: "video", image: "images/video/Screenshot_2025-03-05_142626.png" },
+            { title: "Nostalgia Portrait", category: "photo", image: "images/portfolio-thumbnail-1.jpg" },
+            { title: "Workoholic City", category: "design", image: "images/portfolio-thumbnail-2.jpg" },
+            { title: "Zoo Keeper", category: "design", image: "images/portfolio-thumbnail-3.jpg" },
+            { title: "APP.WWZ.iM", category: "web", image: "images/portfolio-thumbnail-4.jpg" },
+            { title: "SUB Converter", category: "web", image: "images/portfolio-thumbnail-5.jpg" },
+            { title: "Product Showreel", category: "video", image: "images/video/Screenshot_2025-12-11_134113.png" },
+        ];
 
-            // 绑定筛选按钮点击事件
-            var filters = document.querySelectorAll('#filters .filter-btn');
-            filters.forEach( btn => {
-                btn.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    
-                    // 移除所有激活状态
-                    filters.forEach(f => f.classList.remove('is-checked'));
-                    // 激活当前按钮
-                    e.target.classList.add('is-checked');
-                    
-                    // 获取筛选值并执行
-                    var filterValue = e.target.getAttribute('data-filter');
-                    iso.arrange({ filter: filterValue });
+        // Populate grid
+        const grid = document.getElementById('portfolioGrid');
+        portfolioItems.forEach(item => {
+            const card = document.createElement('div');
+            card.className = 'portfolio-item';
+            card.dataset.category = item.category;
+            card.innerHTML = `
+                <div class="portfolio-card" data-hover>
+                    <img src="${item.image}" alt="${item.title}" class="portfolio-img" 
+                         onerror="this.src='https://via.placeholder.com/400x300?text=No+Image'" loading="lazy">
+                    <div class="portfolio-overlay">
+                        <div class="portfolio-info">
+                            <h4>${item.title}</h4>
+                            <span>${item.category.charAt(0).toUpperCase() + item.category.slice(1)}</span>
+                        </div>
+                    </div>
+                </div>
+            `;
+            grid.appendChild(card);
+        });
+
+        // Filter functionality
+        document.querySelectorAll('.filter-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                
+                const filter = btn.dataset.filter;
+                document.querySelectorAll('.portfolio-item').forEach(item => {
+                    if (filter === 'all' || item.dataset.category === filter) {
+                        item.classList.remove('hidden');
+                    } else {
+                        item.classList.add('hidden');
+                    }
                 });
             });
         });
-        
-        // 鼠标跟随
-        if (window.matchMedia("(pointer: fine)").matches) {
-            const dot = document.querySelector('.cursor-dot'), circle = document.querySelector('.cursor-circle');
-            let mx=0, my=0, cx=0, cy=0;
-            document.addEventListener('mousemove', e => { mx=e.clientX; my=e.clientY; dot.style.left=mx+'px'; dot.style.top=my+'px'; });
-            function animate() { cx+=(mx-cx)*0.15; cy+=(my-cy)*0.15; circle.style.left=cx+'px'; circle.style.top=cy+'px'; requestAnimationFrame(animate); }
-            animate();
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            document.getElementById('sidebar').innerHTML = WWZ.createSidebar('portfolio');
+            WWZ.initCommon();
+            
+            // Re-bind hover events for dynamically added elements
             document.querySelectorAll('[data-hover]').forEach(el => {
                 el.addEventListener('mouseenter', () => document.body.classList.add('hovering'));
                 el.addEventListener('mouseleave', () => document.body.classList.remove('hovering'));
             });
-        }
-
-        // --- 主题控制逻辑 ---
-        const desktopBtn = document.getElementById('theme-btn-desktop');
-        const mobileBtn = document.getElementById('theme-btn-mobile');
-        
-        let isDark = document.documentElement.getAttribute('data-theme') === 'dark';
-
-        const updateIcons = () => {
-            const iconHtml = isDark ? '<i class="fa-solid fa-moon"></i>' : '<i class="fa-solid fa-sun"></i>';
-            if(desktopBtn) desktopBtn.innerHTML = iconHtml;
-            if(mobileBtn) mobileBtn.innerHTML = iconHtml;
-        };
-        updateIcons();
-
-        function toggleTheme() {
-            isDark = !isDark;
-            const newTheme = isDark ? 'dark' : 'light';
-            document.documentElement.setAttribute('data-theme', newTheme);
-            localStorage.setItem('theme', newTheme);
-            updateIcons();
-        }
-
-        if(desktopBtn) desktopBtn.addEventListener('click', toggleTheme);
-        if(mobileBtn) mobileBtn.addEventListener('click', toggleTheme);
-
-        // 系统主题跟随
-        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
-            isDark = e.matches;
-            const newTheme = isDark ? 'dark' : 'light';
-            document.documentElement.setAttribute('data-theme', newTheme);
-            localStorage.setItem('theme', newTheme);
-            updateIcons();
-        });
-
-        // 移动端菜单
-        const mobileToggle = document.getElementById('mobile-toggle'), sidebarContent = document.getElementById('sidebar-content');
-        mobileToggle.addEventListener('click', () => {
-            sidebarContent.classList.toggle('show');
-            mobileToggle.querySelector('i').classList.toggle('fa-xmark');
-            mobileToggle.querySelector('i').classList.toggle('fa-bars');
-        });
-        const closeMenu = () => { if(window.innerWidth < 992 && sidebarContent.classList.contains('show')) mobileToggle.click(); };
-        document.querySelectorAll('.nav-link').forEach(l => l.addEventListener('click', closeMenu));
-        document.querySelector('.main-content').addEventListener('click', closeMenu);
-
-        // [核心新增] 图片灯箱逻辑 - 自动替换高清图
-        const imgModalElement = document.getElementById('imagePreviewModal');
-        const imgModal = new bootstrap.Modal(imgModalElement);
-        const previewImg = document.getElementById('previewImage');
-
-        document.querySelectorAll('.zoom-trigger').forEach(trigger => {
-            trigger.addEventListener('click', function(e) {
-                e.preventDefault();
-                const img = this.querySelector('img');
-                if (img) {
-                    // 将文件名中的 'thumbnail' 替换为 'large'，以加载高清图
-                    let largeSrc = img.src.replace('thumbnail', 'large');
-                    previewImg.src = largeSrc;
-                    
-                    // 容错：如果高清图不存在，回退到缩略图
-                    previewImg.onerror = function() {
-                        this.src = img.src;
-                    };
-                    
-                    imgModal.show();
-                }
-            });
-        });
-
-        // 点击背景关闭
-        imgModalElement.addEventListener('click', function() {
-            imgModal.hide();
         });
     </script>
 </body>
