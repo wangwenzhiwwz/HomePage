@@ -31,9 +31,10 @@
             var systemIsDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
             var theme = savedTheme ? savedTheme : (systemIsDark ? 'dark' : 'light');
             document.documentElement.setAttribute('data-theme', theme);
+            // Set initial background based on theme
+            document.documentElement.style.backgroundColor = theme === 'dark' ? '#0a0a0a' : '#f5f5f7';
         })();
     </script>
-    <style>html { background-color: #0a0a0a; }</style>
 
     <!-- Preconnect to external resources -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
