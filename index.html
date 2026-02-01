@@ -2,15 +2,29 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>WWZ.iM - Create. Optimize. Automate.</title>
-    <meta name="description" content="Wang Wenzhi (wwz) - Commercial Director & Network Engineer.">
+    <meta name="description" content="Wang Wenzhi (WWZ) - Commercial Director & Network Engineer. Visual storytelling meets robust infrastructure.">
+    <meta name="keywords" content="Wang Wenzhi, WWZ, Commercial Director, Network Engineer, Cinematography, Portfolio">
+    <meta name="author" content="Wang Wenzhi">
+    
+    <!-- Open Graph -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://wwz.im/">
-    <meta property="og:title" content="Wang Wenzhi">
+    <meta property="og:title" content="WWZ.iM - Create. Optimize. Automate.">
+    <meta property="og:description" content="Commercial Director & Network Engineer. Visual storytelling meets robust infrastructure.">
     <meta property="og:image" content="https://wangwenzhi.eu.org/images/favicon_io/android-chrome-512x512.png">
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@wwz_im">
+    
+    <!-- Favicon -->
     <link rel="icon" href="https://wangwenzhi.eu.org/images/favicon_io/favicon.ico">
+    <link rel="apple-touch-icon" href="https://wangwenzhi.eu.org/images/favicon_io/apple-touch-icon.png">
+    <meta name="theme-color" content="#0a0a0a">
 
+    <!-- Prevent FOUC (Flash of Unstyled Content) -->
     <script>
         (function() {
             var savedTheme = localStorage.getItem('theme');
@@ -21,183 +35,73 @@
     </script>
     <style>html { background-color: #0a0a0a; }</style>
 
+    <!-- Preconnect to external resources -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="preconnect" href="https://cdn.bootcdn.net">
 
-    <meta name="theme-color" content="#1a1a1a">
-    
+    <!-- Structured Data -->
     <script type="application/ld+json">
     {
-      "@context": "https://schema.org",
-      "@type": "Person",
-      "name": "Wang Wenzhi",
-      "url": "https://wwz.im",
-      "image": "https://wangwenzhi.eu.org/images/favicon_io/android-chrome-512x512.png",
-      "jobTitle": "Commercial Director & Network Engineer"
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Wang Wenzhi",
+        "url": "https://wwz.im",
+        "image": "https://wangwenzhi.eu.org/images/favicon_io/android-chrome-512x512.png",
+        "jobTitle": "Commercial Director & Network Engineer",
+        "sameAs": [
+            "https://x.com/wwz_im",
+            "https://github.com/wangwenzhiwwz",
+            "https://www.youtube.com/@wangwenzhi"
+        ]
     }
     </script>
-    
+
+    <!-- External CSS -->
     <link href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.1/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=SF+Pro+Display:wght@300;400;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-
-    <style>
-        :root { --transition-speed: 0.4s; --font-main: 'SF Pro Display', sans-serif; --font-mono: 'JetBrains Mono', monospace; }
-        
-        :root[data-theme="dark"] {
-            --bg-body: #0a0a0a; --bg-gradient: radial-gradient(circle at 15% 50%, #1a1a1a 0%, #000000 100%);
-            --text-primary: #ffffff; --text-secondary: #a0a0a0;
-            --glass-bg: rgba(20, 20, 20, 0.65); --glass-border: rgba(255, 255, 255, 0.08);
-            --accent-color: #0d6efd; --pill-bg: rgba(255, 255, 255, 0.1); --active-bg: rgba(255, 255, 255, 0.15);
-        }
-        :root[data-theme="light"] {
-            --bg-body: #f0f2f5; --bg-gradient: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-            --text-primary: #1a1a1a; --text-secondary: #555555;
-            --glass-bg: rgba(255, 255, 255, 0.7); --glass-border: rgba(255, 255, 255, 0.4);
-            --accent-color: #0d6efd; --pill-bg: rgba(0, 0, 0, 0.05); --active-bg: rgba(0, 0, 0, 0.08);
-        }
-
-        html { scroll-behavior: smooth; }
-        body { font-family: var(--font-main); background: var(--bg-body); background-image: var(--bg-gradient); background-attachment: fixed; color: var(--text-primary); transition: background 0.5s ease, color 0.5s ease; }
-        a { text-decoration: none; color: inherit; }
-        
-        /* 鼠标优化 */
-        * { cursor: auto; }
-        .cursor-dot, .cursor-circle { display: none; }
-        @media (pointer: fine) {
-            * { cursor: none !important; }
-            a, button, [role="button"], input, textarea, select { cursor: none !important; }
-            .cursor-dot { display: block; position: fixed; top: 0; left: 0; width: 6px; height: 6px; background: var(--text-primary); border-radius: 50%; pointer-events: none; z-index: 9999; }
-            .cursor-circle { display: block; position: fixed; top: 0; left: 0; width: 40px; height: 40px; border: 1px solid var(--text-secondary); opacity: 0.5; border-radius: 50%; pointer-events: none; z-index: 9999; transition: transform 0.1s ease-out, width 0.3s ease, height 0.3s ease, background 0.3s, opacity 0.3s; }
-            body.hovering .cursor-circle { width: 50px; height: 50px; background: rgba(128,128,128,0.1); border-color: var(--text-primary); backdrop-filter: blur(1px); opacity: 0.8; }
-        }
-
-        .glass-panel { background: var(--glass-bg); backdrop-filter: blur(20px); border: 1px solid var(--glass-border); border-radius: 24px; }
-        .glass-card { background: var(--glass-bg); backdrop-filter: blur(12px); border: 1px solid var(--glass-border); border-radius: 16px; padding: 20px; transition: 0.3s; height: 100%; position: relative; overflow: hidden; }
-        .glass-card:hover { transform: translateY(-5px); border-color: var(--text-primary); }
-        .list-item { display: flex; justify-content: space-between; align-items: center; font-weight: 600; padding: 15px; }
-        .badge-pro { background: var(--accent-color); color: #fff; font-size: 0.6rem; padding: 2px 6px; border-radius: 4px; margin-left: 6px; font-family: var(--font-mono); }
-
-        .sidebar { position: fixed; top: 30px; bottom: 30px; left: 30px; width: 290px; z-index: 100; padding: 40px 24px; display: flex; flex-direction: column; overflow-y: auto; scrollbar-width: none; }
-        .main-content { margin-left: 350px; padding: 40px 60px 40px 0; min-height: 100vh; }
-
-        /* 电脑端右上角独立按钮 */
-        #theme-btn-desktop { 
-            position: fixed; top: 30px; right: 40px; z-index: 10000;
-            width: 44px; height: 44px; border-radius: 50%; 
-            background: var(--glass-bg); backdrop-filter: blur(10px); border: 1px solid var(--glass-border);
-            color: var(--text-primary); display: flex; align-items: center; justify-content: center;
-            cursor: pointer; transition: 0.2s;
-        }
-        #theme-btn-desktop:hover { transform: scale(1.1); background: var(--text-primary); color: var(--bg-body); }
-
-        /* 移动端控制按钮 */
-        .mobile-btn { 
-            width: 36px; height: 36px; border-radius: 10px; 
-            background: rgba(255, 255, 255, 0.05); border: 1px solid var(--glass-border); 
-            color: var(--text-secondary); display: flex; align-items: center; justify-content: center; 
-            transition: 0.2s; cursor: pointer;
-        }
-        .mobile-btn:hover, .mobile-btn:active { background: var(--text-primary); color: var(--bg-body); }
-
-        /* Sidebar Header */
-        .sidebar-header { text-align: center; margin-bottom: 20px; width: 100%; }
-        .profile-img { width: 100px; height: 100px; border-radius: 50%; object-fit: cover; border: 3px solid var(--glass-border); margin-bottom: 15px; }
-        .profile-name { font-weight: 800; font-size: 1.5rem; margin-bottom: 5px; color: var(--text-primary); }
-        .handle-pill { display: inline-block; font-family: var(--font-mono); font-size: 0.8rem; background: var(--pill-bg); padding: 4px 14px; border-radius: 50px; opacity: 0.8; }
-
-        .nav-section-title { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1.5px; margin: 25px 0 10px 10px; opacity: 0.5; font-weight: 700; }
-        .nav-menu { list-style: none; padding: 0; margin: 0; }
-        .nav-link { color: var(--text-secondary); font-weight: 600; padding: 10px 14px; border-radius: 12px; display: flex; align-items: center; gap: 12px; transition: 0.3s; margin-bottom: 5px; }
-        .nav-link:hover { color: var(--text-primary); background: var(--pill-bg); transform: translateX(4px); }
-        .nav-link.active { color: var(--text-primary); background: var(--active-bg); }
-        .nav-link i { width: 20px; text-align: center; }
-
-        .social-dock { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; margin-top: auto; padding-top: 30px; border-top: 1px solid var(--glass-border); }
-        .social-icon { width: 38px; height: 38px; border-radius: 50%; display: flex; align-items: center; justify-content: center; border: 1px solid var(--glass-border); color: var(--text-secondary); transition: 0.3s; }
-        .social-icon:hover { background: var(--text-primary); color: var(--bg-body); transform: translateY(-3px); }
-
-        @media (max-width: 991px) {
-            .sidebar { position: relative; width: 100%; top: 0; left: 0; bottom: auto; margin-bottom: 30px; padding: 20px; border-radius: 0 0 24px 24px; height: auto; overflow: visible; display: block; }
-            .main-content { margin-left: 0; padding: 20px; }
-            .sidebar-header { display: flex; align-items: center; text-align: left; margin-bottom: 0; }
-            .profile-img { width: 50px; height: 50px; margin: 0 15px 0 0; border-width: 2px; }
-            .profile-name { font-size: 1.2rem; margin: 0; }
-            .sidebar-controls { margin-left: auto; display: flex; gap: 10px; }
-            .sidebar-content { max-height: 0; overflow: hidden; opacity: 0; transition: 0.4s; }
-            .sidebar-content.show { max-height: 1000px; opacity: 1; margin-top: 20px; padding-top: 10px; border-top: 1px solid var(--glass-border); }
-            .social-dock { padding-top: 20px; margin-top: 20px; }
-        }
-
-        section { margin-bottom: 100px; padding-top: 20px; scroll-margin-top: 80px; }
-        .hero-tagline { font-size: 4rem; font-weight: 800; color: var(--text-primary); }
-        .tech-tag { padding: 6px 14px; background: rgba(128,128,128,0.1); border-radius: 20px; font-size: 0.8rem; font-family: var(--font-mono); border: 1px solid var(--glass-border); margin-right: 10px; }
-        
-        .video-card-3d-wrapper { perspective: 1000px; }
-        .video-card-content { 
-            width: 100%; aspect-ratio: 16/9; 
-            border-radius: 20px; overflow: hidden; 
-            transform-style: preserve-3d; transition: 0.1s; 
-            box-shadow: 0 20px 50px rgba(0,0,0,0.3); 
-            position: relative; 
-            background: #000; 
-        }
-        .video-cover { 
-            width: 100%; height: 100%; object-fit: cover; display: block; 
-            position: relative; z-index: 1;
-        }
-        .play-btn-overlay { 
-            position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); 
-            width: 70px; height: 70px; 
-            background: rgba(255,255,255,0.2); backdrop-filter: blur(10px); 
-            border-radius: 50%; display: flex; align-items: center; justify-content: center; 
-            font-size: 1.5rem; color: white; opacity: 0; transition: 0.3s; 
-            z-index: 2; 
-        }
-        .video-card-content:hover .play-btn-overlay { opacity: 1; transform: translate(-50%, -50%) scale(1.1); }
-        
-        /* [核心修改] 全屏图片预览 Modal - 强制放大 */
-        #imagePreviewModal .modal-dialog { max-width: 100%; margin: 0; width: 100%; height: 100%; }
-        #imagePreviewModal .modal-content { background: rgba(0,0,0,0.9); border: none; width: 100%; height: 100%; }
-        #imagePreviewModal .modal-body { display: flex; align-items: center; justify-content: center; padding: 0; width: 100%; height: 100%; cursor: zoom-out; }
-        /* 关键 CSS：max-width/height 95% 配合 contain，确保大图完整显示且尽可能大 */
-        #imagePreviewModal img { width: 100%; height: 100%; object-fit: contain; max-width: 95vw; max-height: 95vh; transition: transform 0.3s; }
-
-        .section-title { font-size: 2rem; font-weight: 700; margin-bottom: 40px; display: flex; align-items: center; gap: 15px; }
-        .section-title::after { content: ''; height: 1px; flex-grow: 1; background: var(--glass-border); opacity: 0.5; }
-        
-        .accordion-button { background: var(--glass-bg); color: var(--text-primary); border-radius: 12px !important; border: 1px solid var(--glass-border); box-shadow: none !important; }
-        .accordion-button:not(.collapsed) { background: rgba(255,255,255,0.1); }
-        .accordion-body { background: rgba(0,0,0,0.05); color: var(--text-secondary); border: 1px solid var(--glass-border); border-top: none; border-radius: 0 0 12px 12px; }
-        .accordion-item { background: transparent; border: none; margin-bottom: 10px; }
-
-        #loader { position: fixed; inset: 0; background: var(--bg-body); z-index: 10000; display: flex; justify-content: center; align-items: center; transition: 0.5s; }
-    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    
+    <!-- Main CSS -->
+    <link rel="stylesheet" href="css/main.css">
 </head>
 
 <body>
+    <!-- Custom Cursor -->
+    <div class="cursor-dot"></div>
+    <div class="cursor-circle"></div>
+    
+    <!-- Loader -->
+    <div id="loader">
+        <div class="loader-spinner"></div>
+    </div>
 
-    <div class="cursor-dot"></div><div class="cursor-circle"></div>
-    <div id="loader"><div class="spinner-border text-secondary" role="status"></div></div>
+    <!-- Theme Toggle (Desktop) -->
+    <button id="theme-btn-desktop" class="d-none d-lg-flex" title="Toggle Theme" data-hover>
+        <i class="fa-solid fa-moon"></i>
+    </button>
 
-    <button id="theme-btn-desktop" class="d-none d-lg-flex" title="Toggle Theme" data-hover><i class="fa-solid fa-moon"></i></button>
-
+    <!-- Sidebar -->
     <aside class="sidebar glass-panel">
         <div class="sidebar-header">
             <div class="d-flex align-items-center justify-content-between w-100 d-lg-block">
-                
-                <div class="d-flex align-items-center d-lg-block">
-                    <img src="https://wangwenzhi.eu.org/images/favicon_io/android-chrome-512x512.png" alt="WWZ" class="profile-img d-block mx-lg-auto">
+                <div class="d-flex align-items-center d-lg-block text-lg-center">
+                    <img src="https://wangwenzhi.eu.org/images/favicon_io/android-chrome-512x512.png" 
+                         alt="Wang Wenzhi" 
+                         class="profile-img d-block mx-lg-auto">
                     <div class="profile-info text-start text-lg-center">
-                        <h4 class="profile-name">Wang Wenzhi</h4>
+                        <h1 class="profile-name">Wang Wenzhi</h1>
                         <div class="handle-pill">@WWZ.iM</div>
                     </div>
                 </div>
                 
                 <div class="sidebar-controls d-lg-none">
-                    <button class="mobile-btn me-2" id="theme-btn-mobile" data-hover><i class="fa-solid fa-moon"></i></button>
-                    <button class="mobile-btn" id="mobile-toggle" data-hover><i class="fa-solid fa-bars"></i></button>
+                    <button class="mobile-btn me-2" id="theme-btn-mobile" data-hover>
+                        <i class="fa-solid fa-moon"></i>
+                    </button>
+                    <button class="mobile-btn" id="mobile-toggle" data-hover>
+                        <i class="fa-solid fa-bars"></i>
+                    </button>
                 </div>
             </div>
         </div>
@@ -232,96 +136,281 @@
         </div>
     </aside>
 
+    <!-- Main Content -->
     <main class="main-content">
+        
+        <!-- Hero Section -->
         <section id="home" class="container-fluid">
             <div class="row align-items-center g-5">
                 <div class="col-lg-7">
-                    <div class="tech-tags"><span class="tech-tag">Commercial Director</span><span class="tech-tag">Network Engineer</span></div>
-                    <h1 class="hero-tagline">Create.<br>Optimize.<br>Automate.</h1>
-                    <p class="lead text-secondary mb-4">Hello, I am a <strong>Digital Craftsman</strong> blending high-end Cinematography with robust Network Infrastructure.</p>
-                    <div class="d-flex gap-3"><a href="#portfolio" class="btn btn-light rounded-pill px-4 py-2 fw-bold" data-hover>Explore Design</a><a href="portfolio-masonry.html" class="btn btn-outline-secondary rounded-pill px-4 py-2" data-hover>Portfolio Masonry</a></div>
+                    <div class="tech-tags mb-3">
+                        <span class="tech-tag">Commercial Director</span>
+                        <span class="tech-tag">Network Engineer</span>
+                    </div>
+                    <h2 class="hero-tagline">
+                        Create.<br>
+                        <span>Optimize.</span><br>
+                        Automate.
+                    </h2>
+                    <p class="lead text-secondary mb-4">
+                        Hello, I'm a <strong>Digital Craftsman</strong> blending high-end Cinematography with robust Network Infrastructure.
+                    </p>
+                    <div class="d-flex gap-3 flex-wrap">
+                        <a href="#portfolio" class="btn btn-light" data-hover>Explore Works</a>
+                        <a href="portfolio-masonry.html" class="btn btn-outline-secondary" data-hover>Full Portfolio</a>
+                    </div>
                 </div>
                 <div class="col-lg-5 video-card-3d-wrapper" id="hero-3d-card">
-                    <div class="video-card-content" data-hover data-bs-toggle="modal" data-bs-target="#videoModal" data-video-url="https://player.vimeo.com/video/1149403074" data-video-type="vimeo">
-                        <img src="images/video/Screenshot_2025-12-11_134113.png" alt="Showreel" class="video-cover" onerror="this.onerror=null;this.src='https://via.placeholder.com/640x360?text=Cover+Missing';">
+                    <div class="video-card-content" 
+                         data-hover 
+                         data-bs-toggle="modal" 
+                         data-bs-target="#videoModal" 
+                         data-video-url="https://player.vimeo.com/video/1149403074" 
+                         data-video-type="vimeo">
+                        <img src="images/video/Screenshot_2025-12-11_134113.png" 
+                             alt="Showreel" 
+                             class="video-cover" 
+                             onerror="this.onerror=null;this.src='https://via.placeholder.com/640x360?text=Showreel';">
                         <div class="play-btn-overlay"><i class="fa-solid fa-play"></i></div>
                     </div>
                 </div>
             </div>
+            
+            <!-- Services -->
             <div class="row mt-5 pt-4 g-4">
-                <div class="col-md-4"><div class="d-flex gap-3 align-items-center"><div class="h2 mb-0 fw-bold opacity-50">01</div><div><h6 class="fw-bold mb-0">Directing</h6><small class="text-secondary">Visual stories for brands</small></div></div></div>
-                <div class="col-md-4"><div class="d-flex gap-3 align-items-center"><div class="h2 mb-0 fw-bold opacity-50">02</div><div><h6 class="fw-bold mb-0">Cinematography</h6><small class="text-secondary">Film-level lighting</small></div></div></div>
-                <div class="col-md-4"><div class="d-flex gap-3 align-items-center"><div class="h2 mb-0 fw-bold opacity-50">03</div><div><h6 class="fw-bold mb-0">Network Eng.</h6><small class="text-secondary">Infrastructure design</small></div></div></div>
+                <div class="col-md-4">
+                    <div class="service-item">
+                        <div class="service-number">01</div>
+                        <div>
+                            <h6 class="fw-bold mb-1">Directing</h6>
+                            <small class="text-secondary">Visual stories for brands</small>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="service-item">
+                        <div class="service-number">02</div>
+                        <div>
+                            <h6 class="fw-bold mb-1">Cinematography</h6>
+                            <small class="text-secondary">Film-level lighting</small>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="service-item">
+                        <div class="service-number">03</div>
+                        <div>
+                            <h6 class="fw-bold mb-1">Network Eng.</h6>
+                            <small class="text-secondary">Infrastructure design</small>
+                        </div>
+                    </div>
+                </div>
             </div>
         </section>
 
+        <!-- Videos Section -->
         <section id="videos">
             <h2 class="section-title">Selected Motion Works</h2>
             <div class="row g-4" id="videoGrid"></div>
             <div class="mt-5">
                 <a href="https://www.wwz.im/videos" target="_blank" class="glass-card list-item" data-hover>
-                    <div class="list-left"><i class="fa-solid fa-film list-icon"></i> More Video Works</div>
-                    <i class="fa-solid fa-arrow-right list-icon"></i>
+                    <div class="d-flex align-items-center gap-3">
+                        <i class="fa-solid fa-film"></i>
+                        <span>More Video Works</span>
+                    </div>
+                    <i class="fa-solid fa-arrow-right"></i>
                 </a>
             </div>
         </section>
 
+        <!-- Portfolio Section -->
         <section id="portfolio">
             <h2 class="section-title">Recent Works & Tools</h2>
             <div class="row g-4">
-                <div class="col-md-6"><a href="https://app.wwz.im/" target="_blank" class="glass-card d-block text-reset" data-hover><div class="d-flex justify-content-between mb-3"><i class="fa-solid fa-compass fa-2x"></i><span class="badge-pro">PRO TOOL</span></div><h3>APP.WWZ.iM</h3><p class="text-secondary">Personal Navigation & Tool Hub.</p><div class="mt-3"><span class="tech-tag">Vue</span><span class="tech-tag">PWA</span></div></a></div>
-                <div class="col-md-6"><a href="https://github.com/wangwenzhiwwz/SUB" target="_blank" class="glass-card d-block text-reset" data-hover><div class="d-flex justify-content-between mb-3"><i class="fa-solid fa-bolt fa-2x"></i><i class="fa-brands fa-github fa-lg"></i></div><h3>SUB Converter</h3><p class="text-secondary">Pure frontend secure node conversion.</p><div class="mt-3"><span class="tech-tag">Security</span><span class="tech-tag">JS</span></div></a></div>
+                <div class="col-md-6">
+                    <a href="https://app.wwz.im/" target="_blank" class="glass-card d-block text-reset" data-hover>
+                        <div class="d-flex justify-content-between mb-3">
+                            <i class="fa-solid fa-compass fa-2x"></i>
+                            <span class="badge-pro">PRO TOOL</span>
+                        </div>
+                        <h3>APP.WWZ.iM</h3>
+                        <p class="text-secondary mb-3">Personal Navigation & Tool Hub.</p>
+                        <div><span class="tech-tag">Vue</span><span class="tech-tag">PWA</span></div>
+                    </a>
+                </div>
+                <div class="col-md-6">
+                    <a href="https://github.com/wangwenzhiwwz/SUB" target="_blank" class="glass-card d-block text-reset" data-hover>
+                        <div class="d-flex justify-content-between mb-3">
+                            <i class="fa-solid fa-bolt fa-2x"></i>
+                            <i class="fa-brands fa-github fa-lg"></i>
+                        </div>
+                        <h3>SUB Converter</h3>
+                        <p class="text-secondary mb-3">Pure frontend secure node conversion.</p>
+                        <div><span class="tech-tag">Security</span><span class="tech-tag">JavaScript</span></div>
+                    </a>
+                </div>
                 
-                <div class="col-md-4"><div class="glass-card p-0 zoom-trigger" data-hover style="cursor:zoom-in"><img src="images/portfolio-thumbnail-1.jpg" class="w-100" style="height: 200px; object-fit: cover;" loading="lazy"><div class="p-3"><h5 class="mb-1">Nostalgia Portrait</h5><small class="text-secondary">Creative Photography</small></div></div></div>
-                <div class="col-md-4"><div class="glass-card p-0 zoom-trigger" data-hover style="cursor:zoom-in"><img src="images/portfolio-thumbnail-2.jpg" class="w-100" style="height: 200px; object-fit: cover;" loading="lazy"><div class="p-3"><h5 class="mb-1">Workoholic City</h5><small class="text-secondary">Urban Design</small></div></div></div>
-                <div class="col-md-4"><div class="glass-card p-0 zoom-trigger" data-hover style="cursor:zoom-in"><img src="images/portfolio-thumbnail-3.jpg" class="w-100" style="height: 200px; object-fit: cover;" loading="lazy"><div class="p-3"><h5 class="mb-1">Zoo Keeper</h5><small class="text-secondary">Print Design</small></div></div></div>
-            </div>
-        </section>
-
-        <section id="about">
-            <h2 class="section-title">About Me</h2>
-            <div class="glass-panel p-4 p-md-5">
-                <p class="lead mb-4">I am a minimalist at heart, active as a <strong>Commercial Creative Director</strong> and <strong>Photographer</strong>.</p>
-                <div class="row">
-                    <div class="col-lg-6">
-                        <h4 class="mb-4">Education</h4>
-                        <div class="mb-4 ps-3 border-start border-2"><strong>Masters in Data Analysis</strong><br><small class="text-secondary">Harvard School of Science (2004-2006)</small></div>
-                        <div class="mb-4 ps-3 border-start border-2"><strong>Bachelors in Engineering</strong><br><small class="text-secondary">Harvard School of Science (1998-2004)</small></div>
+                <div class="col-md-4">
+                    <div class="glass-card p-0 zoom-trigger" data-hover style="cursor:zoom-in">
+                        <img src="images/portfolio-thumbnail-1.jpg" 
+                             class="w-100" 
+                             style="height: 200px; object-fit: cover; border-radius: 16px 16px 0 0;" 
+                             loading="lazy"
+                             alt="Nostalgia Portrait">
+                        <div class="p-3">
+                            <h5 class="mb-1">Nostalgia Portrait</h5>
+                            <small class="text-secondary">Creative Photography</small>
+                        </div>
                     </div>
-                    <div class="col-lg-6">
-                        <h4 class="mb-4">Skills</h4>
-                        <div class="mb-3"><div class="d-flex justify-content-between small mb-1"><span>Directing</span><span>95%</span></div><div class="progress" style="height:4px"><div class="progress-bar bg-white" style="width:95%"></div></div></div>
-                        <div class="mb-3"><div class="d-flex justify-content-between small mb-1"><span>Network Security</span><span>90%</span></div><div class="progress" style="height:4px"><div class="progress-bar bg-white" style="width:90%"></div></div></div>
-                        <div class="mb-3"><div class="d-flex justify-content-between small mb-1"><span>Full-Stack</span><span>80%</span></div><div class="progress" style="height:4px"><div class="progress-bar bg-white" style="width:80%"></div></div></div>
+                </div>
+                <div class="col-md-4">
+                    <div class="glass-card p-0 zoom-trigger" data-hover style="cursor:zoom-in">
+                        <img src="images/portfolio-thumbnail-2.jpg" 
+                             class="w-100" 
+                             style="height: 200px; object-fit: cover; border-radius: 16px 16px 0 0;" 
+                             loading="lazy"
+                             alt="Workoholic City">
+                        <div class="p-3">
+                            <h5 class="mb-1">Workoholic City</h5>
+                            <small class="text-secondary">Urban Design</small>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="glass-card p-0 zoom-trigger" data-hover style="cursor:zoom-in">
+                        <img src="images/portfolio-thumbnail-3.jpg" 
+                             class="w-100" 
+                             style="height: 200px; object-fit: cover; border-radius: 16px 16px 0 0;" 
+                             loading="lazy"
+                             alt="Zoo Keeper">
+                        <div class="p-3">
+                            <h5 class="mb-1">Zoo Keeper</h5>
+                            <small class="text-secondary">Print Design</small>
+                        </div>
                     </div>
                 </div>
             </div>
         </section>
 
+        <!-- About Section -->
+        <section id="about">
+            <h2 class="section-title">About Me</h2>
+            <div class="glass-panel p-4 p-md-5">
+                <p class="lead mb-4">
+                    I'm a minimalist at heart, active as a <strong>Commercial Creative Director</strong> and <strong>Visual Storyteller</strong>. 
+                    I bridge the gap between creative vision and technical execution.
+                </p>
+                <div class="row">
+                    <div class="col-lg-6 mb-4">
+                        <h4 class="mb-4">Experience</h4>
+                        <div class="mb-4 ps-3 border-start border-2" style="border-color: var(--accent-color) !important;">
+                            <strong>Commercial Director</strong><br>
+                            <small class="text-secondary">Ulefone • 2020 - Present</small>
+                        </div>
+                        <div class="mb-4 ps-3 border-start border-2" style="border-color: var(--accent-color) !important;">
+                            <strong>Network Infrastructure</strong><br>
+                            <small class="text-secondary">Freelance Consulting • 2018 - Present</small>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <h4 class="mb-4">Skills</h4>
+                        <div class="mb-4">
+                            <div class="d-flex justify-content-between small mb-2">
+                                <span>Directing & Cinematography</span>
+                                <span>95%</span>
+                            </div>
+                            <div class="progress"><div class="progress-bar" style="width:95%"></div></div>
+                        </div>
+                        <div class="mb-4">
+                            <div class="d-flex justify-content-between small mb-2">
+                                <span>Network Security</span>
+                                <span>90%</span>
+                            </div>
+                            <div class="progress"><div class="progress-bar" style="width:90%"></div></div>
+                        </div>
+                        <div class="mb-4">
+                            <div class="d-flex justify-content-between small mb-2">
+                                <span>Full-Stack Development</span>
+                                <span>80%</span>
+                            </div>
+                            <div class="progress"><div class="progress-bar" style="width:80%"></div></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
         <section id="contact">
             <h2 class="section-title">Get in Touch</h2>
             <div class="row">
                 <div class="col-lg-6 mb-4">
-                    <div class="accordion accordion-glass" id="faqAccordion">
-                        <div class="accordion-item"><h2 class="accordion-header"><button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse1">Engineering background?</button></h2><div id="collapse1" class="accordion-collapse collapse show"><div class="accordion-body">My technical background provides a logical framework for creative storytelling.</div></div></div>
-                        <div class="accordion-item"><h2 class="accordion-header"><button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse2">Minimalist approach?</button></h2><div id="collapse2" class="accordion-collapse collapse"><div class="accordion-body">Stripping away the unnecessary to ensure the core message resonates.</div></div></div>
+                    <div class="accordion" id="faqAccordion">
+                        <div class="accordion-item">
+                            <h3 class="accordion-header">
+                                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse1">
+                                    What services do you offer?
+                                </button>
+                            </h3>
+                            <div id="collapse1" class="accordion-collapse collapse show">
+                                <div class="accordion-body">
+                                    Commercial video production, brand cinematography, network infrastructure design, and full-stack development consulting.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h3 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse2">
+                                    How can we collaborate?
+                                </button>
+                            </h3>
+                            <div id="collapse2" class="accordion-collapse collapse">
+                                <div class="accordion-body">
+                                    Drop me an email or reach out via social media. I'm always open to discussing creative projects and technical challenges.
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="mt-4"><a href="mailto:wwz.im@outlook.com" class="h5 fw-bold text-decoration-underline">wwz.im@outlook.com</a></div>
+                    <div class="mt-4">
+                        <a href="mailto:wwz.im@outlook.com" class="h5 fw-bold" style="color: var(--accent-color);">
+                            wwz.im@outlook.com
+                        </a>
+                    </div>
                 </div>
                 <div class="col-lg-6">
-                    <form class="glass-card">
-                        <div class="mb-3"><input type="email" class="form-control bg-transparent text-white border-secondary" placeholder="Email" style="border:1px solid var(--glass-border)"></div>
-                        <div class="mb-3"><textarea class="form-control bg-transparent text-white border-secondary" rows="4" placeholder="Message" style="border:1px solid var(--glass-border)"></textarea></div>
-                        <button class="btn btn-light w-100 fw-bold" data-hover>Send</button>
+                    <form class="glass-card" action="mailto:wwz.im@outlook.com" method="post" enctype="text/plain">
+                        <div class="mb-3">
+                            <input type="email" class="form-control" placeholder="Your Email" required>
+                        </div>
+                        <div class="mb-3">
+                            <textarea class="form-control" rows="4" placeholder="Your Message" required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-light w-100" data-hover>Send Message</button>
                     </form>
                 </div>
             </div>
-            <footer class="mt-5 pt-5 text-center text-secondary small opacity-50 border-top border-secondary"><p>&copy; 2025 WWZ.iM</p></footer>
+            
+            <footer>
+                <p>&copy; <span id="copyright-year"></span> WWZ.iM. Crafted with passion.</p>
+            </footer>
         </section>
     </main>
 
-    <div class="modal fade" id="videoModal" tabindex="-1" aria-hidden="true"><div class="modal-dialog modal-xl modal-dialog-centered"><div class="modal-content bg-transparent border-0"><div class="position-relative"><button type="button" class="btn-close btn-close-white position-absolute top-0 end-0 m-3 z-3" data-bs-dismiss="modal"></button><div class="ratio ratio-16x9 rounded-4 overflow-hidden shadow-lg"><iframe id="videoIframe" src="" allowfullscreen></iframe></div></div></div></div></div>
+    <!-- Video Modal -->
+    <div class="modal fade" id="videoModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-xl modal-dialog-centered">
+            <div class="modal-content bg-transparent border-0">
+                <div class="position-relative">
+                    <button type="button" class="btn-close btn-close-white position-absolute top-0 end-0 m-3 z-3" data-bs-dismiss="modal"></button>
+                    <div class="ratio ratio-16x9 rounded-4 overflow-hidden shadow-lg">
+                        <iframe id="videoIframe" src="" allowfullscreen></iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
+    <!-- Image Preview Modal -->
     <div class="modal fade" id="imagePreviewModal" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-fullscreen">
             <div class="modal-content">
@@ -332,141 +421,8 @@
         </div>
     </div>
 
+    <!-- Scripts -->
     <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.1/js/bootstrap.bundle.min.js"></script>
-    <script>
-        window.addEventListener('load', () => { document.getElementById('loader').style.display='none'; });
-        
-        // 鼠标跟随
-        if (window.matchMedia("(pointer: fine)").matches) {
-            const dot = document.querySelector('.cursor-dot'), circle = document.querySelector('.cursor-circle');
-            let mx=0, my=0, cx=0, cy=0;
-            document.addEventListener('mousemove', e => { mx=e.clientX; my=e.clientY; dot.style.left=mx+'px'; dot.style.top=my+'px'; });
-            function animate() { cx+=(mx-cx)*0.15; cy+=(my-cy)*0.15; circle.style.left=cx+'px'; circle.style.top=cy+'px'; requestAnimationFrame(animate); }
-            animate();
-            document.querySelectorAll('[data-hover]').forEach(el => {
-                el.addEventListener('mouseenter', () => document.body.classList.add('hovering'));
-                el.addEventListener('mouseleave', () => document.body.classList.remove('hovering'));
-            });
-        }
-
-        // --- 主题控制逻辑 ---
-        const desktopBtn = document.getElementById('theme-btn-desktop');
-        const mobileBtn = document.getElementById('theme-btn-mobile');
-        
-        let isDark = document.documentElement.getAttribute('data-theme') === 'dark';
-
-        const updateIcons = () => {
-            const iconHtml = isDark ? '<i class="fa-solid fa-moon"></i>' : '<i class="fa-solid fa-sun"></i>';
-            if(desktopBtn) desktopBtn.innerHTML = iconHtml;
-            if(mobileBtn) mobileBtn.innerHTML = iconHtml;
-        };
-        updateIcons();
-
-        function toggleTheme() {
-            isDark = !isDark;
-            const newTheme = isDark ? 'dark' : 'light';
-            document.documentElement.setAttribute('data-theme', newTheme);
-            localStorage.setItem('theme', newTheme);
-            updateIcons();
-        }
-
-        if(desktopBtn) desktopBtn.addEventListener('click', toggleTheme);
-        if(mobileBtn) mobileBtn.addEventListener('click', toggleTheme);
-
-        // 系统主题跟随
-        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
-            isDark = e.matches;
-            const newTheme = isDark ? 'dark' : 'light';
-            document.documentElement.setAttribute('data-theme', newTheme);
-            localStorage.setItem('theme', newTheme);
-            updateIcons();
-        });
-
-        const mobileToggle = document.getElementById('mobile-toggle'), sidebarContent = document.getElementById('sidebar-content');
-        mobileToggle.addEventListener('click', () => {
-            sidebarContent.classList.toggle('show');
-            mobileToggle.querySelector('i').classList.toggle('fa-xmark');
-            mobileToggle.querySelector('i').classList.toggle('fa-bars');
-        });
-        const closeMenu = () => { if(window.innerWidth < 992 && sidebarContent.classList.contains('show')) mobileToggle.click(); };
-        document.querySelectorAll('.nav-link').forEach(l => l.addEventListener('click', closeMenu));
-        document.querySelector('.main-content').addEventListener('click', closeMenu);
-
-        // [视频填充逻辑] 
-        const videos = [
-            { title: "Ulefone Armor 34 Pro", desc: "Autofocus Projector • 2025", thumbnail: "images/video/maxresdefault.jpg", url: "https://www.youtube.com/embed/a7RQgUMkpwI", type: "youtube" },
-            { title: "Armor Mini 20T Pro", desc: "Thermal Mini • 2024", thumbnail: "images/video/Screenshot_2025-12-11_140000.png", url: "https://www.youtube.com/embed/diWNAaazdoM", type: "youtube" },
-            { title: "Ulefone Armor 27T Pro", desc: "FLIR Thermal Pro • 2024", thumbnail: "images/video/Screenshot_2025-03-05_142413.png", url: "https://www.youtube.com/embed/aW8FSVuJY7U", type: "youtube" },
-            { title: "Ulefone Armor 26 Ultra", desc: "Mega Performance 5G • 2024", thumbnail: "images/video/Screenshot_2025-03-05_142626.png", url: "https://www.youtube.com/embed/Y2yPBSYQkfw", type: "youtube" },
-            { title: "Ulefone Armor 23 Ultra", desc: "Satellite Comm • 2024", thumbnail: "images/video/Screenshot_2025-12-11_135753.png", url: "https://www.youtube.com/embed/ynM2jFYncnE", type: "youtube" },
-            { title: "Ulefone Armor 22", desc: "NightElf Ultra 2.0 • 2023", thumbnail: "images/video/Screenshot_2025-03-05_142821.png", url: "https://www.youtube.com/embed/GVeko9aDHzw", type: "youtube" }
-        ];
-        const vGrid = document.getElementById("videoGrid");
-        videos.forEach(v => {
-            vGrid.innerHTML += `<div class="col-md-6 col-lg-4"><div class="glass-card p-2 h-100" style="cursor:pointer" data-bs-toggle="modal" data-bs-target="#videoModal" data-video-url="${v.url}" data-video-type="${v.type}" data-hover><div class="position-relative overflow-hidden rounded-3 mb-3"><img src="${v.thumbnail}" class="w-100" style="aspect-ratio:16/9;object-fit:cover" onerror="this.src='https://via.placeholder.com/640x360?text=No+Image'" loading="lazy"><div class="play-btn-overlay"><i class="fa-solid fa-play"></i></div></div><div class="px-2"><div class="v-title text-truncate">${v.title}</div><div class="v-desc text-truncate">${v.desc}</div></div></div></div>`;
-        });
-
-        // 视频播放器逻辑
-        const vModal = document.getElementById('videoModal'), vFrame = document.getElementById('videoIframe');
-        vModal.addEventListener('show.bs.modal', e => {
-            const btn = e.relatedTarget;
-            vFrame.src = btn.getAttribute('data-video-url') + (btn.getAttribute('data-video-type')==='youtube'?'?autoplay=1&rel=0':'?autoplay=1');
-        });
-        vModal.addEventListener('hidden.bs.modal', () => vFrame.src='');
-
-        // [新增] 图片灯箱逻辑 - 自动替换高清图
-        const imgModalElement = document.getElementById('imagePreviewModal');
-        const imgModal = new bootstrap.Modal(imgModalElement);
-        const previewImg = document.getElementById('previewImage');
-
-        document.querySelectorAll('.zoom-trigger').forEach(trigger => {
-            trigger.addEventListener('click', function(e) {
-                e.preventDefault();
-                const img = this.querySelector('img');
-                if (img) {
-                    // 将文件名中的 'thumbnail' 替换为 'large'
-                    let largeSrc = img.src.replace('thumbnail', 'large');
-                    previewImg.src = largeSrc;
-                    
-                    // 容错：如果高清图不存在，回退到缩略图
-                    previewImg.onerror = function() {
-                        this.src = img.src;
-                    };
-                    
-                    imgModal.show();
-                }
-            });
-        });
-
-        // 点击背景关闭
-        imgModalElement.addEventListener('click', function() {
-            imgModal.hide();
-        });
-
-        const observer = new IntersectionObserver(entries => {
-            entries.forEach(e => {
-                if(e.isIntersecting) {
-                    document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
-                    document.querySelector(`.nav-link[href="#${e.target.id}"]`)?.classList.add('active');
-                }
-            });
-        }, {rootMargin: "-30% 0px -60% 0px"});
-        document.querySelectorAll('section').forEach(s => observer.observe(s));
-
-        // Hero 3D Card Effect
-        const card = document.querySelector('.video-card-content');
-        document.addEventListener('mousemove', e => {
-            if(window.innerWidth > 992) {
-                const x = (window.innerWidth/2 - e.clientX)/20, y = (window.innerHeight/2 - e.clientY)/20;
-                card.style.transform = `rotateY(${x}deg) rotateX(${y}deg)`;
-            }
-        });
-
-        document.addEventListener('error', function(e) {
-            if (e.target.tagName.toLowerCase() === 'img') {
-                e.target.src = 'https://via.placeholder.com/640x360?text=No+Image';
-            }
-        }, true);
-    </script>
+    <script src="js/main.js"></script>
 </body>
 </html>
