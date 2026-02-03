@@ -136,7 +136,10 @@
 
         /* Sidebar Header */
         .sidebar-header { text-align: center; margin-bottom: 20px; width: 100%; }
-        .profile-img { width: 100px; height: 100px; border-radius: 50%; object-fit: cover; border: 3px solid var(--glass-border); margin-bottom: 15px; filter: grayscale(100%); }
+        
+        /* [修改] 移除了 grayscale 滤镜，保留原色 */
+        .profile-img { width: 100px; height: 100px; border-radius: 50%; object-fit: cover; border: 3px solid var(--glass-border); margin-bottom: 15px; }
+        
         .profile-name { font-weight: 800; font-size: 1.5rem; margin-bottom: 5px; color: var(--text-primary); letter-spacing: -0.5px; }
         .handle-pill { display: inline-block; font-family: var(--font-mono); font-size: 0.8rem; background: var(--pill-bg); padding: 4px 14px; border-radius: 50px; opacity: 0.8; }
 
@@ -198,7 +201,6 @@
         }
         .copy-feedback.show { opacity: 1; }
 
-        /* 下载卡片黑白化 */
         .download-card {
             background: transparent;
             border: 1px solid var(--glass-border);
@@ -211,7 +213,6 @@
         .download-card i { color: var(--text-secondary) !important; transition: 0.3s; }
         .download-card:hover i { color: var(--text-primary) !important; }
         
-        /* 按钮黑白化 */
         .btn-outline-custom {
             border: 1px solid var(--glass-border);
             color: var(--text-secondary);
@@ -290,7 +291,7 @@
                 display: flex;
                 flex-direction: column;
                 bottom: auto;
-                overflow: visible !important; /* 关键修复 */
+                overflow: visible !important;
             }
 
             .sidebar-header {
@@ -420,7 +421,7 @@
                         <h1 class="display-4">💡 Hysteria 2 一键安装</h1>
                         <p class="lead">拯救吃灰小鸡，暴力加速，突破限制。</p>
                         <div class="mt-4" style="overflow: hidden; min-height: 200px;">
-                            <img src="image.png" onerror="this.src='https://placehold.co/1200x400/111/FFF?text=Hysteria+2'" alt="Hysteria 2 Banner" class="w-100" style="object-fit: cover; max-height: 400px; filter: grayscale(100%);">
+                            <img src="image.png" onerror="this.src='https://placehold.co/1200x400/111/FFF?text=Hysteria+2'" alt="Hysteria 2 Banner" class="w-100 rounded-4" style="object-fit: cover; max-height: 400px; border-radius: 16px;">
                         </div>
                     </section>
 
