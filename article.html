@@ -88,48 +88,49 @@
         .social-icon { width: 38px; height: 38px; border-radius: 50%; display: flex; align-items: center; justify-content: center; border: 1px solid var(--glass-border); color: var(--text-secondary); transition: 0.3s; }
         .social-icon:hover { background: var(--text-primary); color: var(--bg-body); transform: translateY(-3px); }
 
-        /* --- 移动端强力修复 --- */
+        /* --- 移动端修复 (与主页保持一致) --- */
         @media (max-width: 991px) {
             .main-content { margin-left: 0 !important; padding: 100px 20px 40px 20px !important; }
             
-            /* 侧边栏容器：强制水平布局 */
+            /* 侧边栏容器 */
             .sidebar { 
                 position: fixed !important; top: 0 !important; left: 0 !important; right: 0 !important; bottom: auto !important; 
                 width: 100% !important; height: auto !important; min-height: 60px;
                 background: var(--menu-bg-mobile) !important; 
                 border-bottom: 1px solid var(--glass-border); border-radius: 0 !important;
                 z-index: 100000; margin: 0 !important; padding: 10px 20px !important;
-                /* 关键：允许内容溢出，防止菜单被截断 */
                 overflow: visible !important; 
-                display: block !important; /* 重置为 block，让 header 负责 flex */
+                display: block !important; /* 关键：使用 block，让内部 flex div 控制布局 */
             }
 
-            /* 头部 Flex 布局 */
+            /* 头部布局 - 恢复主页的 CSS 设定 */
             .sidebar-header { 
                 display: flex !important; 
-                flex-direction: row !important;
                 width: 100% !important; 
                 align-items: center !important; 
                 justify-content: space-between !important; 
                 margin: 0 !important; 
+                text-align: left;
             }
             
-            /* 右侧按钮组：【核心修复】强制水平并排，不许换行 */
+            /* 按钮组 */
             .sidebar-controls {
                 display: flex !important;
-                flex-direction: row !important;
                 align-items: center !important;
-                gap: 12px !important; /* 按钮间距 */
+                gap: 12px !important;
                 margin-left: auto !important;
             }
 
-            /* 移动端按钮：防止被挤压 */
-            .mobile-btn {
-                flex-shrink: 0 !important;
-                margin: 0 !important; /* 间距由 gap 控制 */
-            }
+            .mobile-btn { flex-shrink: 0 !important; margin: 0 !important; }
 
-            .profile-img { width: 36px !important; height: 36px !important; margin: 0 !important; border-width: 1px; }
+            /* 头像 - 恢复主页的 Margin 设定 */
+            .profile-img { 
+                width: 36px !important; 
+                height: 36px !important; 
+                margin: 0 12px 0 0 !important; /* 恢复右侧间距，即使文字隐藏也能保持定位逻辑一致 */
+                border-width: 1px; 
+            }
+            
             .profile-name { font-size: 1.1rem; margin: 0; }
             .handle-pill, .nav-section-title { display: none; }
             
@@ -282,21 +283,23 @@
 
     <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.1/js/bootstrap.bundle.min.js"></script>
     <script>
-        // --- Sidebar Generator (优化结构) ---
+        // --- Sidebar Generator (结构已修正为与 Index 一致) ---
         const createSidebar = (activePage) => {
             return `
             <div class="sidebar-header">
-                <a href="index.html" class="d-flex align-items-center text-decoration-none">
-                    <img src="https://wangwenzhi.eu.org/images/favicon_io/android-chrome-512x512.png" alt="WWZ" class="profile-img d-block mx-lg-auto">
-                    <div class="profile-info text-start text-lg-center d-none d-lg-block">
-                        <h1 class="profile-name">Wang Wenzhi</h1>
-                        <div class="handle-pill">@WWZ.iM</div>
-                    </div>
-                </a>
+                <div class="d-flex align-items-center justify-content-between w-100 d-lg-block">
+                    <a href="index.html" class="d-flex align-items-center d-lg-block text-lg-center text-decoration-none">
+                        <img src="https://wangwenzhi.eu.org/images/favicon_io/android-chrome-512x512.png" alt="WWZ" class="profile-img d-block mx-lg-auto">
+                        <div class="profile-info text-start text-lg-center d-none d-lg-block">
+                            <h1 class="profile-name">Wang Wenzhi</h1>
+                            <div class="handle-pill">@WWZ.iM</div>
+                        </div>
+                    </a>
 
-                <div class="sidebar-controls d-lg-none">
-                    <button class="mobile-btn" id="theme-btn-mobile"><i class="fa-solid fa-moon"></i></button>
-                    <button class="mobile-btn" id="mobile-toggle"><i class="fa-solid fa-bars"></i></button>
+                    <div class="sidebar-controls d-lg-none">
+                        <button class="mobile-btn" id="theme-btn-mobile"><i class="fa-solid fa-moon"></i></button>
+                        <button class="mobile-btn" id="mobile-toggle"><i class="fa-solid fa-bars"></i></button>
+                    </div>
                 </div>
             </div>
 
@@ -356,30 +359,35 @@
             const sidebarContent = document.getElementById('sidebar-content');
             
             if (mobileToggle && sidebarContent) {
-                mobileToggle.addEventListener('click', (e) => {
-                    e.stopPropagation();
-                    sidebarContent.classList.toggle('show');
-                    const icon = mobileToggle.querySelector('i');
-                    if (sidebarContent.classList.contains('show')) {
-                        icon.classList.remove('fa-bars');
-                        icon.classList.add('fa-xmark');
-                    } else {
-                        icon.classList.remove('fa-xmark');
-                        icon.classList.add('fa-bars');
+                // 将点击事件绑定在 document 上进行委托，处理动态生成的元素
+                document.addEventListener('click', (e) => {
+                    // 如果点击的是 mobile-toggle 或其内部的 icon
+                    if (e.target.closest('#mobile-toggle')) {
+                        e.stopPropagation();
+                        sidebarContent.classList.toggle('show');
+                        const icon = document.querySelector('#mobile-toggle i');
+                        if (sidebarContent.classList.contains('show')) {
+                            icon.classList.remove('fa-bars');
+                            icon.classList.add('fa-xmark');
+                        } else {
+                            icon.classList.remove('fa-xmark');
+                            icon.classList.add('fa-bars');
+                        }
+                    } 
+                    // 点击外部关闭
+                    else if (window.innerWidth < 992 && 
+                        sidebarContent.classList.contains('show') && 
+                        !sidebarContent.contains(e.target)) {
+                        
+                        sidebarContent.classList.remove('show');
+                        const icon = document.querySelector('#mobile-toggle i');
+                        if(icon) {
+                            icon.classList.remove('fa-xmark');
+                            icon.classList.add('fa-bars');
+                        }
                     }
                 });
             }
-
-            // Close menu on outside click
-            document.addEventListener('click', (e) => {
-                if (window.innerWidth < 992 && 
-                    sidebarContent && 
-                    sidebarContent.classList.contains('show') && 
-                    !sidebarContent.contains(e.target) && 
-                    !mobileToggle.contains(e.target)) {
-                    mobileToggle.click();
-                }
-            });
 
             // Back to Top
             const fab = document.getElementById('back-to-top');
