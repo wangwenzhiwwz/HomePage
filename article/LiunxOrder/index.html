@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+    <title>WWZ.iM · 服务器初始化与部署指南</title>
+    <meta name="description" content="服务器基础环境初始化、3X-UI 面板一键安装脚本及系统管理指南。">
+    <meta name="author" content="WWZ">
+    
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="服务器初始化与部署指南">
+    <meta property="og:url" content="https://wwz.im">
+
+    <script>
+        (function() {
+            var savedTheme = localStorage.getItem('theme');
+            var systemIsDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            var theme = savedTheme ? savedTheme : (systemIsDark ? 'dark' : 'light');
+            document.documentElement.setAttribute('data-theme', theme); 
+            document.documentElement.style.backgroundColor = theme === 'dark' ? '#050505' : '#ffffff';
+        })();
+    </script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://cdn.bootcdn.net">
+
+    <link rel="icon" href="https://wangwenzhi.eu.org/images/favicon_io/favicon.ico">
+    
+    <link href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.1/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=SF+Pro+Display:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+    <style>
+        /* --- 核心设计系统 (黑白灰版) --- */
+        :root { --transition-speed: 0.4s; --font-main: 'SF Pro Display', sans-serif; --font-mono: 'JetBrains Mono', monospace; }
+        
+        /* [暗黑模式] */
+        :root[data-theme="dark"] {
+            --bg-body: #050505; 
+            --bg-gradient: linear-gradient(180deg, #050505 0%, #000000 100%);
+            
+            --text-primary: #ffffff; 
+            --text-secondary: #888888;
+            
+            --glass-bg: rgba(20, 20, 20, 0.95); 
+            --glass-border: rgba(255, 255, 255, 0.15);
+            
+            --accent-color: #ffffff; 
+            --accent-inverse: #000000;
+            
+            --pill-bg: rgba(255, 255, 255, 0.1); 
+            --active-bg: rgba(255, 255, 255, 0.2);
+            
+            --code-bg: #111111; 
+            --code-text: #d4d4d4;
+            
+            --alert-bg: #1a1a1a; 
+            --alert-border: #333333; 
+            --alert-text: #ffffff;
+
+            --dot-1: #333333; --dot-2: #555555; --dot-3: #777777;
+        }
+
+        /* [亮色模式] */
+        :root[data-theme="light"] {
+            --bg-body: #ffffff; 
+            --bg-gradient: linear-gradient(180deg, #ffffff 0%, #fafafa 100%);
+            
+            --text-primary: #000000; 
+            --text-secondary: #555555;
+            
+            --glass-bg: rgba(255, 255, 255, 0.95); 
+            --glass-border: rgba(0, 0, 0, 0.1);
+            
+            --accent-color: #000000; 
+            --accent-inverse: #ffffff;
+            
+            --pill-bg: rgba(0, 0, 0, 0.05); 
+            --active-bg: rgba(0, 0, 0, 0.1);
+            
+            --code-bg: #f4f4f4; 
+            --code-text: #24292e;
+            
+            --alert-bg: #f9f9f9; 
+            --alert-border: #e0e0e0; 
+            --alert-text: #000000;
+
+            --dot-1: #cccccc; --dot-2: #aaaaaa; --dot-3: #888888;
+        }
+
+        /* 隐藏滚动条 */
+        ::-webkit-scrollbar { display: none; width: 0; height: 0; }
+        html, body, .sidebar, pre { scrollbar-width: none; -ms-overflow-style: none; }
+
+        * { -webkit-tap-highlight-color: transparent; }
+
+        html { scroll-behavior: smooth; }
+        body { font-family: var(--font-main); background: var(--bg-body); background-image: var(--bg-gradient); background-attachment: fixed; color: var(--text-primary); transition: background 0.5s ease, color 0.5s ease; cursor: default; }
+        
+        a, button, .btn, .nav-link, .copy-btn, .mobile-fab, .download-card { cursor: pointer; transition: 0.3s; }
+        a { text-decoration: none; color: inherit; }
+        
+        /* --- 布局组件 --- */
+        .glass-panel { background: var(--glass-bg); backdrop-filter: blur(20px); border: 1px solid var(--glass-border); border-radius: 24px; }
+        
+        .content-article { padding: 20px 0; margin-bottom: 30px; }
+        
+        .sidebar { position: fixed; top: 30px; bottom: 30px; left: 30px; width: 260px; z-index: 100; padding: 40px 24px; display: flex; flex-direction: column; overflow-y: auto; }
+        
+        .main-content { margin-left: 310px; padding: 40px 40px 40px 0; min-height: 100vh; }
+        
+        @media (min-width: 1200px) {
+            .main-content .container-fluid {
+                max-width: 1140px; 
+                margin: 0 auto;
+            }
+        }
+
+        #theme-btn-desktop { 
+            position: fixed; top: 30px; right: 40px; z-index: 10000;
+            width: 44px; height: 44px; border-radius: 50%; 
+            background: var(--glass-bg); backdrop-filter: blur(10px); border: 1px solid var(--glass-border);
+            color: var(--text-primary); display: flex; align-items: center; justify-content: center;
+            transition: 0.2s;
+        }
+        #theme-btn-desktop:hover { transform: scale(1.1); background: var(--text-primary); color: var(--bg-body); }
+
+        .mobile-btn { 
+            width: 36px; height: 36px; border-radius: 10px; 
+            background: rgba(125, 125, 125, 0.1); border: 1px solid var(--glass-border); 
+            color: var(--text-primary); display: flex; align-items: center; justify-content: center; 
+            transition: 0.2s;
+        }
+        .mobile-btn:hover, .mobile-btn:active { background: var(--text-primary); color: var(--bg-body); }
+
+        /* Sidebar Header */
+        .sidebar-header { text-align: center; margin-bottom: 20px; width: 100%; }
+        
+        .profile-img { width: 100px; height: 100px; border-radius: 50%; object-fit: cover; border: 3px solid var(--glass-border); margin-bottom: 15px; }
+        
+        .profile-name { font-weight: 800; font-size: 1.5rem; margin-bottom: 5px; color: var(--text-primary); letter-spacing: -0.5px; }
+        .handle-pill { display: inline-block; font-family: var(--font-mono); font-size: 0.8rem; background: var(--pill-bg); padding: 4px 14px; border-radius: 50px; opacity: 0.8; }
+
+        .nav-section-title { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1.5px; margin: 25px 0 10px 10px; opacity: 0.5; font-weight: 700; }
+        .nav-menu { list-style: none; padding: 0; margin: 0; }
+        .nav-link { color: var(--text-secondary); font-weight: 600; padding: 10px 14px; border-radius: 12px; display: flex; align-items: center; gap: 12px; transition: 0.3s; margin-bottom: 5px; font-size: 0.9rem; }
+        .nav-link:hover { color: var(--text-primary); background: var(--pill-bg); transform: translateX(4px); }
+        .nav-link.active { color: var(--text-primary); background: var(--active-bg); }
+        
+        .social-dock { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; margin-top: auto; padding-top: 30px; border-top: 1px solid var(--glass-border); }
+        .social-icon { width: 38px; height: 38px; border-radius: 50%; display: flex; align-items: center; justify-content: center; border: 1px solid var(--glass-border); color: var(--text-secondary); transition: 0.3s; }
+        .social-icon:hover { background: var(--text-primary); color: var(--bg-body); transform: translateY(-3px); }
+
+        /* --- 内容样式优化 --- */
+        h1.display-4 { font-weight: 800; font-size: 2.5rem; margin-bottom: 20px; color: var(--text-primary); letter-spacing: -1px; }
+        h4 { margin-top: 2.5rem; margin-bottom: 1.2rem; font-weight: 700; color: var(--text-primary); position: relative; padding-left: 1rem; }
+        h4::before { content: ''; position: absolute; left: 0; top: 6px; bottom: 6px; width: 4px; background: var(--text-primary); border-radius: 2px; }
+        
+        p, li { line-height: 1.7; color: var(--text-secondary); }
+        strong { color: var(--text-primary); }
+
+        .post-meta { font-family: var(--font-mono); font-size: 0.85rem; opacity: 0.7; }
+        
+        pre {
+            position: relative;
+            background: var(--code-bg); 
+            color: var(--code-text);
+            padding: 3.5rem 1.5rem 1.5rem 1.5rem;
+            border-radius: 12px;
+            margin: 1.5rem 0;
+            border: 1px solid var(--glass-border);
+            overflow-x: auto;
+            font-family: var(--font-mono);
+        }
+        pre::before {
+            content: ''; position: absolute; top: 18px; left: 18px;
+            width: 12px; height: 12px; border-radius: 50%;
+            background: var(--dot-1);
+            box-shadow: 20px 0 0 var(--dot-2), 40px 0 0 var(--dot-3);
+        }
+        pre code { font-family: var(--font-mono); font-size: 0.85rem; line-height: 1.6; color: inherit; }
+
+        .copy-btn {
+            position: absolute; top: 12px; right: 12px;
+            background: var(--pill-bg);
+            border: 1px solid var(--glass-border);
+            color: var(--text-secondary);
+            padding: 4px 10px; border-radius: 6px;
+            font-size: 0.75rem; font-family: var(--font-main);
+            transition: 0.2s; z-index: 10;
+        }
+        .copy-btn:hover { background: var(--text-primary); color: var(--bg-body); }
+        
+        .copy-feedback {
+            position: absolute; top: 45px; right: 12px;
+            background: var(--text-primary); color: var(--bg-body);
+            padding: 2px 8px; border-radius: 4px;
+            font-size: 0.75rem; opacity: 0; transition: opacity 0.3s; pointer-events: none;
+        }
+        .copy-feedback.show { opacity: 1; }
+
+        .download-card {
+            background: transparent;
+            border: 1px solid var(--glass-border);
+            border-radius: 12px;
+            padding: 20px;
+            height: 100%;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+        }
+        .download-card:hover { border-color: var(--text-primary); background: var(--pill-bg); }
+        .download-card i { color: var(--text-secondary) !important; transition: 0.3s; }
+        .download-card:hover i { color: var(--text-primary) !important; }
+        
+        .alert-warning {
+            background: var(--alert-bg);
+            border: 1px solid var(--alert-border);
+            color: var(--alert-text);
+            border-radius: 12px;
+            padding: 1rem;
+            margin: 1.5rem 0;
+            display: flex; align-items: flex-start;
+        }
+        .alert-warning i { color: var(--text-primary); margin-top: 4px; }
+
+        .tag-pill {
+            display: inline-block; padding: 4px 12px; margin-right: 5px;
+            border-radius: 50px; font-size: 0.8rem;
+            background: var(--pill-bg); color: var(--text-secondary);
+            border: 1px solid var(--glass-border); transition: 0.2s;
+        }
+        .tag-pill:hover { background: var(--text-primary); color: var(--bg-body); border-color: var(--text-primary); }
+
+        .mobile-fab {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: var(--accent-color);
+            color: var(--accent-inverse);
+            border: none;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            pointer-events: none;
+        }
+        .mobile-fab.visible { opacity: 1; transform: translateY(0); pointer-events: auto; }
+        .mobile-fab:active { transform: scale(0.9); }
+
+        /* --- 移动端深度适配 --- */
+        @media (max-width: 991px) {
+            .main-content {
+                padding: 80px 15px 40px 15px; 
+                margin-left: 0;
+            }
+            
+            .sidebar {
+                position: fixed;
+                top: 0; left: 0; right: 0;
+                width: 100%;
+                height: auto;
+                border-radius: 0;
+                border-bottom: 1px solid var(--glass-border);
+                background: var(--glass-bg);
+                backdrop-filter: blur(25px);
+                -webkit-backdrop-filter: blur(25px);
+                z-index: 9999;
+                margin: 0;
+                padding: 10px 20px;
+                display: flex;
+                flex-direction: column;
+                bottom: auto;
+                overflow: visible !important;
+            }
+
+            .sidebar-header {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                text-align: left;
+                margin-bottom: 0;
+            }
+
+            .profile-img { width: 40px; height: 40px; margin: 0 12px 0 0; border-width: 2px; }
+            .profile-name { font-size: 1.1rem; margin: 0; }
+            .handle-pill { display: none; }
+            .sidebar-controls { margin-left: auto; display: flex; gap: 8px; }
+
+            .sidebar-content {
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: var(--bg-body);
+                padding: 0 20px 20px 20px;
+                box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+                border-bottom: 1px solid var(--glass-border);
+                transform-origin: top;
+                transform: scaleY(0);
+                opacity: 0;
+                visibility: hidden;
+                transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+                display: block !important;
+                max-height: none; 
+                margin-top: 0;
+                overflow: hidden;
+            }
+
+            .sidebar-content.show {
+                transform: scaleY(1);
+                opacity: 1;
+                visibility: visible;
+                padding-top: 15px;
+            }
+
+            h1.display-4 { font-size: 1.75rem; font-weight: 700; margin-bottom: 1rem; }
+            h4 { font-size: 1.2rem; margin-top: 2rem; }
+            p, li { font-size: 0.95rem; text-align: justify; }
+
+            pre {
+                margin: 1rem 0; 
+                border-radius: 12px;
+                padding: 3rem 1rem 1rem 1rem;
+                font-size: 0.8rem;
+            }
+            pre::before { top: 12px; left: 12px; transform: scale(0.8); }
+            .copy-btn { top: 8px; right: 8px; padding: 2px 8px; font-size: 0.7rem; }
+            
+            .social-dock { padding-top: 20px; margin-top: 10px; }
+            
+            .download-card { margin-bottom: 15px; }
+        }
+
+        #loader { position: fixed; inset: 0; background: var(--bg-body); z-index: 10000; display: flex; justify-content: center; align-items: center; transition: 0.5s; }
+    </style>
+</head>
+
+<body data-bs-spy="scroll" data-bs-target="#nav-menu" data-bs-offset="100" tabindex="0">
+
+    <div id="loader"><div class="spinner-border" style="color: var(--text-secondary)" role="status"></div></div>
+
+    <button id="theme-btn-desktop" class="d-none d-lg-flex" title="Toggle Theme" data-hover><i class="fa-solid fa-moon"></i></button>
+
+    <aside class="sidebar glass-panel">
+        <div class="sidebar-header">
+            <div class="d-flex align-items-center w-100 d-lg-block">
+                
+                <a href="https://www.wwz.im/" class="text-decoration-none d-flex align-items-center d-lg-block" data-hover>
+                    <img src="https://wangwenzhi.eu.org/images/favicon_io/android-chrome-512x512.png" alt="WWZ" class="profile-img d-block mx-lg-auto">
+                    <div class="profile-info text-start text-lg-center">
+                        <h4 class="profile-name">Wang Wenzhi</h4>
+                        <div class="handle-pill">@WWZ.iM</div>
+                    </div>
+                </a>
+                
+                <div class="sidebar-controls d-lg-none">
+                    <button class="mobile-btn" id="theme-btn-mobile" data-hover><i class="fa-solid fa-moon"></i></button>
+                    <button class="mobile-btn" id="mobile-toggle" data-hover><i class="fa-solid fa-bars"></i></button>
+                </div>
+            </div>
+        </div>
+
+        <div class="sidebar-content" id="sidebar-content">
+            <div class="d-flex flex-column flex-grow-1">
+                <span class="nav-section-title">Table of Contents</span>
+                <ul class="nav-menu" id="nav-menu">
+                    <li class="nav-item"><a href="#env" class="nav-link" data-hover><i class="fas fa-server me-2"></i> 基础环境</a></li>
+                    <li class="nav-item"><a href="#toolbox" class="nav-link" data-hover><i class="fas fa-toolbox me-2"></i> 综合工具箱</a></li>
+                    <li class="nav-item"><a href="#xui" class="nav-link" data-hover><i class="fas fa-project-diagram me-2"></i> 3X-UI 安装</a></li>
+                    <li class="nav-item"><a href="#sys" class="nav-link" data-hover><i class="fas fa-terminal me-2"></i> 系统管理</a></li>
+                    <li class="nav-item"><a href="#upgrade" class="nav-link" data-hover><i class="fas fa-arrow-up me-2"></i> 系统升级</a></li>
+                </ul>
+
+                <span class="nav-section-title">Links</span>
+                <ul class="nav-menu">
+                    <li class="nav-item"><a href="https://www.wwz.im/" class="nav-link" data-hover><i class="fa-solid fa-house"></i> Home</a></li>
+                    <li class="nav-item"><a href="styles.html" target="_blank" class="nav-link" data-hover><i class="fa-solid fa-palette"></i> Styles</a></li>
+                    <li class="nav-item"><a href="https://blog.wwz.im/" target="_blank" class="nav-link" data-hover><i class="fa-brands fa-blogger"></i> Blog</a></li>
+                </ul>
+
+                <div class="social-dock">
+                    <a href="https://github.com/wangwenzhiwwz" target="_blank" class="social-icon" title="GitHub" data-hover><i class="fa-brands fa-github"></i></a>
+                    <a href="mailto:wwz.im@outlook.com" class="social-icon" title="Email" data-hover><i class="fa-solid fa-envelope"></i></a>
+                </div>
+            </div>
+        </div>
+    </aside>
+
+    <main class="main-content">
+        <div class="container-fluid">
+            <div class="row justify-content-center">
+                <div class="col-12">
+                    
+                    <section class="mt-4 mb-5">
+                        <div class="post-meta d-flex gap-3 mb-3">
+                            <span class="d-flex align-items-center gap-2"><i class="fa-regular fa-folder"></i> 技术教程</span>
+                            <span class="d-flex align-items-center gap-2"><i class="fa-regular fa-clock"></i> 2025-12-24</span>
+                        </div>
+                        <h1 class="display-4">⚙️ 服务器初始化与部署指南</h1>
+                        <p class="lead">基础环境配置、常用工具安装、Xray 面板与系统维护。</p>
+                        
+                        <div class="mt-4" style="overflow: hidden; min-height: 200px;">
+                            <img src="image.png" onerror="this.src='https://placehold.co/1200x400/111/FFF?text=Server+Deployment+Guide'" alt="Deployment Banner" class="w-100 rounded-4" style="object-fit: cover; max-height: 400px; border-radius: 16px;">
+                        </div>
+                    </section>
+
+                    <article class="content-article">
+                        
+                        <div id="env" class="mb-5">
+                            <h4>一、基础环境初始化</h4>
+                            <p>在全新的系统（如 Debian）安装 <code>curl</code>、<code>wget</code>，首先需要更新软件包索引并安装基础工具。</p>
+                            <pre><code>apt update
+apt install sudo -y
+sudo apt update
+sudo apt install curl -y
+sudo apt install wget -y
+sudo apt install unzip -y</code><button class="copy-btn" onclick="copyCode(this)"><i class="fas fa-copy"></i> 复制</button><div class="copy-feedback">已复制！</div></pre>
+                        </div>
+
+                        <div id="toolbox" class="mb-5">
+                            <h4>二、综合工具箱</h4>
+                            <p>使用“科技lion”提供的一键脚本，可以快速进行系统优化、Docker 安装以及各种常用服务部署。</p>
+                            <pre><code>bash <(curl -sL kejilion.sh)</code><button class="copy-btn" onclick="copyCode(this)"><i class="fas fa-copy"></i> 复制</button><div class="copy-feedback">已复制！</div></pre>
+                        </div>
+
+                        <div id="xui" class="mb-5">
+                            <h4>三、Xray 面板安装 (3x-ui)</h4>
+                            <p>安装功能强大的 3x-ui 面板，用于可视化管理多种网络协议。</p>
+                            <pre><code>bash <(curl -Ls https://raw.githubusercontent.com/mhsanaei/3x-ui/master/install.sh)</code><button class="copy-btn" onclick="copyCode(this)"><i class="fas fa-copy"></i> 复制</button><div class="copy-feedback">已复制！</div></pre>
+                        </div>
+
+                        <div id="sys" class="mb-5">
+                            <h4>四、系统管理</h4>
+                            <p>快捷修改 root 用户密码，适用于自动化部署场景。</p>
+                            <pre><code>echo root:passwprd123 | chpasswd root</code><button class="copy-btn" onclick="copyCode(this)"><i class="fas fa-copy"></i> 复制</button><div class="copy-feedback">已复制！</div></pre>
+                        </div>
+
+                        <div id="upgrade" class="mb-5">
+                            <h4>五、升级 Ubuntu 版本</h4>
+                            <p>此命令将更新软件包列表并将所有已安装的软件包升级到最新版本。建议在升级 Ubuntu 版本之前运行此命令，以确保您的系统是最新的，并避免在升级过程中出现任何潜在问题。</p>
+                            
+                            <div class="alert alert-warning d-flex align-items-center" role="alert">
+                                <i class="fas fa-exclamation-triangle me-2"></i>
+                                <div>
+                                    <strong>注意：</strong> 升级到新版本的 Ubuntu 是系统的重大更改，因此在继续之前备份重要数据非常重要。您可以使用以下命令升级 Ubuntu 版本：
+                                </div>
+                            </div>
+                            
+                            <pre><code>sudo do-release-upgrade</code><button class="copy-btn" onclick="copyCode(this)"><i class="fas fa-copy"></i> 复制</button><div class="copy-feedback">已复制！</div></pre>
+                            
+                            <p>此命令将检查是否有新的 Ubuntu 版本，并提示您升级（如果有）。请确保在升级过程中仔细按照说明进行操作。</p>
+                        </div>
+
+                        <div class="border-top border-secondary border-opacity-10 pt-4 mt-5 d-flex flex-wrap justify-content-between align-items-center">
+                            <div class="mb-3 mb-md-0">
+                                <a href="#" class="tag-pill">Debian</a>
+                                <a href="#" class="tag-pill">Ubuntu</a>
+                                <a href="#" class="tag-pill">3X-UI</a>
+                            </div>
+                            <div class="d-flex align-items-center gap-2">
+                                <span class="text-secondary small me-2">Share:</span>
+                                <a href="#" class="btn btn-outline-secondary btn-sm rounded-circle" style="width:32px;height:32px;padding:0;display:flex;align-items:center;justify-content:center; border-color: var(--glass-border); color: var(--text-secondary);"><i class="fab fa-twitter"></i></a>
+                                <a href="#" class="btn btn-outline-secondary btn-sm rounded-circle" style="width:32px;height:32px;padding:0;display:flex;align-items:center;justify-content:center; border-color: var(--glass-border); color: var(--text-secondary);"><i class="fab fa-telegram"></i></a>
+                            </div>
+                        </div>
+
+                    </article>
+
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <button id="back-to-top" class="mobile-fab" aria-label="Back to Top">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.1/js/bootstrap.bundle.min.js"></script>
+    <script>
+        window.addEventListener('load', () => { document.getElementById('loader').style.display='none'; });
+        
+        const desktopBtn = document.getElementById('theme-btn-desktop');
+        const mobileBtn = document.getElementById('theme-btn-mobile');
+        
+        let isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+
+        const updateIcons = () => {
+            const iconHtml = isDark ? '<i class="fa-solid fa-moon"></i>' : '<i class="fa-solid fa-sun"></i>';
+            if(desktopBtn) desktopBtn.innerHTML = iconHtml;
+            if(mobileBtn) mobileBtn.innerHTML = iconHtml;
+        };
+        updateIcons();
+
+        function toggleTheme() {
+            isDark = !isDark;
+            const newTheme = isDark ? 'dark' : 'light';
+            document.documentElement.setAttribute('data-theme', newTheme);
+            document.documentElement.style.backgroundColor = isDark ? '#050505' : '#ffffff';
+            localStorage.setItem('theme', newTheme);
+            updateIcons();
+        }
+
+        if(desktopBtn) desktopBtn.addEventListener('click', toggleTheme);
+        if(mobileBtn) mobileBtn.addEventListener('click', toggleTheme);
+
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
+            isDark = e.matches;
+            const newTheme = isDark ? 'dark' : 'light';
+            document.documentElement.setAttribute('data-theme', newTheme);
+            document.documentElement.style.backgroundColor = isDark ? '#050505' : '#ffffff';
+            localStorage.setItem('theme', newTheme);
+            updateIcons();
+        });
+
+        const mobileToggle = document.getElementById('mobile-toggle'), sidebarContent = document.getElementById('sidebar-content');
+        if (mobileToggle && sidebarContent) {
+            mobileToggle.addEventListener('click', () => {
+                sidebarContent.classList.toggle('show');
+                const icon = mobileToggle.querySelector('i');
+                if (sidebarContent.classList.contains('show')) {
+                    icon.classList.remove('fa-bars');
+                    icon.classList.add('fa-xmark');
+                } else {
+                    icon.classList.remove('fa-xmark');
+                    icon.classList.add('fa-bars');
+                }
+            });
+        }
+
+        const closeMenu = () => { 
+            if(window.innerWidth < 992 && sidebarContent && sidebarContent.classList.contains('show')) {
+                mobileToggle.click(); 
+            }
+        };
+        document.querySelectorAll('.nav-link').forEach(l => l.addEventListener('click', closeMenu));
+        document.querySelector('.main-content').addEventListener('click', closeMenu);
+
+        function copyCode(button) {
+            const codeBlock = button.parentElement.querySelector('code');
+            const text = codeBlock.innerText;
+
+            navigator.clipboard.writeText(text).then(() => {
+                const feedback = button.parentElement.querySelector('.copy-feedback');
+                feedback.classList.add('show');
+                const originalHtml = button.innerHTML;
+                button.innerHTML = '<i class="fas fa-check"></i>';
+                
+                setTimeout(() => {
+                    feedback.classList.remove('show');
+                    button.innerHTML = '<i class="fas fa-copy"></i> 复制';
+                }, 2000);
+            }).catch(err => {
+                console.error('复制失败: ', err);
+                alert('复制失败，请手动选择复制');
+            });
+        }
+
+        const fab = document.getElementById('back-to-top');
+        if (fab) {
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 300) {
+                    fab.classList.add('visible');
+                } else {
+                    fab.classList.remove('visible');
+                }
+            });
+            fab.addEventListener('click', () => {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+        }
+    </script>
+</body>
+</html>
