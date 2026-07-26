@@ -354,9 +354,10 @@
 
         #loader { position: fixed; inset: 0; background: var(--bg-body); z-index: 10000; display: flex; justify-content: center; align-items: center; transition: 0.5s; }
     </style>
+    <link rel="stylesheet" href="../../css/site-system.css">
 </head>
 
-<body data-bs-spy="scroll" data-bs-target="#nav-menu" data-bs-offset="100" tabindex="0">
+<body data-bs-spy="scroll" data-bs-target="#nav-menu" data-bs-offset="100" data-content-root="../../" tabindex="0">
 
     <div id="loader"><div class="spinner-border" style="color: var(--text-secondary)" role="status"></div></div>
 
@@ -629,5 +630,8 @@ systemctl enable hysteria-server.service   # 开机自启</code><button class="c
             });
         }
     </script>
+    <script src="../../data/content.js"></script>
+    <script src="../../js/article-nav.js"></script>
+    <script src="../../js/site-shell.js"></script>
 </body>
 </html>

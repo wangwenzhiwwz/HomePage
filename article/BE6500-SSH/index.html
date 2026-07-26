@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#f7f7f5">
+  <title>WWZ.iM · 安装 ShellCrash 科学上网</title>
+  <meta name="description" content="小米路由器 BE6500 解锁 SSH 并安装 ShellCrash 的完整教程。">
+  <script>
+    (function () {
+      var saved = localStorage.getItem("theme");
+      document.documentElement.dataset.theme = saved || (matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+    })();
+  </script>
+  <link rel="icon" href="../../favicon.png">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="../../css/site-system.css">
+  <style>
+    :root {
+      --article-surface: rgba(255,255,255,.62);
+      --article-border: rgba(20,20,18,.1);
+      --article-muted: #676761;
+      --article-code: #151514;
+      --article-code-text: #f4f4ef;
+    }
+    :root[data-theme="dark"] {
+      --article-surface: rgba(30,30,28,.72);
+      --article-border: rgba(255,255,255,.12);
+      --article-muted: #aaa9a2;
+      --article-code: #050505;
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; color: var(--wwz-text); background: var(--wwz-bg); }
+    a { color: inherit; }
+    .main-content { margin-left: 314px; min-height: 100vh; padding: 48px 44px 80px 0; }
+    .article-wrap { width: min(940px, calc(100% - 40px)); margin: 0 auto; }
+    .back-link { display: inline-flex; align-items: center; gap: 8px; color: var(--article-muted); text-decoration: none; margin-bottom: 28px; }
+    .article-hero { padding: 34px; border: 1px solid var(--article-border); border-radius: var(--wwz-radius); background: var(--article-surface); backdrop-filter: blur(18px); }
+    .eyebrow { color: var(--wwz-accent); font-size: .78rem; font-weight: 750; letter-spacing: .12em; text-transform: uppercase; }
+    h1 { max-width: 760px; margin: 12px 0 16px; font-size: clamp(2.2rem, 6vw, 4.6rem); line-height: .98; }
+    .lead { max-width: 720px; margin: 0 0 22px; color: var(--article-muted); font-size: 1.08rem; line-height: 1.75; }
+    .meta { display: flex; flex-wrap: wrap; gap: 8px 18px; color: var(--article-muted); font-size: .86rem; }
+    .cover { width: 100%; aspect-ratio: 16/9; margin-top: 26px; border-radius: calc(var(--wwz-radius) - 6px); object-fit: cover; display: block; }
+    .article-body { padding: 42px 10px 0; }
+    .article-body section { scroll-margin-top: 30px; margin-bottom: 48px; }
+    .article-body h2 { margin: 0 0 16px; font-size: clamp(1.5rem, 3vw, 2.2rem); }
+    .article-body h3 { margin: 28px 0 10px; font-size: 1.08rem; }
+    .article-body p, .article-body li { color: var(--article-muted); font-size: 1rem; line-height: 1.85; }
+    .article-body strong { color: var(--wwz-text); }
+    .notice { padding: 18px 20px; border: 1px solid var(--article-border); border-radius: 16px; background: var(--article-surface); }
+    pre { position: relative; margin: 16px 0 26px; padding: 52px 20px 20px; border-radius: 16px; overflow-x: auto; background: var(--article-code); color: var(--article-code-text); }
+    pre::before { content: ""; position: absolute; top: 20px; left: 20px; width: 9px; height: 9px; border-radius: 50%; background: #ff605c; box-shadow: 16px 0 #ffbd44, 32px 0 #00ca4e; }
+    code { font: .82rem/1.75 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+    .copy { position: absolute; top: 12px; right: 12px; border: 1px solid rgba(255,255,255,.18); border-radius: 999px; padding: 7px 11px; color: #d7d7d2; background: rgba(255,255,255,.08); cursor: pointer; }
+    .resource-grid { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 14px; }
+    .resource { display: flex; gap: 14px; align-items: center; padding: 18px; border: 1px solid var(--article-border); border-radius: 16px; background: var(--article-surface); text-decoration: none; }
+    .resource i { color: var(--wwz-accent); font-size: 1.3rem; }
+    .resource span { display: block; color: var(--article-muted); margin-top: 3px; font-size: .82rem; }
+    @media (max-width: 760px) {
+      .main-content { margin-left: 0; padding: 96px 0 56px; }
+      .article-wrap { width: calc(100% - 24px); }
+      .article-hero { padding: 24px 18px; }
+      .article-body { padding: 34px 8px 0; }
+      .resource-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body data-content-root="../../" data-active-page="blog">
+  <aside class="sidebar"></aside>
+  <main class="main-content">
+    <div class="article-wrap">
+      <a class="back-link" href="../../article.html"><i class="fa-solid fa-arrow-left"></i> 返回 Blog</a>
+      <header class="article-hero">
+        <div class="eyebrow">Router · SSH · Network</div>
+        <h1>安装 ShellCrash 科学上网</h1>
+        <p class="lead">小米路由器 BE6500 解锁 SSH 并安装 ShellCrash，无需刷入 OpenWrt，同时保留路由器原有功能。BE3600 与 AX3000T 也可参考。</p>
+        <div class="meta"><span>2025-11-12</span><span>约 1 分钟</span><span>Wang Wenzhi</span></div>
+        <img class="cover" src="../../images/blog/ShellCrash.jpg" alt="ShellCrash">
+      </header>
+
+      <article class="article-body">
+        <section id="before">
+          <h2>开始之前</h2>
+          <div class="notice"><strong>请先备份路由器配置。</strong> 以下操作需要管理员权限，执行命令前请确认路由器型号、固件版本和后台地址与教程一致。</div>
+          <p>先登录路由器后台并在地址栏中找到当前会话的 <code>stok</code> 值。下面命令中的 <code>xxx</code> 需要替换为你的实际值。</p>
+        </section>
+
+        <section id="ssh">
+          <h2>一、BE6500 解锁 SSH</h2>
+          <h3>1. 以管理员身份运行命令提示符</h3>
+          <p>在 Windows 搜索 CMD，右键选择“以管理员身份运行”，依次执行：</p>
+          <pre><code>curl -X POST http://192.168.31.1/cgi-bin/luci/;stok=xxx/api/xqsystem/start_binding -d "uid=1234&amp;key=1234'%0Anvram%20commit'"
+
+curl -X POST http://192.168.31.1/cgi-bin/luci/;stok=xxx/api/xqsystem/start_binding -d "uid=1234&amp;key=1234'%0Ased%20-i%20's%2Fchannel%3D.*%2Fchannel%3D%22debug%22%2Fg'%20%2Fetc%2Finit.d%2Fdropbear'"
+
+curl -X POST http://192.168.31.1/cgi-bin/luci/;stok=xxx/api/xqsystem/start_binding -d "uid=1234&amp;key=1234'%0A%2Fetc%2Finit.d%2Fdropbear%20start'"</code><button class="copy" type="button">复制</button></pre>
+
+          <h3>2. 登录路由器并修改密码</h3>
+          <p>使用 PuTTY 或其他 SSH 工具连接 <code>192.168.31.1</code>，用户名为 <code>root</code>。初始密码可通过小米路由器 SSH 密码计算工具获得。</p>
+          <pre><code>echo -e 'admin\nadmin' | passwd root</code><button class="copy" type="button">复制</button></pre>
+          <p>示例命令会把 root 密码改为 <code>admin</code>。正式使用时应替换成强密码，并妥善保存。</p>
+        </section>
+
+        <section id="install">
+          <h2>二、安装 ShellCrash</h2>
+          <p>SSH 登录路由器后，可使用 ShellCrash 官方路由器安装方式：</p>
+          <pre><code>export url='https://testingcf.jsdelivr.net/gh/juewuy/ShellCrash@dev' \
+  &amp;&amp; sh -c "$(curl -kfsSl $url/install_en.sh)" \
+  &amp;&amp; . /etc/profile &gt; /dev/null</code><button class="copy" type="button">复制</button></pre>
+          <p>安装完成后输入 <code>crash</code> 打开交互式管理菜单，按提示选择内核、导入订阅并配置启动方式。</p>
+          <pre><code>crash        # 打开管理菜单
+crash -h     # 查看命令帮助</code><button class="copy" type="button">复制</button></pre>
+          <p>Web 管理界面默认可尝试访问 <code>http://192.168.31.1:9999/ui/</code>。如页面未更新，可使用 Ctrl + F5 强制刷新。</p>
+        </section>
+
+        <section id="resources">
+          <h2>相关资源</h2>
+          <div class="resource-grid">
+            <a class="resource" href="https://youtu.be/iZNAhoIsJJ4" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-youtube"></i><div><strong>视频教程</strong><span>在 YouTube 中观看完整演示</span></div></a>
+            <a class="resource" href="https://github.com/juewuy/ShellCrash" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-github"></i><div><strong>ShellCrash 项目</strong><span>查看最新安装方式与更新说明</span></div></a>
+          </div>
+        </section>
+      </article>
+    </div>
+  </main>
+  <script>
+    document.addEventListener("click", function (event) {
+      var button = event.target.closest(".copy");
+      if (!button) return;
+      var code = button.parentElement.querySelector("code").innerText;
+      navigator.clipboard.writeText(code).then(function () {
+        button.textContent = "已复制";
+        setTimeout(function () { button.textContent = "复制"; }, 1400);
+      });
+    });
+  </script>
+  <script src="../../data/content.js"></script>
+  <script src="../../js/article-nav.js"></script>
+  <script src="../../js/site-shell.js"></script>
+</body>
+</html>

@@ -146,6 +146,7 @@
             transform: translateX(-5px);
         }
     </style>
+    <link rel="stylesheet" href="css/site-system.css">
 </head>
 
 <body>
@@ -204,14 +205,14 @@
         // Portfolio data
         const portfolioItems = [
             { title: "Ulefone Commercial", category: "video", image: "images/video/maxresdefault.jpg" },
-            { title: "Armor 27T Pro", category: "video", image: "images/video/Screenshot_2025-03-05_142413.png" },
-            { title: "Armor 26 Ultra", category: "video", image: "images/video/Screenshot_2025-03-05_142626.png" },
+            { title: "Armor 27T Pro", category: "video", image: "images/video/Screenshot_2025-03-05_142413.jpg" },
+            { title: "Armor 26 Ultra", category: "video", image: "images/video/Screenshot_2025-03-05_142626.jpg" },
             { title: "Nostalgia Portrait", category: "photo", image: "images/portfolio-thumbnail-1.jpg" },
             { title: "Workoholic City", category: "design", image: "images/portfolio-thumbnail-2.jpg" },
             { title: "Zoo Keeper", category: "design", image: "images/portfolio-thumbnail-3.jpg" },
             { title: "APP.WWZ.iM", category: "web", image: "images/portfolio-thumbnail-4.jpg" },
             { title: "SUB Converter", category: "web", image: "images/portfolio-thumbnail-5.jpg" },
-            { title: "Product Showreel", category: "video", image: "images/video/Screenshot_2025-12-11_134113.png" },
+            { title: "Product Showreel", category: "video", image: "images/video/Screenshot_2025-12-11_134113.jpg" },
         ];
 
         // Populate grid
@@ -254,7 +255,6 @@
 
         // Initialize
         document.addEventListener('DOMContentLoaded', () => {
-            document.getElementById('sidebar').innerHTML = WWZ.createSidebar('portfolio');
             WWZ.initCommon();
             
             // Re-bind hover events for dynamically added elements
@@ -264,5 +264,6 @@
             });
         });
     </script>
+    <script src="js/site-shell.js"></script>
 </body>
 </html>

@@ -141,6 +141,7 @@
             transform: scale(1.1);
         }
     </style>
+    <link rel="stylesheet" href="css/site-system.css">
 </head>
 
 <body>
@@ -305,7 +306,6 @@
     <script src="js/shared.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            document.getElementById('sidebar').innerHTML = WWZ.createSidebar('styles');
             WWZ.initCommon();
             
             document.querySelectorAll('[data-hover]').forEach(el => {
@@ -314,5 +314,6 @@
             });
         });
     </script>
+    <script src="js/site-shell.js"></script>
 </body>
 </html>

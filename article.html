@@ -177,9 +177,10 @@
         
         footer { margin-top: 80px; padding-top: 40px; border-top: 1px solid var(--glass-border); color: var(--text-secondary); font-size: 0.9rem; text-align: center; }
     </style>
+    <link rel="stylesheet" href="css/site-system.css">
 </head>
 
-<body>
+<body data-content-root="">
 
     <div id="loader"><div class="spinner-border" style="color: var(--text-secondary)" role="status"></div></div>
     <button id="theme-btn-desktop" class="d-none d-lg-flex" title="Toggle Theme"><i class="fa-solid fa-moon"></i></button>
@@ -199,8 +200,8 @@
             </div>
         </section>
 
-       <!-- 原 Hysteria 2 位置，现在改为 服务器初始化与部署指南 -->
-        <section class="mb-5">
+       <!-- Featured article is rendered from data/content.js -->
+        <section class="mb-5" data-content="blog-featured">
             <a href="article/LiunxOrder/" class="glass-card featured-card">
                 <div class="featured-img-col">
                     <img src="article/LiunxOrder/image.png" 
@@ -224,7 +225,7 @@
         </section>
 
         <section>
-            <div class="row g-4">
+            <div class="row g-4" data-content="blog-grid">
                 <div class="col-md-6 col-xl-4">
                     <a href="article/xui/" class="glass-card d-flex flex-column">
                         <img src="article/xui/image.png" 
@@ -287,52 +288,10 @@
     <button id="back-to-top" title="Back to Top"><i class="fas fa-arrow-up"></i></button>
 
     <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.1/js/bootstrap.bundle.min.js"></script>
+    <script src="data/content.js"></script>
+    <script src="js/content-renderer.js"></script>
     <script>
-        // --- Sidebar Generator (结构已修正为与 Index 一致) ---
-        const createSidebar = (activePage) => {
-            return `
-            <div class="sidebar-header">
-                <div class="d-flex align-items-center justify-content-between w-100 d-lg-block">
-                    <a href="index.html" class="d-flex align-items-center d-lg-block text-lg-center text-decoration-none">
-                        <img src="https://wangwenzhi.eu.org/images/favicon_io/android-chrome-512x512.png" alt="WWZ" class="profile-img d-block mx-lg-auto">
-                        <div class="profile-info text-start text-lg-center d-none d-lg-block">
-                            <h1 class="profile-name">Wang Wenzhi</h1>
-                            <div class="handle-pill">@WWZ.iM</div>
-                        </div>
-                    </a>
-
-                    <div class="sidebar-controls d-lg-none">
-                        <button class="mobile-btn" id="theme-btn-mobile"><i class="fa-solid fa-moon"></i></button>
-                        <button class="mobile-btn" id="mobile-toggle"><i class="fa-solid fa-bars"></i></button>
-                    </div>
-                </div>
-            </div>
-
-            <div class="sidebar-content" id="sidebar-content">
-                <span class="nav-section-title px-3">Menu</span>
-                <ul class="nav-menu">
-                    <li class="nav-item"><a href="index.html" class="nav-link"><i class="fa-solid fa-house"></i> Home</a></li>
-                    <li class="nav-item"><a href="index.html#videos" class="nav-link"><i class="fa-solid fa-film"></i> Videos</a></li>
-                    <li class="nav-item"><a href="blog.html" class="nav-link ${activePage === 'blog' ? 'active' : ''}"><i class="fa-brands fa-blogger"></i> Blog</a></li>
-                    <li class="nav-item"><a href="index.html#portfolio" class="nav-link"><i class="fa-solid fa-layer-group"></i> Works</a></li>
-                    <li class="nav-item"><a href="index.html#contact" class="nav-link"><i class="fa-solid fa-paper-plane"></i> Contact</a></li>
-                </ul>
-                <span class="nav-section-title px-3 mt-4">Resources</span>
-                <ul class="nav-menu">
-                    <li class="nav-item"><a href="#" class="nav-link"><i class="fa-solid fa-server"></i> Server Status</a></li>
-                    <li class="nav-item"><a href="https://app.wwz.im/" target="_blank" class="nav-link"><i class="fa-solid fa-compass"></i> App Nav</a></li>
-                </ul>
-                <div class="social-dock">
-                    <a href="https://x.com/wwz_im" target="_blank" class="social-icon"><i class="fa-brands fa-x-twitter"></i></a>
-                    <a href="https://github.com/wangwenzhiwwz" target="_blank" class="social-icon"><i class="fa-brands fa-github"></i></a>
-                    <a href="https://www.youtube.com/@wangwenzhi" target="_blank" class="social-icon"><i class="fa-brands fa-youtube"></i></a>
-                    <a href="mailto:wwz.im@outlook.com" class="social-icon"><i class="fa-solid fa-envelope"></i></a>
-                </div>
-            </div>`;
-        };
-
         document.addEventListener('DOMContentLoaded', () => {
-            document.getElementById('sidebar').innerHTML = createSidebar('blog');
             document.getElementById('loader').style.display = 'none';
 
             // Theme Logic
@@ -403,5 +362,6 @@
             fab.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
         });
     </script>
+    <script src="js/site-shell.js"></script>
 </body>
 </html>

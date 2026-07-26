@@ -130,6 +130,7 @@
             line-height: 1.8;
         }
     </style>
+    <link rel="stylesheet" href="css/site-system.css">
 </head>
 
 <body>
@@ -225,7 +226,6 @@
         });
 
         document.addEventListener('DOMContentLoaded', () => {
-            document.getElementById('sidebar').innerHTML = WWZ.createSidebar('team');
             WWZ.initCommon();
             
             document.querySelectorAll('[data-hover]').forEach(el => {
@@ -234,5 +234,6 @@
             });
         });
     </script>
+    <script src="js/site-shell.js"></script>
 </body>
 </html>
