@@ -2,6 +2,14 @@
   const root = document.body?.dataset.contentRoot || "";
   const embedded = window.self !== window.top;
   const initialUrl = new URL(location.href);
+  const initialTitle = document.title;
+  const canonicalPath = url => url.pathname.replace(/\/index\.html$/, '/');
+  // Keep relative assets stable when the persistent navigation changes the URL.
+  if (!document.querySelector('base')) {
+    const base = document.createElement('base');
+    base.href = initialUrl.href;
+    document.head.prepend(base);
+  }
   const active = document.body?.dataset.activePage || (
     location.pathname.includes("/videos/") ? "videos" :
     location.pathname.includes("/article") || location.pathname.endsWith("/article.html") ? "blog" :
@@ -17,23 +25,22 @@
     <div class="wwz-sidebar-head">
       <a class="wwz-sidebar-brand" href="${root}index.html">
         <img src="${root}favicon.png" alt="WWZ Logo">
-        <span><strong>Wang Wenzhi</strong><small>@WWZ.iM</small></span>
+        <span><strong>WWZ.iM</strong></span>
       </a>
       <div class="wwz-mobile-controls">
         <button class="wwz-icon-button" type="button" data-shell-theme aria-label="切换明暗主题"><i class="fa-solid fa-circle-half-stroke"></i></button>
-        <button class="wwz-icon-button" type="button" data-shell-menu aria-label="打开导航" aria-expanded="false"><i class="fa-solid fa-bars"></i></button>
+        <button class="wwz-menu-button" type="button" data-shell-menu aria-label="打开导航" aria-expanded="false">Menu</button>
       </div>
     </div>
-    <div class="wwz-sidebar-content">
-      <div class="wwz-nav-label">Menu</div>
-      <nav class="wwz-nav">
+    <div class="wwz-sidebar-content" id="wwz-navigation">
+      <nav class="wwz-nav wwz-primary-nav" aria-label="Main navigation">
         ${item("home",`${root}index.html`,"fa-solid fa-house","Home")}
         ${item("videos",`${root}videos/`,"fa-solid fa-film","Videos")}
         ${item("blog",`${root}article.html`,"fa-solid fa-note-sticky","Blog")}
         ${item("works",`${root}portfolio-masonry.html`,"fa-solid fa-layer-group","Works")}
         ${item("contact",`${root}index.html#contact`,"fa-solid fa-paper-plane","Contact")}
       </nav>
-      <div class="wwz-nav-label">Resources</div>
+      <details class="wwz-resources"><summary>Resources <span aria-hidden="true">⌄</span></summary><div class="wwz-resources-panel">
       <nav class="wwz-nav">
         <a href="https://blog.wwz.im/" target="_blank" rel="noopener noreferrer" class="wwz-nav-link"><i class="fa-brands fa-blogger"></i><span>External Blog</span></a>
         <a href="https://app.wwz.im/" target="_blank" rel="noopener noreferrer" class="wwz-nav-link"><i class="fa-solid fa-compass"></i><span>App Nav</span></a>
@@ -43,7 +50,7 @@
         <a href="https://github.com/wangwenzhiwwz" target="_blank" rel="noopener noreferrer" aria-label="GitHub"><i class="fa-brands fa-github"></i></a>
         <a href="https://www.youtube.com/@wangwenzhi" target="_blank" rel="noopener noreferrer" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a>
         <a href="mailto:wwz.im@outlook.com" aria-label="Email"><i class="fa-solid fa-envelope"></i></a>
-      </div>
+      </div></div></details>
     </div>`;
 
   const mount = () => {
@@ -52,29 +59,64 @@
     if (sidebar.dataset.shellMounted === "true") return;
     sidebar.dataset.shellMounted = "true";
     sidebar.id = "sidebar";
+    sidebar.classList.add("wwz-topbar");
     sidebar.setAttribute("aria-label", "主要导航");
     sidebar.innerHTML = template;
 
+    // Keep resources in the page flow, including independently loaded articles.
+    const resources = sidebar.querySelector('.wwz-resources');
+    const main = document.querySelector('body > main');
+    if (resources && main && !main.querySelector('.wwz-footer-resources')) {
+      const footer = document.createElement('footer');
+      footer.className = 'wwz-footer-resources';
+      footer.setAttribute('aria-label', 'Resources');
+      const heading = document.createElement('h2');
+      heading.textContent = 'Resources';
+      footer.append(heading, resources.querySelector('.wwz-resources-panel'));
+      main.append(footer);
+      resources.remove();
+    }
+
     const menu = sidebar.querySelector("[data-shell-menu]");
+    menu?.setAttribute('aria-controls', 'wwz-navigation');
     const scrim = !embedded ? document.body.appendChild(Object.assign(document.createElement("button"), {
       className: "wwz-menu-scrim",
       type: "button",
       ariaLabel: "关闭导航"
     })) : null;
+    if (scrim) scrim.tabIndex = -1;
+    const setBackgroundInert = value => {
+      document.querySelectorAll('body > main, .wwz-route-frame').forEach(el => { el.inert = value; });
+    };
     const closeMenu = () => {
+      setBackgroundInert(false);
       sidebar.classList.remove("sidebar-open");
       document.documentElement.classList.remove("wwz-menu-open");
       menu?.setAttribute("aria-expanded", "false");
-      if (menu) menu.querySelector("i").className = "fa-solid fa-bars";
+      menu?.setAttribute("aria-label", "打开导航");
+      sidebar.querySelector('.wwz-resources')?.removeAttribute('open');
+      if (menu) menu.textContent = "Menu";
     };
     menu?.addEventListener("click", () => {
       const open = sidebar.classList.toggle("sidebar-open");
       document.documentElement.classList.toggle("wwz-menu-open", open);
+      setBackgroundInert(open);
       menu.setAttribute("aria-expanded", String(open));
-      menu.querySelector("i").className = open ? "fa-solid fa-xmark" : "fa-solid fa-bars";
+      menu.setAttribute("aria-label", open ? "关闭导航" : "打开导航");
+      menu.textContent = open ? "Close" : "Menu";
     });
     scrim?.addEventListener("click", closeMenu);
+    matchMedia('(min-width: 1100px)').addEventListener('change', closeMenu);
+    document.addEventListener('click', event => {
+      if (!sidebar.contains(event.target)) sidebar.querySelector('.wwz-resources')?.removeAttribute('open');
+    });
     document.addEventListener("keydown", event => {
+      if (event.key === 'Tab' && sidebar.classList.contains('sidebar-open')) {
+        const controls = [...sidebar.querySelectorAll('a[href], button, summary')].filter(el => el.getClientRects().length);
+        const first = controls[0], last = controls[controls.length - 1];
+        if (event.shiftKey && document.activeElement === first) { event.preventDefault(); last?.focus(); }
+        else if (!event.shiftKey && document.activeElement === last) { event.preventDefault(); first?.focus(); }
+      }
       if (event.key === "Escape" && sidebar.classList.contains("sidebar-open")) {
         closeMenu();
         menu?.focus();
@@ -82,13 +124,13 @@
     });
     sidebar.querySelectorAll("a").forEach(link => link.addEventListener("click", event => {
       closeMenu();
-      if (link.matches('[aria-current="page"]')) event.preventDefault();
+      // An active section can still link from its article back to the listing.
     }));
 
     sidebar.querySelector("[data-shell-theme]")?.addEventListener("click", () => {
       const next = document.documentElement.dataset.theme === "dark" ? "light" : "dark";
       document.documentElement.dataset.theme = next;
-      localStorage.setItem("theme", next);
+      try { localStorage.setItem("theme", next); } catch (_) {}
       document.querySelector('meta[name="theme-color"]')?.setAttribute("content", next === "dark" ? "#0b0b0a" : "#f7f7f5");
       document.querySelector(".wwz-route-frame")?.contentWindow?.postMessage({ type: "wwz:theme", theme: next }, location.origin);
     });
@@ -117,7 +159,7 @@
     if (sidebar.dataset.shellNavigationReady === "true") return;
     sidebar.dataset.shellNavigationReady = "true";
 
-    sidebar.querySelectorAll("[data-shell-route]").forEach(link => {
+    sidebar.querySelectorAll("[data-shell-route], .wwz-sidebar-brand").forEach(link => {
       link.dataset.shellHref = link.href;
       link.addEventListener("click", event => {
         if (event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
@@ -128,8 +170,12 @@
 
     addEventListener("popstate", () => navigateWithoutReload(sidebar, new URL(location.href), false));
     addEventListener("message", event => {
-      if (event.origin !== location.origin || event.data?.type !== "wwz:navigate") return;
-      navigateWithoutReload(sidebar, new URL(event.data.href), true);
+      if (event.origin !== location.origin || event.source !== document.querySelector('.wwz-route-frame')?.contentWindow || event.data?.type !== "wwz:navigate") return;
+      if (typeof event.data.href !== 'string') return;
+      try {
+        const url = new URL(event.data.href);
+        if (url.origin === location.origin) navigateWithoutReload(sidebar, url, true);
+      } catch (_) { /* Ignore malformed navigation messages. */ }
     });
   };
 
@@ -139,19 +185,29 @@
       return;
     }
 
-    const isInitialDocument = url.pathname === initialUrl.pathname && url.search === initialUrl.search;
+    const isInitialDocument = canonicalPath(url) === canonicalPath(initialUrl) && url.search === initialUrl.search;
     const existingFrame = document.querySelector(".wwz-route-frame");
 
-    if (push) history.pushState({ wwzRoute: url.href }, "", url.href);
+    if (push && url.href !== location.href) history.pushState({ wwzRoute: url.href }, "", url.href);
     updateActiveRoute(sidebar, url);
     sidebar.classList.remove("sidebar-open");
     document.documentElement.classList.remove("wwz-menu-open");
+    const menu = sidebar.querySelector('[data-shell-menu]');
+    if (menu) { menu.textContent = 'Menu'; menu.setAttribute('aria-expanded','false'); menu.setAttribute('aria-label','打开导航'); }
 
     if (isInitialDocument) {
       existingFrame?.remove();
       document.documentElement.classList.remove("wwz-route-active");
       document.querySelector("body > main")?.removeAttribute("aria-hidden");
-      if (url.hash) document.querySelector(url.hash)?.scrollIntoView({ behavior: "smooth" });
+      const main = document.querySelector('body > main');
+      if (main) main.inert = false;
+      document.title = initialTitle;
+      if (url.hash) {
+        let id = url.hash.slice(1);
+        try { id = decodeURIComponent(id); } catch (_) {}
+        document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
+      }
+      else window.scrollTo(0,0);
       return;
     }
 
@@ -161,11 +217,15 @@
     }));
     document.documentElement.classList.add("wwz-route-active");
     document.querySelector("body > main")?.setAttribute("aria-hidden", "true");
+    const main = document.querySelector('body > main');
+    if (main) main.inert = true;
+    frame.inert = false;
     frame.classList.remove("is-ready");
     frame.onload = () => {
       try {
         frame.contentDocument.documentElement.classList.add("wwz-embedded");
         document.title = frame.contentDocument.title;
+        frame.title = frame.contentDocument.title;
         frame.contentDocument.documentElement.dataset.theme = document.documentElement.dataset.theme || "light";
       } catch (_) {}
       frame.classList.add("is-ready");
@@ -178,7 +238,7 @@
   if (embedded) {
     document.documentElement.classList.add("wwz-embedded");
     addEventListener("message", event => {
-      if (event.origin === location.origin && event.data?.type === "wwz:theme") {
+      if (event.origin === location.origin && event.source === parent && event.data?.type === "wwz:theme" && ['dark','light'].includes(event.data.theme)) {
         document.documentElement.dataset.theme = event.data.theme;
       }
     });

@@ -89,6 +89,11 @@
     .logo-world::before { content:""; position:absolute; width:58%; aspect-ratio:1; left:54%; top:54%; translate:-50% -50%; border-radius:50%; background:radial-gradient(circle,rgba(82,208,255,.2),rgba(93,112,255,.07) 39%,transparent 70%); filter:blur(20px); transform:translateZ(-90px); animation:ambientPulse 18s var(--ease) infinite }
     .logo-world::after { content:""; position:absolute; left:15%; right:0; bottom:-1%; height:24%; border-radius:50%; background:radial-gradient(ellipse at 45% 50%,rgba(76,220,255,.22),rgba(120,116,255,.1) 34%,rgba(255,210,117,.07) 48%,transparent 72%); filter:blur(15px); transform:rotateX(72deg) rotateZ(-5deg) translateZ(-80px); animation:groundBreath 18s var(--ease) infinite }
     .glass-logo-art { position:absolute; width:min(66%,390px); height:auto; left:54%; top:55%; translate:-50% -50%; z-index:8; filter:drop-shadow(0 24px 26px rgba(36,104,171,.12)); transform-origin:52% 48%; animation:glassLogoFloat 18s var(--ease) infinite; will-change:transform }
+    .glass-logo-dark { display:none }
+    [data-theme="dark"] .glass-logo-light { display:none }
+    [data-theme="dark"] .glass-logo-dark { display:block; filter:none; mix-blend-mode:lighten }
+    [data-theme="dark"] .logo-world::after { display:none }
+    [data-theme="dark"] .logo-world::before { opacity:.15; animation:none }
     @keyframes groundBreath { 0%,18%,100%{opacity:.56;scale:.88;filter:blur(15px)} 48%,66%{opacity:.94;scale:1.06;filter:blur(10px)} }
     @keyframes ambientPulse { 0%,18%,100%{opacity:.46;scale:.9} 48%,66%{opacity:.88;scale:1.08} }
     @keyframes glassLogoFloat {
@@ -166,19 +171,22 @@
       .mobile-actions .icon-btn { width:38px; height:38px }
       .theme { display:none }
       main { margin:0; padding:82px 18px 60px }
-      .hero { min-height:auto; padding:42px 0 54px; gap:20px }
-      .hero h1 { font-size:clamp(3.35rem,17vw,5.3rem) }
-      .hero-copy { font-size:.95rem }
-      .logo-stage { min-height:330px; margin:5px -8px }
+      .hero { min-height:auto; padding:16px 0 32px; gap:16px }
+      .hero h1 { font-size:clamp(3rem,14.5vw,4.6rem); line-height:.96 }
+      .hero-copy { font-size:.95rem; margin:20px 0 24px; line-height:1.65 }
+      .actions { gap:10px }
+      .actions > a { min-height:48px; justify-content:center }
+      .logo-stage { min-height:260px; margin:0 }
       .glass-logo-art { width:min(72%,310px); left:52%; top:54% }
       .disciplines { grid-template-columns:1fr; margin-top:0 }
       .discipline,.discipline:first-child { border-left:0; border-top:1px solid var(--line); padding:18px 0 }
-      .section { padding:58px 0 }
-      .section-head { align-items:flex-start }
+      .section { padding:40px 0 }
+      .section-head { align-items:flex-start; flex-wrap:wrap; gap:16px; margin-bottom:22px }
+      .section-head h2 { font-size:clamp(1.8rem,7.5vw,2.5rem); line-height:1.1 }
       .feature-grid { grid-template-columns:1fr }
       .feature-copy { padding:0 2px }
       .film-row { grid-template-columns:1fr }
-      .video-mini { display:grid; grid-template-columns:132px 1fr; gap:14px; align-items:center }
+      .video-mini { display:grid; grid-template-columns:minmax(100px,36%) minmax(0,1fr); gap:14px; align-items:center }
       .video-mini h3 { margin-top:0 }
       .note,.note.compact { grid-template-columns:1fr; gap:12px }
       .note.compact img { max-height:180px }
@@ -191,7 +199,7 @@
       *,*::before,*::after { animation-duration:.01ms!important; animation-iteration-count:1!important; transition-duration:.01ms!important }
     }
   </style>
-  <link rel="stylesheet" href="css/site-system.css">
+  <link rel="stylesheet" href="css/site-system.css?v=20260910-release">
 </head>
 <body data-content-root="">
   <a class="skip" href="#main">跳到主要内容</a>
@@ -217,7 +225,8 @@
         </div>
         <div class="logo-stage" id="logoStage" aria-label="WWZ Logo 动态装置">
           <div class="logo-world" id="logoWorld">
-            <img class="glass-logo-art" src="images/hero-glass-logo.png" alt="" aria-hidden="true">
+            <img class="glass-logo-art glass-logo-light" src="images/hero-glass-logo.png" alt="" aria-hidden="true">
+            <img class="glass-logo-art glass-logo-dark" src="images/hero-glass-logo-dark.png" width="1254" height="1254" alt="" aria-hidden="true" decoding="async">
           </div>
         </div>
         <div class="disciplines">
@@ -276,12 +285,12 @@
     const modal = document.getElementById("videoModal");
     const frame = document.getElementById("videoFrame");
     let returnFocus = null;
-    const closeVideo = () => { modal.classList.remove("open"); frame.src=""; returnFocus?.focus(); };
+    const closeVideo = () => { modal.classList.remove("open"); frame.removeAttribute('src'); document.body.style.overflow=''; returnFocus?.focus(); };
     document.querySelectorAll(".js-video").forEach(button => button.addEventListener("click", () => {
       returnFocus = button;
       const join = button.dataset.video.includes("?") ? "&" : "?";
       frame.src = button.dataset.video + join + "autoplay=1&rel=0";
-      modal.classList.add("open"); document.getElementById("modalClose").focus();
+      modal.classList.add("open"); document.body.style.overflow='hidden'; document.getElementById("modalClose").focus();
     }));
     document.getElementById("modalClose").addEventListener("click", closeVideo);
     modal.addEventListener("click", event => { if(event.target === modal) closeVideo(); });
@@ -309,6 +318,6 @@
     sections.forEach(section => observer.observe(section));
     document.getElementById("year").textContent = new Date().getFullYear();
   </script>
-  <script src="js/site-shell.js"></script>
+  <script src="js/site-shell.js?v=20260910-release"></script>
 </body>
 </html>
