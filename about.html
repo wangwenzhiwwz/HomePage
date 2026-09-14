@@ -11,14 +11,7 @@
     <meta property="og:title" content="About WWZ">
     <meta property="og:url" content="https://wwz.im/about.html">
 
-    <script>
-        (function() {
-            var savedTheme = localStorage.getItem('theme');
-            var systemIsDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-            var theme = savedTheme ? savedTheme : (systemIsDark ? 'dark' : 'light');
-            document.documentElement.setAttribute('data-theme', theme);
-        })();
-    </script>
+    <script src="js/site-theme.js?v=20260914-release"></script>
     <style>html { background-color: #0a0a0a; }</style>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -149,7 +142,7 @@
 
         #loader { position: fixed; inset: 0; background: var(--bg-body); z-index: 10000; display: flex; justify-content: center; align-items: center; transition: 0.5s; }
     </style>
-    <link rel="stylesheet" href="css/site-system.css?v=20260910-release">
+    <link rel="stylesheet" href="css/site-system.css?v=20260914-release">
 </head>
 
 <body data-bs-spy="scroll" data-bs-target="#nav-menu" data-bs-offset="100" tabindex="0">
@@ -385,25 +378,13 @@
         };
         updateIcons();
 
-        function toggleTheme() {
-            isDark = !isDark;
-            const newTheme = isDark ? 'dark' : 'light';
-            document.documentElement.setAttribute('data-theme', newTheme);
-            localStorage.setItem('theme', newTheme);
-            updateIcons();
-        }
+        function toggleTheme() { window.WWZTheme?.cycle(); }
 
         if(desktopBtn) desktopBtn.addEventListener('click', toggleTheme);
         if(mobileBtn) mobileBtn.addEventListener('click', toggleTheme);
 
         // 系统主题跟随
-        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
-            isDark = e.matches;
-            const newTheme = isDark ? 'dark' : 'light';
-            document.documentElement.setAttribute('data-theme', newTheme);
-            localStorage.setItem('theme', newTheme);
-            updateIcons();
-        });
+        // System appearance is handled by site-theme.js.
 
         // 移动端菜单
         const mobileToggle = document.getElementById('mobile-toggle'), sidebarContent = document.getElementById('sidebar-content');
@@ -437,6 +418,6 @@
             imgModal.hide();
         });
     </script>
-    <script src="js/site-shell.js?v=20260910-release"></script>
+    <script src="js/site-shell.js?v=20260914-release"></script>
 </body>
 </html>

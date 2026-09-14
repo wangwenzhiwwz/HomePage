@@ -54,6 +54,9 @@
     </div>`;
 
   const mount = () => {
+    document.querySelectorAll('[data-copyright-year]').forEach(node => {
+      node.textContent = String(new Date().getFullYear());
+    });
     const sidebar = document.querySelector(".sidebar");
     if (!sidebar) return;
     if (sidebar.dataset.shellMounted === "true") return;
@@ -62,6 +65,7 @@
     sidebar.classList.add("wwz-topbar");
     sidebar.setAttribute("aria-label", "主要导航");
     sidebar.innerHTML = template;
+    updateActiveRoute(sidebar, new URL(location.href));
 
     // Keep resources in the page flow, including independently loaded articles.
     const resources = sidebar.querySelector('.wwz-resources');
@@ -127,13 +131,8 @@
       // An active section can still link from its article back to the listing.
     }));
 
-    sidebar.querySelector("[data-shell-theme]")?.addEventListener("click", () => {
-      const next = document.documentElement.dataset.theme === "dark" ? "light" : "dark";
-      document.documentElement.dataset.theme = next;
-      try { localStorage.setItem("theme", next); } catch (_) {}
-      document.querySelector('meta[name="theme-color"]')?.setAttribute("content", next === "dark" ? "#0b0b0a" : "#f7f7f5");
-      document.querySelector(".wwz-route-frame")?.contentWindow?.postMessage({ type: "wwz:theme", theme: next }, location.origin);
-    });
+    window.WWZTheme?.refresh();
+    sidebar.querySelector("[data-shell-theme]")?.addEventListener("click", () => window.WWZTheme?.cycle());
 
     if (!embedded) setupPersistentNavigation(sidebar);
   };
@@ -169,6 +168,7 @@
     });
 
     addEventListener("popstate", () => navigateWithoutReload(sidebar, new URL(location.href), false));
+    addEventListener("hashchange", () => updateActiveRoute(sidebar, new URL(location.href)));
     addEventListener("message", event => {
       if (event.origin !== location.origin || event.source !== document.querySelector('.wwz-route-frame')?.contentWindow || event.data?.type !== "wwz:navigate") return;
       if (typeof event.data.href !== 'string') return;
@@ -227,6 +227,7 @@
         document.title = frame.contentDocument.title;
         frame.title = frame.contentDocument.title;
         frame.contentDocument.documentElement.dataset.theme = document.documentElement.dataset.theme || "light";
+        frame.contentDocument.documentElement.style.colorScheme = document.documentElement.dataset.theme || "light";
       } catch (_) {}
       frame.classList.add("is-ready");
     };
@@ -240,6 +241,7 @@
     addEventListener("message", event => {
       if (event.origin === location.origin && event.source === parent && event.data?.type === "wwz:theme" && ['dark','light'].includes(event.data.theme)) {
         document.documentElement.dataset.theme = event.data.theme;
+        document.documentElement.style.colorScheme = event.data.theme;
       }
     });
     document.addEventListener("click", event => {

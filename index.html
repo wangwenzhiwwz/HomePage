@@ -13,13 +13,7 @@
   <link rel="preload" as="image" href="images/video/maxresdefault.jpg">
   <link rel="preconnect" href="https://cdnjs.cloudflare.com">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-  <script>
-    (() => {
-      const saved = localStorage.getItem("theme");
-      const theme = saved || (matchMedia("(prefers-color-scheme:dark)").matches ? "dark" : "light");
-      document.documentElement.dataset.theme = theme;
-    })();
-  </script>
+  <script src="js/site-theme.js?v=20260914-release"></script>
   <style>
     :root {
       --bg:#f7f7f5; --surface:#fff; --ink:#11110f; --muted:#6f706c;
@@ -86,16 +80,7 @@
 
     .logo-stage { position:relative; min-height:480px; perspective:1400px; isolation:isolate; overflow:visible }
     .logo-world { position:absolute; inset:4% 1%; transform-style:preserve-3d; transition:transform .9s var(--ease); will-change:transform }
-    .logo-world::before { content:""; position:absolute; width:58%; aspect-ratio:1; left:54%; top:54%; translate:-50% -50%; border-radius:50%; background:radial-gradient(circle,rgba(82,208,255,.2),rgba(93,112,255,.07) 39%,transparent 70%); filter:blur(20px); transform:translateZ(-90px); animation:ambientPulse 18s var(--ease) infinite }
-    .logo-world::after { content:""; position:absolute; left:15%; right:0; bottom:-1%; height:24%; border-radius:50%; background:radial-gradient(ellipse at 45% 50%,rgba(76,220,255,.22),rgba(120,116,255,.1) 34%,rgba(255,210,117,.07) 48%,transparent 72%); filter:blur(15px); transform:rotateX(72deg) rotateZ(-5deg) translateZ(-80px); animation:groundBreath 18s var(--ease) infinite }
-    .glass-logo-art { position:absolute; width:min(66%,390px); height:auto; left:54%; top:55%; translate:-50% -50%; z-index:8; filter:drop-shadow(0 24px 26px rgba(36,104,171,.12)); transform-origin:52% 48%; animation:glassLogoFloat 18s var(--ease) infinite; will-change:transform }
-    .glass-logo-dark { display:none }
-    [data-theme="dark"] .glass-logo-light { display:none }
-    [data-theme="dark"] .glass-logo-dark { display:block; filter:none; mix-blend-mode:lighten }
-    [data-theme="dark"] .logo-world::after { display:none }
-    [data-theme="dark"] .logo-world::before { opacity:.15; animation:none }
-    @keyframes groundBreath { 0%,18%,100%{opacity:.56;scale:.88;filter:blur(15px)} 48%,66%{opacity:.94;scale:1.06;filter:blur(10px)} }
-    @keyframes ambientPulse { 0%,18%,100%{opacity:.46;scale:.9} 48%,66%{opacity:.88;scale:1.08} }
+    .glass-logo-art { position:absolute; width:min(66%,390px); height:auto; left:54%; top:55%; translate:-50% -50%; z-index:8; transform-origin:52% 48%; animation:glassLogoFloat 18s var(--ease) infinite; will-change:transform }
     @keyframes glassLogoFloat {
       0%,16%,100%{transform:translate3d(-9px,20px,14px) rotateX(5deg) rotateY(-7deg) rotateZ(-2.5deg)}
       48%,66%{transform:translate3d(12px,-28px,100px) rotateX(-8deg) rotateY(14deg) rotateZ(4deg)}
@@ -199,7 +184,7 @@
       *,*::before,*::after { animation-duration:.01ms!important; animation-iteration-count:1!important; transition-duration:.01ms!important }
     }
   </style>
-  <link rel="stylesheet" href="css/site-system.css?v=20260910-release">
+  <link rel="stylesheet" href="css/site-system.css?v=20260914-release">
 </head>
 <body data-content-root="">
   <a class="skip" href="#main">跳到主要内容</a>
@@ -221,12 +206,11 @@
           <div class="eyebrows"><span class="eyebrow">Commercial Director</span><span class="eyebrow">Network Engineer</span></div>
           <h1>Create.<br>Optimize.<br>Automate.</h1>
           <p class="hero-copy">Hello, I’m a digital craftsman blending high-end cinematography with robust network infrastructure.</p>
-          <div class="actions"><a class="btn primary" href="#films">Explore Works <i class="fa-solid fa-arrow-right"></i></a><a class="btn" href="portfolio-masonry.html">Full Portfolio</a></div>
+          <div class="actions"><a class="btn primary" href="#films">Watch Selected Films <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a><a class="btn" href="portfolio-masonry.html">Explore Projects</a></div>
         </div>
         <div class="logo-stage" id="logoStage" aria-label="WWZ Logo 动态装置">
           <div class="logo-world" id="logoWorld">
-            <img class="glass-logo-art glass-logo-light" src="images/hero-glass-logo.png" alt="" aria-hidden="true">
-            <img class="glass-logo-art glass-logo-dark" src="images/hero-glass-logo-dark.png" width="1254" height="1254" alt="" aria-hidden="true" decoding="async">
+            <img class="glass-logo-art" src="images/hero-glass-logo-transparent.png" width="1254" height="1254" alt="" aria-hidden="true" decoding="async">
           </div>
         </div>
         <div class="disciplines">
@@ -269,9 +253,7 @@
     const root = document.documentElement;
     const themeMeta = document.querySelector('meta[name="theme-color"]');
     document.querySelectorAll(".js-theme").forEach(button => button.addEventListener("click", () => {
-      const next = root.dataset.theme === "dark" ? "light" : "dark";
-      root.dataset.theme = next; localStorage.setItem("theme", next);
-      themeMeta.content = next === "dark" ? "#0b0b0a" : "#f7f7f5";
+      window.WWZTheme?.cycle();
     }));
 
     const menuButton = document.getElementById("menuBtn");
@@ -318,6 +300,6 @@
     sections.forEach(section => observer.observe(section));
     document.getElementById("year").textContent = new Date().getFullYear();
   </script>
-  <script src="js/site-shell.js?v=20260910-release"></script>
+  <script src="js/site-shell.js?v=20260914-release"></script>
 </body>
 </html>

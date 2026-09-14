@@ -14,15 +14,7 @@
 
     <link rel="icon" href="https://wangwenzhi.eu.org/images/favicon_io/favicon.ico">
 
-    <script>
-        (function() {
-            var savedTheme = localStorage.getItem('theme');
-            var systemIsDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-            var theme = savedTheme ? savedTheme : (systemIsDark ? 'dark' : 'light');
-            document.documentElement.setAttribute('data-theme', theme);
-            document.documentElement.style.backgroundColor = theme === 'dark' ? '#050505' : '#ffffff';
-        })();
-    </script>
+    <script src="../js/site-theme.js?v=20260914-release"></script>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://cdn.bootcdn.net">
@@ -133,15 +125,6 @@
         .page-intro p { font-size: 1.1rem; line-height: 1.6; color: var(--text-secondary); }
 
         .video-filters { display: flex; flex-wrap: wrap; gap: 9px; margin: -22px 0 30px; }
-        .video-filter {
-            min-height: 40px; padding: 0 17px; border: 1px solid var(--glass-border);
-            border-radius: 999px; color: var(--text-secondary); background: transparent;
-            font-size: .86rem; font-weight: 650; transition: .25s var(--wwz-motion);
-        }
-        .video-filter:hover, .video-filter[aria-pressed="true"] {
-            color: var(--text-primary); border-color: var(--accent-color);
-            background: color-mix(in srgb,var(--accent-color) 11%,transparent);
-        }
 
         .video-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); gap: 30px; }
         
@@ -308,7 +291,7 @@
 
         #loader { position: fixed; inset: 0; background: var(--bg-body); z-index: 1000000; display: flex; justify-content: center; align-items: center; transition: 0.5s; }
     </style>
-    <link rel="stylesheet" href="../css/site-system.css?v=20260910-release">
+    <link rel="stylesheet" href="../css/site-system.css?v=20260914-release">
 </head>
 
 <body data-bs-spy="scroll" data-bs-target="#nav-menu" data-bs-offset="100" data-content-root="../" tabindex="0">
@@ -448,6 +431,6 @@
             fab.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
         });
     </script>
-    <script src="../js/site-shell.js?v=20260910-release"></script>
+    <script src="../js/site-shell.js?v=20260914-release"></script>
 </body>
 </html>
