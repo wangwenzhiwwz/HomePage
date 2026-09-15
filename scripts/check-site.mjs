@@ -1,7 +1,7 @@
 import {readFileSync,readdirSync,existsSync} from 'node:fs';
 import {resolve,dirname} from 'node:path';
 import {fileURLToPath} from 'node:url';
-import {Script} from 'node:vm';
+import {Script,runInNewContext} from 'node:vm';
 import {spawnSync} from 'node:child_process';
 const root=resolve(dirname(fileURLToPath(import.meta.url)),'..');
 const errors=[];let pages=0,scripts=0;
@@ -30,5 +30,38 @@ function walk(dir){for(const e of readdirSync(dir,{withFileTypes:true})){
   if(/user-scalable=no/.test(s))errors.push(p+': zoom disabled');
 }}
 walk(root);
+// Check dynamic content paths too: these do not appear in static HTML.
+const context={window:{}};
+for(const file of ['data/site-content.js','data/works.js']){
+  runInNewContext(readFileSync(resolve(root,file),'utf8'),context);
+}
+const content=context.window.WWZ_CONTENT;
+for(const item of [...content.videos,...content.posts,...context.window.WWZ_WORKS]){
+  for(const key of ['image','href']){
+    const value=item[key];
+    if(!value||/^[a-z]+:/i.test(value))continue;
+    if(!existsSync(resolve(root,value)))errors.push('Content: missing '+value);
+  }
+}
+const redirects=JSON.parse(readFileSync(resolve(root,'data/legacy-routes.json'),'utf8'));
+for(const [from,to] of Object.entries(redirects)){
+  const file=resolve(root,from),target=resolve(root,to);
+  if(!existsSync(file)||!existsSync(target))errors.push('Broken legacy route: '+from);
+}
+// macOS can hide casing errors that would fail on Linux hosting.
+function exactPath(path){
+  let current=root;
+  for(const part of path.split('/').filter(Boolean)){
+    if(!readdirSync(current).includes(part)) return false;
+    current=resolve(current,part);
+  }
+  return true;
+}
+for(const item of [...content.videos,...content.posts,...context.window.WWZ_WORKS]){
+  for(const key of ['image','href']){
+    const value=item[key];
+    if(value&&!/^[a-z]+:/i.test(value)&&existsSync(resolve(root,value))&&!exactPath(value))errors.push('Case mismatch: '+value);
+  }
+}
 if(errors.length){console.error(errors.join('\n'));process.exit(1);}
 console.log(`Passed: ${pages} pages, ${scripts} scripts, inline syntax and local asset links.`);

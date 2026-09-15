@@ -12,8 +12,8 @@
   }
   const active = document.body?.dataset.activePage || (
     location.pathname.includes("/videos/") ? "videos" :
-    location.pathname.includes("/article") || location.pathname.endsWith("/article.html") ? "blog" :
-    location.pathname.includes("portfolio") ? "works" : "home"
+    location.pathname.includes("/article") || location.pathname.endsWith("/blog.html") ? "blog" :
+    location.pathname.endsWith("/works.html") ? "works" : "home"
   );
 
   const item = (key, href, icon, label) => `
@@ -36,8 +36,8 @@
       <nav class="wwz-nav wwz-primary-nav" aria-label="Main navigation">
         ${item("home",`${root}index.html`,"fa-solid fa-house","Home")}
         ${item("videos",`${root}videos/`,"fa-solid fa-film","Videos")}
-        ${item("blog",`${root}article.html`,"fa-solid fa-note-sticky","Blog")}
-        ${item("works",`${root}portfolio-masonry.html`,"fa-solid fa-layer-group","Works")}
+        ${item("blog",`${root}blog.html`,"fa-solid fa-note-sticky","Blog")}
+        ${item("works",`${root}works.html`,"fa-solid fa-layer-group","Works")}
         ${item("contact",`${root}index.html#contact`,"fa-solid fa-paper-plane","Contact")}
       </nav>
       <details class="wwz-resources"><summary>Resources <span aria-hidden="true">⌄</span></summary><div class="wwz-resources-panel">
@@ -139,8 +139,8 @@
 
   const routeKey = url => (
     url.pathname.includes("/videos/") ? "videos" :
-    url.pathname.includes("/article") || url.pathname.endsWith("/article.html") ? "blog" :
-    url.pathname.includes("portfolio") ? "works" :
+    url.pathname.includes("/article") || url.pathname.endsWith("/blog.html") ? "blog" :
+    url.pathname.endsWith("/works.html") ? "works" :
     url.hash === "#contact" ? "contact" : "home"
   );
 

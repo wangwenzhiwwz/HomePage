@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio - WWZ.iM</title>
+    <meta name="description" content="A curated collection of creative works and projects by Wang Wenzhi.">
+    <meta name="author" content="Wang Wenzhi">
+
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://wwz.im/works.html">
+    <meta property="og:title" content="Portfolio - WWZ.iM">
+    <meta property="og:image" content="https://wangwenzhi.eu.org/images/favicon_io/android-chrome-512x512.png">
+
+    <script src="js/site-theme.js?v=20260915-files"></script>
+
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="icon" href="https://wangwenzhi.eu.org/images/favicon_io/favicon.ico">
+    <meta name="theme-color" content="#0a0a0a">
+
+    <link href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.1/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/legacy-pages.css">
+
+    <link rel="stylesheet" href="css/site-system.css?v=20260915-files">
+    <link rel="stylesheet" href="css/works.css?v=20260915-files">
+</head>
+
+<body class="works-page">
+    <aside class="sidebar glass-panel" id="sidebar"></aside>
+
+    <main class="main-content">
+        <header class="works-intro">
+            <h1>Selected Works</h1>
+            <p>Photography, campaign stills, and visual experiments. Open an image to explore the details.</p>
+        </header>
+        <div class="filter-menu" aria-label="Filter works">
+            <button class="filter-btn" type="button" data-filter="all" aria-pressed="true">All Works</button>
+            <button class="filter-btn" type="button" data-filter="video" aria-pressed="false">Campaign Stills</button>
+            <button class="filter-btn" type="button" data-filter="photo" aria-pressed="false">Photography</button>
+        </div>
+        <p class="works-count" id="worksCount" role="status"></p>
+        <div class="portfolio-grid" id="portfolioGrid">
+            <!-- Items will be populated by JS -->
+        </div>
+
+        <footer>
+            <p>&copy; <span data-copyright-year>2026</span> WWZ.iM. Crafted with passion.</p>
+        </footer>
+    </main>
+
+    <dialog class="image-viewer" id="imageViewer" aria-labelledby="viewerTitle">
+        <div class="viewer-toolbar">
+            <div><h2 id="viewerTitle"></h2><p id="viewerPosition" role="status"></p></div>
+            <div class="viewer-tools">
+                <button type="button" id="viewerZoom" aria-label="Zoom image" aria-pressed="false">Zoom +</button>
+                <button type="button" id="viewerClose" aria-label="Close image preview" autofocus>Close ×</button>
+            </div>
+        </div>
+        <div class="viewer-stage" id="viewerStage" aria-busy="false">
+            <img id="viewerImage" alt="" draggable="false">
+            <p id="viewerStatus" role="status"></p>
+        </div>
+        <div class="viewer-bottom">
+            <button type="button" id="viewerPrevious" aria-label="Previous image">← Previous</button>
+            <span>Swipe or use arrow keys</span>
+            <button type="button" id="viewerNext" aria-label="Next image">Next →</button>
+        </div>
+    </dialog>
+    <script src="data/works.js?v=20260915-files"></script>
+    <script src="js/works.js?v=20260915-files"></script>
+    <script src="js/site-shell.js?v=20260915-files"></script>
+</body>
+</html>

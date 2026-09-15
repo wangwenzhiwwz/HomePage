@@ -1,0 +1,9 @@
+{
+  "portfolio-masonry.html": "works.html",
+  "article.html": "blog.html",
+  "styles.html": "design-system.html",
+  "article/BE6500-SSH/index.html": "articles/be6500-ssh/index.html",
+  "article/LiunxOrder/index.html": "articles/linux-server-setup/index.html",
+  "article/xui/index.html": "articles/3x-ui/index.html",
+  "article/hysteria2/index.html": "articles/hysteria-2/index.html"
+}

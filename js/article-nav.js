@@ -42,7 +42,7 @@
   section.innerHTML = `
     <div class="wwz-related-heading">
       <div><span>Keep reading</span><h2 id="wwz-related-title">继续浏览 Blog</h2></div>
-      <a href="${root}article.html">查看全部 <i class="fa-solid fa-arrow-right"></i></a>
+      <a href="${root}blog.html">查看全部 <i class="fa-solid fa-arrow-right"></i></a>
     </div>
     <div class="wwz-related-grid">
       ${related.map(post => `
