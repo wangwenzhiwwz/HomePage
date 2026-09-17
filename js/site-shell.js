@@ -40,6 +40,7 @@
         ${item("works",`${root}works.html`,"fa-solid fa-layer-group","Works")}
         ${item("contact",`${root}index.html#contact`,"fa-solid fa-paper-plane","Contact")}
       </nav>
+      <div class="wwz-menu-appearance"><span>Appearance</span></div>
       <details class="wwz-resources"><summary>Resources <span aria-hidden="true">⌄</span></summary><div class="wwz-resources-panel">
       <nav class="wwz-nav">
         <a href="https://blog.wwz.im/" target="_blank" rel="noopener noreferrer" class="wwz-nav-link"><i class="fa-brands fa-blogger"></i><span>External Blog</span></a>
@@ -110,7 +111,16 @@
       menu.textContent = open ? "Close" : "Menu";
     });
     scrim?.addEventListener("click", closeMenu);
-    matchMedia('(min-width: 1100px)').addEventListener('change', closeMenu);
+    const desktopMenu = matchMedia('(min-width: 1100px)');
+    const themeButton = sidebar.querySelector('[data-shell-theme]');
+    const placeThemeButton = () => {
+      const focused = document.activeElement === themeButton;
+      const destination = sidebar.querySelector(desktopMenu.matches ? '.wwz-mobile-controls' : '.wwz-menu-appearance');
+      destination.prepend(themeButton);
+      if (focused) (desktopMenu.matches ? themeButton : menu)?.focus();
+    };
+    placeThemeButton();
+    desktopMenu.addEventListener('change', () => { closeMenu(); placeThemeButton(); });
     document.addEventListener('click', event => {
       if (!sidebar.contains(event.target)) sidebar.querySelector('.wwz-resources')?.removeAttribute('open');
     });

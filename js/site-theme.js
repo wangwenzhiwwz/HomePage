@@ -25,7 +25,8 @@
         light: '<circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M2 12h2m16 0h2M5 5l1.5 1.5m11 11L19 19M5 19l1.5-1.5m11-11L19 5"/>',
         dark: '<path d="M20.5 13.1A8.5 8.5 0 0 1 10.9 3.5a8.5 8.5 0 1 0 9.6 9.6Z"/>'
       };
-      button.innerHTML = `<svg class="wwz-theme-icon" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${shapes[mode]}</svg>`;
+      const labels = { system: 'Auto', light: 'Light', dark: 'Dark' };
+      button.innerHTML = `<svg class="wwz-theme-icon" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${shapes[mode]}</svg><span class="wwz-theme-label" aria-hidden="true">${labels[mode]}</span>`;
     });
     document.querySelector('.wwz-route-frame')?.contentWindow?.postMessage({ type: 'wwz:theme', theme }, location.origin);
   };

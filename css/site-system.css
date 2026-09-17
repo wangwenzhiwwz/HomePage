@@ -669,6 +669,8 @@ body > main, body > main.main-content {
   padding: 0 !important;
   overflow: visible !important;
   contain: none;
+  /* A named view-transition group isolates child backdrop sampling. */
+  view-transition-name: none;
   background: transparent !important;
   border: 0 !important;
   box-shadow: none !important;
@@ -690,6 +692,8 @@ body > main, body > main.main-content {
 .wwz-topbar .wwz-icon-button { background-color:var(--nav-glass); border-color:var(--nav-line); color:var(--nav-ink); }
 .wwz-topbar [data-shell-theme] { display:inline-flex; align-items:center; justify-content:center; flex:0 0 44px; width:44px; height:44px; padding:0; }
 .wwz-theme-icon { display:block; flex:none; width:20px; height:20px; pointer-events:none; }
+.wwz-menu-appearance, .wwz-theme-label { display:none; }
+.wwz-topbar .wwz-nav-link span { color:inherit; }
 :root[data-theme="dark"] .wwz-topbar [data-shell-theme] { background-color:rgba(58,58,58,.88); border:1px solid rgba(255,255,255,.28); color:#fff; }
 :root[data-theme="dark"] .wwz-topbar .wwz-nav-link:is(.active,[aria-current="page"]) { background:#e9e9e7; box-shadow:inset 0 0 0 1px rgba(255,255,255,.3); color:#181818; }
 .wwz-menu-button { min-width:94px; height:46px; padding:0 24px; border:1px solid var(--nav-line); border-radius:999px; background-color:var(--nav-glass); color:var(--nav-ink); font-family:inherit; font-size:18px; font-weight:400; line-height:1; cursor:pointer; }
@@ -715,12 +719,32 @@ body > main, body > main.main-content {
 .wwz-resources-panel { padding:16px; border:1px solid var(--nav-line); border-radius:20px; background-color:var(--nav-glass); color:var(--nav-ink); }
 .wwz-topbar .wwz-socials { margin-top:14px; padding-top:14px; }
 @media(min-width:1100px) {
+  /* The routed page must extend beneath the fixed glass navigation. */
+  .wwz-route-frame { inset:0; height:100%; }
+  .wwz-embedded body > main, .wwz-embedded body > main.main-content { padding-top:130px !important; }
   .sidebar.wwz-topbar { display:grid !important; grid-template-columns:minmax(0,1fr) auto minmax(0,1fr); align-items:center; }
-  .wwz-topbar .wwz-sidebar-head, .wwz-topbar .wwz-sidebar-content { display:contents; }
+  .wwz-topbar .wwz-sidebar-head, .wwz-topbar .wwz-sidebar-content { display:contents; -webkit-backdrop-filter:none; backdrop-filter:none; }
   .wwz-topbar .wwz-sidebar-brand { grid-column:1; grid-row:1; justify-self:start; }
   .wwz-topbar .wwz-mobile-controls { grid-column:3; grid-row:1; justify-self:end; }
   .wwz-topbar [data-shell-menu] { display:none; }
   .wwz-topbar .wwz-primary-nav { grid-column:2; grid-row:1; display:flex; align-items:center; gap:8px; padding:7px; border-radius:999px; background-color:var(--nav-glass); border:1px solid var(--nav-line); box-shadow:var(--nav-shadow); }
+  .wwz-topbar .wwz-primary-nav {
+    background-color:rgba(255,255,255,.38);
+    background-image:linear-gradient(150deg,rgba(255,255,255,.34),rgba(255,255,255,.04) 65%);
+    -webkit-backdrop-filter:blur(24px) saturate(.2);
+    backdrop-filter:blur(24px) saturate(.2);
+    border-color:rgba(255,255,255,.55);
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.65),0 5px 24px rgba(0,0,0,.07);
+  }
+  :root[data-theme="dark"] .wwz-topbar .wwz-primary-nav {
+    background-color:rgba(30,30,30,.42);
+    background-image:linear-gradient(150deg,rgba(255,255,255,.09),rgba(255,255,255,.015) 65%);
+    border-color:rgba(255,255,255,.16);
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.1),0 5px 24px rgba(0,0,0,.15);
+  }
+  @supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))) {
+    .wwz-topbar .wwz-primary-nav { background-color:var(--nav-glass); }
+  }
   .wwz-topbar .wwz-primary-nav .wwz-nav-link { justify-content:center; min-height:50px; padding:0 clamp(22px,2.4vw,44px); font-size:clamp(17px,1.15vw,21px); letter-spacing:-.035em; }
   .wwz-topbar .wwz-primary-nav i { display:none; }
   .wwz-topbar .wwz-resources { grid-column:3; grid-row:1; justify-self:end; margin-right:58px; }
@@ -736,11 +760,16 @@ body > main, body > main.main-content {
   .wwz-topbar .wwz-sidebar-brand img { width:34px; height:34px; }
   .wwz-topbar .wwz-sidebar-content { position:absolute; top:66px; left:0; right:0; display:none; max-height:calc(100dvh - 104px - env(safe-area-inset-top) - env(safe-area-inset-bottom)); overflow:auto; overscroll-behavior:contain; padding:12px; border:1px solid var(--nav-line); border-radius:24px; background:var(--nav-sheen),rgba(250,250,250,.8); box-shadow:0 12px 32px rgba(0,0,0,.06); -webkit-backdrop-filter:blur(32px) saturate(0); backdrop-filter:blur(32px) saturate(0); }
   :root[data-theme="dark"] .wwz-topbar .wwz-sidebar-content { background:var(--nav-sheen),rgba(28,28,28,.82); }
-  .wwz-topbar .wwz-primary-nav { gap:4px; -webkit-backdrop-filter:none; backdrop-filter:none; }
+  /* Only the outer panel has glass/shadow; a second surface created a square inside it. */
+  .wwz-topbar .wwz-primary-nav { display:flex; flex-direction:column; gap:6px; padding:0; margin:0; border:0; border-radius:0; background:none; box-shadow:none; -webkit-backdrop-filter:none; backdrop-filter:none; }
+  .wwz-topbar .wwz-menu-appearance { display:flex; align-items:center; justify-content:space-between; gap:16px; margin:14px 6px 2px; padding:16px 4px 4px; border-top:1px solid var(--nav-line); }
+  .wwz-menu-appearance > span { order:-1; font-size:14px; color:var(--text-secondary); }
+  .wwz-topbar .wwz-menu-appearance [data-shell-theme] { width:auto; min-width:104px; flex:0 0 auto; gap:8px; padding:0 14px; border-radius:999px; box-shadow:none; background-image:none; -webkit-backdrop-filter:none; backdrop-filter:none; }
+  .wwz-menu-appearance .wwz-theme-label { display:inline; color:inherit; font-size:14px; }
   .wwz-topbar .wwz-resources-panel { -webkit-backdrop-filter:none; backdrop-filter:none; }
   .wwz-topbar .wwz-primary-nav .wwz-nav-link { min-height:48px; padding-inline:20px; font-size:18px; }
   .wwz-topbar .wwz-primary-nav i { display:none; }
-  .wwz-topbar.sidebar-open .wwz-sidebar-content { display:flex; }
+  .wwz-topbar.sidebar-open .wwz-sidebar-content { display:flex; flex-direction:column; }
   .wwz-topbar .wwz-resources { margin-top:12px; border-top:1px solid var(--wwz-sidebar-border); padding-top:10px; }
   .wwz-resources-panel { padding:8px 0; border:0; background:transparent; }
   .wwz-topbar .wwz-resources summary { padding-inline:16px; font-size:14px; color:var(--nav-ink); }
