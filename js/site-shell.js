@@ -62,6 +62,22 @@
     if (!sidebar) return;
     if (sidebar.dataset.shellMounted === "true") return;
     sidebar.dataset.shellMounted = "true";
+    // One scroll control per document, including routed iframe pages.
+    const scrollTop = document.createElement('button');
+    scrollTop.type = 'button';
+    scrollTop.className = 'wwz-scroll-top';
+    scrollTop.setAttribute('aria-label', 'Back to top');
+    scrollTop.title = 'Back to top';
+    scrollTop.hidden = true;
+    scrollTop.innerHTML = '<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5m-6 6 6-6 6 6"/></svg>';
+    document.body.append(scrollTop);
+    const updateScrollTop = () => { scrollTop.hidden = window.scrollY < 300; };
+    addEventListener('scroll', updateScrollTop, { passive:true });
+    addEventListener('pageshow', updateScrollTop);
+    scrollTop.addEventListener('click', () => {
+      window.scrollTo({ top:0, behavior:matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth' });
+    });
+    updateScrollTop();
     sidebar.id = "sidebar";
     sidebar.classList.add("wwz-topbar");
     sidebar.setAttribute("aria-label", "主要导航");

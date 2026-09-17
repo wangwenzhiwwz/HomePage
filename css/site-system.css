@@ -625,6 +625,40 @@ html,body {
   display: none !important;
 }
 
+/* Shared glass scroll control. Legacy page controls remain hidden. */
+#back-to-top { display:none !important; }
+.wwz-scroll-top {
+  position:fixed;
+  right:max(24px,env(safe-area-inset-right));
+  bottom:max(24px,env(safe-area-inset-bottom));
+  z-index:900;
+  display:grid;
+  place-items:center;
+  width:48px;
+  height:48px;
+  padding:0;
+  border:1px solid var(--nav-line);
+  border-radius:50%;
+  background:var(--nav-sheen),var(--nav-glass);
+  color:var(--nav-ink);
+  box-shadow:var(--nav-shadow);
+  -webkit-backdrop-filter:blur(24px) saturate(.2);
+  backdrop-filter:blur(24px) saturate(.2);
+  cursor:pointer !important;
+  transition:transform .2s ease,background-color .2s ease;
+}
+.wwz-scroll-top svg { pointer-events:none; }
+.wwz-scroll-top[hidden],
+.wwz-route-active body > .wwz-scroll-top,
+.wwz-menu-open .wwz-scroll-top,
+body:has(dialog[open]) > .wwz-scroll-top,
+body.modal-open > .wwz-scroll-top { display:none !important; }
+.wwz-scroll-top:focus-visible { outline:2px solid var(--nav-ink); outline-offset:4px; }
+@media (hover:hover) { .wwz-scroll-top:hover { transform:translateY(-3px); } }
+@media (max-width:760px) {
+  .wwz-scroll-top { right:max(16px,env(safe-area-inset-right)); bottom:max(16px,env(safe-area-inset-bottom)); }
+}
+
 .wwz-embedded :is(body > main,.main-content) {
   margin-inline: auto !important;
   padding-left: clamp(18px,4vw,60px) !important;
