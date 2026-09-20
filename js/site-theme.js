@@ -16,6 +16,7 @@
     root.style.backgroundColor = theme === 'dark' ? '#0b0b0a' : '#f7f7f5';
     root.style.setProperty('--wwz-initial-bg', root.style.backgroundColor);
     document.querySelector('meta[name="theme-color"]')?.setAttribute('content', root.style.backgroundColor);
+    document.querySelector('meta[name="color-scheme"]')?.setAttribute('content', theme);
     document.querySelectorAll('[data-shell-theme]').forEach(button => {
       const names = { system: '跟随系统', light: '浅色', dark: '深色' };
       const next = modes[(modes.indexOf(mode) + 1) % modes.length];

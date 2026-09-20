@@ -2,13 +2,33 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
+  <meta name="color-scheme" content="light dark">
+  <meta name="theme-color" content="#f7f7f5">
+  <script data-theme-bootstrap>
+    // Inline intentionally: the initial canvas must not wait for a network request.
+    (() => {
+      const root = document.documentElement;
+      let mode = 'system';
+      try { mode = localStorage.getItem('wwz-theme-mode') || 'system'; } catch (_) {}
+      if (!['light', 'dark'].includes(mode)) mode = 'system';
+      const theme = mode === 'system' ? (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : mode;
+      const background = theme === 'dark' ? '#0b0b0a' : '#f7f7f5';
+      root.dataset.theme = theme;
+      root.dataset.themeMode = mode;
+      root.style.colorScheme = theme;
+      root.style.backgroundColor = background;
+      root.style.setProperty('--wwz-initial-bg', background);
+      document.querySelector('meta[name="theme-color"]').setAttribute('content', background);
+      document.querySelector('meta[name="color-scheme"]').setAttribute('content', theme);
+    })();
+  </script>
   <style data-theme-startup>
-    html { background:#f7f7f5; }
-    @media (prefers-color-scheme:dark) { html { background:#0b0b0a; } }
-    html:not([data-theme-ready]) body { background:var(--wwz-initial-bg,#f7f7f5) !important; background-image:none !important; }
+    html { --wwz-initial-bg:#f7f7f5; background:var(--wwz-initial-bg); color-scheme:light; }
+    @media (prefers-color-scheme:dark) { html { --wwz-initial-bg:#0b0b0a; color-scheme:dark; } }
+    html:not([data-theme-ready]), html:not([data-theme-ready]) body { background:var(--wwz-initial-bg) !important; background-image:none !important; }
     html:not([data-theme-ready]), html:not([data-theme-ready]) * { transition:none !important; }
   </style>
-  <script src="../../js/site-theme.js?v=20260920-theme-paint"></script>
+  <script src="../../js/site-theme.js?v=20260920-inline-theme"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
     <title>WWZ.iM · 3X-UI 安装与 TLS 升级指南</title>
     <meta name="description" content="3X-UI 面板一键安装脚本、TLS 证书申请与配置完全指南。">
@@ -338,7 +358,7 @@
 
         #loader { position: fixed; inset: 0; background: var(--bg-body); z-index: 10000; display: flex; justify-content: center; align-items: center; transition: 0.5s; }
     </style>
-    <link rel="stylesheet" href="../../css/site-system.css?v=20260920-theme-paint">
+    <link rel="stylesheet" href="../../css/site-system.css?v=20260920-inline-theme">
 </head>
 
 <body data-bs-spy="scroll" data-bs-target="#nav-menu" data-bs-offset="100" data-content-root="../../" tabindex="0">
@@ -594,6 +614,6 @@ x-ui enable       # 设置开机自启</code><button class="copy-btn" onclick="c
     </script>
     <script src="../../data/site-content.js"></script>
     <script src="../../js/article-nav.js"></script>
-    <script src="../../js/site-shell.js?v=20260920-theme-paint"></script>
+    <script src="../../js/site-shell.js?v=20260920-inline-theme"></script>
 </body>
 </html>
