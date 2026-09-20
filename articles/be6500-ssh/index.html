@@ -2,14 +2,20 @@
 <html lang="zh-CN">
 <head>
   <meta charset="utf-8">
+  <style data-theme-startup>
+    html { background:#f7f7f5; }
+    @media (prefers-color-scheme:dark) { html { background:#0b0b0a; } }
+    html:not([data-theme-ready]) body { background:var(--wwz-initial-bg,#f7f7f5) !important; background-image:none !important; }
+    html:not([data-theme-ready]), html:not([data-theme-ready]) * { transition:none !important; }
+  </style>
+  <script src="../../js/site-theme.js?v=20260920-theme-paint"></script>
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="theme-color" content="#f7f7f5">
   <title>WWZ.iM · 安装 ShellCrash 科学上网</title>
   <meta name="description" content="小米路由器 BE6500 解锁 SSH 并安装 ShellCrash 的完整教程。">
-  <script src="../../js/site-theme.js?v=20260917-scroll-top"></script>
   <link rel="icon" href="../../favicon.png">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-  <link rel="stylesheet" href="../../css/site-system.css?v=20260917-scroll-top">
+  <link rel="stylesheet" href="../../css/site-system.css?v=20260920-theme-paint">
   <style>
     :root {
       --article-surface: rgba(255,255,255,.62);
@@ -131,6 +137,6 @@ crash -h     # 查看命令帮助</code><button class="copy" type="button">复�
   </script>
   <script src="../../data/site-content.js"></script>
   <script src="../../js/article-nav.js"></script>
-  <script src="../../js/site-shell.js?v=20260917-scroll-top"></script>
+  <script src="../../js/site-shell.js?v=20260920-theme-paint"></script>
 </body>
 </html>

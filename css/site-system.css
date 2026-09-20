@@ -571,12 +571,12 @@ html,body {
   height: calc(100% - 106px);
   border: 0;
   background: var(--wwz-page-bg);
-  opacity: 0;
+  visibility: hidden;
   z-index: 10;
-  transition: opacity 240ms var(--wwz-motion);
+  transition: none;
 }
 
-.wwz-route-frame.is-ready { opacity: 1; }
+.wwz-route-frame.is-ready { visibility: visible; }
 .wwz-route-active body { overflow: hidden; }
 .wwz-route-active body > main { visibility: hidden; }
 

@@ -2,6 +2,13 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
+  <style data-theme-startup>
+    html { background:#f7f7f5; }
+    @media (prefers-color-scheme:dark) { html { background:#0b0b0a; } }
+    html:not([data-theme-ready]) body { background:var(--wwz-initial-bg,#f7f7f5) !important; background-image:none !important; }
+    html:not([data-theme-ready]), html:not([data-theme-ready]) * { transition:none !important; }
+  </style>
+  <script src="js/site-theme.js?v=20260920-theme-paint"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Portfolio - WWZ.iM</title>
     <meta name="description" content="A curated collection of creative works and projects by Wang Wenzhi.">
@@ -12,7 +19,6 @@
     <meta property="og:title" content="Portfolio - WWZ.iM">
     <meta property="og:image" content="https://wangwenzhi.eu.org/images/favicon_io/android-chrome-512x512.png">
 
-    <script src="js/site-theme.js?v=20260917-scroll-top"></script>
 
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -25,8 +31,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/legacy-pages.css">
 
-    <link rel="stylesheet" href="css/site-system.css?v=20260917-scroll-top">
-    <link rel="stylesheet" href="css/works.css?v=20260917-scroll-top">
+    <link rel="stylesheet" href="css/site-system.css?v=20260920-theme-paint">
+    <link rel="stylesheet" href="css/works.css?v=20260920-theme-paint">
 </head>
 
 <body class="works-page">
@@ -70,8 +76,8 @@
             <button type="button" id="viewerNext" aria-label="Next image">Next →</button>
         </div>
     </dialog>
-    <script src="data/works.js?v=20260917-scroll-top"></script>
-    <script src="js/works.js?v=20260917-scroll-top"></script>
-    <script src="js/site-shell.js?v=20260917-scroll-top"></script>
+    <script src="data/works.js?v=20260920-theme-paint"></script>
+    <script src="js/works.js?v=20260920-theme-paint"></script>
+    <script src="js/site-shell.js?v=20260920-theme-paint"></script>
 </body>
 </html>

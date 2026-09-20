@@ -2,6 +2,13 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
+  <style data-theme-startup>
+    html { background:#f7f7f5; }
+    @media (prefers-color-scheme:dark) { html { background:#0b0b0a; } }
+    html:not([data-theme-ready]) body { background:var(--wwz-initial-bg,#f7f7f5) !important; background-image:none !important; }
+    html:not([data-theme-ready]), html:not([data-theme-ready]) * { transition:none !important; }
+  </style>
+  <script src="../js/site-theme.js?v=20260920-theme-paint"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
     <title>Videos - WWZ.iM</title>
     <meta name="description" content="Commercial Director & Network Engineer. Visual storytelling meets robust infrastructure.">
@@ -14,7 +21,6 @@
 
     <link rel="icon" href="https://wangwenzhi.eu.org/images/favicon_io/favicon.ico">
 
-    <script src="../js/site-theme.js?v=20260917-scroll-top"></script>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://cdn.bootcdn.net">
@@ -291,7 +297,7 @@
 
         #loader { position: fixed; inset: 0; background: var(--bg-body); z-index: 1000000; display: flex; justify-content: center; align-items: center; transition: 0.5s; }
     </style>
-    <link rel="stylesheet" href="../css/site-system.css?v=20260917-scroll-top">
+    <link rel="stylesheet" href="../css/site-system.css?v=20260920-theme-paint">
 </head>
 
 <body data-bs-spy="scroll" data-bs-target="#nav-menu" data-bs-offset="100" data-content-root="../" tabindex="0">
@@ -431,6 +437,6 @@
             fab.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
         });
     </script>
-    <script src="../js/site-shell.js?v=20260917-scroll-top"></script>
+    <script src="../js/site-shell.js?v=20260920-theme-paint"></script>
 </body>
 </html>

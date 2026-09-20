@@ -2,6 +2,13 @@
 <html lang="zh-CN" data-theme="light">
 <head>
   <meta charset="utf-8">
+  <style data-theme-startup>
+    html { background:#f7f7f5; }
+    @media (prefers-color-scheme:dark) { html { background:#0b0b0a; } }
+    html:not([data-theme-ready]) body { background:var(--wwz-initial-bg,#f7f7f5) !important; background-image:none !important; }
+    html:not([data-theme-ready]), html:not([data-theme-ready]) * { transition:none !important; }
+  </style>
+  <script src="js/site-theme.js?v=20260920-theme-paint"></script>
   <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=5">
   <title>Wang Wenzhi — Commercial Director &amp; Network Engineer</title>
   <meta name="description" content="Wang Wenzhi 的商业影像、导演作品、网络工程与自动化实践。">
@@ -13,7 +20,6 @@
   <link rel="preload" as="image" href="images/videos/armor-34-pro.jpg">
   <link rel="preconnect" href="https://cdnjs.cloudflare.com">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-  <script src="js/site-theme.js?v=20260917-scroll-top"></script>
   <style>
     :root {
       --bg:#f7f7f5; --surface:#fff; --ink:#11110f; --muted:#6f706c;
@@ -184,7 +190,7 @@
       *,*::before,*::after { animation-duration:.01ms!important; animation-iteration-count:1!important; transition-duration:.01ms!important }
     }
   </style>
-  <link rel="stylesheet" href="css/site-system.css?v=20260917-scroll-top">
+  <link rel="stylesheet" href="css/site-system.css?v=20260920-theme-paint">
 </head>
 <body data-content-root="">
   <a class="skip" href="#main">跳到主要内容</a>
@@ -300,6 +306,6 @@
     sections.forEach(section => observer.observe(section));
     document.getElementById("year").textContent = new Date().getFullYear();
   </script>
-  <script src="js/site-shell.js?v=20260917-scroll-top"></script>
+  <script src="js/site-shell.js?v=20260920-theme-paint"></script>
 </body>
 </html>
