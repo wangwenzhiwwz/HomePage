@@ -840,3 +840,58 @@ body > main, body > main.main-content {
     transition-duration: .01ms !important;
   }
 }
+
+
+/* Apple-minimal refinement — shared, restrained, and monochrome. */
+:root,
+:root[data-theme="light"] {
+  --wwz-accent: #333333;
+  --accent-color: #333333;
+  --accent-glow: rgba(0,0,0,.06);
+  --glass-border: rgba(17,17,15,.09);
+  --wwz-radius: 18px;
+  --wwz-radius-small: 10px;
+}
+:root[data-theme="dark"] {
+  --wwz-accent: #d7d7d2;
+  --accent-color: #d7d7d2;
+  --accent-glow: rgba(255,255,255,.07);
+  --glass-border: rgba(255,255,255,.11);
+}
+html { scroll-padding-top: 100px; }
+body { -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
+a, button, input, select, textarea { -webkit-tap-highlight-color: transparent; }
+.wwz-nav-link,
+.wwz-icon-button,
+.wwz-menu-button,
+.filter-btn,
+.video-filter,
+.portfolio-card,
+.image-viewer button {
+  transition-duration: .18s;
+}
+.wwz-nav-link:hover,
+.wwz-nav-link.active {
+  transform: none;
+}
+.wwz-topbar .wwz-nav-link:hover,
+.wwz-topbar .wwz-nav-link.active {
+  background: color-mix(in srgb, currentColor 7%, transparent);
+}
+:is(.filter-btn,.video-filter)[aria-pressed="true"] {
+  background: var(--text-primary);
+  border-color: var(--text-primary);
+  color: var(--bg-body);
+}
+.wwz-footer-resources {
+  border-top-color: var(--glass-border);
+}
+.wwz-footer-resources h2 {
+  font-weight: 600;
+  letter-spacing: -.035em;
+}
+@media (max-width: 760px) {
+  html { scroll-padding-top: calc(88px + env(safe-area-inset-top)); }
+  body > main { padding-bottom: calc(48px + env(safe-area-inset-bottom)); }
+  .wwz-topbar .wwz-nav-link { min-height: 46px; }
+}

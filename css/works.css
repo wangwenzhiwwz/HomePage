@@ -55,3 +55,26 @@ html:has(.image-viewer[open]) { overflow: hidden; }
   .viewer-toolbar h2 { max-width: 160px; overflow-wrap: anywhere; }
 }
 @media (prefers-reduced-motion: reduce) { .portfolio-card, .portfolio-img { transition: none; } }
+
+
+/* Monochrome, editorial portfolio treatment. */
+.portfolio-grid { gap: 32px 24px; }
+.portfolio-card {
+  background: transparent;
+  border-color: transparent;
+  border-radius: 14px;
+}
+.portfolio-card:hover { border-color: transparent; transform: translateY(-2px); }
+.portfolio-media { aspect-ratio: 4 / 3; border-radius: 12px; }
+.portfolio-info { padding: 14px 2px 4px; }
+.portfolio-info strong { font-weight: 600; letter-spacing: -.02em; }
+.portfolio-info small { letter-spacing: .01em; }
+.works-intro { margin-bottom: 40px; }
+.works-intro h1 { font-weight: 650; letter-spacing: -.06em; }
+.works-intro p { max-width: 58ch; }
+.filter-menu { gap: 8px; }
+@media (max-width: 560px) {
+  .portfolio-grid { gap: 24px; }
+  .portfolio-media { border-radius: 10px; }
+  .portfolio-info { padding-top: 12px; }
+}

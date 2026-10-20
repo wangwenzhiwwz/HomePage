@@ -1,5 +1,14 @@
 (function () {
   const root = document.body?.dataset.contentRoot || "";
+  // Load the shared refinement after page-specific styles so every legacy
+  // page follows the same design tokens without duplicating markup.
+  if (!document.querySelector('link[data-apple-minimal]')) {
+    const style = document.createElement('link');
+    style.rel = 'stylesheet';
+    style.href = root + 'css/apple-minimal.css?v=20261020';
+    style.dataset.appleMinimal = 'true';
+    document.head.appendChild(style);
+  }
   const embedded = window.self !== window.top;
   const initialUrl = new URL(location.href);
   const initialTitle = document.title;
