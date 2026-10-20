@@ -158,7 +158,15 @@
             color: white;
             transform: scale(1.1);
         }
-    </style>
+    
+    /* Align the design reference page with the current monochrome system. */
+    :root { --accent-color:#333333; --primary-color:#333333; }
+    [data-theme="dark"] { --accent-color:#d7d7d2; --primary-color:#d7d7d2; }
+    .color-swatch[style*="#6366f1"],
+    .color-swatch[style*="#ec4899"],
+    .color-swatch[style*="#8b5cf6"] { filter:grayscale(1); }
+
+  </style>
     <link rel="stylesheet" href="css/site-system.css?v=20260920-inline-theme">
 </head>
 
