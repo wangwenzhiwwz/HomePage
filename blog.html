@@ -34,11 +34,11 @@
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://wwz.im/blog.html">
   <meta property="og:title" content="Technical Guides & Creative Notes | WWZ.iM">
-  <meta property="og:description" content="WWZ.iM 技术文章与实践记录：Linux 服务器部署、VPS 网络、路由器 SSH、代理协议与数字工具。">
+  <meta property="og:description" content="WWZ.iM 技术文章与实践记录：ComfyUI 本地 AI 视频、产品一致性、Linux 服务器部署、VPS 网络与数字工具。">
   <meta property="og:image" content="https://wwz.im/favicon.png">
   <meta name="twitter:card" content="summary">
   <meta name="twitter:title" content="Technical Guides & Creative Notes | WWZ.iM">
-  <meta name="twitter:description" content="Linux 服务器部署、VPS 网络、路由器 SSH、代理协议与数字工具的实践教程。">
+  <meta name="twitter:description" content="ComfyUI 本地 AI 视频、产品一致性、Linux 服务器部署、VPS 网络与数字工具的实践教程。">
 
   <link rel="canonical" href="https://wwz.im/blog.html">
     <meta name="description" content="WWZ.iM 技术文章与实践记录，涵盖 Linux 服务器部署、VPS 网络、路由器 SSH、代理协议配置与数字工具使用。">
@@ -204,12 +204,13 @@
         .topic-index { margin-top: 64px; padding-top: 30px; border-top: 1px solid var(--glass-border); }
         .topic-index h2 { font-size: 1.35rem; font-weight: 750; margin-bottom: 8px; }
         .topic-intro { color: var(--text-secondary); max-width: 760px; line-height: 1.75; margin-bottom: 24px; }
-        .topic-grid { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 14px; }
+        .topic-grid { display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); gap: 14px; }
         .topic-card { display: block; padding: 20px; border: 1px solid var(--glass-border); border-radius: 16px; transition: .25s; height: 100%; }
         .topic-card:hover { border-color: var(--text-primary); background: var(--card-hover-bg); transform: translateY(-2px); }
         .topic-card h3 { font-size: 1rem; font-weight: 700; margin: 0 0 8px; }
         .topic-card p { color: var(--text-secondary); font-size: .9rem; line-height: 1.65; margin: 0 0 12px; }
         .topic-card span { color: var(--text-secondary); font-size: .82rem; }
+        @media (max-width: 980px) { .topic-grid { grid-template-columns: repeat(2,minmax(0,1fr)); } }
         @media (max-width: 768px) { .topic-grid { grid-template-columns: 1fr; } .topic-index { margin-top: 44px; } }
         footer { margin-top: 80px; padding-top: 40px; border-top: 1px solid var(--glass-border); color: var(--text-secondary); font-size: 0.9rem; text-align: center; }
     </style>
@@ -233,12 +234,13 @@
   "@type": "ItemList",
   "name": "WWZ.iM 技术文章目录",
   "itemListOrder": "https://schema.org/ItemListOrderDescending",
-  "numberOfItems": 4,
+  "numberOfItems": 5,
   "itemListElement": [
-    {"@type":"ListItem","position":1,"url":"https://wwz.im/articles/linux-server-setup/","name":"服务器初始化与部署指南"},
-    {"@type":"ListItem","position":2,"url":"https://wwz.im/articles/be6500-ssh/","name":"安装 ShellCrash 科学上网"},
-    {"@type":"ListItem","position":3,"url":"https://wwz.im/articles/3x-ui/","name":"3X-UI 安装与 TLS 升级指南"},
-    {"@type":"ListItem","position":4,"url":"https://wwz.im/articles/hysteria-2/","name":"Hysteria 2 部署与网络优化"}
+    {"@type":"ListItem","position":1,"url":"https://wwz.im/articles/comfyui-local-video/","name":"ComfyUI 本地 AI 视频工作站记录"},
+    {"@type":"ListItem","position":2,"url":"https://wwz.im/articles/linux-server-setup/","name":"服务器初始化与部署指南"},
+    {"@type":"ListItem","position":3,"url":"https://wwz.im/articles/be6500-ssh/","name":"安装 ShellCrash 科学上网"},
+    {"@type":"ListItem","position":4,"url":"https://wwz.im/articles/3x-ui/","name":"3X-UI 安装与 TLS 升级指南"},
+    {"@type":"ListItem","position":5,"url":"https://wwz.im/articles/hysteria-2/","name":"Hysteria 2 部署与网络优化"}
   ]
 }
 </script>
@@ -348,6 +350,11 @@
                     <h3>网络与路由器</h3>
                     <p>路由器 SSH、ShellCrash 与代理网络配置实践，保留原厂系统的操作思路。</p>
                     <span>BE6500 / ShellCrash <i class="fa-solid fa-arrow-right"></i></span>
+                </a>
+                <a class="topic-card" href="topics/ai-comfyui/">
+                    <h3>AI 与 ComfyUI</h3>
+                    <p>本地 AI 视频工作站、图生视频、SeedVR2 增强与产品一致性控制。</p>
+                    <span>进入 AI 视频专题 <i class="fa-solid fa-arrow-right"></i></span>
                 </a>
                 <a class="topic-card" href="projects/">
                     <h3>个人工具与项目</h3>
