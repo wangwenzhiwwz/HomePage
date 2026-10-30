@@ -76,7 +76,7 @@
     .about-art::before { width:78%; transform:rotate(-24deg) scaleY(.55); }
     .about-art::after { width:58%; transform:rotate(35deg) scaleY(.55); }
     .art-orbit { position:absolute; width:72%; aspect-ratio:1; border:1px solid color-mix(in srgb,var(--about-accent) 45%,transparent); border-radius:50%; transform:rotate(-35deg) scaleY(.42); }
-    .art-core { position:relative; z-index:1; display:grid; place-items:center; width:170px; aspect-ratio:1; border:1px solid color-mix(in srgb,var(--about-ink) 15%,transparent); border-radius:38%; color:var(--about-ink); background:color-mix(in srgb,var(--glass-bg) 76%,transparent); box-shadow:0 30px 90px rgba(0,0,0,.12),inset 0 1px 0 rgba(255,255,255,.45); -webkit-backdrop-filter:blur(20px); backdrop-filter:blur(20px); font-size:3.5rem; font-weight:850; letter-spacing:-.1em; transform:rotate(-9deg); }
+    .art-core { position:relative; z-index:1; display:block; width:clamp(150px,18vw,218px); aspect-ratio:1; border:5px solid color-mix(in srgb,var(--glass-bg) 82%,transparent); border-radius:50%; object-fit:cover; object-position:center 35%; background:var(--glass-bg); box-shadow:0 28px 85px rgba(0,0,0,.2),0 0 0 1px color-mix(in srgb,var(--about-ink) 12%,transparent); }
     .art-caption { position:absolute; left:25px; right:25px; bottom:23px; display:flex; justify-content:space-between; gap:12px; color:var(--about-muted); font:600 .62rem ui-monospace,monospace; letter-spacing:.1em; text-transform:uppercase; }
     .about-scroll { position:absolute; left:0; bottom:18px; display:flex; align-items:center; gap:12px; color:var(--about-muted); font:600 .65rem ui-monospace,monospace; letter-spacing:.12em; text-transform:uppercase; }
     .about-scroll i { color:var(--about-accent); }
@@ -133,7 +133,7 @@
       .about-hero { grid-template-columns:1fr; gap:27px; min-height:0; padding:25px 0 62px; }
       .about-hero h1 { font-size:clamp(4rem,16vw,6.2rem); }
       .about-intro { margin-top:24px; font-size:.98rem; }
-      .about-art { min-height:280px; border-radius:25px; } .art-core { width:125px; font-size:2.8rem; }
+      .about-art { min-height:280px; border-radius:25px; } .art-core { width:145px; }
       .about-scroll { bottom:18px; }
       .about-section { padding:55px 0; }
       .section-heading { grid-template-columns:1fr; gap:13px; margin-bottom:25px; }
@@ -170,7 +170,7 @@
           <p class="copy-status" id="copyStatus" role="status" aria-live="polite"></p>
         </div>
         <div class="about-art" aria-label="WWZ visual identity">
-          <div class="art-orbit"></div><div class="art-core" aria-hidden="true">WWZ</div>
+          <div class="art-orbit"></div><img class="art-core" src="images/author-image.jpg" alt="Portrait of Wang Wenzhi" width="440" height="440" fetchpriority="high">
           <div class="art-caption"><span>Creative × Technology</span><span>Independent practice</span></div>
         </div>
         <a class="about-scroll" href="#about-story"><i class="fa-solid fa-arrow-down" aria-hidden="true"></i> Scroll to explore</a>
