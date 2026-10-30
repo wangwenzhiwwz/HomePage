@@ -878,3 +878,75 @@ body > main, body > main.main-content {
     padding-top: calc(100px + env(safe-area-inset-top)) !important;
   }
 }
+
+/* Final layout correction for pages mounted beside the shared Works navigation. */
+@media (min-width: 1100px) {
+  body > .sidebar ~ .page {
+    box-sizing: border-box;
+    width: min(980px, calc(100vw - 380px));
+    margin-left: calc(300px + (100vw - 300px - min(980px, 100vw - 380px)) / 2) !important;
+    margin-right: 0 !important;
+  }
+  body > .sidebar ~ .page > main {
+    box-sizing: border-box;
+    width: 100%;
+    min-width: 0;
+    padding: 136px 0 60px !important;
+  }
+}
+
+/* Tablet navigation is a top bar, not a left sidebar: center the page on screen. */
+@media (min-width: 761px) and (max-width: 1099px) {
+  body > .sidebar ~ .page {
+    box-sizing: border-box;
+    width: min(980px, calc(100vw - 64px));
+    margin-inline: auto !important;
+  }
+  body > .sidebar ~ .page > main {
+    box-sizing: border-box;
+    width: 100%;
+    min-width: 0;
+    padding: 112px 0 60px !important;
+  }
+}
+
+/* Mobile: reserve the complete fixed navigation area and respect device safe areas. */
+@media (max-width: 760px) {
+  body > .sidebar ~ .page {
+    box-sizing: border-box;
+    width: calc(100% - 32px);
+    max-width: 680px;
+    margin-inline: auto !important;
+  }
+  body > .sidebar ~ .page > main {
+    box-sizing: border-box;
+    width: 100%;
+    min-width: 0;
+    padding: calc(112px + env(safe-area-inset-top)) 0 calc(44px + env(safe-area-inset-bottom)) !important;
+  }
+}
+
+/* Prevent long labels, headings and code-like strings from colliding or clipping. */
+body > .sidebar ~ .page,
+body > .sidebar ~ .page > main,
+body > .sidebar ~ .page :is(section,article,header,footer,div) {
+  min-width: 0;
+}
+body > .sidebar ~ .page :is(h1,h2,h3,p,li,a,strong,span) {
+  overflow-wrap: anywhere;
+  word-break: normal;
+}
+body > .sidebar ~ .page :is(h1,h2,h3) {
+  line-height: 1.16 !important;
+  padding-block: .04em;
+}
+body > .sidebar ~ .page img,
+body > .sidebar ~ .page video,
+body > .sidebar ~ .page iframe {
+  max-width: 100%;
+}
+body > .sidebar ~ .page pre,
+body > .sidebar ~ .page code {
+  max-width: 100%;
+  overflow-wrap: anywhere;
+}
