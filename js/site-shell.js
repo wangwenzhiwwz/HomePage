@@ -165,6 +165,7 @@
   };
 
   const routeKey = url => (
+    url.pathname.endsWith("/about.html") ? "about" :
     url.pathname.includes("/videos/") ? "videos" :
     url.pathname.includes("/article") || url.pathname.endsWith("/blog.html") ? "blog" :
     url.pathname.endsWith("/works.html") ? "works" :
