@@ -15,7 +15,7 @@
 
   const videoButton = (video, className = "video-mini") => `
     <button class="${className} js-video" type="button" data-video="${escape(video.embed)}" aria-label="播放 ${escape(video.title)}">
-      <span class="media"><img src="${local(video.image)}" loading="lazy" decoding="async" alt="${escape(video.title)}"><span class="play"><i class="fa-solid fa-play"></i></span></span>
+      <span class="media"><img src="${local(video.image)}" loading="${className === "video-main" ? "eager" : "lazy"}" fetchpriority="${className === "video-main" ? "high" : "auto"}" decoding="async" alt="${escape(video.title)}"><span class="play"><i class="fa-solid fa-play"></i></span></span>
       ${className === "video-mini" ? `<span><h3>${escape(video.title)}</h3><span class="mini-meta">${escape(video.description)} · ${escape(video.year)}</span></span>` : ""}
     </button>`;
 
