@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" content="#f7f7f5">
+<title>ComfyUI 本地 AI 视频工作站记录：RTX 5080 与 SeedVR2 | WWZ.iM</title>
+<meta name="description" content="记录 ComfyUI 本地 AI 视频工作站的已确认硬件、SeedVR2 3B Int8 模板与模型文件观察，以及产品图生视频的质量检查原则。">
+<meta name="author" content="Wang Wenzhi">
+<meta name="robots" content="index,follow">
+<link rel="canonical" href="https://wwz.im/articles/comfyui-local-video/">
+<link rel="icon" href="../../favicon.ico">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://wwz.im/articles/comfyui-local-video/">
+<meta property="og:title" content="ComfyUI 本地 AI 视频工作站记录：RTX 5080 与 SeedVR2 | WWZ.iM">
+<meta property="og:description" content="本地工作站环境、SeedVR2 模板与模型文件观察，以及产品一致性优先的 AI 视频流程。">
+<meta property="og:image" content="https://wwz.im/images/videos/rugone-xever-7.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="ComfyUI 本地 AI 视频工作站记录 | WWZ.iM">
+<meta name="twitter:description" content="记录 ComfyUI、SeedVR2 与产品图生视频工作流的当前状态。">
+<script type="application/ld+json">
+{
+ "@context":"https://schema.org",
+ "@type":"TechArticle",
+ "headline":"ComfyUI 本地 AI 视频工作站记录：RTX 5080 与 SeedVR2",
+ "description":"记录 ComfyUI 本地 AI 视频工作站的已确认硬件、SeedVR2 3B Int8 模板与模型文件观察，以及产品图生视频的质量检查原则。",
+ "author":{"@type":"Person","name":"Wang Wenzhi"},
+ "mainEntityOfPage":"https://wwz.im/articles/comfyui-local-video/",
+ "image":"https://wwz.im/images/videos/rugone-xever-7.jpg"
+}
+</script>
+<style>
+:root{color-scheme:light dark;--bg:#f7f7f5;--ink:#171715;--muted:#70706a;--line:rgba(20,20,18,.12);--panel:#fff;--soft:rgba(20,20,18,.035)}
+@media(prefers-color-scheme:dark){:root{--bg:#0b0b0a;--ink:#f3f3ef;--muted:#a1a19a;--line:rgba(255,255,255,.14);--panel:#141413;--soft:rgba(255,255,255,.04)}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;line-height:1.8}a{color:inherit}.page{width:min(100% - 40px,860px);margin:auto}.top{height:76px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line)}.brand{font-weight:800;letter-spacing:-.05em;text-decoration:none}.nav{display:flex;gap:22px;color:var(--muted);font-size:.9rem;text-decoration:none}.nav a{text-decoration:none}main{padding:64px 0 90px}.eyebrow{font:600 .72rem ui-monospace,monospace;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}h1{font-size:clamp(2.2rem,6vw,4.4rem);line-height:1.05;letter-spacing:-.065em;margin:16px 0}.lead{font-size:1.12rem;color:var(--muted);line-height:1.85}.meta{display:flex;gap:18px;flex-wrap:wrap;color:var(--muted);font-size:.82rem;margin:20px 0 28px}.cover{width:100%;aspect-ratio:16/8;object-fit:cover;border-radius:20px}.body{padding-top:30px}.body section{padding:30px 0;border-bottom:1px solid var(--line)}h2{font-size:1.45rem;letter-spacing:-.035em;margin:0 0 12px}.body p,.body li{color:var(--muted)}.body strong{color:var(--ink)}.callout{padding:18px 20px;background:var(--soft);border:1px solid var(--line);border-radius:15px}.specs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:20px 0}.spec{padding:18px;border:1px solid var(--line);border-radius:14px}.spec strong{display:block;font-size:1.2rem}.spec span{font-size:.82rem;color:var(--muted)}code{font: .88em ui-monospace,SFMono-Regular,Menlo,monospace;background:var(--soft);padding:2px 5px;border-radius:5px;overflow-wrap:anywhere}.model-list{padding-left:22px}.foot{padding:24px 0 36px;border-top:1px solid var(--line);display:flex;justify-content:space-between;color:var(--muted);font-size:.82rem}
+@media(max-width:640px){.page{width:min(100% - 28px,860px)}.top{height:64px}.nav{gap:14px;font-size:.82rem}.nav a:nth-child(2){display:none}main{padding:48px 0 66px}.specs{grid-template-columns:1fr}.foot{flex-direction:column;gap:8px}}
+</style>
+</head>
+<body><div class="page">
+<header class="top"><a class="brand" href="https://wwz.im/">WWZ.iM</a><nav class="nav"><a href="https://wwz.im/blog.html">Notes</a><a href="https://wwz.im/topics/ai-comfyui/">AI &amp; ComfyUI</a><a href="https://wwz.im/videos/">Videos</a></nav></header>
+<main>
+<div class="eyebrow">AI &amp; ComfyUI · Local Video Workflow</div>
+<h1>ComfyUI 本地 AI 视频工作站记录</h1>
+<p class="lead">从本地硬件基线开始，逐步整理图生视频、视频增强与产品一致性控制。本文先记录已经确认的环境和 SeedVR2 相关观察，不把尚未验证的节点、模型加载或生成结果写成已完成教程。</p>
+<div class="meta"><span>2026-10</span><span>约 5 分钟</span><span>Wang Wenzhi</span></div>
+<img class="cover" src="../../images/videos/rugone-xever-7.jpg" alt="Rugged device commercial video reference">
+<article class="body">
+<section>
+<h2>1. 本地工作站环境</h2>
+<p>当前记录的工作站配置如下。显存容量会直接影响可选模型、分辨率、帧数和批量设置，因此后续工作流会以实际显存占用为依据，而不是默认所有模型都能直接运行。</p>
+<div class="specs">
+<div class="spec"><strong>NVIDIA RTX 5080</strong><span>16 GB dedicated VRAM</span></div>
+<div class="spec"><strong>约 128 GB</strong><span>系统内存</span></div>
+<div class="spec"><strong>ComfyUI</strong><span>已安装</span></div>
+</div>
+<p>设备同时存在 Intel 集成显卡。本文所说的本地 AI 视频工作站以 RTX 5080 独立显卡为主要计算设备。</p>
+</section>
+<section>
+<h2>2. SeedVR2 当前观察记录</h2>
+<p>在 ComfyUI 模板中，曾打开 <strong>Video Upscale: SeedVR2 3B Int8</strong>。当时观察到的相关模型文件名包括：</p>
+<ul class="model-list">
+<li><code>seedvr2_ema_vae_fp16.safetensors</code></li>
+<li><code>seedvr2_3b_int8_convrot.safetensors</code></li>
+</ul>
+<p><code>chrono_edit_14B_fp16.safetensors</code> 是另一项独立模型文件，不应因为文件同时出现就误认为它是 SeedVR2 必需模型。</p>
+<div class="callout"><strong>状态说明：</strong>这里记录的是模板与文件名观察结果，不等于已经确认 SeedVR2 自定义节点安装完整、模型成功加载或视频增强任务成功输出。后续补充时应附上实际节点截图、运行日志、输入输出样片和显存记录。</div>
+</section>
+<section>
+<h2>3. 产品图生视频的工作流方向</h2>
+<p>产品商业视频优先从真实产品图片出发，再设计镜头和环境变化。与完全依赖文本生成相比，图生视频更适合把真实产品外观作为视觉依据，但仍需要逐帧检查生成过程中的结构漂移。</p>
+<ol>
+<li><strong>输入：</strong>选择清晰、角度明确的产品原图，确认机身比例、镜头、按键、Logo 与颜色。</li>
+<li><strong>镜头：</strong>先定义主体位置、运动方向、景别和背景变化，避免一次要求过多动作。</li>
+<li><strong>生成：</strong>先做短片段测试，确认主体稳定后再增加时长和画面复杂度。</li>
+<li><strong>检查：</strong>逐帧观察机身变形、镜头数量变化、Logo 错字、材质闪烁与边缘抖动。</li>
+<li><strong>增强：</strong>只有在基础画面可用后，再考虑 SeedVR2 等视频增强环节。</li>
+</ol>
+<p>以上是工作流设计原则，不是已经验证通过的 ComfyUI JSON 工作流或一键参数预设。</p>
+</section>
+<section>
+<h2>4. 产品一致性验收标准</h2>
+<ul>
+<li>机身轮廓、长宽比例和厚度在镜头前后保持一致。</li>
+<li>摄像头、热成像模块、按键、接口和扬声器的位置与数量正确。</li>
+<li>品牌 Logo、屏幕文字和产品型号不出现错误字符或随机变化。</li>
+<li>机身颜色、材质、反光和纹理不发生明显跳变。</li>
+<li>运动过程中边缘不融化、不拉伸，产品不凭空增加或缺少部件。</li>
+<li>同一镜头相邻帧之间保持合理连续，不出现明显闪烁。</li>
+</ul>
+<p>验收顺序应先检查产品是否正确，再检查镜头是否自然，最后才评价风格、氛围和特效。</p>
+</section>
+<section>
+<h2>5. 后续补全计划</h2>
+<p>后续每个可复现工作流都应记录：ComfyUI 版本、节点名称与版本、模型文件及来源、模型放置目录、输入规格、关键参数、显存峰值、输出规格、运行耗时、失败信息和回滚方式。</p>
+<p>在这些信息实际验证之前，不提供未经测试的安装命令，也不把模型依赖写成默认已安装。</p>
+<div class="callout">专题入口：<a href="../../topics/ai-comfyui/"><strong>AI &amp; ComfyUI 本地 AI 视频制作专题 →</strong></a></div>
+</section>
+</article>
+</main>
+<footer class="foot"><span>© 2026 WWZ.iM</span><a href="../../blog.html">Back to Notes ↑</a></footer>
+</div></body></html>
