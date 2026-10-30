@@ -1,100 +1,14 @@
 (() => {
-  const portfolioItems = window.WWZ_WORKS || [];
-  const labels = { video: 'Campaign Stills', photo: 'Photography' };
-  const grid = document.getElementById('portfolioGrid');
-  const dialog = document.getElementById('imageViewer');
-  const image = document.getElementById('viewerImage');
-  const stage = document.getElementById('viewerStage');
-  const status = document.getElementById('viewerStatus');
-  const zoom = document.getElementById('viewerZoom');
-  const previous = document.getElementById('viewerPrevious');
-  const next = document.getElementById('viewerNext');
-  let visible = portfolioItems;
-  let current = 0;
-  let opener = null;
-  let pointer = null;
-  const setZoom = enabled => {
-    stage.classList.toggle('is-zoomed', enabled);
-    zoom.setAttribute('aria-pressed', String(enabled));
-    zoom.textContent = enabled ? 'Zoom −' : 'Zoom +';
-    zoom.setAttribute('aria-label', enabled ? 'Fit image to screen' : 'Zoom image');
-    stage.scrollTo(0, 0);
-  };
-  const show = index => {
-    current = (index + visible.length) % visible.length;
-    const item = visible[current];
-    setZoom(false);
-    stage.setAttribute('aria-busy', 'true');
-    status.textContent = 'Loading image…';
-    zoom.disabled = true;
-    document.getElementById('viewerTitle').textContent = item.title;
-    document.getElementById('viewerPosition').textContent = (current + 1) + ' / ' + visible.length + ' · ' + labels[item.category];
-    image.alt = item.title;
-    image.src = item.image;
-    previous.disabled = next.disabled = visible.length < 2;
-  };
-  image.addEventListener('load', () => {
-    stage.setAttribute('aria-busy', 'false');
-    status.textContent = '';
-    zoom.disabled = false;
-  });
-  image.addEventListener('error', () => {
-    stage.setAttribute('aria-busy', 'false');
-    status.textContent = 'Image unavailable. Please try another image.';
-    zoom.disabled = true;
-  });
-  portfolioItems.forEach(item => {
-    const wrapper = document.createElement('div');
-    wrapper.className = 'portfolio-item';
-    wrapper.dataset.category = item.category;
-    const button = document.createElement('button');
-    button.type = 'button';
-    button.className = 'portfolio-card';
-    button.setAttribute('aria-label', 'View ' + item.title);
-    button.setAttribute('aria-haspopup', 'dialog');
-    button.innerHTML = `<span class="portfolio-media"><img src="${item.image}" alt="${item.title}" class="portfolio-img" loading="lazy" decoding="async" width="800" height="600"></span><span class="portfolio-info"><span><strong>${item.title}</strong><small>${labels[item.category]}</small></span><span class="portfolio-open" aria-hidden="true">↗</span></span>`;
-    button.addEventListener('click', () => {
-      opener = button;
-      show(visible.indexOf(item));
-      dialog.showModal();
-    });
-    wrapper.append(button);
-    grid.append(wrapper);
-  });
-  const updateCount = () => { document.getElementById('worksCount').textContent = visible.length + ' works'; };
-  updateCount();
-  document.querySelectorAll('[data-filter]').forEach(button => {
-    button.addEventListener('click', () => {
-      const category = button.dataset.filter;
-      visible = portfolioItems.filter(item => category === 'all' || item.category === category);
-      document.querySelectorAll('[data-filter]').forEach(control => control.setAttribute('aria-pressed', String(control === button)));
-      grid.querySelectorAll('.portfolio-item').forEach(item => { item.hidden = category !== 'all' && item.dataset.category !== category; });
-      updateCount();
-    });
-  });
-  document.getElementById('viewerClose').addEventListener('click', () => dialog.close());
-  dialog.addEventListener('close', () => { setZoom(false); opener?.focus({ preventScroll: true }); });
-  previous.addEventListener('click', () => show(current - 1));
-  next.addEventListener('click', () => show(current + 1));
-  zoom.addEventListener('click', () => setZoom(!stage.classList.contains('is-zoomed')));
-  image.addEventListener('click', () => { if (!zoom.disabled) zoom.click(); });
-  stage.addEventListener('click', event => { if (event.target === stage) dialog.close(); });
-  dialog.addEventListener('keydown', event => {
-    if (stage.classList.contains('is-zoomed')) return;
-    if (event.key === 'ArrowLeft' || event.key === 'ArrowRight') {
-      event.preventDefault();
-      show(current + (event.key === 'ArrowLeft' ? -1 : 1));
-    }
-  });
-  stage.addEventListener('touchstart', event => {
-    pointer = event.touches.length === 1 && !stage.classList.contains('is-zoomed') ? { x: event.touches[0].clientX, y: event.touches[0].clientY } : null;
-  }, { passive: true });
-  stage.addEventListener('touchend', event => {
-    if (!pointer || !event.changedTouches.length) return;
-    const dx = event.changedTouches[0].clientX - pointer.x;
-    const dy = event.changedTouches[0].clientY - pointer.y;
-    pointer = null;
-    if (Math.abs(dx) > 60 && Math.abs(dx) > Math.abs(dy) * 1.5) show(current + (dx < 0 ? 1 : -1));
-  }, { passive: true });
-  stage.addEventListener('touchcancel', () => { pointer = null; });
+const grid=document.getElementById('portfolioGrid'),dialog=document.getElementById('imageViewer'),image=document.getElementById('viewerImage'),stage=document.getElementById('viewerStage'),status=document.getElementById('viewerStatus'),zoom=document.getElementById('viewerZoom'),prev=document.getElementById('viewerPrevious'),next=document.getElementById('viewerNext'),search=document.getElementById('worksSearch'),sort=document.getElementById('worksSort'),count=document.getElementById('worksCount');
+let items=[],shown=[],index=0,opener=null,category='all',touch=null;
+const zoomTo=on=>{stage.classList.toggle('is-zoomed',on);zoom.setAttribute('aria-pressed',String(on));zoom.textContent=on?'缩小':'放大';stage.scrollTo(0,0)};
+const show=i=>{if(!shown.length)return;index=(i+shown.length)%shown.length;const w=shown[index];zoomTo(false);stage.setAttribute('aria-busy','true');status.textContent='图片载入中…';zoom.disabled=true;document.getElementById('viewerTitle').textContent=w.title;document.getElementById('viewerPosition').textContent=(index+1)+' / '+shown.length+' · '+w.category+' / '+w.subcategory;document.getElementById('viewerDate').textContent=w.date||'';document.getElementById('viewerSource').href=w.url;image.alt=w.title;image.src=w.image;prev.disabled=next.disabled=shown.length<2};
+image.addEventListener('load',()=>{stage.setAttribute('aria-busy','false');status.textContent='';zoom.disabled=false});
+image.addEventListener('error',()=>{stage.setAttribute('aria-busy','false');status.textContent='图片暂时无法载入';zoom.disabled=true});
+const card=w=>{const wrap=document.createElement('article');wrap.className='portfolio-item';wrap.dataset.category=w.category;const b=document.createElement('button');b.type='button';b.className='portfolio-card';b.setAttribute('aria-label','查看作品：'+w.title);b.setAttribute('aria-haspopup','dialog');const media=document.createElement('span');media.className='portfolio-media';const img=document.createElement('img');img.className='portfolio-img';img.src=w.image;img.alt=w.title;img.loading='lazy';img.decoding='async';img.width=800;img.height=600;media.append(img);const info=document.createElement('span');info.className='portfolio-info';const copy=document.createElement('span'),title=document.createElement('strong'),meta=document.createElement('small'),arrow=document.createElement('span');title.textContent=w.title;meta.textContent=w.category+' · '+w.subcategory;arrow.className='portfolio-open';arrow.textContent='↗';copy.append(title,meta);info.append(copy,arrow);b.append(media,info);b.addEventListener('click',()=>{opener=b;show(shown.indexOf(w));dialog.showModal()});wrap.append(b);return wrap};
+const render=()=>{const q=search.value.trim().toLowerCase();shown=items.filter(w=>(category==='all'||w.category===category)&&(!q||[w.title,w.category,w.subcategory,...(w.tags||[])].join(' ').toLowerCase().includes(q)));if(sort.value==='oldest')shown.reverse();grid.replaceChildren();const frag=document.createDocumentFragment();shown.forEach(w=>frag.append(card(w)));grid.append(frag);count.textContent='共 '+shown.length+' 件作品'+(q?' · 搜索结果':'');if(!shown.length){const empty=document.createElement('p');empty.className='works-empty';empty.textContent='没有找到匹配的作品，试试其他关键词。';grid.append(empty)}};
+document.querySelectorAll('[data-filter]').forEach(b=>b.addEventListener('click',()=>{category=b.dataset.filter;document.querySelectorAll('[data-filter]').forEach(x=>x.setAttribute('aria-pressed',String(x===b)));render()}));
+search.addEventListener('input',render);sort.addEventListener('change',render);document.getElementById('viewerClose').addEventListener('click',()=>dialog.close());dialog.addEventListener('close',()=>{zoomTo(false);opener?.focus({preventScroll:true})});prev.addEventListener('click',()=>show(index-1));next.addEventListener('click',()=>show(index+1));zoom.addEventListener('click',()=>zoomTo(!stage.classList.contains('is-zoomed')));image.addEventListener('click',()=>{if(!zoom.disabled)zoom.click()});stage.addEventListener('click',e=>{if(e.target===stage)dialog.close()});dialog.addEventListener('keydown',e=>{if(stage.classList.contains('is-zoomed'))return;if(e.key==='ArrowLeft'||e.key==='ArrowRight'){e.preventDefault();show(index+(e.key==='ArrowLeft'?-1:1))}});
+stage.addEventListener('touchstart',e=>{touch=e.touches.length===1&&!stage.classList.contains('is-zoomed')?{x:e.touches[0].clientX,y:e.touches[0].clientY}:null},{passive:true});stage.addEventListener('touchend',e=>{if(!touch||!e.changedTouches.length)return;const dx=e.changedTouches[0].clientX-touch.x,dy=e.changedTouches[0].clientY-touch.y;touch=null;if(Math.abs(dx)>55&&Math.abs(dx)>Math.abs(dy)*1.4)show(index+(dx<0?1:-1))},{passive:true});stage.addEventListener('touchcancel',()=>touch=null);
+window.WWZ_WORKS_READY.then(data=>{items=Array.isArray(data)?data:[];if(!items.length){count.textContent='作品数据载入失败，请刷新页面重试。';return}render()});
 })();
