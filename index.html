@@ -28,7 +28,7 @@
     html:not([data-theme-ready]), html:not([data-theme-ready]) body { background:var(--wwz-initial-bg) !important; background-image:none !important; }
     html:not([data-theme-ready]), html:not([data-theme-ready]) * { transition:none !important; }
   </style>
-  <script src="js/site-theme.js?v=20260920-inline-theme"></script>
+  <script src="js/site-theme.js?v=20260920-inline-theme" defer></script>
   <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=5">
   <title>Wang Wenzhi — Commercial Director &amp; Network Engineer</title>
   <meta name="description" content="Wang Wenzhi — commercial video production, AI-assisted creative workflows, independent web tools and network infrastructure.">
@@ -40,7 +40,7 @@
   <meta name="robots" content="index,follow">
   <link rel="canonical" href="https://wwz.im/">
   <link rel="icon" href="favicon.ico">
-  <link rel="preload" as="image" href="images/videos/armor-34-pro.jpg">
+  <link rel="preload" as="image" href="images/hero-glass-logo-transparent.png" fetchpriority="high">
   <link rel="preconnect" href="https://cdnjs.cloudflare.com">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   <style>
@@ -287,7 +287,7 @@
         </div>
         <div class="logo-stage" id="logoStage" aria-label="WWZ Logo 动态装置">
           <div class="logo-world" id="logoWorld">
-            <img class="glass-logo-art" src="images/hero-glass-logo-transparent.png" width="1254" height="1254" alt="" aria-hidden="true" decoding="async">
+            <img class="glass-logo-art" src="images/hero-glass-logo-transparent.png" width="1254" height="1254" alt="" aria-hidden="true" decoding="async" loading="eager" fetchpriority="high">
           </div>
         </div>
         <div class="disciplines">
