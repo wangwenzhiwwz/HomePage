@@ -1000,3 +1000,112 @@ body > .sidebar.wwz-topbar ~ main.main-content {
   right: auto !important;
   transform: none;
 }
+
+
+/* Site-wide layout normalization — applies to every page using the shared top navigation. */
+body > .sidebar.wwz-topbar ~ :is(main, .main-content, .about-main) {
+  box-sizing: border-box !important;
+  display: block;
+  float: none !important;
+  position: relative;
+  left: auto !important;
+  right: auto !important;
+  width: min(1120px, calc(100% - 96px)) !important;
+  max-width: 1120px !important;
+  min-width: 0 !important;
+  margin: 0 auto !important;
+  padding: 136px 0 72px !important;
+  transform: none !important;
+}
+
+body > .sidebar.wwz-topbar ~ .page {
+  box-sizing: border-box !important;
+  width: min(1120px, calc(100% - 96px)) !important;
+  max-width: 1120px !important;
+  min-width: 0 !important;
+  margin: 0 auto !important;
+  padding: 0 !important;
+  float: none !important;
+  transform: none !important;
+}
+
+body > .sidebar.wwz-topbar ~ .page > main {
+  box-sizing: border-box !important;
+  display: block;
+  width: 100% !important;
+  max-width: none !important;
+  min-width: 0 !important;
+  margin: 0 !important;
+  padding: 136px 0 72px !important;
+  float: none !important;
+  transform: none !important;
+}
+
+body > .sidebar.wwz-topbar ~ :is(main, .main-content, .about-main),
+body > .sidebar.wwz-topbar ~ .page,
+body > .sidebar.wwz-topbar ~ .page > main {
+  overflow: visible;
+}
+
+body > .sidebar.wwz-topbar ~ :is(main, .main-content, .about-main) *,
+body > .sidebar.wwz-topbar ~ .page > main * {
+  min-width: 0;
+}
+
+body > .sidebar.wwz-topbar ~ :is(main, .main-content, .about-main) :is(h1,h2,h3,h4,p,li),
+body > .sidebar.wwz-topbar ~ .page > main :is(h1,h2,h3,h4,p,li) {
+  overflow-wrap: break-word;
+  word-break: normal;
+}
+
+body > .sidebar.wwz-topbar ~ :is(main, .main-content, .about-main) :is(h1,h2,h3,h4),
+body > .sidebar.wwz-topbar ~ .page > main :is(h1,h2,h3,h4) {
+  max-width: 100%;
+  line-height: 1.16;
+}
+
+body > .sidebar.wwz-topbar ~ :is(main, .main-content, .about-main) :is(img,video,iframe,svg),
+body > .sidebar.wwz-topbar ~ .page > main :is(img,video,iframe,svg) {
+  max-width: 100%;
+}
+
+body > .sidebar.wwz-topbar ~ :is(main, .main-content, .about-main) pre,
+body > .sidebar.wwz-topbar ~ .page > main pre {
+  max-width: 100%;
+  overflow-x: auto;
+  overflow-wrap: normal;
+  white-space: pre;
+}
+
+@media (min-width: 761px) and (max-width: 1099px) {
+  body > .sidebar.wwz-topbar ~ :is(main, .main-content, .about-main),
+  body > .sidebar.wwz-topbar ~ .page {
+    width: min(980px, calc(100% - 64px)) !important;
+    max-width: 980px !important;
+  }
+  body > .sidebar.wwz-topbar ~ .page > main {
+    padding-top: 112px !important;
+  }
+  body > .sidebar.wwz-topbar ~ :is(main, .main-content, .about-main) {
+    padding-top: 112px !important;
+  }
+}
+
+@media (max-width: 760px) {
+  body > .sidebar.wwz-topbar ~ :is(main, .main-content, .about-main),
+  body > .sidebar.wwz-topbar ~ .page {
+    width: calc(100% - 32px) !important;
+    max-width: 680px !important;
+  }
+  body > .sidebar.wwz-topbar ~ :is(main, .main-content, .about-main),
+  body > .sidebar.wwz-topbar ~ .page > main {
+    padding: calc(112px + env(safe-area-inset-top)) 0 calc(44px + env(safe-area-inset-bottom)) !important;
+  }
+}
+
+@media (max-width: 380px) {
+  body > .sidebar.wwz-topbar ~ :is(main, .main-content, .about-main),
+  body > .sidebar.wwz-topbar ~ .page {
+    width: calc(100% - 24px) !important;
+  }
+}
