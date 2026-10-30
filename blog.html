@@ -34,14 +34,14 @@
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://wwz.im/blog.html">
   <meta property="og:title" content="Technical Guides & Creative Notes | WWZ.iM">
-  <meta property="og:description" content="Practical tutorials and field notes on Linux servers, VPS networking, router configuration, creative production and digital experiments by Wang Wenzhi.">
+  <meta property="og:description" content="WWZ.iM 技术文章与实践记录：Linux 服务器部署、VPS 网络、路由器 SSH、代理协议与数字工具。">
   <meta property="og:image" content="https://wwz.im/favicon.png">
   <meta name="twitter:card" content="summary">
   <meta name="twitter:title" content="Technical Guides & Creative Notes | WWZ.iM">
-  <meta name="twitter:description" content="Practical tutorials and field notes on Linux servers, VPS networking, router configuration, creative production and digital experiments by Wang Wenzhi.">
+  <meta name="twitter:description" content="Linux 服务器部署、VPS 网络、路由器 SSH、代理协议与数字工具的实践教程。">
 
   <link rel="canonical" href="https://wwz.im/blog.html">
-    <meta name="description" content="Practical tutorials and field notes on Linux servers, VPS networking, router configuration, creative production and digital experiments by Wang Wenzhi.">
+    <meta name="description" content="WWZ.iM 技术文章与实践记录，涵盖 Linux 服务器部署、VPS 网络、路由器 SSH、代理协议配置与数字工具使用。">
 
     <link rel="icon" href="https://wwz.im/favicon.ico">
 
@@ -201,6 +201,16 @@
         .mobile-btn { width: 36px; height: 36px; border-radius: 10px; background: rgba(125, 125, 125, 0.1); border: 1px solid var(--glass-border); color: var(--text-primary); display: flex; align-items: center; justify-content: center; }
         #loader { position: fixed; inset: 0; background: var(--bg-body); z-index: 1000000; display: flex; justify-content: center; align-items: center; transition: 0.5s; }
 
+        .topic-index { margin-top: 64px; padding-top: 30px; border-top: 1px solid var(--glass-border); }
+        .topic-index h2 { font-size: 1.35rem; font-weight: 750; margin-bottom: 8px; }
+        .topic-intro { color: var(--text-secondary); max-width: 760px; line-height: 1.75; margin-bottom: 24px; }
+        .topic-grid { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 14px; }
+        .topic-card { display: block; padding: 20px; border: 1px solid var(--glass-border); border-radius: 16px; transition: .25s; height: 100%; }
+        .topic-card:hover { border-color: var(--text-primary); background: var(--card-hover-bg); transform: translateY(-2px); }
+        .topic-card h3 { font-size: 1rem; font-weight: 700; margin: 0 0 8px; }
+        .topic-card p { color: var(--text-secondary); font-size: .9rem; line-height: 1.65; margin: 0 0 12px; }
+        .topic-card span { color: var(--text-secondary); font-size: .82rem; }
+        @media (max-width: 768px) { .topic-grid { grid-template-columns: 1fr; } .topic-index { margin-top: 44px; } }
         footer { margin-top: 80px; padding-top: 40px; border-top: 1px solid var(--glass-border); color: var(--text-secondary); font-size: 0.9rem; text-align: center; }
     </style>
     <link rel="stylesheet" href="css/site-system.css?v=20260920-inline-theme">
@@ -316,6 +326,29 @@
             </div>
 
 
+        </section>
+
+        <section class="topic-index" aria-labelledby="topic-index-title">
+            <h2 id="topic-index-title">按主题继续阅读</h2>
+            <p class="topic-intro">这里整理的是实际部署与使用过程中的技术记录。文章按主题关联，方便从单篇教程继续查阅相关配置、工具和项目。</p>
+            <div class="topic-grid">
+                <a class="topic-card" href="articles/linux-server-setup/">
+                    <h3>Linux 与 VPS</h3>
+                    <p>从服务器初始化、基础环境配置到服务部署与日常维护。</p>
+                    <span>服务器初始化指南 <i class="fa-solid fa-arrow-right"></i></span>
+                </a>
+                <a class="topic-card" href="articles/be6500-ssh/">
+                    <h3>网络与路由器</h3>
+                    <p>路由器 SSH、ShellCrash 与代理网络配置实践，保留原厂系统的操作思路。</p>
+                    <span>BE6500 / ShellCrash <i class="fa-solid fa-arrow-right"></i></span>
+                </a>
+                <a class="topic-card" href="projects/">
+                    <h3>个人工具与项目</h3>
+                    <p>围绕日常网络、订阅配置、文本转换与资源整理开发的小型在线工具。</p>
+                    <span>浏览 WWZ.iM 项目 <i class="fa-solid fa-arrow-right"></i></span>
+                </a>
+            </div>
+            <p class="topic-intro" style="margin-top:22px;margin-bottom:0">相关工具：<a href="projects/sub/">SUB.WWZ.iM 订阅转换</a> · <a href="projects/ip/">IP.WWZ.iM 网络信息</a> · <a href="projects/vps/">VPS.WWZ.iM 服务器监控</a></p>
         </section>
 
         <footer>
