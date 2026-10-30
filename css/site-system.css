@@ -840,3 +840,23 @@ body > main, body > main.main-content {
     transition-duration: .01ms !important;
   }
 }
+
+
+/* Center newly added pages in the content area beside the shared sidebar. */
+@media (min-width: 761px) {
+  body > .sidebar ~ .page {
+    box-sizing: border-box;
+    width: min(980px, calc(100vw - 340px));
+    margin-left: calc(300px + (100vw - 300px - min(980px, 100vw - 340px)) / 2);
+    margin-right: 0;
+  }
+}
+@media (max-width: 760px) {
+  body > .sidebar ~ .page {
+    width: calc(100% - 28px);
+    margin-inline: auto;
+  }
+  body > .sidebar ~ .page > main {
+    padding-top: calc(92px + env(safe-area-inset-top));
+  }
+}
