@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" content="#f7f7f5">
+<title>AI &amp; ComfyUI：本地 AI 视频制作专题 | WWZ.iM</title>
+<meta name="description" content="记录 ComfyUI 本地 AI 视频工作流、SeedVR2 视频增强、图生视频、产品外观一致性与 Ulefone 商业视频制作实践。">
+<meta name="author" content="Wang Wenzhi">
+<meta name="robots" content="index,follow">
+<link rel="canonical" href="https://wwz.im/topics/ai-comfyui/">
+<link rel="icon" href="../../favicon.ico">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://wwz.im/topics/ai-comfyui/">
+<meta property="og:title" content="AI &amp; ComfyUI：本地 AI 视频制作专题 | WWZ.iM">
+<meta property="og:description" content="ComfyUI 本地工作站、图生视频、SeedVR2 增强与产品一致性控制的实践记录。">
+<meta property="og:image" content="https://wwz.im/images/videos/rugone-xever-7.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="AI &amp; ComfyUI：本地 AI 视频制作专题 | WWZ.iM">
+<meta name="twitter:description" content="ComfyUI 本地工作站、图生视频、SeedVR2 增强与产品一致性控制的实践记录。">
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@graph":[
+    {"@type":"CollectionPage","name":"AI & ComfyUI：本地 AI 视频制作专题","url":"https://wwz.im/topics/ai-comfyui/","description":"ComfyUI 本地 AI 视频制作、图生视频、SeedVR2 视频增强与产品一致性实践。","author":{"@type":"Person","name":"Wang Wenzhi"}},
+    {"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://wwz.im/"},{"@type":"ListItem","position":2,"name":"Blog","item":"https://wwz.im/blog.html"},{"@type":"ListItem","position":3,"name":"AI & ComfyUI","item":"https://wwz.im/topics/ai-comfyui/"}]}
+  ]
+}
+</script>
+<style>
+:root{color-scheme:light dark;--bg:#f7f7f5;--ink:#171715;--muted:#70706a;--line:rgba(20,20,18,.12);--panel:#fff;--soft:rgba(20,20,18,.035)}
+@media(prefers-color-scheme:dark){:root{--bg:#0b0b0a;--ink:#f3f3ef;--muted:#a1a19a;--line:rgba(255,255,255,.14);--panel:#141413;--soft:rgba(255,255,255,.04)}}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;line-height:1.7}a{color:inherit;text-decoration:none}.page{width:min(100% - 40px,1040px);margin:auto}.top{height:76px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line)}.brand{font-weight:800;letter-spacing:-.05em}.nav{display:flex;gap:24px;color:var(--muted);font-size:.9rem}.nav a:hover,.back:hover{color:var(--ink)}main{padding:76px 0 96px}.eyebrow{font:600 .72rem ui-monospace,monospace;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}h1{max-width:900px;margin:18px 0;font-size:clamp(2.7rem,7vw,5.8rem);letter-spacing:-.075em;line-height:.98}.lead{max-width:780px;color:var(--muted);font-size:clamp(1.05rem,2vw,1.25rem);line-height:1.85}.hero-image{width:100%;max-height:440px;aspect-ratio:16/7;object-fit:cover;border-radius:22px;margin:36px 0 54px;display:block}.section{padding:34px 0;border-top:1px solid var(--line)}h2{font-size:1.55rem;letter-spacing:-.04em;margin:0 0 14px}.section p,.section li{color:var(--muted);line-height:1.85}.stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:22px 0}.stat{padding:20px;border:1px solid var(--line);border-radius:16px;background:var(--soft)}.stat strong{display:block;font-size:1.5rem;letter-spacing:-.04em}.stat span{color:var(--muted);font-size:.85rem}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.card{display:block;padding:24px;border:1px solid var(--line);border-radius:18px;transition:transform .2s,border-color .2s}.card:hover{transform:translateY(-3px);border-color:var(--muted)}.card small{color:var(--muted);font:600 .7rem ui-monospace,monospace;letter-spacing:.06em;text-transform:uppercase}.card h3{font-size:1.15rem;margin:12px 0 8px}.card p{color:var(--muted);font-size:.92rem;margin:0 0 14px}.card .more{font-size:.84rem;font-weight:650}.status{display:inline-block;padding:4px 9px;border:1px solid var(--line);border-radius:99px;color:var(--muted);font-size:.72rem;margin-bottom:8px}.note{padding:18px 20px;border:1px solid var(--line);border-radius:16px;background:var(--soft)}.foot{padding:26px 0 40px;border-top:1px solid var(--line);color:var(--muted);font-size:.82rem;display:flex;justify-content:space-between;gap:16px}
+@media(max-width:640px){.page{width:min(100% - 28px,1040px)}.top{height:64px}.nav{gap:14px;font-size:.82rem}.nav a:nth-child(3){display:none}main{padding:56px 0 72px}.hero-image{aspect-ratio:4/3;margin:28px 0 40px}.stats{grid-template-columns:1fr}.grid{grid-template-columns:1fr}.foot{flex-direction:column}}
+</style>
+</head>
+<body><div class="page">
+<header class="top"><a class="brand" href="https://wwz.im/">WWZ.iM</a><nav class="nav" aria-label="Main navigation"><a href="https://wwz.im/">Home</a><a href="https://wwz.im/blog.html">Notes</a><a href="https://wwz.im/projects/">Projects</a><a href="https://wwz.im/about.html">About</a></nav></header>
+<main>
+<div class="eyebrow">Local AI · ComfyUI · Video Production</div>
+<h1>AI video,<br>built with control.</h1>
+<p class="lead">围绕本地 ComfyUI 工作站，记录从产品图片、图生视频到画面增强与成片检查的实际流程。重点不是单纯生成画面，而是在可控的前提下保持产品外观、结构与品牌细节稳定。</p>
+<img class="hero-image" src="../../images/videos/rugone-xever-7.jpg" alt="Rugged phone commercial film production reference">
+<section class="section">
+<h2>当前工作站基线</h2>
+<p>以下是已确认的本地环境信息。模型是否安装、节点是否可用、工作流是否完整运行，会在对应文章中单独标注，不把计划中的配置写成已完成状态。</p>
+<div class="stats">
+<div class="stat"><strong>RTX 5080</strong><span>NVIDIA · 16 GB 显存</span></div>
+<div class="stat"><strong>128 GB</strong><span>系统内存约值</span></div>
+<div class="stat"><strong>ComfyUI</strong><span>已安装的本地工作流界面</span></div>
+</div>
+<div class="note"><strong>当前记录边界：</strong>已确认 ComfyUI 安装；已查看 SeedVR2 3B Int8 视频增强模板及相关模型文件名。SeedVR2 节点安装状态、模型实际加载与完整任务成功结果尚未作为已验证事实记录。</div>
+</section>
+<section class="section">
+<h2>专题内容</h2>
+<div class="grid">
+<a class="card" href="../../articles/comfyui-local-video/"><small>工作站与流程基线</small><h3>ComfyUI 本地 AI 视频工作站记录</h3><p>整理硬件环境、当前 ComfyUI 状态、SeedVR2 模板与模型文件观察记录，并区分已确认事项和待验证步骤。</p><span class="more">阅读实践记录 →</span></a>
+<div class="card"><span class="status">后续整理</span><small>Image to Video</small><h3>产品图片转视频</h3><p>从真实产品图开始，控制镜头运动、主体位置与产品外观，避免纯文本生成带来的结构漂移。</p></div>
+<div class="card"><span class="status">后续整理</span><small>Consistency</small><h3>产品一致性控制</h3><p>围绕机身轮廓、镜头布局、按键、Logo、材质与颜色建立逐镜头检查标准。</p></div>
+<div class="card"><span class="status">后续整理</span><small>Upscaling</small><h3>SeedVR2 视频增强</h3><p>记录 3B Int8 工作流的依赖、输入输出、显存占用、画质变化与失败回退方式。</p></div>
+<div class="card"><span class="status">后续整理</span><small>Commercial Production</small><h3>Ulefone 商业视频</h3><p>将 AI 生成与实拍素材结合，优先保证产品真实性，再处理场景、氛围与视觉包装。</p></div>
+<div class="card"><span class="status">后续整理</span><small>Workflow Engineering</small><h3>工作流交付与复现</h3><p>每套工作流明确模型依赖、节点版本、输入输出、参数、验收标准与回滚方案。</p></div>
+</div>
+</section>
+<section class="section">
+<h2>制作流程原则</h2>
+<ol>
+<li><strong>先锁定产品：</strong>以真实产品图片作为主体依据，先确认机身、镜头、按键、Logo 与比例。</li>
+<li><strong>再设计镜头：</strong>明确景别、运动方向、主体位置和背景变化，不让镜头运动破坏产品结构。</li>
+<li><strong>小样验证：</strong>先用短片段和低成本参数测试，再扩大时长、分辨率与批量。</li>
+<li><strong>逐帧检查：</strong>检查产品形变、细节闪烁、纹理漂移、文字错误和帧间连续性。</li>
+<li><strong>最后增强与剪辑：</strong>确认基础画面稳定后，再进行视频增强、调色、声音与成片包装。</li>
+</ol>
+<p>这套流程以产品外观一致性为首要验收条件；分辨率、风格和特效不能替代主体准确性。</p>
+</section>
+<section class="section">
+<h2>相关入口</h2>
+<p><a href="https://wwz.im/videos/">作品与视频展示</a> · <a href="https://wwz.im/projects/app/">APP.WWZ.iM AI 资源目录</a> · <a href="https://wwz.im/blog.html">全部技术文章</a></p>
+</section>
+</main>
+<footer class="foot"><span>© 2026 WWZ.iM</span><a href="https://wwz.im/blog.html">Back to Notes ↑</a></footer>
+</div></body></html>
