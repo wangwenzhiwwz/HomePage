@@ -27,6 +27,7 @@ window.WWZ_CONTENT = {
     { id:"armor-13", title:"Ulefone Armor 13", description:"Ultra-Large Battery Rugged Phone", year:"2021", image:"images/videos/armor-13.jpg", embed:"https://www.youtube.com/embed/fAaV4eftTAs" }
   ],
   posts: [
+    { id:"comfyui-local-video", title:"ComfyUI 本地 AI 视频工作站记录", excerpt:"记录 RTX 5080 本地工作站、ComfyUI 当前状态、SeedVR2 3B Int8 模板与模型文件观察，以及产品图生视频的一致性检查原则。", date:"Oct 2026", readTime:"5 min", category:"AI & ComfyUI", tags:["ComfyUI","AI Video"], image:"images/videos/rugone-xever-7.jpg", href:"articles/comfyui-local-video/" },
     { id:"be6500-shellcrash", title:"安装ShellCrash科学上网", excerpt:"小米路由器 BE6500 解锁 SSH 并安装 ShellCrash，无需刷入 OpenWrt，同时保留路由器原有功能。BE3600 与 AX3000T 也可参考。", date:"Nov 2025", readTime:"1 min", category:"Network", tags:["Router","SSH"], image:"images/blog/shellcrash.jpg", href:"articles/be6500-ssh/" },
     { id:"linux-order", title:"服务器初始化与部署指南", excerpt:"基础环境配置、常用工具安装、Xray 面板与系统维护。助你从零开始构建稳定的服务端环境。", date:"Jan 2026", readTime:"8 min", category:"Infrastructure", tags:["Web","Server"], image:"articles/linux-server-setup/cover.png", href:"articles/linux-server-setup/", featured:true },
     { id:"xui", title:"3X-UI 安装与 TLS 升级指南", excerpt:"3X-UI 面板一键安装、TLS 证书申请与安全配置。可视化管理你的多协议节点。", date:"2024", readTime:"6 min", category:"Server", tags:["Server"], image:"articles/3x-ui/cover.png", href:"articles/3x-ui/" },
