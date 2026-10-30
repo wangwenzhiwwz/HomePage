@@ -156,6 +156,30 @@
     .tool p { color:var(--muted); margin:0; font-size:.82rem }
     footer { padding:58px 0 10px; display:flex; justify-content:space-between; gap:30px; color:var(--muted); border-top:1px solid var(--line); font-size:.8rem }
 
+    .contact-section { margin-top:58px; padding:30px 0 10px; border-top:1px solid var(--line) }
+    .contact-topline { display:flex; justify-content:space-between; gap:16px; color:var(--muted); font:700 .64rem ui-monospace,monospace; letter-spacing:.15em }
+    .contact-layout { display:grid; grid-template-columns:minmax(0,1.1fr) minmax(320px,.9fr); gap:clamp(30px,6vw,86px); align-items:center; padding:72px 0 68px }
+    .contact-kicker { margin:0 0 18px; color:var(--muted); font:650 .72rem ui-monospace,monospace; letter-spacing:.1em; text-transform:uppercase }
+    .contact-copy h2 { margin:0; font-size:clamp(3rem,6.3vw,6rem); line-height:.94; letter-spacing:-.075em; font-weight:820 }
+    .contact-description { max-width:470px; margin:24px 0 0; color:var(--muted); font-size:.98rem; line-height:1.8 }
+    .contact-card { padding:27px 28px 22px; border:1px solid var(--line); border-radius:23px; background:var(--surface) }
+    .contact-label { display:block; margin-bottom:14px; color:var(--muted); font:700 .64rem ui-monospace,monospace; letter-spacing:.14em }
+    .contact-email { display:flex; align-items:center; justify-content:space-between; gap:10px; padding-bottom:20px; border-bottom:1px solid var(--line); font-size:clamp(1.05rem,2vw,1.35rem); font-weight:760; letter-spacing:-.035em; overflow-wrap:anywhere }
+    .contact-email i { flex-shrink:0; color:var(--muted); font-size:.78rem }
+    .contact-actions { display:flex; flex-wrap:wrap; gap:9px; padding-top:19px }
+    .contact-button { display:inline-flex; align-items:center; justify-content:center; gap:9px; min-height:43px; padding:0 15px; border:1px solid var(--line); border-radius:999px; color:var(--ink); background:transparent; font-size:.78rem; font-weight:720; cursor:pointer; transition:transform .22s var(--ease),background .22s,border-color .22s }
+    .contact-button:hover { transform:translateY(-2px); border-color:var(--ink) }
+    .contact-button.primary { color:var(--bg); background:var(--ink); border-color:var(--ink) }
+    .contact-button.primary:hover { opacity:.82 }
+    .contact-status { min-height:1.2em; margin:9px 0 0; color:var(--muted); font-size:.72rem }
+    .contact-socials { display:flex; flex-wrap:wrap; gap:8px; padding-top:16px; margin-top:4px; border-top:1px solid var(--line) }
+    .contact-socials a { display:inline-flex; align-items:center; gap:8px; min-height:34px; padding:0 10px; border-radius:999px; color:var(--muted); font-size:.73rem; font-weight:650; transition:color .2s,background .2s }
+    .contact-socials a:hover { color:var(--ink); background:var(--soft) }
+    .contact-socials .external { font-size:.56rem; opacity:.55 }
+    .contact-footer { display:flex; justify-content:space-between; gap:20px; padding:23px 0 8px; border-top:1px solid var(--line); color:var(--muted); font-size:.72rem }
+    .contact-footer a { display:inline-flex; align-items:center; gap:8px; color:var(--ink); font-weight:650 }
+    .contact-footer a:hover { color:var(--accent) }
+    .contact-button:focus-visible,.contact-socials a:focus-visible,.contact-email:focus-visible,.contact-footer a:focus-visible { outline:2px solid var(--accent); outline-offset:4px }
     .theme { position:fixed; right:24px; top:24px; z-index:25 }
     .modal { position:fixed; inset:0; z-index:100; display:none; place-items:center; padding:34px; background:transparent; -webkit-backdrop-filter:blur(22px) saturate(.9); backdrop-filter:blur(22px) saturate(.9) }
     .modal.open { display:grid }
@@ -202,6 +226,17 @@
       .note.compact img { max-height:180px }
       .tools { grid-template-columns:1fr }
       footer { flex-direction:column }
+      .contact-section { margin-top:32px; padding-top:23px }
+      .contact-layout { grid-template-columns:1fr; gap:27px; padding:43px 0 38px }
+      .contact-copy h2 { font-size:clamp(2.8rem,12vw,4.2rem) }
+      .contact-description { margin-top:17px; font-size:.9rem }
+      .contact-card { padding:22px 19px 17px; border-radius:19px }
+      .contact-email { font-size:1.04rem }
+      .contact-actions { display:grid; grid-template-columns:1fr 1fr }
+      .contact-button { padding:0 10px; font-size:.73rem }
+      .contact-socials { gap:4px }
+      .contact-socials a { padding:0 8px }
+      .contact-footer { flex-direction:column; gap:10px; padding-top:18px }
       .modal { padding:14px }
     }
     @media (prefers-reduced-motion:reduce) {
@@ -264,7 +299,31 @@
         </div>
       </section>
 
-      <footer id="contact"><span>© <span id="year"></span> WWZ.iM</span><span>Commercial direction · Cinematography · Network engineering</span><a href="mailto:wwz.im@outlook.com">Start a project →</a></footer>
+      <section class="contact-section" id="contact" aria-labelledby="contactTitle">
+        <div class="contact-topline"><span>LET’S CONNECT</span><span>CONTACT / 06</span></div>
+        <div class="contact-layout">
+          <div class="contact-copy">
+            <p class="contact-kicker">Have a project in mind?</p>
+            <h2 id="contactTitle">Let’s make<br>something meaningful.</h2>
+            <p class="contact-description">For creative projects, video production, digital products, technical collaboration or simply a good conversation.</p>
+          </div>
+          <div class="contact-card">
+            <span class="contact-label">EMAIL</span>
+            <a class="contact-email" href="mailto:wwz.im@outlook.com">wwz.im@outlook.com <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i></a>
+            <div class="contact-actions">
+              <a class="contact-button primary" href="mailto:wwz.im@outlook.com?subject=Project%20Enquiry"><i class="fa-regular fa-paper-plane" aria-hidden="true"></i> Start a project</a>
+              <button class="contact-button" type="button" id="copyContactEmail"><i class="fa-regular fa-copy" aria-hidden="true"></i> Copy email</button>
+            </div>
+            <p class="contact-status" id="contactStatus" role="status" aria-live="polite"></p>
+            <div class="contact-socials" aria-label="Social links">
+              <a href="https://github.com/wangwenzhiwwz" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-github" aria-hidden="true"></i><span>GitHub</span><i class="fa-solid fa-arrow-up-right-from-square external" aria-hidden="true"></i></a>
+              <a href="https://www.youtube.com/@wangwenzhi" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-youtube" aria-hidden="true"></i><span>YouTube</span><i class="fa-solid fa-arrow-up-right-from-square external" aria-hidden="true"></i></a>
+              <a href="https://x.com/wwz_im" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i><span>X</span><i class="fa-solid fa-arrow-up-right-from-square external" aria-hidden="true"></i></a>
+            </div>
+          </div>
+        </div>
+        <footer class="contact-footer"><span>© <span id="year"></span> WWZ.iM · Wang Wenzhi</span><span>Creative production · Digital products · Technology</span><a href="#home">Back to top <i class="fa-solid fa-arrow-up" aria-hidden="true"></i></a></footer>
+      </section>
     </div>
   </main>
 
@@ -302,6 +361,33 @@
     document.getElementById("modalClose").addEventListener("click", closeVideo);
     modal.addEventListener("click", event => { if(event.target === modal) closeVideo(); });
     addEventListener("keydown", event => { if(event.key === "Escape" && modal.classList.contains("open")) closeVideo(); });
+
+    const copyContactEmail = document.getElementById("copyContactEmail");
+    const contactStatus = document.getElementById("contactStatus");
+    copyContactEmail?.addEventListener("click", async () => {
+      const email = "wwz.im@outlook.com";
+      let copied = false;
+      try {
+        if (navigator.clipboard && window.isSecureContext) {
+          await navigator.clipboard.writeText(email);
+          copied = true;
+        } else {
+          const field = document.createElement("textarea");
+          field.value = email;
+          field.setAttribute("readonly", "");
+          field.style.position = "fixed";
+          field.style.opacity = "0";
+          document.body.appendChild(field);
+          field.select();
+          copied = document.execCommand("copy");
+          field.remove();
+        }
+      } catch (_) { copied = false; }
+      if (contactStatus) contactStatus.textContent = copied ? "Email address copied." : "Copy unavailable. Select the email address above.";
+      copyContactEmail.innerHTML = copied
+        ? '<i class="fa-solid fa-check" aria-hidden="true"></i> Copied'
+        : '<i class="fa-regular fa-copy" aria-hidden="true"></i> Copy email';
+    });
 
     const logoStage = document.getElementById("logoStage");
     const logoWorld = document.getElementById("logoWorld");
