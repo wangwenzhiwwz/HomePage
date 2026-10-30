@@ -165,11 +165,12 @@
   };
 
   const routeKey = url => (
-    url.pathname.endsWith("/about.html") ? "about" :
+    url.hash === "#contact" ? "contact" :
+    document.body?.dataset.activePage ||
+    (url.pathname.endsWith("/about.html") ? "about" :
     url.pathname.includes("/videos/") ? "videos" :
     url.pathname.includes("/article") || url.pathname.endsWith("/blog.html") ? "blog" :
-    url.pathname.endsWith("/works.html") ? "works" :
-    url.hash === "#contact" ? "contact" : "home"
+    url.pathname.endsWith("/works.html") ? "works" : "home")
   );
 
   const updateActiveRoute = (sidebar, url) => {
