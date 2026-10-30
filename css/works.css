@@ -102,3 +102,10 @@ html:has(.image-viewer[open]) { overflow: hidden; }
  .viewer-source{min-height:40px;padding:7px 10px;font-size:.78rem}
 }
 @media(max-width:370px){.portfolio-grid{grid-template-columns:minmax(0,1fr)}}
+
+
+/* Direct links to original ZCOOL projects */
+.portfolio-original{display:flex;justify-content:flex-end;align-items:center;min-height:30px;margin-top:3px;padding:2px 3px;color:var(--text-secondary);font-size:.76rem;text-decoration:none;transition:color .2s}
+.portfolio-original:hover{color:var(--text-primary);text-decoration:underline;text-underline-offset:3px}
+.portfolio-original:focus-visible{outline:2px solid var(--text-primary);outline-offset:3px;border-radius:5px}
+@media(max-width:560px){.portfolio-original{min-height:28px;font-size:.7rem}}
