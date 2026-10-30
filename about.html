@@ -1,11 +1,10 @@
-<!DOCTYPE html>
-<html lang="zh-CN">
+<!doctype html>
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
+  <meta charset="utf-8">
   <meta name="color-scheme" content="light dark">
   <meta name="theme-color" content="#f7f7f5">
   <script data-theme-bootstrap>
-    // Inline intentionally: the initial canvas must not wait for a network request.
     (() => {
       const root = document.documentElement;
       let mode = 'system';
@@ -28,422 +27,268 @@
     html:not([data-theme-ready]), html:not([data-theme-ready]) body { background:var(--wwz-initial-bg) !important; background-image:none !important; }
     html:not([data-theme-ready]), html:not([data-theme-ready]) * { transition:none !important; }
   </style>
-  <script src="js/site-theme.js?v=20260920-inline-theme"></script>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
-    <title>WWZ.iM · About Me</title>
-    <meta name="description" content="Learn more about Wang Wenzhi - Developer & Tech Enthusiast.">
-    <meta name="author" content="WWZ">
-    
-    <meta property="og:type" content="profile">
-    <meta property="og:title" content="About WWZ">
-    <meta property="og:url" content="https://wwz.im/about.html">
-
-    <style>html { background-color: #0a0a0a; }</style>
-
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="preconnect" href="https://cdn.bootcdn.net">
-
-    <link rel="icon" href="https://wangwenzhi.eu.org/images/favicon_io/favicon.ico">
-    
-    <link href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.1/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=SF+Pro+Display:wght@300;400;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-
-    <style>
-        /* --- 核心设计系统 --- */
-        :root { --transition-speed: 0.4s; --font-main: 'SF Pro Display', sans-serif; --font-mono: 'JetBrains Mono', monospace; }
-        
-        :root[data-theme="dark"] {
-            --bg-body: #0a0a0a; --bg-gradient: radial-gradient(circle at 15% 50%, #1a1a1a 0%, #000000 100%);
-            --text-primary: #ffffff; --text-secondary: #a0a0a0;
-            --glass-bg: rgba(20, 20, 20, 0.65); --glass-border: rgba(255, 255, 255, 0.08);
-            --accent-color: #0d6efd; --pill-bg: rgba(255, 255, 255, 0.1); --active-bg: rgba(255, 255, 255, 0.15);
-            --timeline-line: rgba(255, 255, 255, 0.1);
-        }
-        :root[data-theme="light"] {
-            --bg-body: #f0f2f5; --bg-gradient: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-            --text-primary: #1a1a1a; --text-secondary: #555555;
-            --glass-bg: rgba(255, 255, 255, 0.7); --glass-border: rgba(255, 255, 255, 0.4);
-            --accent-color: #0d6efd; --pill-bg: rgba(0, 0, 0, 0.05); --active-bg: rgba(0, 0, 0, 0.08);
-            --timeline-line: rgba(0, 0, 0, 0.1);
-        }
-
-        html { scroll-behavior: smooth; }
-        body { font-family: var(--font-main); background: var(--bg-body); background-image: var(--bg-gradient); background-attachment: fixed; color: var(--text-primary); transition: background 0.5s ease, color 0.5s ease; }
-        a { text-decoration: none; color: inherit; transition: 0.3s; }
-        
-        /* 鼠标优化 */
-        * { cursor: auto; }
-        .cursor-dot, .cursor-circle { display: none; }
-        @media (pointer: fine) {
-            * { cursor: none !important; }
-            a, button, [role="button"], input, textarea, select { cursor: none !important; }
-            .cursor-dot { display: block; position: fixed; top: 0; left: 0; width: 6px; height: 6px; background: var(--text-primary); border-radius: 50%; pointer-events: none; z-index: 9999; }
-            .cursor-circle { display: block; position: fixed; top: 0; left: 0; width: 40px; height: 40px; border: 1px solid var(--text-secondary); opacity: 0.5; border-radius: 50%; pointer-events: none; z-index: 9999; transition: transform 0.1s ease-out, width 0.3s ease, height 0.3s ease, background 0.3s, opacity 0.3s; }
-            body.hovering .cursor-circle { width: 50px; height: 50px; background: rgba(128,128,128,0.1); border-color: var(--text-primary); backdrop-filter: blur(1px); opacity: 0.8; }
-        }
-
-        /* --- 布局组件 --- */
-        .glass-panel { background: var(--glass-bg); backdrop-filter: blur(20px); border: 1px solid var(--glass-border); border-radius: 24px; }
-        .glass-card { background: var(--glass-bg); backdrop-filter: blur(12px); border: 1px solid var(--glass-border); border-radius: 16px; padding: 30px; transition: 0.3s; height: 100%; position: relative; overflow: hidden; }
-        .glass-card:hover { transform: translateY(-5px); border-color: var(--text-primary); box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
-        
-        .sidebar { position: fixed; top: 30px; bottom: 30px; left: 30px; width: 290px; z-index: 100; padding: 40px 24px; display: flex; flex-direction: column; overflow-y: auto; scrollbar-width: none; }
-        .main-content { margin-left: 350px; padding: 40px 60px 40px 0; min-height: 100vh; }
-
-        /* 电脑端右上角独立按钮 */
-        #theme-btn-desktop { 
-            position: fixed; top: 30px; right: 40px; z-index: 10000;
-            width: 44px; height: 44px; border-radius: 50%; 
-            background: var(--glass-bg); backdrop-filter: blur(10px); border: 1px solid var(--glass-border);
-            color: var(--text-primary); display: flex; align-items: center; justify-content: center;
-            cursor: pointer; transition: 0.2s;
-        }
-        #theme-btn-desktop:hover { transform: scale(1.1); background: var(--text-primary); color: var(--bg-body); }
-
-        /* 移动端控制按钮 */
-        .mobile-btn { 
-            width: 36px; height: 36px; border-radius: 10px; 
-            background: rgba(255, 255, 255, 0.05); border: 1px solid var(--glass-border); 
-            color: var(--text-secondary); display: flex; align-items: center; justify-content: center; 
-            transition: 0.2s; cursor: pointer;
-        }
-        .mobile-btn:hover, .mobile-btn:active { background: var(--text-primary); color: var(--bg-body); }
-
-        /* Sidebar Header */
-        .sidebar-header { text-align: center; margin-bottom: 20px; width: 100%; }
-        .sidebar-logo-img { max-width: 160px; height: auto; margin-bottom: 15px; display: block; margin-left: auto; margin-right: auto; }
-        .profile-name { font-weight: 800; font-size: 1.5rem; margin-bottom: 5px; color: var(--text-primary); }
-        .handle-pill { display: inline-block; font-family: var(--font-mono); font-size: 0.8rem; background: var(--pill-bg); padding: 4px 14px; border-radius: 50px; opacity: 0.8; }
-
-        .nav-section-title { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1.5px; margin: 25px 0 10px 10px; opacity: 0.5; font-weight: 700; }
-        .nav-menu { list-style: none; padding: 0; margin: 0; }
-        .nav-link { color: var(--text-secondary); font-weight: 600; padding: 10px 14px; border-radius: 12px; display: flex; align-items: center; gap: 12px; transition: 0.3s; margin-bottom: 5px; font-size: 0.9rem; }
-        .nav-link:hover { color: var(--text-primary); background: var(--pill-bg); transform: translateX(4px); }
-        .nav-link.active { color: var(--text-primary); background: var(--active-bg); }
-        .badge-pro { background: var(--accent-color); color: #fff; font-size: 0.6rem; padding: 2px 6px; border-radius: 4px; margin-left: auto; font-family: var(--font-mono); }
-
-        .social-dock { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; margin-top: auto; padding-top: 30px; border-top: 1px solid var(--glass-border); }
-        .social-icon { width: 38px; height: 38px; border-radius: 50%; display: flex; align-items: center; justify-content: center; border: 1px solid var(--glass-border); color: var(--text-secondary); transition: 0.3s; }
-        .social-icon:hover { background: var(--text-primary); color: var(--bg-body); transform: translateY(-3px); }
-
-        /* --- About Page Specifics --- */
-        .page-title h1 { font-weight: 800; font-size: 3rem; color: var(--text-primary); }
-        .about-img { width: 100%; border-radius: 16px; object-fit: cover; aspect-ratio: 1/1; box-shadow: 0 10px 40px rgba(0,0,0,0.2); }
-        
-        /* 时间轴样式 */
-        .timeline { position: relative; padding-left: 2rem; border-left: 2px solid var(--timeline-line); }
-        .timeline-item { position: relative; margin-bottom: 2.5rem; }
-        .timeline-item::before { content: ''; position: absolute; left: -2.4rem; top: 5px; width: 14px; height: 14px; border-radius: 50%; background: var(--accent-color); border: 3px solid var(--bg-body); box-shadow: 0 0 0 1px var(--accent-color); }
-        .timeline-date { font-family: var(--font-mono); font-size: 0.85rem; color: var(--accent-color); margin-bottom: 5px; display: block; }
-        
-        /* 技能条样式 */
-        .skill-item { margin-bottom: 1.2rem; }
-        .skill-header { display: flex; justify-content: space-between; font-size: 0.9rem; margin-bottom: 0.5rem; font-weight: 600; }
-        .progress { height: 6px; background: var(--pill-bg); border-radius: 10px; overflow: hidden; }
-        .progress-bar { background: var(--accent-color); transition: width 1s ease-in-out; }
-
-        /* 统计数字 */
-        .stat-card { text-align: center; padding: 1.5rem; }
-        .stat-number { font-size: 2.5rem; font-weight: 800; color: var(--accent-color); display: block; margin-bottom: 0.5rem; }
-        .stat-label { font-size: 0.9rem; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 1px; }
-
-        /* 全屏图片预览 Modal */
-        #imagePreviewModal .modal-dialog { max-width: 100%; margin: 0; width: 100%; height: 100%; }
-        #imagePreviewModal .modal-content { background: rgba(0,0,0,0.9); border: none; width: 100%; height: 100%; }
-        #imagePreviewModal .modal-body { display: flex; align-items: center; justify-content: center; padding: 0; width: 100%; height: 100%; cursor: zoom-out; }
-        #imagePreviewModal img { width: 100%; height: 100%; object-fit: contain; max-width: 95vw; max-height: 95vh; transition: transform 0.3s; }
-
-        @media (max-width: 991px) {
-            .sidebar { position: relative; width: 100%; top: 0; left: 0; bottom: auto; margin-bottom: 30px; padding: 20px; border-radius: 0 0 24px 24px; height: auto; overflow: visible; display: block; }
-            .main-content { margin-left: 0; padding: 20px; }
-            .sidebar-header { display: flex; align-items: center; text-align: left; margin-bottom: 0; }
-            .sidebar-logo-img { max-width: 120px; margin: 0 15px 0 0; }
-            .sidebar-controls { margin-left: auto; display: flex; gap: 10px; }
-            .sidebar-content { max-height: 0; overflow: hidden; opacity: 0; transition: 0.4s; }
-            .sidebar-content.show { max-height: 1000px; opacity: 1; margin-top: 20px; padding-top: 10px; border-top: 1px solid var(--glass-border); }
-            .social-dock { padding-top: 20px; margin-top: 20px; }
-        }
-
-        #loader { position: fixed; inset: 0; background: var(--bg-body); z-index: 10000; display: flex; justify-content: center; align-items: center; transition: 0.5s; }
-    </style>
-    <link rel="stylesheet" href="css/site-system.css?v=20260920-inline-theme">
+  <script src="js/site-theme.js?v=20261030-about"></script>
+  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=5">
+  <title>About — Wang Wenzhi · WWZ.iM</title>
+  <meta name="description" content="A little about Wang Wenzhi — creative direction, visual production, AI workflows, web experiences and network technology.">
+  <meta name="author" content="Wang Wenzhi">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://wwz.im/about.html">
+  <meta property="og:type" content="profile">
+  <meta property="og:title" content="About — Wang Wenzhi">
+  <meta property="og:description" content="Creative thinking, visual storytelling and technology — brought together.">
+  <meta property="og:url" content="https://wwz.im/about.html">
+  <link rel="icon" href="favicon.ico">
+  <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="css/site-system.css?v=20261030-about">
+  <style>
+    :root {
+      --about-line: var(--glass-border);
+      --about-muted: var(--text-secondary);
+      --about-ink: var(--text-primary);
+      --about-accent: var(--wwz-accent, #ee7b2d);
+      --about-ease: cubic-bezier(.2,.75,.2,1);
+    }
+    * { box-sizing:border-box; }
+    html { scroll-behavior:smooth; scroll-padding-top:40px; }
+    body { margin:0; color:var(--about-ink); background:var(--wwz-page-bg); }
+    a { color:inherit; text-decoration:none; }
+    .about-main { padding:44px 42px 100px 0; }
+    .about-wrap { width:min(1160px,100%); margin:0 auto; }
+    .about-kicker {
+      display:flex; align-items:center; gap:10px; margin:0 0 28px;
+      color:var(--about-muted); font:700 .68rem/1.2 ui-monospace,SFMono-Regular,monospace;
+      letter-spacing:.16em; text-transform:uppercase;
+    }
+    .about-kicker::before { content:""; width:25px; height:1px; background:var(--about-accent); }
+    .about-hero {
+      position:relative; display:grid; grid-template-columns:minmax(0,1.2fr) minmax(270px,.8fr);
+      align-items:center; gap:clamp(28px,5vw,76px); min-height:570px; padding:50px 0 68px;
+    }
+    .about-hero-copy { position:relative; z-index:1; }
+    .about-hero h1 {
+      max-width:800px; margin:0; font-size:clamp(4.2rem,8.8vw,8.6rem);
+      line-height:.84; letter-spacing:-.09em; font-weight:820;
+    }
+    .about-hero h1 span { display:block; color:var(--about-muted); font-weight:430; }
+    .about-intro {
+      max-width:590px; margin:34px 0 0; color:var(--about-muted);
+      font-size:clamp(1rem,1.45vw,1.18rem); line-height:1.85; letter-spacing:-.015em;
+    }
+    .about-actions { display:flex; flex-wrap:wrap; gap:11px; margin-top:30px; }
+    .about-action {
+      display:inline-flex; align-items:center; justify-content:center; gap:10px;
+      min-height:47px; padding:0 19px; border:1px solid var(--about-line); border-radius:999px;
+      color:var(--about-ink); font-size:.82rem; font-weight:750;
+      transition:transform .25s var(--about-ease),background .25s,border-color .25s;
+    }
+    .about-action.primary { color:var(--bg-body); background:var(--about-ink); border-color:var(--about-ink); }
+    .about-action:hover { transform:translateY(-3px); }
+    .about-action.primary:hover { opacity:.86; }
+    .about-art {
+      position:relative; display:grid; place-items:center; min-height:410px; isolation:isolate;
+      overflow:hidden; border:1px solid var(--about-line); border-radius:34px;
+      background:linear-gradient(145deg,rgba(238,123,45,.10),transparent 48%),var(--glass-bg);
+    }
+    .about-art::before,.about-art::after {
+      content:""; position:absolute; border:1px solid color-mix(in srgb,var(--about-muted) 22%,transparent);
+      border-radius:50%; aspect-ratio:1;
+    }
+    .about-art::before { width:78%; transform:rotate(-24deg) scaleY(.55); }
+    .about-art::after { width:58%; transform:rotate(35deg) scaleY(.55); }
+    .art-orbit { position:absolute; width:72%; aspect-ratio:1; border:1px solid color-mix(in srgb,var(--about-accent) 45%,transparent); border-radius:50%; transform:rotate(-35deg) scaleY(.42); }
+    .art-core {
+      position:relative; z-index:1; display:grid; place-items:center; width:170px; aspect-ratio:1;
+      border:1px solid color-mix(in srgb,var(--about-ink) 15%,transparent); border-radius:38%;
+      color:var(--about-ink); background:color-mix(in srgb,var(--glass-bg) 76%,transparent);
+      box-shadow:0 30px 90px rgba(0,0,0,.12),inset 0 1px 0 rgba(255,255,255,.45);
+      -webkit-backdrop-filter:blur(20px); backdrop-filter:blur(20px);
+      font-size:3.5rem; font-weight:850; letter-spacing:-.1em; transform:rotate(-9deg);
+    }
+    .art-caption { position:absolute; left:25px; right:25px; bottom:23px; display:flex; justify-content:space-between; gap:12px; color:var(--about-muted); font:600 .62rem ui-monospace,monospace; letter-spacing:.1em; text-transform:uppercase; }
+    .about-scroll { position:absolute; left:0; bottom:18px; display:flex; align-items:center; gap:12px; color:var(--about-muted); font:600 .65rem ui-monospace,monospace; letter-spacing:.12em; text-transform:uppercase; }
+    .about-scroll i { color:var(--about-accent); }
+    .about-section { padding:76px 0; border-top:1px solid var(--about-line); }
+    .section-heading { display:grid; grid-template-columns:minmax(180px,.7fr) minmax(0,1.3fr); gap:30px; align-items:start; margin-bottom:34px; }
+    .section-index { padding-top:8px; color:var(--about-accent); font:700 .68rem ui-monospace,monospace; letter-spacing:.13em; }
+    .section-heading h2 { max-width:700px; margin:0; font-size:clamp(2.25rem,4.3vw,4.2rem); line-height:.98; letter-spacing:-.065em; }
+    .section-heading p { max-width:610px; margin:18px 0 0; color:var(--about-muted); font-size:.98rem; line-height:1.8; }
+    .principles { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); border-top:1px solid var(--about-line); }
+    .principle { padding:25px 25px 8px 0; }
+    .principle + .principle { padding-left:25px; border-left:1px solid var(--about-line); }
+    .principle small { color:var(--about-muted); font:650 .65rem ui-monospace,monospace; letter-spacing:.12em; }
+    .principle h3 { margin:15px 0 9px; font-size:1.16rem; letter-spacing:-.035em; }
+    .principle p { max-width:300px; margin:0; color:var(--about-muted); font-size:.84rem; line-height:1.75; }
+    .focus-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:14px; }
+    .focus-card {
+      position:relative; min-height:220px; padding:27px 28px; overflow:hidden;
+      border:1px solid var(--about-line); border-radius:23px; background:var(--glass-bg);
+      transition:transform .3s var(--about-ease),border-color .3s;
+    }
+    .focus-card:hover { transform:translateY(-4px); border-color:color-mix(in srgb,var(--about-accent) 45%,var(--about-line)); }
+    .focus-card .number { color:var(--about-accent); font:700 .68rem ui-monospace,monospace; letter-spacing:.1em; }
+    .focus-card h3 { margin:29px 0 9px; font-size:1.45rem; letter-spacing:-.045em; }
+    .focus-card p { max-width:430px; margin:0; color:var(--about-muted); font-size:.87rem; line-height:1.75; }
+    .focus-card > i { position:absolute; top:25px; right:27px; color:var(--about-muted); opacity:.55; font-size:1.1rem; }
+    .approach {
+      display:grid; grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr); gap:50px; align-items:start;
+    }
+    .approach-lead { margin:0; font-size:clamp(1.8rem,3.2vw,3.1rem); line-height:1.08; letter-spacing:-.06em; }
+    .approach-copy { color:var(--about-muted); font-size:.96rem; line-height:1.9; }
+    .approach-copy p { margin:0 0 16px; }
+    .about-bottom {
+      display:flex; align-items:center; justify-content:space-between; gap:25px;
+      padding:32px; border:1px solid var(--about-line); border-radius:25px;
+      background:linear-gradient(115deg,rgba(238,123,45,.09),transparent 58%),var(--glass-bg);
+    }
+    .about-bottom h2 { margin:0 0 8px; font-size:clamp(1.7rem,3vw,2.5rem); letter-spacing:-.055em; }
+    .about-bottom p { margin:0; color:var(--about-muted); font-size:.86rem; }
+    .about-bottom .about-action { flex-shrink:0; }
+    @media (min-width:761px) {
+      .about-main { margin-left:300px; }
+    }
+    @media (max-width:1100px) {
+      .about-main { padding-right:26px; }
+      .about-hero { min-height:500px; gap:28px; }
+      .about-art { min-height:350px; }
+      .about-hero h1 { font-size:clamp(4rem,8vw,6.8rem); }
+    }
+    @media (max-width:760px) {
+      .about-main { margin:0; padding:95px 18px 65px; }
+      .about-wrap { width:100%; }
+      .about-kicker { margin-bottom:21px; }
+      .about-hero { grid-template-columns:1fr; gap:27px; min-height:0; padding:25px 0 62px; }
+      .about-hero h1 { font-size:clamp(4rem,16vw,6.2rem); }
+      .about-intro { margin-top:24px; font-size:.98rem; }
+      .about-art { min-height:280px; border-radius:25px; }
+      .art-core { width:125px; font-size:2.8rem; }
+      .about-scroll { bottom:18px; }
+      .about-section { padding:55px 0; }
+      .section-heading { grid-template-columns:1fr; gap:13px; margin-bottom:25px; }
+      .section-heading h2 { font-size:clamp(2.35rem,10vw,3.5rem); }
+      .section-heading p { margin-top:13px; }
+      .principles { grid-template-columns:1fr; }
+      .principle,.principle + .principle { padding:21px 0; border-left:0; border-bottom:1px solid var(--about-line); }
+      .principle h3 { margin-top:10px; }
+      .focus-grid { grid-template-columns:1fr; gap:10px; }
+      .focus-card { min-height:190px; padding:23px; }
+      .focus-card h3 { margin-top:25px; }
+      .approach { grid-template-columns:1fr; gap:20px; }
+      .approach-lead { font-size:2.3rem; }
+      .about-bottom { align-items:flex-start; flex-direction:column; padding:24px; }
+    }
+    @media (prefers-reduced-motion:reduce) {
+      html { scroll-behavior:auto; }
+      *,*::before,*::after { transition-duration:.01ms !important; animation-duration:.01ms !important; animation-iteration-count:1 !important; }
+    }
+  </style>
 </head>
-
-<body data-bs-spy="scroll" data-bs-target="#nav-menu" data-bs-offset="100" tabindex="0">
-
-    <div class="cursor-dot"></div><div class="cursor-circle"></div>
-    <div id="loader"><div class="spinner-border text-secondary" role="status"></div></div>
-
-    <button id="theme-btn-desktop" class="d-none d-lg-flex" title="Toggle Theme" data-hover><i class="fa-solid fa-moon"></i></button>
-
-    <aside class="sidebar glass-panel">
-        <div class="sidebar-header">
-            <div class="d-flex align-items-center justify-content-between w-100 d-lg-block">
-                
-                <div class="d-flex align-items-center d-lg-block">
-                    <a href="https://www.wwz.im/" class="text-decoration-none" data-hover>
-                        <img src="images/main-logo.png" alt="logo" class="sidebar-logo-img">
-                    </a>
-                </div>
-                
-                <div class="sidebar-controls d-lg-none">
-                    <button class="mobile-btn me-2" id="theme-btn-mobile" data-hover><i class="fa-solid fa-moon"></i></button>
-                    <button class="mobile-btn" id="mobile-toggle" data-hover><i class="fa-solid fa-bars"></i></button>
-                </div>
-            </div>
+<body data-active-page="about">
+  <aside class="sidebar" aria-label="Main navigation"></aside>
+  <main class="about-main">
+    <div class="about-wrap">
+      <header class="about-hero">
+        <div class="about-hero-copy">
+          <p class="about-kicker">A little introduction · WWZ.iM</p>
+          <h1>Wang<span>Wenzhi.</span></h1>
+          <p class="about-intro">I work where creativity meets technology — shaping visual stories, building digital experiences and exploring how emerging tools can make good ideas real.</p>
+          <div class="about-actions">
+            <a class="about-action primary" href="index.html#portfolio">Explore my work <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i></a>
+            <a class="about-action" href="mailto:wwz.im@outlook.com">Get in touch <i class="fa-regular fa-envelope" aria-hidden="true"></i></a>
+          </div>
         </div>
-
-        <div class="sidebar-content d-flex flex-column flex-grow-1" id="sidebar-content">
-            <span class="nav-section-title">Menu</span>
-            <ul class="nav-menu" id="nav-menu">
-                <li class="nav-item"><a href="index.html#home" class="nav-link" data-hover><i class="fa-solid fa-house"></i> Home</a></li>
-                <li class="nav-item"><a href="index.html#videos" class="nav-link" data-hover><i class="fa-solid fa-film"></i> Videos</a></li>
-                <li class="nav-item"><a href="index.html#portfolio" class="nav-link" data-hover><i class="fa-solid fa-layer-group"></i> Works</a></li>
-                <li class="nav-item"><a href="about.html" class="nav-link active" data-hover><i class="fa-solid fa-user-astronaut"></i> About</a></li>
-                <li class="nav-item"><a href="index.html#contact" class="nav-link" data-hover><i class="fa-solid fa-paper-plane"></i> Contact</a></li>
-            </ul>
-
-            <span class="nav-section-title">Resources</span>
-            <ul class="nav-menu">
-                <li class="nav-item"><a href="design-system.html" target="_blank" class="nav-link" data-hover><i class="fa-solid fa-palette"></i> Styles <span class="badge-pro">PRO</span></a></li>
-                <li class="nav-item"><a href="https://blog.wwz.im/" target="_blank" class="nav-link" data-hover><i class="fa-brands fa-blogger"></i> Blog <span class="badge-pro">PRO</span></a></li>
-                <li class="nav-item"><a href="https://app.wwz.im/" target="_blank" class="nav-link" data-hover><i class="fa-solid fa-compass"></i> App Nav <span class="badge-pro">PRO</span></a></li>
-                <li class="nav-item"><a href="team.html" class="nav-link" data-hover><i class="fa-solid fa-users"></i> My Team</a></li>
-            </ul>
-
-            <div class="social-dock">
-                <a href="https://x.com/wwz_im" target="_blank" class="social-icon" title="Twitter/X" data-hover><i class="fa-brands fa-x-twitter"></i></a>
-                <a href="https://github.com/wangwenzhiwwz" target="_blank" class="social-icon" title="GitHub" data-hover><i class="fa-brands fa-github"></i></a>
-                <a href="https://www.youtube.com/@wangwenzhi" target="_blank" class="social-icon" title="YouTube" data-hover><i class="fa-brands fa-youtube"></i></a>
-                <a href="https://www.facebook.com/wangwenzhiwwz" target="_blank" class="social-icon" title="Facebook" data-hover><i class="fa-brands fa-facebook"></i></a>
-                <a href="https://www.pinterest.com/wangwenzhiwwz/" target="_blank" class="social-icon" title="Pinterest" data-hover><i class="fa-brands fa-pinterest"></i></a>
-                <a href="https://www.instagram.com/wangwenzhiwwz/" target="_blank" class="social-icon" title="Instagram" data-hover><i class="fa-brands fa-instagram"></i></a>
-                <a href="mailto:wwz.im@outlook.com" class="social-icon" title="Email" data-hover><i class="fa-solid fa-envelope"></i></a>
-            </div>
+        <div class="about-art" aria-label="WWZ visual identity">
+          <div class="art-orbit"></div>
+          <div class="art-core" aria-hidden="true">WWZ</div>
+          <div class="art-caption"><span>Creative × Technology</span><span>Independent practice</span></div>
         </div>
-    </aside>
+        <a class="about-scroll" href="#about-story"><i class="fa-solid fa-arrow-down" aria-hidden="true"></i> Scroll to explore</a>
+      </header>
 
-    <main class="main-content">
-        <div class="container-fluid">
-            
-            <section class="page-title mb-5 mt-4">
-                <div class="d-flex flex-wrap flex-column justify-content-between align-items-start">
-                    <span class="text-secondary text-uppercase small letter-spacing-2 mb-2 fw-bold">Biography</span>
-                    <h1 class="display-3 fw-bold">About Me</h1>
-                    <p class="lead text-secondary">Developer, Designer, and Tech Enthusiast.</p>
-                </div>
-            </section>
-
-            <section class="mb-5">
-                <div class="row align-items-center g-5">
-                    <div class="col-lg-5 order-lg-2">
-                        <div class="position-relative zoom-trigger" style="cursor: zoom-in;" data-hover>
-                            <img src="https://wangwenzhi.eu.org/images/favicon_io/android-chrome-512x512.png" alt="WWZ Profile" class="about-img">
-                        </div>
-                    </div>
-                    <div class="col-lg-7 order-lg-1">
-                        <div class="glass-card">
-                            <h2 class="mb-4">Hello, I'm Wang Wenzhi.</h2>
-                            <p>I am a multidisciplinary professional with a passion for bridging the gap between creative design and robust engineering. Based in Foshan, China, I specialize in web development, network infrastructure, and digital content creation.</p>
-                            <p>With a background in both Commercial Directing and Network Engineering, I bring a unique perspective to every project—ensuring that aesthetic beauty is matched by functional performance and security.</p>
-                            
-                            <div class="row mt-5 g-4">
-                                <div class="col-6 col-md-3">
-                                    <div class="stat-card">
-                                        <span class="stat-number">10+</span>
-                                        <span class="stat-label">Years Exp</span>
-                                    </div>
-                                </div>
-                                <div class="col-6 col-md-3">
-                                    <div class="stat-card">
-                                        <span class="stat-number">85</span>
-                                        <span class="stat-label">Projects</span>
-                                    </div>
-                                </div>
-                                <div class="col-6 col-md-3">
-                                    <div class="stat-card">
-                                        <span class="stat-number">20+</span>
-                                        <span class="stat-label">Awards</span>
-                                    </div>
-                                </div>
-                                <div class="col-6 col-md-3">
-                                    <div class="stat-card">
-                                        <span class="stat-number">1k+</span>
-                                        <span class="stat-label">Commits</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <section class="mb-5">
-                <div class="row g-4">
-                    <div class="col-lg-6">
-                        <div class="glass-card h-100">
-                            <h3 class="mb-4"><i class="fa-solid fa-code me-2"></i> Technical Skills</h3>
-                            
-                            <div class="skill-item">
-                                <div class="skill-header"><span>Web Development (HTML/CSS/JS/Vue)</span><span>90%</span></div>
-                                <div class="progress"><div class="progress-bar" style="width: 90%"></div></div>
-                            </div>
-                            <div class="skill-item">
-                                <div class="skill-header"><span>Network Engineering (VPN/VPS/Linux)</span><span>95%</span></div>
-                                <div class="progress"><div class="progress-bar" style="width: 95%"></div></div>
-                            </div>
-                            <div class="skill-item">
-                                <div class="skill-header"><span>Video Production (Directing/Editing)</span><span>85%</span></div>
-                                <div class="progress"><div class="progress-bar" style="width: 85%"></div></div>
-                            </div>
-                            <div class="skill-item">
-                                <div class="skill-header"><span>UI/UX Design</span><span>80%</span></div>
-                                <div class="progress"><div class="progress-bar" style="width: 80%"></div></div>
-                            </div>
-                            <div class="skill-item">
-                                <div class="skill-header"><span>DevOps & Automation</span><span>75%</span></div>
-                                <div class="progress"><div class="progress-bar" style="width: 75%"></div></div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-6">
-                        <div class="glass-card h-100">
-                            <h3 class="mb-4"><i class="fa-solid fa-timeline me-2"></i> Experience</h3>
-                            <div class="timeline">
-                                <div class="timeline-item">
-                                    <span class="timeline-date">2023 - Present</span>
-                                    <h5>Independent Developer & Creator</h5>
-                                    <p class="text-secondary mb-0">Focusing on open-source projects, personal website development (WWZ.iM), and tech tutorials.</p>
-                                </div>
-                                <div class="timeline-item">
-                                    <span class="timeline-date">2018 - 2023</span>
-                                    <h5>Commercial Director</h5>
-                                    <p class="text-secondary mb-0">Led creative teams in producing high-end commercial videos and brand campaigns.</p>
-                                </div>
-                                <div class="timeline-item">
-                                    <span class="timeline-date">2015 - 2018</span>
-                                    <h5>Network Engineer</h5>
-                                    <p class="text-secondary mb-0">Managed enterprise network infrastructure, ensuring security and stability.</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <section class="mb-5">
-                <h3 class="mb-4">What I Do</h3>
-                <div class="row row-cols-1 row-cols-md-3 g-4">
-                    <div class="col">
-                        <div class="glass-card h-100 text-center" data-hover>
-                            <i class="fa-solid fa-laptop-code fa-3x mb-3 text-primary"></i>
-                            <h5>Web Development</h5>
-                            <p class="text-secondary small">Building responsive, high-performance websites and web applications.</p>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="glass-card h-100 text-center" data-hover>
-                            <i class="fa-solid fa-server fa-3x mb-3 text-success"></i>
-                            <h5>Server Management</h5>
-                            <p class="text-secondary small">VPS configuration, Linux administration, and network optimization.</p>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="glass-card h-100 text-center" data-hover>
-                            <i class="fa-solid fa-camera-retro fa-3x mb-3 text-danger"></i>
-                            <h5>Photography</h5>
-                            <p class="text-secondary small">Professional photography and visual storytelling for brands.</p>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
+      <section class="about-section" id="about-story">
+        <div class="section-heading">
+          <span class="section-index">01 / THE STORY</span>
+          <div>
+            <h2>Different disciplines.<br>One way of thinking.</h2>
+            <p>My work moves between visual production and technical problem-solving. I enjoy understanding how things work, finding a clear direction, then bringing the details together into something useful and well made.</p>
+          </div>
         </div>
-    </main>
-
-    <div class="modal fade" id="imagePreviewModal" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog modal-fullscreen">
-            <div class="modal-content">
-                <div class="modal-body">
-                    <img id="previewImage" src="" alt="Full Preview">
-                </div>
-            </div>
+        <div class="principles">
+          <article class="principle">
+            <small>01 — SEE</small>
+            <h3>Visual thinking</h3>
+            <p>Start with the feeling, the frame and the story. Make complex ideas clear through thoughtful visual communication.</p>
+          </article>
+          <article class="principle">
+            <small>02 — BUILD</small>
+            <h3>Practical technology</h3>
+            <p>Turn ideas into working products — from websites and automation to servers, networks and connected tools.</p>
+          </article>
+          <article class="principle">
+            <small>03 — IMPROVE</small>
+            <h3>Always experimenting</h3>
+            <p>Test new workflows, learn from the results and keep refining the balance between quality, speed and simplicity.</p>
+          </article>
         </div>
+      </section>
+
+      <section class="about-section" id="what-i-do">
+        <div class="section-heading">
+          <span class="section-index">02 / WHAT I DO</span>
+          <div>
+            <h2>From the first idea<br>to the final detail.</h2>
+            <p>A multidisciplinary practice across content, software and infrastructure. The common thread is making things work better — and making the result feel considered.</p>
+          </div>
+        </div>
+        <div class="focus-grid">
+          <article class="focus-card">
+            <span class="number">01 / CREATIVE</span><i class="fa-solid fa-clapperboard" aria-hidden="true"></i>
+            <h3>Video & Visual Production</h3>
+            <p>Creative direction, planning, filming and editing — building product stories with a clear message and a strong visual identity.</p>
+          </article>
+          <article class="focus-card">
+            <span class="number">02 / EMERGING TOOLS</span><i class="fa-solid fa-wand-magic-sparkles" aria-hidden="true"></i>
+            <h3>AI-assisted Creation</h3>
+            <p>Exploring image and video generation, local AI workflows and practical ways to bring AI into real production pipelines.</p>
+          </article>
+          <article class="focus-card">
+            <span class="number">03 / DIGITAL</span><i class="fa-solid fa-code" aria-hidden="true"></i>
+            <h3>Web & Product Building</h3>
+            <p>Designing and developing lightweight websites, useful tools and digital experiences with an emphasis on clarity and usability.</p>
+          </article>
+          <article class="focus-card">
+            <span class="number">04 / INFRASTRUCTURE</span><i class="fa-solid fa-network-wired" aria-hidden="true"></i>
+            <h3>Networks & Automation</h3>
+            <p>Working with Linux, VPS environments, networking, self-hosted services and automation to make systems reliable and maintainable.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="about-section">
+        <div class="approach">
+          <div>
+            <span class="section-index">03 / THE APPROACH</span>
+            <h2 class="approach-lead">Good work is a mix of curiosity, craft and consistency.</h2>
+          </div>
+          <div class="approach-copy">
+            <p>I value simple interfaces, thoughtful details and solutions that solve a real problem. Whether I am shaping a film, refining a website or building a technical workflow, I care about the whole experience — not just how it looks at first glance.</p>
+            <p>I am especially interested in the space between creative work and engineering: using technology to expand what is possible while keeping the result human, coherent and practical.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="about-section">
+        <div class="about-bottom">
+          <div>
+            <h2>Have an idea in mind?</h2>
+            <p>For creative projects, collaborations or just a good conversation.</p>
+          </div>
+          <a class="about-action primary" href="mailto:wwz.im@outlook.com">Contact me <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i></a>
+        </div>
+      </section>
     </div>
-
-    <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.1/js/bootstrap.bundle.min.js"></script>
-    <script>
-        window.addEventListener('load', () => { document.getElementById('loader').style.display='none'; });
-        
-        // 鼠标跟随
-        if (window.matchMedia("(pointer: fine)").matches) {
-            const dot = document.querySelector('.cursor-dot'), circle = document.querySelector('.cursor-circle');
-            let mx=0, my=0, cx=0, cy=0;
-            document.addEventListener('mousemove', e => { mx=e.clientX; my=e.clientY; dot.style.left=mx+'px'; dot.style.top=my+'px'; });
-            function animate() { cx+=(mx-cx)*0.15; cy+=(my-cy)*0.15; circle.style.left=cx+'px'; circle.style.top=cy+'px'; requestAnimationFrame(animate); }
-            animate();
-            document.querySelectorAll('[data-hover]').forEach(el => {
-                el.addEventListener('mouseenter', () => document.body.classList.add('hovering'));
-                el.addEventListener('mouseleave', () => document.body.classList.remove('hovering'));
-            });
-        }
-
-        // --- 主题控制逻辑 ---
-        const desktopBtn = document.getElementById('theme-btn-desktop');
-        const mobileBtn = document.getElementById('theme-btn-mobile');
-        
-        let isDark = document.documentElement.getAttribute('data-theme') === 'dark';
-
-        const updateIcons = () => {
-            const iconHtml = isDark ? '<i class="fa-solid fa-moon"></i>' : '<i class="fa-solid fa-sun"></i>';
-            if(desktopBtn) desktopBtn.innerHTML = iconHtml;
-            if(mobileBtn) mobileBtn.innerHTML = iconHtml;
-        };
-        updateIcons();
-
-        function toggleTheme() { window.WWZTheme?.cycle(); }
-
-        if(desktopBtn) desktopBtn.addEventListener('click', toggleTheme);
-        if(mobileBtn) mobileBtn.addEventListener('click', toggleTheme);
-
-        // 系统主题跟随
-        // System appearance is handled by site-theme.js.
-
-        // 移动端菜单
-        const mobileToggle = document.getElementById('mobile-toggle'), sidebarContent = document.getElementById('sidebar-content');
-        mobileToggle.addEventListener('click', () => {
-            sidebarContent.classList.toggle('show');
-            mobileToggle.querySelector('i').classList.toggle('fa-xmark');
-            mobileToggle.querySelector('i').classList.toggle('fa-bars');
-        });
-        const closeMenu = () => { if(window.innerWidth < 992 && sidebarContent.classList.contains('show')) mobileToggle.click(); };
-        document.querySelectorAll('.nav-link').forEach(l => l.addEventListener('click', closeMenu));
-        document.querySelector('.main-content').addEventListener('click', closeMenu);
-
-        // [新增] 图片灯箱逻辑
-        const imgModalElement = document.getElementById('imagePreviewModal');
-        const imgModal = new bootstrap.Modal(imgModalElement);
-        const previewImg = document.getElementById('previewImage');
-
-        document.querySelectorAll('.zoom-trigger').forEach(trigger => {
-            trigger.addEventListener('click', function(e) {
-                e.preventDefault();
-                const img = this.querySelector('img');
-                if (img) {
-                    previewImg.src = img.src;
-                    imgModal.show();
-                }
-            });
-        });
-
-        // 点击背景关闭
-        imgModalElement.addEventListener('click', function() {
-            imgModal.hide();
-        });
-    </script>
-    <script src="js/site-shell.js?v=20260920-inline-theme"></script>
+  </main>
+  <script src="js/site-shell.js?v=20261030-about"></script>
 </body>
 </html>
