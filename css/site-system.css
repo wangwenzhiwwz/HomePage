@@ -860,3 +860,21 @@ body > main, body > main.main-content {
     padding-top: calc(92px + env(safe-area-inset-top));
   }
 }
+
+
+/* Keep nested content below the fixed shared top navigation on every viewport. */
+@media (min-width: 1100px) {
+  body > .sidebar ~ .page > main {
+    padding-top: 130px !important;
+  }
+}
+@media (min-width: 761px) and (max-width: 1099px) {
+  body > .sidebar ~ .page > main {
+    padding-top: 100px !important;
+  }
+}
+@media (max-width: 760px) {
+  body > .sidebar ~ .page > main {
+    padding-top: calc(100px + env(safe-area-inset-top)) !important;
+  }
+}
