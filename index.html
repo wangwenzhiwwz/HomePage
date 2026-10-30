@@ -49,7 +49,7 @@
     :root {
       --bg:#f7f7f5; --surface:#fff; --ink:#11110f; --muted:#6f706c;
       --line:rgba(17,17,15,.11); --soft:rgba(17,17,15,.045);
-      --accent:#ee7b2d; --sidebar:260px; --radius:20px;
+      --accent:#ee7b2d; --radius:20px;
       --shadow:0 22px 70px rgba(30,26,20,.09);
       --ease:cubic-bezier(.2,.75,.2,1);
       color-scheme:light;
@@ -70,27 +70,18 @@
     .skip { position:fixed; left:16px; top:12px; z-index:9999; padding:10px 14px; background:var(--ink); color:var(--bg); border-radius:9px; transform:translateY(-150%) }
     .skip:focus { transform:none }
 
-    .sidebar {
-      position:fixed; inset:24px auto 24px 24px; width:var(--sidebar); z-index:20;
-      background:color-mix(in srgb,var(--surface) 88%,transparent);
-      border:1px solid var(--line); border-radius:28px; padding:28px 22px;
-      display:flex; flex-direction:column; backdrop-filter:blur(20px);
-    }
-    .identity { text-align:center; padding-bottom:24px; border-bottom:1px solid var(--line) }
-    .identity img { width:78px; height:78px; margin:0 auto 13px; border-radius:50% }
-    .identity strong { display:block; font-size:1.2rem; letter-spacing:-.035em }
-    .handle { display:inline-block; margin-top:7px; padding:5px 10px; border-radius:999px; background:var(--soft); color:var(--muted); font:600 .68rem ui-monospace,monospace }
-    .nav-label { margin:24px 11px 8px; color:var(--muted); font:700 .62rem ui-monospace,monospace; letter-spacing:.18em; text-transform:uppercase }
-    .nav { display:grid; gap:3px }
-    .nav a { display:flex; align-items:center; gap:12px; padding:10px 12px; border-radius:11px; color:var(--muted); font-weight:650; font-size:.84rem; transition:.25s var(--ease) }
-    .nav a i { width:15px; text-align:center }
-    .nav a:hover,.nav a.active { background:var(--soft); color:var(--ink); transform:translateX(3px) }
-    .socials { margin-top:auto; padding-top:20px; border-top:1px solid var(--line); display:flex; flex-wrap:wrap; justify-content:center; gap:8px }
-    .socials a,.icon-btn { width:36px; height:36px; border-radius:50%; border:1px solid var(--line); display:grid; place-items:center; background:var(--surface); transition:.25s var(--ease) }
-    .socials a:hover,.icon-btn:hover { background:var(--ink); color:var(--bg); transform:translateY(-3px) }
-    .mobile-head { display:none }
-
-    main { margin-left:calc(var(--sidebar) + 56px); padding:34px 36px 90px 0 }
+    .site-header{position:relative;z-index:30;width:100%;height:128px;padding:0 clamp(22px,2.4vw,50px);display:grid;grid-template-columns:1fr auto 1fr;align-items:center;background:var(--bg)}
+    .site-brand{display:inline-flex;align-items:center;gap:12px;width:max-content;font-size:1.12rem;font-weight:800;letter-spacing:-.045em;white-space:nowrap}
+    .site-brand img{width:50px;height:50px;border-radius:50%;object-fit:cover}
+    .site-nav{display:flex;align-items:center;justify-content:center;gap:4px;padding:9px;border:1px solid rgba(120,120,120,.09);border-radius:999px;background:rgba(255,255,255,.66);box-shadow:0 12px 38px rgba(0,0,0,.055);backdrop-filter:blur(22px);-webkit-backdrop-filter:blur(22px)}
+    .site-nav a{min-width:88px;padding:16px 20px;border-radius:999px;text-align:center;color:var(--ink);font-size:.95rem;line-height:1.2;white-space:nowrap;transition:background .2s,color .2s}
+    .site-nav a:hover{background:rgba(120,120,120,.10)}
+    .site-nav a[aria-current="page"]{background:#222;color:#fff}
+    .display-toggle{justify-self:end;width:52px;height:52px;display:grid;place-items:center;border:1px solid rgba(120,120,120,.12);border-radius:50%;background:rgba(255,255,255,.68);color:var(--ink);box-shadow:0 8px 24px rgba(0,0,0,.035);cursor:pointer}
+    .display-toggle svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+    [data-theme="dark"] .site-nav,[data-theme="dark"] .display-toggle{background:rgba(30,30,29,.82);border-color:rgba(255,255,255,.10)}
+    [data-theme="dark"] .site-nav a[aria-current="page"]{background:#f1f1ed;color:#171715}
+    main { margin:0; padding:0 clamp(22px,4vw,64px) 90px }
     .wrap { width:min(1160px,100%); margin:0 auto }
     .section { padding:76px 0; border-top:1px solid var(--line) }
     .eyebrows { display:flex; flex-wrap:wrap; gap:8px; margin-bottom:22px }
@@ -204,24 +195,21 @@
     .modal-close { position:absolute; right:-5px; top:-52px; border:1px solid var(--line); background:color-mix(in srgb,var(--surface) 88%,transparent); color:var(--ink); width:40px; height:40px; border-radius:50%; cursor:pointer; backdrop-filter:blur(14px) }
 
     @media (max-width:1060px) {
-      :root { --sidebar:220px }
-      .sidebar { left:16px; top:16px; bottom:16px }
-      main { margin-left:252px; padding-right:22px }
+      main { padding-right:22px; padding-left:22px }
       .hero { grid-template-columns:1fr; padding-top:80px }
       .logo-stage { min-height:420px; grid-row:2 }
       .disciplines { grid-row:3 }
       .capability-grid { grid-template-columns:repeat(2,minmax(0,1fr)) }
     }
     @media (max-width:760px) {
-      .sidebar { display:none; inset:70px 14px 14px; width:auto }
-      body.menu-open .sidebar { display:flex }
-      .mobile-head { position:fixed; inset:0 0 auto; height:62px; z-index:30; display:flex; align-items:center; justify-content:space-between; padding:0 15px; border-bottom:1px solid var(--line); background:color-mix(in srgb,var(--bg) 90%,transparent); backdrop-filter:blur(15px) }
-      .mobile-brand { display:flex; align-items:center; gap:10px; font-weight:800 }
-      .mobile-brand img { width:34px; height:34px; border-radius:50% }
-      .mobile-actions { display:flex; gap:8px }
-      .mobile-actions .icon-btn { width:38px; height:38px }
-      .theme { display:none }
-      main { margin:0; padding:82px 18px 60px }
+      .site-header{height:104px;padding:0 22px;grid-template-columns:auto 1fr auto;gap:16px}
+      .site-brand{gap:8px;font-size:1rem}
+      .site-brand img{width:42px;height:42px}
+      .site-nav{justify-self:center;max-width:100%;overflow-x:auto;scrollbar-width:none}
+      .site-nav::-webkit-scrollbar{display:none}
+      .site-nav a{min-width:auto;padding:13px 15px;font-size:.86rem}
+      .display-toggle{width:44px;height:44px}
+      main { padding:0 18px 60px }
       .hero { min-height:auto; padding:16px 0 32px; gap:16px }
       .hero h1 { font-size:clamp(3rem,14.5vw,4.6rem); line-height:.96 }
       .hero-copy { font-size:.95rem; margin:20px 0 24px; line-height:1.65 }
@@ -231,6 +219,11 @@
       .glass-logo-art { width:min(72%,310px); left:52%; top:54% }
       .disciplines { grid-template-columns:1fr; margin-top:0 }
       .discipline,.discipline:first-child { border-left:0; border-top:1px solid var(--line); padding:18px 0 }
+      .site-header{height:auto;min-height:92px;padding:16px 14px;grid-template-columns:1fr auto;gap:12px}
+      .site-nav{grid-column:1/-1;grid-row:2;width:100%;justify-content:flex-start;padding:5px;gap:2px}
+      .site-nav a{flex:1;min-width:max-content;padding:11px 15px;font-size:.84rem}
+      .site-brand img{width:36px;height:36px}
+      .display-toggle{width:40px;height:40px}
       .section { padding:40px 0 }
       .section-head { align-items:flex-start; flex-wrap:wrap; gap:16px; margin-bottom:22px }
       .section-head h2 { font-size:clamp(1.8rem,7.5vw,2.5rem); line-height:1.1 }
@@ -304,16 +297,22 @@
 </head>
 <body data-content-root="" data-active-page="home">
   <a class="skip" href="#main">跳到主要内容</a>
-  <header class="mobile-head">
-    <a class="mobile-brand" href="#home"><img src="favicon.png" alt=""><span>Wang Wenzhi</span></a>
-    <div class="mobile-actions">
-      <button class="icon-btn js-theme" type="button" aria-label="切换明暗主题"><i class="fa-solid fa-circle-half-stroke"></i></button>
-      <button class="icon-btn" id="menuBtn" type="button" aria-label="打开导航" aria-expanded="false"><i class="fa-solid fa-bars"></i></button>
-    </div>
+  <header class="site-header">
+    <a class="site-brand" href="https://wwz.im/" aria-label="WWZ.iM Home">
+      <img src="favicon.png" alt=""><span>WWZ.iM</span>
+    </a>
+    <nav class="site-nav" aria-label="Main navigation">
+      <a href="https://wwz.im/" aria-current="page">Home</a>
+      <a href="https://wwz.im/works.html">Works</a>
+      <a href="https://wwz.im/videos/">Videos</a>
+      <a href="https://wwz.im/blog.html">Blog</a>
+      <a href="https://wwz.im/about.html">About</a>
+      <a href="https://wwz.im/#contact">Contact</a>
+    </nav>
+    <button class="display-toggle" type="button" data-shell-theme aria-label="Toggle display theme" title="Toggle display theme">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="4.5" width="17" height="12" rx="2"></rect><path d="M8 20h8M12 16.5V20"></path></svg>
+    </button>
   </header>
-
-  <aside class="sidebar" aria-label="主要导航"></aside>
-  <button class="icon-btn theme js-theme" type="button" aria-label="切换明暗主题"><i class="fa-solid fa-circle-half-stroke"></i></button>
 
   <main id="main">
     <div class="wrap">
@@ -404,19 +403,7 @@
   <script src="data/site-content.js"></script>
   <script src="js/content-renderer.js"></script>
   <script>
-    const root = document.documentElement;
-    const themeMeta = document.querySelector('meta[name="theme-color"]');
-    document.querySelectorAll(".js-theme").forEach(button => button.addEventListener("click", () => {
-      window.WWZTheme?.cycle();
-    }));
-
-    const menuButton = document.getElementById("menuBtn");
-    const closeMenu = () => { document.body.classList.remove("menu-open"); menuButton?.setAttribute("aria-expanded","false"); };
-    menuButton?.addEventListener("click", () => {
-      const open = document.body.classList.toggle("menu-open");
-      menuButton.setAttribute("aria-expanded", String(open));
-    });
-    document.querySelectorAll(".sidebar a").forEach(link => link.addEventListener("click", closeMenu));
+    document.querySelector("[data-shell-theme]")?.addEventListener("click", () => window.WWZTheme?.cycle());
 
     const modal = document.getElementById("videoModal");
     const frame = document.getElementById("videoFrame");
@@ -473,6 +460,5 @@
 
     document.getElementById("year").textContent = new Date().getFullYear();
   </script>
-  <script src="js/site-shell.js?v=20261030-active-route-fix"></script>
 </body>
 </html>
