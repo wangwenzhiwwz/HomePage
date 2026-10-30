@@ -35,10 +35,10 @@
     <div class="wwz-sidebar-content" id="wwz-navigation">
       <nav class="wwz-nav wwz-primary-nav" aria-label="Main navigation">
         ${item("home",`${root}index.html`,"fa-solid fa-house","Home")}
-        ${item("about",`${root}about.html`,"fa-solid fa-user","About")}
+        ${item("works",`${root}works.html`,"fa-solid fa-layer-group","Works")}
         ${item("videos",`${root}videos/`,"fa-solid fa-film","Videos")}
         ${item("blog",`${root}blog.html`,"fa-solid fa-note-sticky","Blog")}
-        ${item("works",`${root}works.html`,"fa-solid fa-layer-group","Works")}
+        ${item("about",`${root}about.html`,"fa-solid fa-user","About")}
         ${item("contact",`${root}index.html#contact`,"fa-solid fa-paper-plane","Contact")}
       </nav>
       <div class="wwz-menu-appearance"><span>Appearance</span></div>
