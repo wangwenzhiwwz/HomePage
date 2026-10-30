@@ -31,7 +31,11 @@
   <script src="js/site-theme.js?v=20260920-inline-theme"></script>
   <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=5">
   <title>Wang Wenzhi — Commercial Director &amp; Network Engineer</title>
-  <meta name="description" content="Wang Wenzhi 的商业影像、导演作品、网络工程与自动化实践。">
+  <meta name="description" content="Wang Wenzhi — commercial video production, AI-assisted creative workflows, independent web tools and network infrastructure.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://wwz.im/">
+  <meta property="og:title" content="Wang Wenzhi — Creative Production &amp; Technology">
+  <meta property="og:description" content="Commercial video, AI creative workflows, digital products and network infrastructure.">
   <meta name="author" content="Wang Wenzhi">
   <meta name="robots" content="index,follow">
   <link rel="canonical" href="https://wwz.im/">
@@ -148,7 +152,17 @@
     .note.compact img { border-radius:var(--radius) }
     .note.compact h3 { font-size:1.22rem; margin:12px 0 7px }
 
-    .tools { display:grid; grid-template-columns:repeat(2,1fr); gap:16px }
+    .section-kicker { margin:0 0 12px; color:var(--muted); font:700 .64rem ui-monospace,monospace; letter-spacing:.16em }
+    .capability-grid { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:12px }
+    .capability { position:relative; min-height:255px; padding:22px 19px 19px; border:1px solid var(--line); border-radius:18px; background:var(--surface); display:flex; flex-direction:column; transition:transform .25s var(--ease),border-color .25s }
+    .capability:hover { transform:translateY(-4px); border-color:color-mix(in srgb,var(--ink) 30%,var(--line)) }
+    .capability-index { color:var(--muted); font:650 .62rem ui-monospace,monospace; letter-spacing:.1em }
+    .capability > i { margin:25px 0 17px; font-size:1.25rem; color:var(--muted) }
+    .capability h3 { margin:0 0 9px; font-size:1.02rem; letter-spacing:-.025em }
+    .capability p { margin:0 0 18px; color:var(--muted); font-size:.78rem; line-height:1.65 }
+    .capability a { display:inline-flex; align-items:center; gap:8px; margin-top:auto; color:var(--ink); font-size:.73rem; font-weight:750 }
+    .capability a:hover { color:var(--accent) }
+    .tools { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:14px }
     .tool { padding:24px; border:1px solid var(--line); border-radius:var(--radius); background:var(--surface); transition:.3s var(--ease) }
     .tool:hover { transform:translateY(-4px); box-shadow:var(--shadow) }
     .tool-top { display:flex; justify-content:space-between; font-size:1.45rem }
@@ -194,6 +208,7 @@
       .hero { grid-template-columns:1fr; padding-top:80px }
       .logo-stage { min-height:420px; grid-row:2 }
       .disciplines { grid-row:3 }
+      .capability-grid { grid-template-columns:repeat(2,minmax(0,1fr)) }
     }
     @media (max-width:760px) {
       .sidebar { display:none; inset:70px 14px 14px; width:auto }
@@ -224,6 +239,8 @@
       .video-mini h3 { margin-top:0 }
       .note,.note.compact { grid-template-columns:1fr; gap:12px }
       .note.compact img { max-height:180px }
+      .capability-grid { grid-template-columns:repeat(2,minmax(0,1fr)); gap:10px }
+      .capability { min-height:240px; padding:18px 15px }
       .tools { grid-template-columns:1fr }
       footer { flex-direction:column }
       .contact-section { margin-top:32px; padding-top:23px }
@@ -263,10 +280,10 @@
     <div class="wrap">
       <section class="hero" id="home">
         <div class="hero-content">
-          <div class="eyebrows"><span class="eyebrow">Commercial Director</span><span class="eyebrow">Network Engineer</span></div>
-          <h1>Create.<br>Optimize.<br>Automate.</h1>
-          <p class="hero-copy">Hello, I’m a digital craftsman blending high-end cinematography with robust network infrastructure.</p>
-          <div class="actions"><a class="btn primary" href="#films">Watch Selected Films <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a><a class="btn" href="works.html">Explore Projects</a></div>
+          <div class="eyebrows"><span class="eyebrow">Commercial Video &amp; Creative Direction</span><span class="eyebrow">Digital Products &amp; Infrastructure</span></div>
+          <h1>Create.<br>Build.<br>Connect.</h1>
+          <p class="hero-copy">I work across commercial video production, AI-assisted creative workflows and practical digital products — bringing visual storytelling and technical problem-solving together.</p>
+          <div class="actions"><a class="btn primary" href="#films">Explore Film Work <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a><a class="btn" href="about.html">More About Me</a></div>
         </div>
         <div class="logo-stage" id="logoStage" aria-label="WWZ Logo 动态装置">
           <div class="logo-world" id="logoWorld">
@@ -274,9 +291,9 @@
           </div>
         </div>
         <div class="disciplines">
-          <div class="discipline"><small>01</small><strong>Directing</strong><p>Visual stories for brands</p></div>
-          <div class="discipline"><small>02</small><strong>Cinematography</strong><p>Film-level lighting</p></div>
-          <div class="discipline"><small>03</small><strong>Network Eng.</strong><p>Infrastructure design</p></div>
+          <div class="discipline"><small>01 / CREATIVE</small><strong>Commercial Production</strong><p>Concepts, scripts, product filming and post-production</p></div>
+          <div class="discipline"><small>02 / WORKFLOW</small><strong>AI-assisted Creation</strong><p>Image-to-video workflows and visual consistency</p></div>
+          <div class="discipline"><small>03 / TECH</small><strong>Digital Systems</strong><p>Web tools, Linux servers and network infrastructure</p></div>
         </div>
       </section>
 
@@ -286,16 +303,30 @@
         <div class="film-row" data-content="home-video-row"></div>
       </section>
 
+      <section class="section" id="capabilities">
+        <div class="section-head"><div><p class="section-kicker">WHAT I DO</p><h2>Creative work.<br>Practical technology.</h2></div><a class="text-link" href="about.html#capabilities">Explore capabilities <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a></div>
+        <div class="capability-grid">
+          <article class="capability"><span class="capability-index">01</span><i class="fa-solid fa-clapperboard" aria-hidden="true"></i><h3>Video Production</h3><p>Commercial concepts, product storytelling, shot planning, cinematography and editing — from brief to final delivery.</p><a href="videos/">View films <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a></article>
+          <article class="capability"><span class="capability-index">02</span><i class="fa-solid fa-wand-magic-sparkles" aria-hidden="true"></i><h3>AI Creative Workflows</h3><p>ComfyUI pipelines, image-to-video experiments and enhancement workflows, with attention to product consistency and repeatability.</p><a href="about.html#capabilities">How I work <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a></article>
+          <article class="capability"><span class="capability-index">03</span><i class="fa-solid fa-window-maximize" aria-hidden="true"></i><h3>Web &amp; Digital Products</h3><p>Lightweight websites and focused tools with responsive layouts, clear information and useful interactions.</p><a href="works.html">Selected works <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a></article>
+          <article class="capability"><span class="capability-index">04</span><i class="fa-solid fa-network-wired" aria-hidden="true"></i><h3>Infrastructure &amp; Networking</h3><p>Linux, VPS, Docker, reverse proxies and IPv4/IPv6 connectivity, built with careful testing and recovery in mind.</p><a href="about.html#capabilities">Technical focus <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a></article>
+        </div>
+      </section>
+
       <section class="section" id="notes">
         <div class="section-head"><h2>Field Notes</h2><a class="text-link" href="blog.html">Read all notes <i class="fa-solid fa-arrow-right"></i></a></div>
         <div class="notes" data-content="home-posts"></div>
       </section>
 
       <section class="section" id="tools">
-        <div class="section-head"><h2>Works &amp; Tools</h2></div>
+        <div class="section-head"><div><p class="section-kicker">INDEPENDENT PROJECTS</p><h2>Small tools.<br>Useful by design.</h2></div><a class="text-link" href="https://github.com/wangwenzhiwwz" target="_blank" rel="noopener noreferrer">GitHub <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i></a></div>
         <div class="tools">
-          <a class="tool" href="https://app.wwz.im/" target="_blank" rel="noopener noreferrer"><div class="tool-top"><i class="fa-solid fa-compass"></i><i class="fa-solid fa-arrow-up-right-from-square"></i></div><h3>APP.WWZ.iM</h3><p>Personal Navigation &amp; Tool Hub.</p></a>
-          <a class="tool" href="https://github.com/wangwenzhiwwz" target="_blank" rel="noopener noreferrer"><div class="tool-top"><i class="fa-solid fa-bolt"></i><i class="fa-brands fa-github"></i></div><h3>SUB Converter</h3><p>Pure frontend secure node conversion.</p></a>
+          <a class="tool" href="https://app.wwz.im/" target="_blank" rel="noopener noreferrer"><div class="tool-top"><i class="fa-solid fa-compass"></i><i class="fa-solid fa-arrow-up-right-from-square"></i></div><h3>APP.WWZ.iM</h3><p>A personal navigation hub for useful websites and tools.</p></a>
+          <a class="tool" href="https://sub.wwz.im/" target="_blank" rel="noopener noreferrer"><div class="tool-top"><i class="fa-solid fa-sliders"></i><i class="fa-solid fa-arrow-up-right-from-square"></i></div><h3>SUB.WWZ.iM</h3><p>A lightweight subscription and configuration converter.</p></a>
+          <a class="tool" href="https://rmb.wwz.im/" target="_blank" rel="noopener noreferrer"><div class="tool-top"><i class="fa-solid fa-calculator"></i><i class="fa-solid fa-arrow-up-right-from-square"></i></div><h3>RMB.WWZ.iM</h3><p>A focused RMB amount conversion utility.</p></a>
+          <a class="tool" href="https://ip.wwz.im/" target="_blank" rel="noopener noreferrer"><div class="tool-top"><i class="fa-solid fa-globe"></i><i class="fa-solid fa-arrow-up-right-from-square"></i></div><h3>IP.WWZ.iM</h3><p>A minimal IP address and network information tool.</p></a>
+          <a class="tool" href="https://vps.wwz.im/" target="_blank" rel="noopener noreferrer"><div class="tool-top"><i class="fa-solid fa-server"></i><i class="fa-solid fa-arrow-up-right-from-square"></i></div><h3>VPS.WWZ.iM</h3><p>A server status and network monitoring interface.</p></a>
+          <a class="tool" href="https://github.com/wangwenzhiwwz" target="_blank" rel="noopener noreferrer"><div class="tool-top"><i class="fa-brands fa-github"></i><i class="fa-solid fa-arrow-up-right-from-square"></i></div><h3>Open-source Projects</h3><p>Source code, experiments and ongoing technical projects.</p></a>
         </div>
       </section>
 
