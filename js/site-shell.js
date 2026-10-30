@@ -1,5 +1,5 @@
 (function () {
-  const root = document.body?.dataset.contentRoot || "";
+  const root = document.body?.dataset.contentRoot || "/";
   const embedded = window.self !== window.top;
   const initialUrl = new URL(location.href);
   const initialTitle = document.title;
@@ -161,7 +161,7 @@
     window.WWZTheme?.refresh();
     sidebar.querySelector("[data-shell-theme]")?.addEventListener("click", () => window.WWZTheme?.cycle());
 
-    if (!embedded) setupPersistentNavigation(sidebar);
+    // Use native document navigation. The previous iframe + pushState routing\n    // changed the address bar without changing the top-level document, so a\n    // browser refresh could restore the wrong page.\n    // Native links keep refresh, deep links, and browser history consistent.
   };
 
   const routeKey = url => (
