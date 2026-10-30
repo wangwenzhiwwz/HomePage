@@ -950,3 +950,53 @@ body > .sidebar ~ .page code {
   max-width: 100%;
   overflow-wrap: anywhere;
 }
+
+/* Normalize both supported page shells: .sidebar + .page > main and .sidebar + main.main-content. */
+@media (min-width: 1100px) {
+  body > .sidebar.wwz-topbar ~ main.main-content {
+    box-sizing: border-box;
+    width: min(1120px, calc(100vw - 96px));
+    max-width: 1120px;
+    margin: 0 auto !important;
+    padding: 136px 0 72px !important;
+  }
+  body > .sidebar.wwz-topbar ~ .page {
+    width: min(980px, calc(100vw - 380px));
+    margin-left: calc(300px + (100vw - 300px - min(980px, 100vw - 380px)) / 2) !important;
+    margin-right: 0 !important;
+  }
+}
+@media (min-width: 761px) and (max-width: 1099px) {
+  body > .sidebar.wwz-topbar ~ main.main-content {
+    box-sizing: border-box;
+    width: min(980px, calc(100vw - 64px));
+    max-width: 980px;
+    margin: 0 auto !important;
+    padding: 112px 0 64px !important;
+  }
+  body > .sidebar.wwz-topbar ~ .page {
+    width: min(980px, calc(100vw - 64px));
+    margin-inline: auto !important;
+  }
+}
+@media (max-width: 760px) {
+  body > .sidebar.wwz-topbar ~ main.main-content {
+    box-sizing: border-box;
+    width: calc(100% - 32px);
+    max-width: 680px;
+    margin: 0 auto !important;
+    padding: calc(112px + env(safe-area-inset-top)) 0 calc(44px + env(safe-area-inset-bottom)) !important;
+  }
+  body > .sidebar.wwz-topbar ~ .page {
+    width: calc(100% - 32px);
+    margin-inline: auto !important;
+  }
+}
+
+/* Legacy article templates used fixed-sidebar offsets; the shared navigation is now a top bar. */
+body > .sidebar.wwz-topbar ~ main.main-content {
+  float: none !important;
+  left: auto !important;
+  right: auto !important;
+  transform: none;
+}
