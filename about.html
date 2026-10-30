@@ -76,7 +76,7 @@
     .about-art::before { width:78%; transform:rotate(-24deg) scaleY(.55); }
     .about-art::after { width:58%; transform:rotate(35deg) scaleY(.55); }
     .art-orbit { position:absolute; width:72%; aspect-ratio:1; border:1px solid color-mix(in srgb,var(--about-accent) 45%,transparent); border-radius:50%; transform:rotate(-35deg) scaleY(.42); }
-    .art-core { position:relative; z-index:1; display:block; width:clamp(150px,18vw,218px); aspect-ratio:1; overflow:hidden; clip-path:circle(50%); border:5px solid color-mix(in srgb,var(--glass-bg) 82%,transparent); border-radius:50%; object-fit:cover; object-position:center 35%; background:var(--glass-bg); box-shadow:0 28px 85px rgba(0,0,0,.2),0 0 0 1px color-mix(in srgb,var(--about-ink) 12%,transparent); }
+    .art-core { position:relative; z-index:1; display:block; width:clamp(150px,18vw,218px); aspect-ratio:1; overflow:hidden; clip-path:circle(50%); border:5px solid color-mix(in srgb,var(--glass-bg) 82%,transparent); border-radius:50%; object-fit:contain; object-position:center; background:var(--glass-bg); box-shadow:0 28px 85px rgba(0,0,0,.2),0 0 0 1px color-mix(in srgb,var(--about-ink) 12%,transparent); }
     .art-caption { position:absolute; left:25px; right:25px; bottom:23px; display:flex; justify-content:space-between; gap:12px; color:var(--about-muted); font:600 .62rem ui-monospace,monospace; letter-spacing:.1em; text-transform:uppercase; }
     .about-scroll { position:absolute; left:0; bottom:18px; display:flex; align-items:center; gap:12px; color:var(--about-muted); font:600 .65rem ui-monospace,monospace; letter-spacing:.12em; text-transform:uppercase; }
     .about-scroll i { color:var(--about-accent); }
