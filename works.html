@@ -30,7 +30,7 @@
   </style>
   <script src="js/site-theme.js?v=20260920-inline-theme"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portfolio - WWZ.iM</title>
+    <title>Works — WANGWENZHI | WWZ.iM</title>
     <meta name="description" content="A curated collection of creative works and projects by Wang Wenzhi.">
     <meta name="author" content="Wang Wenzhi">
 
@@ -51,7 +51,7 @@
     <link rel="stylesheet" href="css/legacy-pages.css">
 
     <link rel="stylesheet" href="css/site-system.css?v=20260920-inline-theme">
-    <link rel="stylesheet" href="css/works.css?v=20260920-inline-theme">
+    <link rel="stylesheet" href="css/works.css?v=20261030-zcool-82">
 </head>
 
 <body class="works-page">
@@ -60,14 +60,21 @@
     <main class="main-content">
         <header class="works-intro">
             <h1>Selected Works</h1>
-            <p>Photography, campaign stills, and visual experiments. Open an image to explore the details.</p>
+            <p>Selected photography, 3D works and visual experiments from ZCOOL.</p>
         </header>
-        <div class="filter-menu" aria-label="Filter works">
-            <button class="filter-btn" type="button" data-filter="all" aria-pressed="true">All Works</button>
-            <button class="filter-btn" type="button" data-filter="video" aria-pressed="false">Campaign Stills</button>
-            <button class="filter-btn" type="button" data-filter="photo" aria-pressed="false">Photography</button>
-        </div>
-        <p class="works-count" id="worksCount" role="status"></p>
+        <section class="works-controls" aria-label="作品筛选">
+            <div class="filter-menu" role="group" aria-label="作品分类">
+                <button class="filter-btn" type="button" data-filter="all" aria-pressed="true">全部作品</button>
+                <button class="filter-btn" type="button" data-filter="摄影" aria-pressed="false">摄影</button>
+                <button class="filter-btn" type="button" data-filter="三维" aria-pressed="false">三维</button>
+                <button class="filter-btn" type="button" data-filter="插画" aria-pressed="false">插画</button>
+            </div>
+            <div class="works-tools">
+                <label class="works-search"><i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i><input id="worksSearch" type="search" placeholder="搜索作品、分类或标签" autocomplete="off" aria-label="搜索作品"></label>
+                <label class="works-sort"><span>排序</span><select id="worksSort" aria-label="作品排序"><option value="newest">最新发布</option><option value="oldest">最早发布</option></select></label>
+            </div>
+        </section>
+        <p class="works-count" id="worksCount" role="status" aria-live="polite">正在载入作品…</p>
         <div class="portfolio-grid" id="portfolioGrid">
             <!-- Items will be populated by JS -->
         </div>
@@ -79,8 +86,9 @@
 
     <dialog class="image-viewer" id="imageViewer" aria-labelledby="viewerTitle">
         <div class="viewer-toolbar">
-            <div><h2 id="viewerTitle"></h2><p id="viewerPosition" role="status"></p></div>
+            <div><h2 id="viewerTitle"></h2><p id="viewerPosition" role="status"></p><p id="viewerDate"></p></div>
             <div class="viewer-tools">
+                <a id="viewerSource" class="viewer-source" href="#" target="_blank" rel="noopener noreferrer">站酷原作 ↗</a>
                 <button type="button" id="viewerZoom" aria-label="Zoom image" aria-pressed="false">Zoom +</button>
                 <button type="button" id="viewerClose" aria-label="Close image preview" autofocus>Close ×</button>
             </div>
@@ -95,8 +103,8 @@
             <button type="button" id="viewerNext" aria-label="Next image">Next →</button>
         </div>
     </dialog>
-    <script src="data/works.js?v=20260920-inline-theme"></script>
-    <script src="js/works.js?v=20260920-inline-theme"></script>
+    <script src="data/works.js?v=20261030-zcool-82"></script>
+    <script src="js/works.js?v=20261030-zcool-82"></script>
     <script src="js/site-shell.js?v=20260920-inline-theme"></script>
 </body>
 </html>
