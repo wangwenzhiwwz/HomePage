@@ -1268,3 +1268,33 @@ body > .sidebar.wwz-topbar ~ .page > main pre {
     animation: none !important;
   }
 }
+
+
+/* Stability override: avoid cross-document fade-to-white during navigation.
+   Each destination is a real document; its own theme bootstrap paints the
+   correct background before content appears. */
+@view-transition {
+  navigation: none;
+}
+
+::view-transition-old(root),
+::view-transition-new(root),
+::view-transition-old(wwz-site-navigation),
+::view-transition-new(wwz-site-navigation),
+::view-transition-old(wwz-content),
+::view-transition-new(wwz-content),
+::view-transition-old(wwz-sidebar),
+::view-transition-new(wwz-sidebar) {
+  animation: none !important;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  body > .sidebar.wwz-topbar ~ :is(main, .main-content, .about-main),
+  body > .sidebar.wwz-topbar ~ .page > main {
+    animation: none !important;
+  }
+}
+
+html, body {
+  background-color: var(--wwz-page-bg, #f7f7f5);
+}
