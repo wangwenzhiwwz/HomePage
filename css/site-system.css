@@ -1276,3 +1276,52 @@ html, body {
 @view-transition {
   navigation: auto;
 }
+
+/* Desktop header: render only the centered primary navigation.
+   Explore/Connect remain available inside the compact menu on smaller screens;
+   they must not leak into the desktop grid created by display:contents. */
+@media (min-width: 1100px) {
+  .sidebar.wwz-topbar {
+    position: fixed !important;
+    top: 24px !important;
+    right: var(--wwz-topbar-gutter) !important;
+    left: var(--wwz-topbar-gutter) !important;
+    z-index: 100000 !important;
+  }
+  .wwz-topbar .wwz-sidebar-content {
+    display: contents !important;
+  }
+  .wwz-topbar .wwz-nav-group:not(:first-child),
+  .wwz-topbar .wwz-nav-label {
+    display: none !important;
+  }
+  .wwz-topbar .wwz-primary-nav {
+    grid-column: 2;
+    grid-row: 1;
+    justify-self: center;
+    align-self: center;
+    min-width: min(960px, 54vw);
+    max-width: 960px;
+  }
+  .wwz-topbar .wwz-primary-nav .wwz-nav-link {
+    flex: 1 1 0;
+    white-space: nowrap;
+  }
+}
+
+/* Keep the shared header pinned while cross-document View Transitions run. */
+.sidebar.wwz-topbar {
+  view-transition-name: wwz-site-navigation;
+  transform: translateZ(0);
+}
+@view-transition {
+  navigation: auto;
+}
+::view-transition-group(wwz-site-navigation) {
+  z-index: 100000;
+}
+::view-transition-old(wwz-site-navigation),
+::view-transition-new(wwz-site-navigation) {
+  animation: none !important;
+  mix-blend-mode: normal;
+}
