@@ -81,6 +81,15 @@
     sidebar.setAttribute("aria-label", "主要导航");
     sidebar.innerHTML = template;
     updateActiveRoute(sidebar, new URL(location.href));
+    const currentPath = location.pathname;
+    const projectFolder = sidebar.querySelectorAll('.wwz-nav-folder')[0];
+    const learningFolder = sidebar.querySelectorAll('.wwz-nav-folder')[1];
+    if (currentPath.includes('/projects/')) projectFolder?.setAttribute('open', '');
+    if (currentPath.includes('/topics/') || currentPath.includes('/articles/') || currentPath.includes('/article/')) learningFolder?.setAttribute('open', '');
+    sidebar.querySelectorAll('.wwz-nav-sub a').forEach(link => {
+      const target = new URL(link.href, location.href);
+      if (target.pathname.replace(/index\\.html$/, '') === currentPath.replace(/index\\.html$/, '')) link.setAttribute('aria-current', 'page');
+    });
 
     // Keep resources in the page flow, including independently loaded articles.
     const resources = sidebar.querySelector('.wwz-resources');
@@ -166,8 +175,8 @@
     document.body?.dataset.activePage ||
     (url.pathname.endsWith("/about.html") ? "about" :
     url.pathname.includes("/videos/") ? "videos" :
-    url.pathname.includes("/article") || url.pathname.endsWith("/blog.html") ? "blog" :
-    url.pathname.endsWith("/works.html") ? "works" : "home")
+    url.pathname.includes("/article") || url.pathname.includes("/articles/") || url.pathname.includes("/topics/") || url.pathname.endsWith("/blog.html") ? "blog" :
+    url.pathname.includes("/projects/") || url.pathname.endsWith("/works.html") ? "works" : "home")
   );
 
   const updateActiveRoute = (sidebar, url) => {
