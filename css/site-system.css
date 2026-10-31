@@ -1298,3 +1298,91 @@ body > .sidebar.wwz-topbar ~ .page > main pre {
 html, body {
   background-color: var(--wwz-page-bg, #f7f7f5);
 }
+
+
+/* Shared navigation continuity: identical fixed shell + moving active indicator. */
+/* Cross-document View Transitions keep the same navigation visually continuous
+   while the destination document is prepared. All pages use the same shell. */
+@view-transition {
+  navigation: auto;
+}
+
+body > .sidebar.wwz-topbar {
+  view-transition-name: wwz-site-navigation;
+  position: fixed !important;
+  top: 0 !important;
+  z-index: 100000 !important;
+  transform: none !important;
+  opacity: 1 !important;
+}
+
+::view-transition-group(wwz-site-navigation) {
+  animation-duration: .36s;
+  animation-timing-function: cubic-bezier(.2,.75,.25,1);
+}
+
+::view-transition-old(wwz-site-navigation),
+::view-transition-new(wwz-site-navigation) {
+  animation: none !important;
+  mix-blend-mode: normal;
+}
+
+/* The active pill is a shared element: it slides between links instead of
+   blinking off and being recreated on every page. */
+@media (min-width: 1100px) {
+  .wwz-topbar .wwz-primary-nav .wwz-nav-link {
+    position: relative !important;
+    isolation: isolate;
+    background: transparent !important;
+    box-shadow: none !important;
+    transition: color .22s ease, opacity .22s ease !important;
+  }
+  .wwz-topbar .wwz-primary-nav .wwz-nav-link.active {
+    color: var(--nav-active-ink, var(--text-primary)) !important;
+    background: transparent !important;
+    box-shadow: none !important;
+  }
+  .wwz-topbar .wwz-primary-nav .wwz-nav-link.active::before {
+    content: "";
+    position: absolute;
+    inset: 3px;
+    z-index: -1;
+    border-radius: 999px;
+    background: var(--active-bg, rgba(0,0,0,.08));
+    view-transition-name: wwz-active-pill;
+  }
+  ::view-transition-group(wwz-active-pill) {
+    animation-duration: .38s;
+    animation-timing-function: cubic-bezier(.2,.8,.2,1);
+  }
+  ::view-transition-old(wwz-active-pill),
+  ::view-transition-new(wwz-active-pill) {
+    animation: none !important;
+    mix-blend-mode: normal;
+  }
+}
+
+/* Keep the shell dimensions and background stable on every destination page. */
+@media (min-width: 1100px) {
+  body > .sidebar.wwz-topbar {
+    min-height: 96px !important;
+    padding-block: 12px !important;
+  }
+}
+@media (min-width: 761px) and (max-width: 1099px) {
+  body > .sidebar.wwz-topbar {
+    min-height: 76px !important;
+  }
+}
+@media (max-width: 760px) {
+  body > .sidebar.wwz-topbar {
+    min-height: calc(72px + env(safe-area-inset-top)) !important;
+    padding-top: env(safe-area-inset-top) !important;
+  }
+}
+
+/* Do not fade the whole document: only the shared header and active pill move. */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none !important;
+}
