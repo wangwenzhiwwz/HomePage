@@ -23,36 +23,33 @@
 
   const template = `
     <div class="wwz-sidebar-head">
-      <a class="wwz-sidebar-brand" href="${root}index.html">
-        <img src="${root}favicon.png" alt="WWZ Logo">
-        <span><strong>WWZ.iM</strong></span>
-      </a>
+      <a class="wwz-sidebar-brand" href="${root}index.html"><img src="${root}favicon.png" alt="WWZ Logo"><span><strong>WWZ.iM</strong><small>个人作品与知识库</small></span></a>
       <div class="wwz-mobile-controls">
         <button class="wwz-icon-button" type="button" data-shell-theme aria-label="切换明暗主题"><i class="fa-solid fa-circle-half-stroke"></i></button>
         <button class="wwz-menu-button" type="button" data-shell-menu aria-label="打开导航" aria-expanded="false">Menu</button>
       </div>
     </div>
     <div class="wwz-sidebar-content" id="wwz-navigation">
-      <nav class="wwz-nav wwz-primary-nav" aria-label="Main navigation">
-        ${item("home",`${root}index.html`,"fa-solid fa-house","Home")}
-        ${item("works",`${root}works.html`,"fa-solid fa-layer-group","Works")}
-        ${item("videos",`${root}videos/`,"fa-solid fa-film","Videos")}
-        ${item("blog",`${root}blog.html`,"fa-solid fa-note-sticky","Blog")}
-        ${item("about",`${root}about.html`,"fa-solid fa-user","About")}
-        ${item("contact",`${root}index.html#contact`,"fa-solid fa-paper-plane","Contact")}
-      </nav>
-      <div class="wwz-menu-appearance"><span>Appearance</span></div>
-      <details class="wwz-resources"><summary>Resources <span aria-hidden="true">⌄</span></summary><div class="wwz-resources-panel">
-      <nav class="wwz-nav">
-        <a href="https://blog.wwz.im/" target="_blank" rel="noopener noreferrer" class="wwz-nav-link"><i class="fa-brands fa-blogger"></i><span>External Blog</span></a>
-        <a href="https://app.wwz.im/" target="_blank" rel="noopener noreferrer" class="wwz-nav-link"><i class="fa-solid fa-compass"></i><span>App Nav</span></a>
-      </nav>
-      <div class="wwz-socials">
-        <a href="https://x.com/wwz_im" target="_blank" rel="noopener noreferrer" aria-label="X"><i class="fa-brands fa-x-twitter"></i></a>
-        <a href="https://github.com/wangwenzhiwwz" target="_blank" rel="noopener noreferrer" aria-label="GitHub"><i class="fa-brands fa-github"></i></a>
-        <a href="https://www.youtube.com/@wangwenzhi" target="_blank" rel="noopener noreferrer" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a>
-        <a href="mailto:wwz.im@outlook.com" aria-label="Email"><i class="fa-solid fa-envelope"></i></a>
-      </div></div></details>
+      <div class="wwz-nav-group"><p class="wwz-nav-label">主导航 <span>MAIN</span></p><nav class="wwz-nav wwz-primary-nav" aria-label="主导航">
+        ${item("home",root+"index.html","fa-solid fa-house","首页")}
+        ${item("works",root+"works.html","fa-solid fa-layer-group","作品集")}
+        ${item("videos",root+"videos/","fa-solid fa-film","视频")}
+        ${item("blog",root+"blog.html","fa-solid fa-book-open","文章与教程")}
+        ${item("about",root+"about.html","fa-solid fa-user","关于")}
+      </nav></div>
+      <div class="wwz-nav-group"><p class="wwz-nav-label">按内容浏览 <span>EXPLORE</span></p>
+        <details class="wwz-nav-folder"><summary><span><i class="fa-solid fa-grid-2"></i> 项目与工具</span><i class="fa-solid fa-chevron-down"></i></summary><nav class="wwz-nav-sub" aria-label="项目与工具">
+          <a href="${root}projects/">项目总览</a><a href="${root}projects/app/">应用导航</a><a href="${root}projects/ip/">IP 查询工具</a><a href="${root}projects/rmb/">汇率换算</a><a href="${root}projects/sub/">订阅转换</a><a href="${root}projects/vps/">VPS 监控</a>
+        </nav></details>
+        <details class="wwz-nav-folder"><summary><span><i class="fa-solid fa-lightbulb"></i> 专题与学习</span><i class="fa-solid fa-chevron-down"></i></summary><nav class="wwz-nav-sub" aria-label="专题与学习"><a href="${root}topics/ai-comfyui/">ComfyUI / 本地 AI</a><a href="${root}blog.html">全部技术文章</a></nav></details>
+      </div>
+      <div class="wwz-nav-group wwz-nav-contact"><p class="wwz-nav-label">联系与外部链接 <span>CONNECT</span></p>
+        <a class="wwz-nav-link" href="${root}index.html#contact"><i class="fa-solid fa-paper-plane"></i><span>联系我</span></a>
+        <details class="wwz-resources"><summary>外部资源 <i class="fa-solid fa-chevron-down"></i></summary><div class="wwz-resources-panel">
+          <nav class="wwz-nav"><a href="https://blog.wwz.im/" target="_blank" rel="noopener noreferrer" class="wwz-nav-link"><i class="fa-brands fa-blogger"></i><span>外部博客</span></a><a href="https://app.wwz.im/" target="_blank" rel="noopener noreferrer" class="wwz-nav-link"><i class="fa-solid fa-compass"></i><span>应用导航</span></a></nav>
+          <div class="wwz-socials"><a href="https://x.com/wwz_im" target="_blank" rel="noopener noreferrer" aria-label="X"><i class="fa-brands fa-x-twitter"></i></a><a href="https://github.com/wangwenzhiwwz" target="_blank" rel="noopener noreferrer" aria-label="GitHub"><i class="fa-brands fa-github"></i></a><a href="https://www.youtube.com/@wangwenzhi" target="_blank" rel="noopener noreferrer" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a><a href="mailto:wwz.im@outlook.com" aria-label="Email"><i class="fa-solid fa-envelope"></i></a></div>
+        </div></details>
+      </div>
     </div>`;
 
   const mount = () => {
