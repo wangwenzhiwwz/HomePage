@@ -1420,3 +1420,11 @@ html, body {
 :root[data-theme=dark] .sidebar.wwz-topbar{background:rgba(18,18,18,.46)!important;background-image:linear-gradient(135deg,rgba(255,255,255,.12),rgba(255,255,255,.025) 65%)!important;border-color:rgba(255,255,255,.18)!important;box-shadow:inset 0 1px 0 rgba(255,255,255,.12),0 12px 38px rgba(0,0,0,.26)!important}
 .wwz-topbar .wwz-primary-nav{background:transparent!important;background-image:none!important;border-color:transparent!important;box-shadow:none!important;-webkit-backdrop-filter:none!important;backdrop-filter:none!important;transform:none!important}
 }
+
+
+/* Keep the frosted surface confined to the centered navigation capsule. */
+@media (min-width:1100px){
+.sidebar.wwz-topbar{background:transparent!important;background-image:none!important;border-color:transparent!important;box-shadow:none!important;-webkit-backdrop-filter:none!important;backdrop-filter:none!important}
+:root[data-theme=dark] .sidebar.wwz-topbar{background:transparent!important;background-image:none!important;border-color:transparent!important;box-shadow:none!important}
+.wwz-topbar .wwz-primary-nav{width:min(960px,calc(100vw - 64px))!important;min-width:0!important;max-width:960px!important;margin-inline:auto!important;padding:8px 10px!important;box-sizing:border-box!important;border:1px solid var(--nav-line)!important;border-radius:999px!important;background-color:var(--nav-glass)!important;background-image:var(--nav-sheen)!important;box-shadow:var(--nav-shadow)!important;-webkit-backdrop-filter:blur(32px) saturate(1.55)!important;backdrop-filter:blur(32px) saturate(1.55)!important;transform:none!important}
+}
