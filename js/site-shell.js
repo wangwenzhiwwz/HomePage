@@ -41,7 +41,7 @@
         <details class="wwz-nav-folder"><summary><span><i class="fa-solid fa-grid-2"></i> Projects & Tools</span><i class="fa-solid fa-chevron-down"></i></summary><nav class="wwz-nav-sub" aria-label="Projects & Tools">
           <a href="${root}projects/">All Projects</a><a href="${root}projects/app/">App Directory</a><a href="${root}projects/ip/">IP Lookup</a><a href="${root}projects/rmb/">Currency Converter</a><a href="${root}projects/sub/">Subscription Converter</a><a href="${root}projects/vps/">VPS Monitor</a>
         </nav></details>
-        <details class="wwz-nav-folder"><summary><span><i class="fa-solid fa-lightbulb"></i> Topics & Learning</span><i class="fa-solid fa-chevron-down"></i></summary><nav class="wwz-nav-sub" aria-label="Topics & Learning"><a href="${root}topics/ai-comfyui/">ComfyUI / 本地 AI</a><a href="${root}blog.html">All Articles</a></nav></details>
+        <details class="wwz-nav-folder"><summary><span><i class="fa-solid fa-lightbulb"></i> Topics & Learning</span><i class="fa-solid fa-chevron-down"></i></summary><nav class="wwz-nav-sub" aria-label="Topics & Learning"><a href="${root}topics/ai-comfyui/">ComfyUI / Local AI</a><a href="${root}blog.html">All Articles</a></nav></details>
       </div>
       <div class="wwz-nav-group wwz-nav-contact"><p class="wwz-nav-label">Connect <span>CONNECT</span></p>
         <a class="wwz-nav-link" href="${root}index.html#contact"><i class="fa-solid fa-paper-plane"></i><span>Contact</span></a>
