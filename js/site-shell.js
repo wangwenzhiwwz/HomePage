@@ -193,83 +193,21 @@
   const setupPersistentNavigation = sidebar => {
     if (sidebar.dataset.shellNavigationReady === "true") return;
     sidebar.dataset.shellNavigationReady = "true";
-
+    // Keep normal document navigation. Avoid iframe swaps and pushState-only routing,
+    // which can expose an empty frame while the next page is loading.
+    sidebar.querySelectorAll("[data-shell-route]").forEach(link => {
+      if (canonicalPath(new URL(link.href)) === canonicalPath(new URL(location.href))) {
+        link.setAttribute("aria-current", "page");
+      }
+    });
+    addEventListener("hashchange", () => updateActiveRoute(sidebar, new URL(location.href)));
+    addEventListener("pageshow", () => updateActiveRoute(sidebar, new URL(location.href)));
     sidebar.querySelectorAll("[data-shell-route], .wwz-sidebar-brand").forEach(link => {
-      link.dataset.shellHref = link.href;
-      link.addEventListener("click", event => {
-        if (event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
-        event.preventDefault();
-        navigateWithoutReload(sidebar, new URL(link.dataset.shellHref), true);
+      link.addEventListener("click", () => {
+        sidebar.classList.remove("sidebar-open");
+        document.documentElement.classList.remove("wwz-menu-open");
       });
     });
-
-    addEventListener("popstate", () => navigateWithoutReload(sidebar, new URL(location.href), false));
-    addEventListener("hashchange", () => updateActiveRoute(sidebar, new URL(location.href)));
-    addEventListener("message", event => {
-      if (event.origin !== location.origin || event.source !== document.querySelector('.wwz-route-frame')?.contentWindow || event.data?.type !== "wwz:navigate") return;
-      if (typeof event.data.href !== 'string') return;
-      try {
-        const url = new URL(event.data.href);
-        if (url.origin === location.origin) navigateWithoutReload(sidebar, url, true);
-      } catch (_) { /* Ignore malformed navigation messages. */ }
-    });
-  };
-
-  const navigateWithoutReload = (sidebar, url, push) => {
-    if (url.origin !== location.origin) {
-      location.href = url.href;
-      return;
-    }
-
-    const isInitialDocument = canonicalPath(url) === canonicalPath(initialUrl) && url.search === initialUrl.search;
-    const existingFrame = document.querySelector(".wwz-route-frame");
-
-    if (push && url.href !== location.href) history.pushState({ wwzRoute: url.href }, "", url.href);
-    updateActiveRoute(sidebar, url);
-    sidebar.classList.remove("sidebar-open");
-    document.documentElement.classList.remove("wwz-menu-open");
-    const menu = sidebar.querySelector('[data-shell-menu]');
-    if (menu) { menu.textContent = 'Menu'; menu.setAttribute('aria-expanded','false'); menu.setAttribute('aria-label','Open navigation'); }
-
-    if (isInitialDocument) {
-      existingFrame?.remove();
-      document.documentElement.classList.remove("wwz-route-active");
-      document.querySelector("body > main")?.removeAttribute("aria-hidden");
-      const main = document.querySelector('body > main');
-      if (main) main.inert = false;
-      document.title = initialTitle;
-      if (url.hash) {
-        let id = url.hash.slice(1);
-        try { id = decodeURIComponent(id); } catch (_) {}
-        document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
-      }
-      else window.scrollTo(0,0);
-      return;
-    }
-
-    const frame = existingFrame || document.body.appendChild(Object.assign(document.createElement("iframe"), {
-      className: "wwz-route-frame",
-      title: "Website content"
-    }));
-    document.documentElement.classList.add("wwz-route-active");
-    document.querySelector("body > main")?.setAttribute("aria-hidden", "true");
-    const main = document.querySelector('body > main');
-    if (main) main.inert = true;
-    frame.inert = false;
-    frame.classList.remove("is-ready");
-    frame.onload = () => {
-      try {
-        frame.contentDocument.documentElement.classList.add("wwz-embedded");
-        document.title = frame.contentDocument.title;
-        frame.title = frame.contentDocument.title;
-        frame.contentDocument.documentElement.dataset.theme = document.documentElement.dataset.theme || "light";
-        frame.contentDocument.documentElement.style.colorScheme = document.documentElement.dataset.theme || "light";
-      } catch (_) {}
-      frame.classList.add("is-ready");
-    };
-    // Replace the frame location so only the top-level pushState entry is
-    // added to session history. This keeps Back/Forward predictable.
-    frame.contentWindow.location.replace(url.href);
   };
 
   if (embedded) {
