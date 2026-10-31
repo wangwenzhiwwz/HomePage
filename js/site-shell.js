@@ -210,23 +210,6 @@
     });
   };
 
-  if (embedded) {
-    document.documentElement.classList.add("wwz-embedded");
-    addEventListener("message", event => {
-      if (event.origin === location.origin && event.source === parent && event.data?.type === "wwz:theme" && ['dark','light'].includes(event.data.theme)) {
-        document.documentElement.dataset.theme = event.data.theme;
-        document.documentElement.style.colorScheme = event.data.theme;
-      }
-    });
-    document.addEventListener("click", event => {
-      const link = event.target.closest("a[href]");
-      if (!link || link.target || link.hasAttribute("download") || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
-      const url = new URL(link.href);
-      if (url.origin !== location.origin || (url.pathname === location.pathname && url.search === location.search && url.hash)) return;
-      event.preventDefault();
-      parent.postMessage({ type: "wwz:navigate", href: url.href }, location.origin);
-    });
-  }
 
   // The script is loaded at the end of each page, so mount immediately and
   // keep the same sidebar DOM for the lifetime of this document.
