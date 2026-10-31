@@ -1203,3 +1203,68 @@ body > .sidebar.wwz-topbar ~ .page > main pre {
     padding-inline: clamp(18px, 2vw, 38px) !important;
   }
 }
+
+
+/* Consistent page transitions and persistent shared navigation. */
+@view-transition {
+  navigation: auto;
+}
+
+.sidebar.wwz-topbar {
+  position: fixed !important;
+  z-index: 100000 !important;
+  view-transition-name: wwz-site-navigation;
+  isolation: isolate;
+  will-change: auto;
+}
+
+::view-transition-old(wwz-site-navigation),
+::view-transition-new(wwz-site-navigation) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+
+::view-transition-old(root) {
+  animation: wwz-page-out .16s ease both;
+}
+
+::view-transition-new(root) {
+  animation: wwz-page-in .24s cubic-bezier(.2,.7,.2,1) both;
+}
+
+@keyframes wwz-page-out {
+  to { opacity: 0; }
+}
+
+@keyframes wwz-page-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* A restrained content entrance; the fixed navigation never fades or shifts. */
+@keyframes wwz-content-enter {
+  from { opacity: 0; transform: translate3d(0,8px,0); }
+  to { opacity: 1; transform: translate3d(0,0,0); }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  body > .sidebar.wwz-topbar ~ :is(main, .main-content, .about-main),
+  body > .sidebar.wwz-topbar ~ .page > main {
+    animation: wwz-content-enter .42s cubic-bezier(.2,.7,.2,1) both;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    scroll-behavior: auto !important;
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .01ms !important;
+  }
+  ::view-transition-old(root),
+  ::view-transition-new(root),
+  ::view-transition-old(wwz-site-navigation),
+  ::view-transition-new(wwz-site-navigation) {
+    animation: none !important;
+  }
+}
