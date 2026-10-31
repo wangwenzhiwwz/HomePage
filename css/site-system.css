@@ -1325,3 +1325,90 @@ html, body {
   animation: none !important;
   mix-blend-mode: normal;
 }
+
+
+/* Final navigation polish: restore real frosted glass and isolate it from page transitions. */
+:root {
+  --nav-glass: rgba(255,255,255,.54);
+  --nav-line: rgba(255,255,255,.62);
+  --nav-sheen: linear-gradient(145deg,rgba(255,255,255,.58),rgba(255,255,255,.16) 58%,rgba(255,255,255,.08));
+  --nav-shadow: inset 0 1px 0 rgba(255,255,255,.82), inset 0 -1px 0 rgba(255,255,255,.24), 0 10px 32px rgba(20,20,20,.09);
+}
+:root[data-theme="dark"] {
+  --nav-glass: rgba(24,24,24,.62);
+  --nav-line: rgba(255,255,255,.17);
+  --nav-sheen: linear-gradient(145deg,rgba(255,255,255,.12),rgba(255,255,255,.035) 58%,rgba(255,255,255,.015));
+  --nav-shadow: inset 0 1px 0 rgba(255,255,255,.12), inset 0 -1px 0 rgba(0,0,0,.18), 0 10px 32px rgba(0,0,0,.24);
+}
+.sidebar.wwz-topbar {
+  view-transition-name: wwz-site-navigation !important;
+  isolation: isolate;
+}
+.wwz-topbar .wwz-primary-nav {
+  background-color: var(--nav-glass) !important;
+  background-image: var(--nav-sheen) !important;
+  border: 1px solid var(--nav-line) !important;
+  box-shadow: var(--nav-shadow) !important;
+  -webkit-backdrop-filter: blur(26px) saturate(1.35) !important;
+  backdrop-filter: blur(26px) saturate(1.35) !important;
+  transform: translateZ(0);
+}
+.wwz-topbar .wwz-primary-nav .wwz-nav-link {
+  transition: background-color .24s ease, color .24s ease, box-shadow .24s ease !important;
+}
+.wwz-topbar .wwz-primary-nav .wwz-nav-link.active,
+.wwz-topbar .wwz-primary-nav .wwz-nav-link[aria-current="page"] {
+  background: rgba(24,24,24,.9) !important;
+  color: #fff !important;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.12), 0 2px 8px rgba(0,0,0,.12) !important;
+}
+:root[data-theme="dark"] .wwz-topbar .wwz-primary-nav .wwz-nav-link:is(.active,[aria-current="page"]) {
+  background: rgba(245,245,242,.92) !important;
+  color: #171717 !important;
+}
+.wwz-topbar .wwz-icon-button,
+.wwz-topbar .wwz-menu-button {
+  background-color: var(--nav-glass) !important;
+  background-image: var(--nav-sheen) !important;
+  border: 1px solid var(--nav-line) !important;
+  box-shadow: var(--nav-shadow) !important;
+  -webkit-backdrop-filter: blur(22px) saturate(1.25) !important;
+  backdrop-filter: blur(22px) saturate(1.25) !important;
+}
+
+/* Cross-document View Transitions: the navigation is a stationary shared element;
+   only the page snapshot changes. Browsers without support keep normal navigation. */
+@view-transition { navigation: auto; }
+::view-transition-group(wwz-site-navigation) {
+  z-index: 100000;
+  animation: none !important;
+}
+::view-transition-old(wwz-site-navigation),
+::view-transition-new(wwz-site-navigation) {
+  animation: none !important;
+  mix-blend-mode: normal;
+}
+::view-transition-old(root) {
+  animation: wwz-route-out .12s ease both !important;
+}
+::view-transition-new(root) {
+  animation: wwz-route-in .22s cubic-bezier(.2,.75,.2,1) both !important;
+}
+@keyframes wwz-route-out { to { opacity: .82; } }
+@keyframes wwz-route-in {
+  from { opacity: .82; transform: translateY(5px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-old(root), ::view-transition-new(root),
+  ::view-transition-old(wwz-site-navigation), ::view-transition-new(wwz-site-navigation) {
+    animation: none !important;
+  }
+}
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .wwz-topbar .wwz-primary-nav,
+  .wwz-topbar .wwz-icon-button,
+  .wwz-topbar .wwz-menu-button {
+    background: var(--nav-glass) !important;
+  }
+}
