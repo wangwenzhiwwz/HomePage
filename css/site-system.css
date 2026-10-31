@@ -1147,3 +1147,10 @@ body > .sidebar.wwz-topbar ~ .page > main pre {
  .wwz-nav-sub a { min-height:38px; }
  .wwz-nav-contact { margin-top:0; }
 }
+
+
+/* Navigation controls must always communicate their click/tap affordance. */
+.wwz-topbar :is(a[href],button,summary,[role="button"]) { cursor:pointer !important; }
+.wwz-topbar :is(a[href],button,summary,[role="button"]) :is(i,svg,span) { cursor:pointer !important; }
+.wwz-topbar .wwz-nav-label,
+.wwz-topbar .wwz-nav-label span { cursor:default !important; }
