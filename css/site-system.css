@@ -1154,55 +1154,6 @@ body > .sidebar.wwz-topbar ~ .page > main pre {
 .wwz-topbar .wwz-nav-label span { cursor:default !important; }
 
 
-/* Desktop navigation: keep the top bar to brand, primary links and theme control.
-   Explore/Connect remain available in the responsive menu, never as stray grid items. */
-@media (min-width: 1100px) {
-  body > .sidebar.wwz-topbar {
-    display: grid !important;
-    grid-template-columns: minmax(220px, 1fr) minmax(560px, auto) minmax(100px, 1fr) !important;
-    align-items: center !important;
-    column-gap: clamp(20px, 2.2vw, 44px) !important;
-    min-height: 64px !important;
-  }
-  body > .sidebar.wwz-topbar .wwz-sidebar-head,
-  body > .sidebar.wwz-topbar .wwz-sidebar-content,
-  body > .sidebar.wwz-topbar .wwz-nav-group:first-child {
-    display: contents !important;
-  }
-  body > .sidebar.wwz-topbar .wwz-nav-group:not(:first-child),
-  body > .sidebar.wwz-topbar .wwz-nav-label {
-    display: none !important;
-  }
-  body > .sidebar.wwz-topbar .wwz-sidebar-brand {
-    grid-column: 1 !important;
-    grid-row: 1 !important;
-    justify-self: start !important;
-    width: max-content !important;
-    max-width: 100% !important;
-  }
-  body > .sidebar.wwz-topbar .wwz-primary-nav {
-    grid-column: 2 !important;
-    grid-row: 1 !important;
-    justify-self: center !important;
-    width: max-content !important;
-    max-width: 100% !important;
-    min-width: 0 !important;
-  }
-  body > .sidebar.wwz-topbar .wwz-mobile-controls {
-    grid-column: 3 !important;
-    grid-row: 1 !important;
-    justify-self: end !important;
-    width: max-content !important;
-  }
-  body > .sidebar.wwz-topbar .wwz-primary-nav .wwz-nav-link {
-    flex: 1 1 auto !important;
-    min-width: 0 !important;
-    white-space: nowrap !important;
-    padding-inline: clamp(18px, 2vw, 38px) !important;
-  }
-}
-
-
 /* Consistent page transitions and persistent shared navigation. */
 .sidebar.wwz-topbar {
   position: fixed !important;
@@ -1290,87 +1241,35 @@ html, body {
 }
 
 
-/* Shared navigation continuity: identical fixed shell + moving active indicator. */
-/* Cross-document View Transitions keep the same navigation visually continuous
-   while the destination document is prepared. All pages use the same shell. */
-body > .sidebar.wwz-topbar {
+/* Restore the original glass navigation appearance and dark active capsule. */
+.sidebar.wwz-topbar {
   view-transition-name: wwz-site-navigation;
-  position: fixed !important;
-  top: 0 !important;
-  z-index: 100000 !important;
-  transform: none !important;
-  opacity: 1 !important;
 }
-
-::view-transition-group(wwz-site-navigation) {
-  animation-duration: .36s;
-  animation-timing-function: cubic-bezier(.2,.75,.25,1);
+.wwz-topbar .wwz-primary-nav {
+  background-image: var(--nav-sheen);
+  box-shadow: var(--nav-shadow);
 }
-
+.wwz-topbar .wwz-primary-nav .wwz-nav-link {
+  background: transparent;
+  box-shadow: none;
+  transition: background-color .2s ease, color .2s ease;
+}
+.wwz-topbar .wwz-primary-nav .wwz-nav-link.active,
+.wwz-topbar .wwz-primary-nav .wwz-nav-link[aria-current="page"] {
+  background: #222;
+  color: #fff;
+  border-radius: 999px;
+  box-shadow: inset 0 0 0 1px rgba(0,0,0,.08);
+}
+:root[data-theme="dark"] .wwz-topbar .wwz-primary-nav .wwz-nav-link:is(.active,[aria-current="page"]) {
+  background: #e9e9e7;
+  color: #181818;
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,.3);
+}
 ::view-transition-old(wwz-site-navigation),
 ::view-transition-new(wwz-site-navigation) {
   animation: none !important;
   mix-blend-mode: normal;
-}
-
-/* The active pill is a shared element: it slides between links instead of
-   blinking off and being recreated on every page. */
-@media (min-width: 1100px) {
-  .wwz-topbar .wwz-primary-nav .wwz-nav-link {
-    position: relative !important;
-    isolation: isolate;
-    background: transparent !important;
-    box-shadow: none !important;
-    transition: color .22s ease, opacity .22s ease !important;
-  }
-  .wwz-topbar .wwz-primary-nav .wwz-nav-link.active {
-    color: var(--nav-active-ink, var(--text-primary)) !important;
-    background: transparent !important;
-    box-shadow: none !important;
-  }
-  .wwz-topbar .wwz-primary-nav .wwz-nav-link.active::before {
-    content: "";
-    position: absolute;
-    inset: 3px;
-    z-index: -1;
-    border-radius: 999px;
-    background: var(--active-bg, rgba(0,0,0,.08));
-    view-transition-name: wwz-active-pill;
-  }
-  ::view-transition-group(wwz-active-pill) {
-    animation-duration: .38s;
-    animation-timing-function: cubic-bezier(.2,.8,.2,1);
-  }
-  ::view-transition-old(wwz-active-pill),
-  ::view-transition-new(wwz-active-pill) {
-    animation: none !important;
-    mix-blend-mode: normal;
-  }
-}
-
-/* Keep the shell dimensions and background stable on every destination page. */
-@media (min-width: 1100px) {
-  body > .sidebar.wwz-topbar {
-    min-height: 96px !important;
-    padding-block: 12px !important;
-  }
-}
-@media (min-width: 761px) and (max-width: 1099px) {
-  body > .sidebar.wwz-topbar {
-    min-height: 76px !important;
-  }
-}
-@media (max-width: 760px) {
-  body > .sidebar.wwz-topbar {
-    min-height: calc(72px + env(safe-area-inset-top)) !important;
-    padding-top: env(safe-area-inset-top) !important;
-  }
-}
-
-/* Do not fade the whole document: only the shared header and active pill move. */
-::view-transition-old(root),
-::view-transition-new(root) {
-  animation: none !important;
 }
 
 /* Opt in once, consistently, on every page using this shared stylesheet. */
