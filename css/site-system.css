@@ -64,8 +64,6 @@
   outline-offset: 3px;
 }
 
-@view-transition { navigation: auto; }
-
 /* Native controls match the page; reduced-motion users avoid theme fades. */
 :root[data-theme="light"] { color-scheme:light; }
 :root[data-theme="dark"] { color-scheme:dark; }
@@ -1206,10 +1204,6 @@ body > .sidebar.wwz-topbar ~ .page > main pre {
 
 
 /* Consistent page transitions and persistent shared navigation. */
-@view-transition {
-  navigation: auto;
-}
-
 .sidebar.wwz-topbar {
   position: fixed !important;
   z-index: 100000 !important;
@@ -1273,10 +1267,6 @@ body > .sidebar.wwz-topbar ~ .page > main pre {
 /* Stability override: avoid cross-document fade-to-white during navigation.
    Each destination is a real document; its own theme bootstrap paints the
    correct background before content appears. */
-@view-transition {
-  navigation: none;
-}
-
 ::view-transition-old(root),
 ::view-transition-new(root),
 ::view-transition-old(wwz-site-navigation),
@@ -1303,10 +1293,6 @@ html, body {
 /* Shared navigation continuity: identical fixed shell + moving active indicator. */
 /* Cross-document View Transitions keep the same navigation visually continuous
    while the destination document is prepared. All pages use the same shell. */
-@view-transition {
-  navigation: auto;
-}
-
 body > .sidebar.wwz-topbar {
   view-transition-name: wwz-site-navigation;
   position: fixed !important;
@@ -1385,4 +1371,9 @@ body > .sidebar.wwz-topbar {
 ::view-transition-old(root),
 ::view-transition-new(root) {
   animation: none !important;
+}
+
+/* Opt in once, consistently, on every page using this shared stylesheet. */
+@view-transition {
+  navigation: auto;
 }
