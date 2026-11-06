@@ -30,8 +30,6 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 22
-      - name: Install image processor
-        run: npm install --no-save sharp
       - name: Mirror Works images into the repository
         run: node scripts/mirror-works-images.mjs
       - name: Commit local assets
