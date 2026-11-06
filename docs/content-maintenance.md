@@ -16,7 +16,7 @@ Do not change stable content IDs when only renaming files.
 
 ## Works
 
-Edit `data/works.js`, not the gallery rendering code. Each entry has `title`, `category` (photo or video) and `image`. Photography assets live in `images/photography/`; lowercase camera filenames preserve the original shot identifiers. Campaign stills can reuse covers from `images/videos/`.
+Works gallery records are stored in `data/works.json`; images are mirrored into `images/works/` and served from this repository. Original ZCOOL image URLs are retained as `sourceImage` only for recovery. Do not point gallery cards directly at expiring third-party image URLs. The scheduled GitHub Actions workflow checks for missing local assets and attempts to restore them from their source URLs.
 
 The gallery renderer and image viewer are in `js/works.js`; its unique layout is in `css/works.css`.
 
