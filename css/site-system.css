@@ -1565,3 +1565,21 @@ html, body {
   .wwz-topbar .wwz-sidebar-brand small{display:block!important;font-size:.62rem!important}
   .wwz-topbar .wwz-mobile-controls{display:none!important}
 }
+
+
+/* Desktop navigation: keep the right-side theme control visible beside the brand. */
+@media (min-width:1100px){
+  .wwz-topbar .wwz-mobile-controls{
+    display:flex!important;
+    grid-column:3!important;
+    grid-row:1!important;
+    justify-self:end!important;
+    align-items:center!important;
+    visibility:visible!important;
+  }
+  .wwz-topbar .wwz-mobile-controls [data-shell-theme]{
+    display:grid!important;
+    visibility:visible!important;
+  }
+  .wwz-topbar .wwz-mobile-controls [data-shell-menu]{display:none!important}
+}
