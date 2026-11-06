@@ -5,7 +5,7 @@ import { gunzipSync } from 'node:zlib';
 const root=process.cwd(), dataDir=join(root,'data'), assetDir=join(root,'images','works'), jsonPath=join(dataDir,'works.json'), loaderPath=join(dataDir,'works.js');
 const exists=async p=>{try{await access(p,constants.R_OK);return true}catch{return false}};
 async function readOriginal(){
- const source=await readFile(loaderPath,'utf8'), match=source.match(/atob\('([A-Za-z0-9+/=]+)'\)/);
+ const source=await readFile(loaderPath,'utf8'), match=source.match(/atob\('([A-Za-z0-9+/=]+)'\.slice\(0,-1\)/);
  if(!match) throw new Error('Could not find compressed Works payload.');
  const rows=JSON.parse(gunzipSync(Buffer.from(match[1].slice(0,-1),'base64')).toString('utf8'));
  if(!Array.isArray(rows)||!rows.length) throw new Error('Original Works data is empty.');
