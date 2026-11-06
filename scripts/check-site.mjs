@@ -32,11 +32,17 @@ function walk(dir){for(const e of readdirSync(dir,{withFileTypes:true})){
 walk(root);
 // Check dynamic content paths too: these do not appear in static HTML.
 const context={window:{}};
-for(const file of ['data/site-content.js','data/works.js']){
-  runInNewContext(readFileSync(resolve(root,file),'utf8'),context);
-}
+runInNewContext(readFileSync(resolve(root,'data/site-content.js'),'utf8'),context);
 const content=context.window.WWZ_CONTENT;
-for(const item of [...content.videos,...content.posts,...context.window.WWZ_WORKS]){
+let works=[];
+if(existsSync(resolve(root,'data/works.json'))){
+  works=JSON.parse(readFileSync(resolve(root,'data/works.json'),'utf8'));
+}else{
+  const worksContext={window:{},atob,Blob,DecompressionStream,Response};
+  runInNewContext(readFileSync(resolve(root,'data/works.js'),'utf8'),worksContext);
+  works=await worksContext.window.WWZ_WORKS_READY;
+}
+for(const item of [...content.videos,...content.posts,...works]){
   for(const key of ['image','href']){
     const value=item[key];
     if(!value||/^[a-z]+:/i.test(value))continue;
@@ -57,7 +63,7 @@ function exactPath(path){
   }
   return true;
 }
-for(const item of [...content.videos,...content.posts,...context.window.WWZ_WORKS]){
+for(const item of [...content.videos,...content.posts,...works]){
   for(const key of ['image','href']){
     const value=item[key];
     if(value&&!/^[a-z]+:/i.test(value)&&existsSync(resolve(root,value))&&!exactPath(value))errors.push('Case mismatch: '+value);
