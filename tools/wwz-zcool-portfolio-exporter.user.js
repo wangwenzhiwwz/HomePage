@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         WWZ ZCOOL Portfolio Exporter
 // @namespace    https://wwz.im/
-// @version      1.0.1
+// @version      1.0.2
 // @description  Export images from your own ZCOOL works listed on wwz.im, one work at a time.
 // @match        https://wwz.im/works*
 // @match        https://www.zcool.com.cn/work/*
@@ -82,9 +82,10 @@
     const nextState = { ...state, queue:state.queue.slice(1), done:state.done+1,
       failures: urls.length && success === urls.length ? state.failures : [...state.failures, { title, url:location.href, found:urls.length, downloaded:success }] };
     await setState(nextState);
-    GM_closeTab();
     await sleep(1200);
     openNext();
+    await sleep(500);
+    GM_closeTab();
   }
 
   if (location.hostname === 'wwz.im') {
