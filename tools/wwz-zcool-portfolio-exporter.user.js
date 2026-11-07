@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         WWZ ZCOOL Portfolio Exporter
 // @namespace    https://wwz.im/
-// @version      1.0.0
+// @version      1.0.1
 // @description  Export images from your own ZCOOL works listed on wwz.im, one work at a time.
 // @match        https://wwz.im/works*
 // @match        https://www.zcool.com.cn/work/*
@@ -17,10 +17,10 @@
   'use strict';
   const KEY = 'wwz-zcool-export-state';
   const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
-  const safe = value => String(value || 'work').replace(/[\\/:*?"<>|]+/g, '_').replace(/\\s+/g, ' ').trim().slice(0, 90);
+  const safe = value => String(value || 'work').replace(/[\\/:*?"<>|]+/g, '_').replace(/\s+/g, ' ').trim().slice(0, 90);
   const fileExt = url => {
     try {
-      const ext = new URL(url).pathname.match(/\\.(jpe?g|png|webp|gif|avif)$/i)?.[1]?.toLowerCase();
+      const ext = new URL(url).pathname.match(/\.(jpe?g|png|webp|gif|avif)$/i)?.[1]?.toLowerCase();
       return ext === 'jpeg' ? 'jpg' : (ext || 'jpg');
     } catch { return 'jpg'; }
   };
@@ -42,7 +42,7 @@
     if (getState()?.running) { alert('导出任务正在运行。'); return; }
     if (!window.WWZ_WORKS_READY) { alert('作品数据尚未加载，请稍后重试。'); return; }
     const works = await window.WWZ_WORKS_READY;
-    const queue = (Array.isArray(works) ? works : []).filter(w => w.url && /^https?:\\/\\//i.test(w.url));
+    const queue = (Array.isArray(works) ? works : []).filter(w => w.url && /^https?:\/\//i.test(w.url));
     if (!queue.length) { alert('没有找到可导出的作品链接。'); return; }
     if (!confirm('将按顺序打开 ' + queue.length + ' 个站酷作品页，并下载页面中可访问的作品图片。请先登录站酷，并允许浏览器进行多文件下载。继续？')) return;
     await setState({ running:true, queue, total:queue.length, done:0, failures:[], startedAt:Date.now() });
@@ -57,22 +57,20 @@
       alert('导出流程结束。完成作品：' + state.done + '/' + state.total + '；失败或无图：' + state.failures.length + '。下载文件位于浏览器默认下载目录的 WWZ-Works 文件夹。');
       return;
     }
-    const work = state.queue[0];
-    GM_openInTab(work.url, { active:true, insert:true, setParent:true });
+    GM_openInTab(state.queue[0].url, { active:true, insert:true, setParent:true });
   }
 
   async function processWorkPage() {
     const state = getState();
     if (!state?.running) return;
     const title = document.querySelector('h1')?.textContent?.trim() || document.title || 'work';
-    // Give the page time to render its image gallery, then scroll to trigger lazy-loaded images.
     for (let y=0; y<document.body.scrollHeight; y+=900) {
       window.scrollTo(0,y);
       await sleep(450);
     }
     await sleep(1800);
     const nodes = [...document.querySelectorAll('.photoInformationContent .photoImage, img.photoImage')];
-    const urls = [...new Set(nodes.map(img => img.currentSrc || img.src || img.getAttribute('data-src')).filter(Boolean).map(url => url.split('?')[0]).filter(url => /^https?:\\/\\//i.test(url)))];
+    const urls = [...new Set(nodes.map(img => img.currentSrc || img.src || img.getAttribute('data-src')).filter(Boolean).map(url => url.split('?')[0]).filter(url => /^https?:\/\//i.test(url)))];
     const workNo = String(state.done + 1).padStart(3,'0');
     let success = 0;
     for (let i=0; i<urls.length; i++) {
@@ -84,7 +82,6 @@
     const nextState = { ...state, queue:state.queue.slice(1), done:state.done+1,
       failures: urls.length && success === urls.length ? state.failures : [...state.failures, { title, url:location.href, found:urls.length, downloaded:success }] };
     await setState(nextState);
-    // Close this work tab and continue with the next item from the portfolio list.
     GM_closeTab();
     await sleep(1200);
     openNext();
