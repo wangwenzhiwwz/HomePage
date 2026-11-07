@@ -1,9 +1,9 @@
 // ==UserScript==
 // @name         WWZ ZCOOL Portfolio Exporter
 // @namespace    https://wwz.im/
-// @version      1.0.2
+// @version      1.0.3
 // @description  Export images from your own ZCOOL works listed on wwz.im, one work at a time.
-// @match        https://wwz.im/works*
+// @match        https://wwz.im/*
 // @match        https://www.zcool.com.cn/work/*
 // @run-at       document-idle
 // @grant        GM_getValue
@@ -88,7 +88,7 @@
     GM_closeTab();
   }
 
-  if (location.hostname === 'wwz.im') {
+  if (location.hostname === 'wwz.im' && (location.pathname === '/works' || location.pathname === '/works.html' || location.pathname === '/works/')) {
     const button = addPanel('导出站酷作品图片', startFromPortfolio);
     const state = getState();
     if (state?.running) button.textContent = '继续导出站酷图片';
