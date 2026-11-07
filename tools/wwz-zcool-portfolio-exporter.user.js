@@ -1,9 +1,9 @@
 // ==UserScript==
 // @name         WWZ ZCOOL Portfolio Exporter
 // @namespace    https://wwz.im/
-// @version      1.0.3
+// @version      1.1.0
 // @description  Export images from your own ZCOOL works listed on wwz.im, one work at a time.
-// @match        https://wwz.im/*
+// @match        https://www.zcool.com.cn/u/ZNjI3OTUyNzY=*
 // @match        https://www.zcool.com.cn/work/*
 // @run-at       document-idle
 // @grant        GM_getValue
@@ -88,10 +88,20 @@
     GM_closeTab();
   }
 
-  if (location.hostname === 'wwz.im' && (location.pathname === '/works' || location.pathname === '/works.html' || location.pathname === '/works/')) {
-    const button = addPanel('导出站酷作品图片', startFromPortfolio);
-    const state = getState();
-    if (state?.running) button.textContent = '继续导出站酷图片';
+  if (location.hostname === 'www.zcool.com.cn' && location.pathname.startsWith('/u/')) {
+    const button = addPanel('导出我的全部作品图片', async () => {
+      const dataNode = document.querySelector('script#__NEXT_DATA__');
+      if (!dataNode) { alert('未读取到站酷作品数据，请确认主页已完整加载并登录。'); return; }
+      let pageData;
+      try { pageData = JSON.parse(dataNode.textContent); } catch { alert('站酷页面数据解析失败。'); return; }
+      const list = pageData?.props?.pageProps?.workList || [];
+      const queue = list.map(item => ({ title:item.title || 'work', url:item.pageUrl })).filter(item => item.url && item.url.includes('/work/'));
+      if (!queue.length) { alert('当前页面没有读取到作品，请先在站酷主页加载作品列表。'); return; }
+      if (!confirm('已读取 ' + queue.length + ' 个作品。将逐个打开作品页并下载其中可访问的图片，继续？')) return;
+      await setState({ running:true, queue, total:queue.length, done:0, failures:[], startedAt:Date.now() });
+      openNext();
+    });
+    if (getState()?.running) button.textContent = '继续导出站酷图片';
     addPanel('停止导出', async () => {
       const current = getState();
       if (current) await setState({ ...current, running:false, stopped:true });
