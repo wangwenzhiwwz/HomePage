@@ -1,10 +1,9 @@
 // ==UserScript==
 // @name         WWZ ZCOOL Portfolio Exporter
 // @namespace    https://wwz.im/
-// @version      1.1.0
+// @version      1.1.1
 // @description  Export images from your own ZCOOL works listed on wwz.im, one work at a time.
-// @match        https://www.zcool.com.cn/u/ZNjI3OTUyNzY=*
-// @match        https://www.zcool.com.cn/work/*
+// @match        *://*.zcool.com.cn/*
 // @run-at       document-idle
 // @grant        GM_getValue
 // @grant        GM_setValue
@@ -88,7 +87,7 @@
     GM_closeTab();
   }
 
-  if (location.hostname === 'www.zcool.com.cn' && location.pathname.startsWith('/u/')) {
+  if (location.hostname.endsWith('zcool.com.cn') && (location.pathname.startsWith('/u/') || location.href.includes('ZNjI3OTUyNzY'))) {
     const button = addPanel('导出我的全部作品图片', async () => {
       const dataNode = document.querySelector('script#__NEXT_DATA__');
       if (!dataNode) { alert('未读取到站酷作品数据，请确认主页已完整加载并登录。'); return; }
