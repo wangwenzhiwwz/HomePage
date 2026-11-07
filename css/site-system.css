@@ -1634,3 +1634,13 @@ html, body {
   }
   .wwz-topbar .wwz-mobile-controls [data-shell-menu]{display:none!important}
 }
+
+
+/* Move the theme switch to the far-right header column on desktop. */
+@media (min-width:1100px){
+  .wwz-topbar .wwz-sidebar-head{display:contents!important}
+  .wwz-topbar .wwz-sidebar-brand{grid-column:1!important;grid-row:1!important;justify-self:start!important;align-self:center!important}
+  .wwz-topbar .wwz-mobile-controls{grid-column:3!important;grid-row:1!important;justify-self:end!important;align-self:center!important;display:flex!important;visibility:visible!important}
+  .wwz-topbar .wwz-mobile-controls [data-shell-theme]{display:grid!important;place-items:center!important;width:42px!important;height:42px!important;flex:0 0 42px!important}
+  .wwz-topbar .wwz-mobile-controls [data-shell-menu]{display:none!important}
+}
