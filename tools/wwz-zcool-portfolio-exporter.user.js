@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         WWZ ZCOOL Portfolio Exporter
 // @namespace    https://wwz.im/
-// @version      1.1.1
+// @version      1.1.2
 // @description  Export images from your own ZCOOL works listed on wwz.im, one work at a time.
 // @match        *://*.zcool.com.cn/*
 // @run-at       document-idle
@@ -31,7 +31,7 @@
   const addPanel = (text, action, color = '#222') => {
     const button = document.createElement('button');
     button.textContent = text;
-    Object.assign(button.style, { position:'fixed', right:'22px', bottom:'22px', zIndex:2147483647, padding:'12px 18px', border:0, borderRadius:'999px', background:color, color:'#fff', font:'600 14px system-ui', boxShadow:'0 4px 18px #0003', cursor:'pointer' });
+    Object.assign(button.style, { position:'fixed', right:'24px', top:'110px', zIndex:'2147483647', padding:'14px 20px', border:'0', borderRadius:'999px', background:color, color:'#fff', font:'600 14px system-ui', boxShadow:'0 4px 18px #0005', cursor:'pointer', display:'block', visibility:'visible', opacity:'1', pointerEvents:'auto' }); button.setAttribute('data-wwz-exporter','1');
     button.addEventListener('click', action);
     document.body.append(button);
     return button;
@@ -87,7 +87,8 @@
     GM_closeTab();
   }
 
-  if (location.hostname.endsWith('zcool.com.cn') && (location.pathname.startsWith('/u/') || location.href.includes('ZNjI3OTUyNzY'))) {
+  if (location.hostname.includes('zcool.com.cn') && (location.pathname.startsWith('/u/') || location.href.includes('ZNjI3OTUyNzY'))) {
+    if (document.querySelector('[data-wwz-exporter="1"]')) return;
     const button = addPanel('导出我的全部作品图片', async () => {
       const dataNode = document.querySelector('script#__NEXT_DATA__');
       if (!dataNode) { alert('未读取到站酷作品数据，请确认主页已完整加载并登录。'); return; }
