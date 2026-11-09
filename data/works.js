@@ -25,7 +25,7 @@ window.WWZ_WORKS_READY=(async()=>{
     }
 
     return rows.map(([title,category,subcategory,image,date,url])=>{
-      const filename=String(image||'').split('/').pop().split('?')[0].replace(/\\.[^.]+$/,'')+'.jpg';
+      const filename=String(image||'').split('/').pop().split('?')[0].replace(/\.[^.]+$/,'')+'.jpg';
       return {title,category,subcategory,image:'/images/works/'+filename,date,url};
     });
   } catch(error) {
