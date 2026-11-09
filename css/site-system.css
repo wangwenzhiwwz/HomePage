@@ -1655,3 +1655,14 @@ html, body {
     backdrop-filter: blur(16px) saturate(1.12) !important;
   }
 }
+
+
+/* Refine the desktop brand lockup: slightly larger type and a better logo-to-wordmark balance. */
+@media (min-width:1100px){
+  .wwz-topbar .wwz-sidebar-brand{gap:11px!important}
+  .wwz-topbar .wwz-sidebar-brand img{flex-basis:44px!important;width:44px!important;height:44px!important}
+  .wwz-topbar .wwz-sidebar-brand strong{font-size:1.22rem!important;line-height:1!important;letter-spacing:-.045em!important}
+}
+@media (max-width:1099px){
+  .wwz-topbar .wwz-sidebar-brand strong{font-size:1.12rem!important;letter-spacing:-.04em!important}
+}
