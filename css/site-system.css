@@ -1158,9 +1158,7 @@ body > .sidebar.wwz-topbar ~ .page > main pre {
 .sidebar.wwz-topbar {
   position: fixed !important;
   z-index: 100000 !important;
-  view-transition-name: wwz-site-navigation;
-  isolation: isolate;
-  will-change: auto;
+
 }
 
 ::view-transition-old(wwz-site-navigation),
@@ -1243,7 +1241,7 @@ html, body {
 
 /* Restore the original glass navigation appearance and dark active capsule. */
 .sidebar.wwz-topbar {
-  view-transition-name: wwz-site-navigation;
+
 }
 .wwz-topbar .wwz-primary-nav {
   background-image: var(--nav-sheen);
@@ -1311,7 +1309,7 @@ html, body {
 
 /* Keep the shared header pinned while cross-document View Transitions run. */
 .sidebar.wwz-topbar {
-  view-transition-name: wwz-site-navigation;
+
   transform: translateZ(0);
 }
 @view-transition {
@@ -1341,8 +1339,7 @@ html, body {
   --nav-shadow: inset 0 1px 0 rgba(255,255,255,.12), inset 0 -1px 0 rgba(0,0,0,.18), 0 10px 32px rgba(0,0,0,.24);
 }
 .sidebar.wwz-topbar {
-  view-transition-name: wwz-site-navigation !important;
-  isolation: isolate;
+
 }
 .wwz-topbar .wwz-primary-nav {
   background-color: var(--nav-glass) !important;
