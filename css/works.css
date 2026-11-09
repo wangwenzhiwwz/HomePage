@@ -109,3 +109,10 @@ html:has(.image-viewer[open]) { overflow: hidden; }
 .portfolio-original:hover{color:var(--text-primary);text-decoration:underline;text-underline-offset:3px}
 .portfolio-original:focus-visible{outline:2px solid var(--text-primary);outline-offset:3px;border-radius:5px}
 @media(max-width:560px){.portfolio-original{min-height:28px;font-size:.7rem}}
+
+
+/* Reliable image fallback */
+.portfolio-media { position:relative; }
+.portfolio-media.image-unavailable { display:flex; align-items:center; justify-content:center; }
+.portfolio-media .image-fallback { color:var(--text-secondary); font-size:.85rem; }
+.portfolio-img.image-unavailable { display:none; }
