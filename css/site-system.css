@@ -1641,3 +1641,17 @@ html, body {
   .wwz-topbar .wwz-mobile-controls [data-shell-theme]{display:grid!important;place-items:center!important;width:42px!important;height:42px!important;flex:0 0 42px!important}
   .wwz-topbar .wwz-mobile-controls [data-shell-menu]{display:none!important}
 }
+
+/* Refine glass strength: softer blur and less color distortion. */
+@media (min-width:1100px) {
+  .wwz-topbar .wwz-primary-nav {
+    -webkit-backdrop-filter: blur(14px) saturate(1.12) !important;
+    backdrop-filter: blur(14px) saturate(1.12) !important;
+  }
+}
+@media (max-width:1099px) {
+  .wwz-topbar .wwz-sidebar-content {
+    -webkit-backdrop-filter: blur(16px) saturate(1.12) !important;
+    backdrop-filter: blur(16px) saturate(1.12) !important;
+  }
+}
