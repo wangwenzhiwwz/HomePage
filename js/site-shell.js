@@ -3,6 +3,25 @@
   const embedded = window.self !== window.top;
   const initialUrl = new URL(location.href);
   const initialTitle = document.title;
+
+  // Name the navigation only during cross-document view transitions.
+  // A permanent name creates a backdrop root and blocks child glass effects.
+  const navTransitionName = 'wwz-site-navigation';
+  const nameNavigation = () => {
+    const nav = document.querySelector('.sidebar');
+    if (nav) nav.style.viewTransitionName = navTransitionName;
+    return nav;
+  };
+  addEventListener('pageswap', event => {
+    if (event.viewTransition) nameNavigation();
+  });
+  addEventListener('pagereveal', event => {
+    if (!event.viewTransition) return;
+    const nav = nameNavigation();
+    event.viewTransition.finished.finally(() => {
+      if (nav) nav.style.viewTransitionName = '';
+    });
+  });
   const canonicalPath = url => url.pathname.replace(/\/index\.html$/, '/');
   // Keep relative assets stable when the persistent navigation changes the URL.
   if (!document.querySelector('base')) {
