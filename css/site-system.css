@@ -1738,3 +1738,12 @@ html, body {
   .wwz-topbar .wwz-socials{margin:8px 0 0!important;padding:12px 4px 0!important;border:0!important;border-top:1px solid var(--nav-line)!important}
   .wwz-topbar :is(.wwz-nav-link,.wwz-nav-folder summary,.wwz-nav-sub a,.wwz-resources summary):focus-visible{outline:none!important;box-shadow:inset 0 0 0 1px color-mix(in srgb,var(--nav-ink) 22%,transparent)!important}
 }
+
+
+/* Match the mobile wordmark height to the restored original logo size. */
+@media (max-width:1099px){
+  .wwz-topbar .wwz-sidebar-brand{gap:9px!important;align-items:center!important}
+  .wwz-topbar .wwz-sidebar-brand img{width:34px!important;height:34px!important;flex:0 0 34px!important}
+  .wwz-topbar .wwz-sidebar-brand span{display:flex!important;align-items:center!important;height:34px!important}
+  .wwz-topbar .wwz-sidebar-brand strong{display:block!important;font-size:1.36rem!important;line-height:34px!important;letter-spacing:-.045em!important}
+}
