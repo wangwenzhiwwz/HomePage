@@ -167,7 +167,7 @@ html,body {
 }
 
 .wwz-sidebar-brand strong {
-  font-size: 1.26rem;
+  font-size: 1.45rem;
   letter-spacing: -.035em;
 }
 
@@ -276,7 +276,7 @@ html,body {
   }
   .wwz-sidebar-brand img { width: 36px; height: 36px; }
   .wwz-sidebar-brand span { gap: 0; }
-  .wwz-sidebar-brand strong { font-size: .95rem; }
+  .wwz-sidebar-brand strong { font-size: 1.05rem; }
   .wwz-sidebar-brand small { display: none; }
   .wwz-mobile-controls { display: flex; }
   .wwz-icon-button { width: 36px; height: 36px; }
