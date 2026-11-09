@@ -42,7 +42,7 @@
 
   const template = `
     <div class="wwz-sidebar-head">
-      <a class="wwz-sidebar-brand" href="${root}index.html"><img src="${root}favicon.png" alt="WWZ Logo"><span><strong>WWZ.iM</strong><small>Portfolio & Knowledge Hub</small></span></a>
+      <a class="wwz-sidebar-brand" href="${root}index.html"><img src="${root}favicon.png" alt="WWZ Logo"><span><strong>WWZ.iM</strong></span></a>
       <div class="wwz-mobile-controls">
         <button class="wwz-icon-button" type="button" data-shell-theme aria-label="Toggle color theme"><i class="fa-solid fa-circle-half-stroke"></i></button>
         <button class="wwz-menu-button" type="button" data-shell-menu aria-label="Open navigation" aria-expanded="false">Menu</button>
