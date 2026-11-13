@@ -97,7 +97,7 @@
     .experience-card--ai { --card-order:1; background:linear-gradient(145deg,#d5edfa 0%,#b9e5e8 48%,#c8c5f4 100%) }
     .experience-card--systems { --card-order:2; background:linear-gradient(145deg,#d9e8d7 0%,#c2d9cb 50%,#d6d5bd 100%) }
     .experience-card__orb { position:absolute; z-index:-1; width:230px; height:230px; right:-76px; top:16%; border-radius:50%; background:radial-gradient(circle at 35% 32%,rgba(255,255,255,.92),rgba(255,255,255,.24) 35%,rgba(255,255,255,0) 70%); filter:blur(1px); transition:transform .7s cubic-bezier(.2,.75,.2,1) }
-    .experience-card:after { content:""; position:absolute; z-index:-1; inset:0; opacity:.35; background:linear-gradient(135deg,rgba(255,255,255,.5),transparent 42%,rgba(255,255,255,.16)); pointer-events:none }
+    .experience-card:after { content:""; position:absolute; z-index:-1; inset:0; opacity:.42; background:radial-gradient(circle at var(--pointer-x,72%) var(--pointer-y,28%),rgba(255,255,255,.58),transparent 43%),linear-gradient(135deg,rgba(255,255,255,.46),transparent 42%,rgba(255,255,255,.14)); pointer-events:none; transition:opacity .35s }
     .experience-card__top { display:flex; justify-content:space-between; align-items:center; gap:8px; color:rgba(31,48,61,.68); font:750 .62rem ui-monospace,monospace; letter-spacing:.12em }
     .experience-card__top i { display:grid; place-items:center; width:32px; height:32px; border:1px solid rgba(255,255,255,.65); border-radius:50%; background:rgba(255,255,255,.24); transition:transform .35s,background .35s }
     .experience-card__visual { position:absolute; top:25%; right:8%; display:grid; place-items:center; width:118px; height:118px; border:1px solid rgba(255,255,255,.66); border-radius:34px; color:rgba(255,255,255,.92); background:linear-gradient(145deg,rgba(255,255,255,.54),rgba(255,255,255,.12)); box-shadow:inset 0 1px 1px rgba(255,255,255,.9),0 16px 35px rgba(60,70,90,.10); backdrop-filter:blur(14px); transform:rotate(-12deg); transition:transform .6s cubic-bezier(.2,.75,.2,1),box-shadow .5s }
@@ -119,7 +119,7 @@
     .experience-card:hover .experience-card__top i { transform:rotate(45deg); background:rgba(255,255,255,.56) }
     .experience-card:hover .experience-card__bottom em b { transform:translate(3px,-3px) }
     .experience-card:focus-visible { outline:3px solid #5488dc; outline-offset:4px }
-    @keyframes experience-card-in { from{opacity:0;transform:translateY(24px) scale(.97)} to{opacity:1;transform:translateY(0) scale(1)} }
+    @keyframes experience-card-in { from{opacity:0;translate:0 22px} to{opacity:1;translate:0 0} }
     [data-theme="dark"] .experience-card--creative { background:linear-gradient(145deg,#775c4e,#6a5261 55%,#4e596f);color:#f7f2ed }
     [data-theme="dark"] .experience-card--ai { background:linear-gradient(145deg,#315b6c,#3c6f79 55%,#535b91);color:#f2fbff }
     [data-theme="dark"] .experience-card--systems { background:linear-gradient(145deg,#476653,#4d7064 55%,#6d7053);color:#f4fff5 }
