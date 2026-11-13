@@ -104,7 +104,7 @@
     const projectFolder = sidebar.querySelectorAll('.wwz-nav-folder')[0];
     const learningFolder = sidebar.querySelectorAll('.wwz-nav-folder')[1];
     if (currentPath.includes('/projects/')) projectFolder?.setAttribute('open', '');
-    if (currentPath.includes('/topics/') || currentPath.includes('/articles/') || currentPath.includes('/article/')) learningFolder?.setAttribute('open', '');
+    if (currentPath.includes('/topics/') || currentPath.includes('/articles/') || currentPath.includes('/article/') || currentPath.includes('/lab/') || currentPath.endsWith('/now.html')) learningFolder?.setAttribute('open', '');
     sidebar.querySelectorAll('.wwz-nav-sub a').forEach(link => {
       const target = new URL(link.href, location.href);
       if (canonicalPath(target) === canonicalPath(new URL(location.href))) link.setAttribute('aria-current', 'page');
