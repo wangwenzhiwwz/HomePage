@@ -1,0 +1,62 @@
+[
+  {
+    "id": "app",
+    "name": "APP.WWZ.iM",
+    "type": "Resource directory",
+    "description": "A categorized directory for websites, AI services, software, mobile apps, VPS providers and useful online tools.",
+    "status": "Published",
+    "url": "https://app.wwz.im/",
+    "detail": "/projects/app/",
+    "source": "https://github.com/wangwenzhiwwz"
+  },
+  {
+    "id": "sub",
+    "name": "SUB.WWZ.iM",
+    "type": "Configuration converter",
+    "description": "Convert common proxy subscription links and node formats into Clash.Meta configuration.",
+    "status": "Published",
+    "url": "https://sub.wwz.im/",
+    "detail": "/projects/sub/",
+    "source": "https://github.com/wangwenzhiwwz"
+  },
+  {
+    "id": "rmb",
+    "name": "RMB.WWZ.iM",
+    "type": "Utility",
+    "description": "Convert numeric RMB amounts into Chinese uppercase financial wording.",
+    "status": "Published",
+    "url": "https://rmb.wwz.im/",
+    "detail": "/projects/rmb/",
+    "source": "https://github.com/wangwenzhiwwz"
+  },
+  {
+    "id": "ip",
+    "name": "IP.WWZ.iM",
+    "type": "Network utility",
+    "description": "Inspect public IP information, network details and browser connectivity.",
+    "status": "Published",
+    "url": "https://ip.wwz.im/",
+    "detail": "/projects/ip/",
+    "source": "https://github.com/wangwenzhiwwz"
+  },
+  {
+    "id": "vps",
+    "name": "VPS.WWZ.iM",
+    "type": "Monitoring dashboard",
+    "description": "A consolidated interface for reviewing VPS status and network activity.",
+    "status": "Published",
+    "url": "https://vps.wwz.im/",
+    "detail": "/projects/vps/",
+    "source": "https://github.com/wangwenzhiwwz"
+  },
+  {
+    "id": "wboard",
+    "name": "WBoard",
+    "type": "Open-source project",
+    "description": "An interactive whiteboard project with project-management and mind-map workflows in its planned scope. The repository is the source reference; a public hosted demo is not listed here.",
+    "status": "Source repository",
+    "url": "https://github.com/wangwenzhiwwz/WBoard",
+    "detail": "https://github.com/wangwenzhiwwz/WBoard",
+    "source": "https://github.com/wangwenzhiwwz/WBoard"
+  }
+]
