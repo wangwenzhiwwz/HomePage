@@ -1799,9 +1799,9 @@ html, body {
   --wwz-color-creative:#9d7866; --wwz-color-ai:#648b9b; --wwz-color-systems:#718d78;
 }
 :root[data-theme] { --accent:var(--wwz-accent); --about-accent:var(--wwz-accent); }
-:root[data-theme="dark"] .experience-card--creative { background:linear-gradient(145deg,#745a4d,#63515b 58%,#485766); }
-:root[data-theme="dark"] .experience-card--ai { background:linear-gradient(145deg,#315967,#3c6b75 55%,#505987); }
-:root[data-theme="dark"] .experience-card--systems { background:linear-gradient(145deg,#45634f,#4b6d61 55%,#666d52); }
-:root[data-theme="light"] .experience-card--creative { background:linear-gradient(145deg,#f6dfd1,#edc5b1 55%,#e3d7e2); }
-:root[data-theme="light"] .experience-card--ai { background:linear-gradient(145deg,#e0eff7,#c6e5e8 55%,#d5d3f1); }
-:root[data-theme="light"] .experience-card--systems { background:linear-gradient(145deg,#e2ede0,#cddfd2 55%,#e2e0cb); }
+:root[data-theme="dark"] .experience-card--creative { background:linear-gradient(142deg,#805b4d 0%,#765361 48%,#4e5e70 100%); }
+:root[data-theme="dark"] .experience-card--ai { background:linear-gradient(142deg,#285b67 0%,#326c79 48%,#4e5c8b 100%); }
+:root[data-theme="dark"] .experience-card--systems { background:linear-gradient(142deg,#3d674f 0%,#456e61 48%,#696d50 100%); }
+:root[data-theme="light"] .experience-card--creative { background:linear-gradient(142deg,#f4c7a9 0%,#e9a98f 47%,#d9b6bd 100%); }
+:root[data-theme="light"] .experience-card--ai { background:linear-gradient(142deg,#b9e3e8 0%,#9ed4dc 48%,#b8bce8 100%); }
+:root[data-theme="light"] .experience-card--systems { background:linear-gradient(142deg,#c6dfc9 0%,#a9cbb9 48%,#d9d7b7 100%); }
