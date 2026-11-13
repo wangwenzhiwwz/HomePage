@@ -285,8 +285,10 @@
     }
       /* Particle identity mark: a volumetric W formed from a living particle field. */
     .logo-stage.particle-w-stage { min-height:480px; display:flex; align-items:center; justify-content:center; overflow:hidden; }
-    .particle-w-canvas { display:block; width:100%; height:460px; max-width:680px; touch-action:pan-y; cursor:default; }
-    .particle-w-caption { position:absolute; left:50%; bottom:12px; transform:translateX(-50%); color:var(--muted); font:600 .58rem ui-monospace,monospace; letter-spacing:.2em; white-space:nowrap; opacity:.62; pointer-events:none; }
+    .logo-stage.particle-w-stage:before { content:""; position:absolute; width:72%; height:66%; left:14%; top:16%; border-radius:50%; background:radial-gradient(ellipse,rgba(0,174,255,.12),rgba(0,91,255,.045) 42%,transparent 72%); filter:blur(24px); pointer-events:none; }
+    .particle-w-canvas { position:relative; z-index:1; display:block; width:100%; height:460px; max-width:680px; touch-action:pan-y; cursor:default; }
+    .particle-w-caption { position:absolute; z-index:2; left:50%; bottom:12px; transform:translateX(-50%); color:var(--muted); font:650 .58rem ui-monospace,monospace; letter-spacing:.2em; white-space:nowrap; opacity:.72; pointer-events:none; }
+    [data-theme="dark"] .particle-w-caption { color:#8ba8c2; }
     @media (max-width:1060px) { .logo-stage.particle-w-stage { min-height:440px; } .particle-w-canvas { height:420px; } }
     @media (max-width:760px) { .logo-stage.particle-w-stage { min-height:360px; margin:0; } .particle-w-canvas { height:350px; } .particle-w-caption { bottom:0; font-size:.5rem; letter-spacing:.14em; } }
     @media (prefers-reduced-motion:reduce) { .particle-w-canvas { opacity:.9; } }
@@ -484,110 +486,98 @@
       const mask = document.createElement("canvas");
       mask.width = 720; mask.height = 480;
       const maskCtx = mask.getContext("2d", { willReadFrequently: true });
-      maskCtx.clearRect(0, 0, mask.width, mask.height);
-      maskCtx.fillStyle = "#fff";
       maskCtx.font = '900 430px Inter, Arial, sans-serif';
       maskCtx.textAlign = "center"; maskCtx.textBaseline = "middle";
-      maskCtx.fillText("W", mask.width / 2, mask.height / 2 + 8);
-      const pixels = maskCtx.getImageData(0, 0, mask.width, mask.height).data;
+      maskCtx.fillStyle = "#fff"; maskCtx.fillText("W", 360, 248);
+      const pixels = maskCtx.getImageData(0, 0, 720, 480).data;
       const samples = [];
-      for (let y = 18; y < mask.height - 18; y += 4) {
-        for (let x = 18; x < mask.width - 18; x += 4) {
-          if (pixels[(y * mask.width + x) * 4 + 3] > 100) samples.push({ x, y });
-        }
+      for (let y = 16; y < 464; y += 3) for (let x = 16; x < 704; x += 3) {
+        if (pixels[(y * 720 + x) * 4 + 3] > 100) samples.push({ x, y });
       }
-      const rand = (min, max) => min + Math.random() * (max - min);
-      let width = 0, height = 0, dpr = 1, particles = [], raf = 0, visible = true;
-      let cycleStart = performance.now(), cycleLength = rand(10500, 15500);
-      const pointer = { x: -9999, y: -9999, active: false };
-      const makeParticles = () => {
-        const count = Math.min(samples.length, width < 500 ? 560 : 1050);
-        particles = Array.from({ length: count }, (_, i) => {
-          const p = samples[Math.floor(Math.random() * samples.length)];
-          const scale = Math.min(width * .88 / mask.width, height * .86 / mask.height);
-          const tx = (p.x - mask.width / 2) * scale;
-          const ty = (p.y - mask.height / 2) * scale;
-          const depth = rand(-34, 34);
-          return {
-            tx, ty, depth, phase: rand(0, 1),
-            sx: rand(-width * .55, width * 1.55), sy: rand(-height * .7, height * 1.7),
-            drift: rand(5, 24), size: rand(.65, 1.75), seed: rand(0, Math.PI * 2)
-          };
+      const rand = (a,b) => a + Math.random()*(b-a);
+      let width=1,height=1,dpr=1,particles=[],raf=0,visible=true;
+      let cycleStart=performance.now(),cycleLength=rand(12500,17500);
+      const pointer={x:-9999,y:-9999,active:false};
+      const makeParticles=()=>{
+        const count=Math.min(samples.length,width<500?760:1380);
+        const scale=Math.min(width*.88/720,height*.82/480);
+        particles=Array.from({length:count},()=>{
+          const p=samples[Math.floor(Math.random()*samples.length)];
+          return {tx:(p.x-360)*scale,ty:(p.y-240)*scale,tz:rand(-46,46),
+            sx:rand(-width*.62,width*1.62),sy:rand(-height*.72,height*1.72),sz:rand(-100,100),
+            seed:rand(0,Math.PI*2),size:rand(.7,1.65),hue:rand(188,218),drift:rand(3,15)};
         });
       };
-      const resize = () => {
-        const rect = canvas.getBoundingClientRect();
-        width = Math.max(1, rect.width); height = Math.max(1, rect.height);
-        dpr = Math.min(window.devicePixelRatio || 1, 2);
-        canvas.width = Math.round(width * dpr); canvas.height = Math.round(height * dpr);
-        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-        makeParticles();
+      const resize=()=>{
+        const r=canvas.getBoundingClientRect();width=Math.max(1,r.width);height=Math.max(1,r.height);
+        dpr=Math.min(devicePixelRatio||1,2);canvas.width=Math.round(width*dpr);canvas.height=Math.round(height*dpr);
+        ctx.setTransform(dpr,0,0,dpr,0,0);makeParticles();
       };
-      const observer = new ResizeObserver(resize);
-      observer.observe(canvas);
-      const stageObserver = new IntersectionObserver(entries => {
-        visible = entries[0].isIntersecting;
-        if (visible && !raf) raf = requestAnimationFrame(draw);
-        if (!visible && raf) { cancelAnimationFrame(raf); raf = 0; }
+      new ResizeObserver(resize).observe(canvas);
+      const stageObserver=new IntersectionObserver(entries=>{
+        visible=entries[0].isIntersecting;
+        if(visible&&!raf)raf=requestAnimationFrame(draw);
+        if(!visible&&raf){cancelAnimationFrame(raf);raf=0;}
       });
       stageObserver.observe(canvas);
-      if (finePointer) {
-        canvas.addEventListener("pointermove", e => {
-          const r = canvas.getBoundingClientRect();
-          pointer.x = e.clientX - r.left; pointer.y = e.clientY - r.top; pointer.active = true;
-        });
-        canvas.addEventListener("pointerleave", () => { pointer.active = false; });
+      if(finePointer){
+        canvas.addEventListener("pointermove",e=>{const r=canvas.getBoundingClientRect();pointer.x=e.clientX-r.left;pointer.y=e.clientY-r.top;pointer.active=true;});
+        canvas.addEventListener("pointerleave",()=>pointer.active=false);
       }
-      const draw = now => {
-        raf = 0;
-        if (!visible) return;
-        const elapsed = now - cycleStart;
-        if (elapsed > cycleLength) {
-          cycleStart = now; cycleLength = rand(10500, 15500);
-          for (const p of particles) {
-            p.sx = rand(-width * .55, width * 1.55);
-            p.sy = rand(-height * .7, height * 1.7);
+      const draw=now=>{
+        raf=0;if(!visible)return;
+        const elapsed=now-cycleStart;
+        if(elapsed>cycleLength){cycleStart=now;cycleLength=rand(12500,17500);for(const p of particles){p.sx=rand(-width*.62,width*1.62);p.sy=rand(-height*.72,height*1.72);p.sz=rand(-110,110);}}
+        const t=reduceMotion?0:elapsed/cycleLength;
+        const scatter=reduceMotion?0:(t<.43?0:t<.66?(t-.43)/.23:1-Math.min(1,(t-.66)/.34));
+        const chaos=scatter*scatter*(3-2*scatter),dark=document.documentElement.dataset.theme==="dark";
+        const rotY=reduceMotion?-.12:Math.sin(now*.00019)*.3,rotX=reduceMotion?-.08:Math.cos(now*.00016)*.17;
+        const cx=width/2,cy=height/2+2,rx=Math.min(width*.39,260),ry=Math.min(height*.34,155),perspective=760;
+        const points=[];
+        ctx.clearRect(0,0,width,height);ctx.save();ctx.globalCompositeOperation="lighter";
+        ctx.lineWidth=1;ctx.strokeStyle=dark?"rgba(34,190,255,.13)":"rgba(0,126,230,.13)";
+        ctx.setLineDash([2,9]);ctx.beginPath();ctx.ellipse(cx,cy,rx,ry,0,0,Math.PI*2);ctx.stroke();
+        ctx.setLineDash([34,11,3,11]);ctx.beginPath();ctx.ellipse(cx,cy,rx*1.12,ry*1.12,-now*.00004,0,Math.PI*2);ctx.stroke();ctx.setLineDash([]);
+        const orbit=now*.00022;
+        for(let i=0;i<4;i++){const a=orbit+i*Math.PI/2;ctx.fillStyle="rgba(0,203,255,.8)";ctx.shadowColor="#00cfff";ctx.shadowBlur=10;ctx.beginPath();ctx.arc(cx+Math.cos(a)*rx*1.12,cy+Math.sin(a)*ry*1.12,2.1,0,Math.PI*2);ctx.fill();}
+        ctx.shadowBlur=0;
+        for(const p of particles){
+          let x=p.tx*(1-chaos)+p.sx*chaos,y=p.ty*(1-chaos)+p.sy*chaos,z=p.tz*(1-chaos)+p.sz*chaos;
+          const wave=reduceMotion?0:Math.sin(now*.0008+p.seed)*p.drift;
+          x+=Math.sin(now*.00042+p.seed)*5*(1-chaos);y+=wave*(1-chaos)+Math.sin(now*.00055+p.seed)*3*chaos;
+          const x1=x*Math.cos(rotY)-z*Math.sin(rotY),z1=x*Math.sin(rotY)+z*Math.cos(rotY);
+          const y1=y*Math.cos(rotX)-z1*Math.sin(rotX),z2=y*Math.sin(rotX)+z1*Math.cos(rotX),k=perspective/(perspective+z2);
+          x=cx+x1*k;y=cy+y1*k;
+          if(pointer.active&&!reduceMotion){const dx=x-pointer.x,dy=y-pointer.y,d2=dx*dx+dy*dy,r=118;if(d2<r*r&&d2>.1){const force=(1-Math.sqrt(d2)/r)*23,inv=force/Math.sqrt(d2);x+=dx*inv;y+=dy*inv;}}
+          points.push({x,y,z:z2,k,p});
+        }
+        const cell=34,buckets=new Map();
+        if(chaos<.12)for(let i=0;i<points.length;i++){const q=points[i],key=Math.floor(q.x/cell)+":"+Math.floor(q.y/cell),list=buckets.get(key)||[];list.push(i);buckets.set(key,list);}
+        ctx.lineWidth=.65;
+        if(chaos<.12)for(let i=0;i<points.length;i++){
+          const a=points[i],gx=Math.floor(a.x/cell),gy=Math.floor(a.y/cell);
+          for(let ox=0;ox<=1;ox++)for(let oy=-1;oy<=1;oy++){const list=buckets.get((gx+ox)+":"+(gy+oy));if(!list)continue;
+            for(const j of list){if(j<=i)continue;const b=points[j],d=Math.hypot(a.x-b.x,a.y-b.y);if(d<cell*.92){ctx.strokeStyle="rgba(0,190,255,"+((1-d/(cell*.92))*.22*(1-chaos))+")";ctx.beginPath();ctx.moveTo(a.x,a.y);ctx.lineTo(b.x,b.y);ctx.stroke();}}
           }
         }
-        const t = reduceMotion ? 0.96 : elapsed / cycleLength;
-        const scatter = reduceMotion ? 0 : (t < .48 ? 0 : t < .68 ? (t - .48) / .2 : 1 - Math.min(1, (t - .68) / .32));
-        const chaos = scatter * scatter * (3 - 2 * scatter);
-        const themeDark = document.documentElement.dataset.theme === "dark";
-        const color = themeDark ? "245,245,241" : "27,29,31";
-        ctx.clearRect(0, 0, width, height);
-        const rotation = reduceMotion ? 0 : Math.sin(now * .00022) * .16;
-        const perspective = 760;
-        for (const p of particles) {
-          const wobble = reduceMotion ? 0 : Math.sin(now * .0007 + p.seed) * p.drift;
-          let x = p.tx * (1 - chaos) + p.sx * chaos + Math.cos(now * .00045 + p.seed) * 5 * (1 - chaos);
-          let y = p.ty * (1 - chaos) + p.sy * chaos + Math.sin(now * .0005 + p.seed) * 5 * (1 - chaos);
-          const z = p.depth + Math.sin(now * .0006 + p.seed) * (reduceMotion ? 0 : 7);
-          const rotatedX = x * Math.cos(rotation) - z * Math.sin(rotation);
-          const rotatedZ = x * Math.sin(rotation) + z * Math.cos(rotation);
-          const factor = perspective / (perspective + rotatedZ);
-          x = width / 2 + rotatedX * factor;
-          y = height / 2 + y * factor + wobble * (1 - chaos);
-          if (pointer.active && !reduceMotion) {
-            const dx = x - pointer.x, dy = y - pointer.y, dist2 = dx * dx + dy * dy;
-            const radius = 112;
-            if (dist2 < radius * radius && dist2 > .01) {
-              const force = (1 - Math.sqrt(dist2) / radius) * 17;
-              const inv = force / Math.sqrt(dist2);
-              x += dx * inv; y += dy * inv;
-            }
-          }
-          const depthAlpha = .42 + (p.depth + 34) / 68 * .48;
-          const twinkle = .78 + Math.sin(now * .0012 + p.seed) * .18;
-          ctx.beginPath();
-          ctx.fillStyle = `rgba(${color},${depthAlpha * twinkle * (1 - chaos * .24)})`;
-          ctx.arc(x, y, p.size * factor, 0, Math.PI * 2);
-          ctx.fill();
+        for(const q of points){ctx.fillStyle="rgba(0,112,255,"+((.24+(q.p.tz+46)/92*.2)*(1-chaos*.55))+")";ctx.beginPath();ctx.arc(q.x+q.z*.12,q.y+q.z*.08,Math.max(.55,q.p.size*q.k*1.25),0,Math.PI*2);ctx.fill();}
+        for(const q of points){
+          const twinkle=.72+Math.sin(now*.0016+q.p.seed)*.28,r=Math.max(.55,q.p.size*q.k);
+          ctx.fillStyle="hsla("+q.p.hue+",100%,"+(dark?"72%":"48%")+","+((.64+(q.z+100)/200*.34)*twinkle)+")";
+          ctx.shadowColor="hsl("+q.p.hue+",100%,58%)";ctx.shadowBlur=dark?13:9;
+          ctx.beginPath();ctx.arc(q.x,q.y,r,0,Math.PI*2);ctx.fill();
+          if(q.p.size>1.35&&chaos<.08){ctx.fillStyle="rgba(224,250,255,.92)";ctx.shadowBlur=4;ctx.beginPath();ctx.arc(q.x,q.y,.7,0,Math.PI*2);ctx.fill();}
         }
-        if (!reduceMotion) raf = requestAnimationFrame(draw);
+        ctx.shadowBlur=0;
+        if(!reduceMotion&&chaos<.08){
+          const scanY=cy-Math.min(height*.25,112)+((now*.00009)%1)*Math.min(height*.5,224);
+          const grad=ctx.createLinearGradient(cx-rx*.7,scanY,cx+rx*.7,scanY);
+          grad.addColorStop(0,"rgba(0,190,255,0)");grad.addColorStop(.5,"rgba(0,220,255,.32)");grad.addColorStop(1,"rgba(0,190,255,0)");
+          ctx.strokeStyle=grad;ctx.lineWidth=1.2;ctx.beginPath();ctx.moveTo(cx-rx*.7,scanY);ctx.lineTo(cx+rx*.7,scanY);ctx.stroke();
+        }
+        ctx.restore();if(!reduceMotion)raf=requestAnimationFrame(draw);
       };
-      resize();
-      if (reduceMotion) { draw(performance.now()); }
-      else raf = requestAnimationFrame(draw);
+      resize();if(reduceMotion)draw(performance.now());else raf=requestAnimationFrame(draw);
     })();
 
     document.getElementById("year").textContent = new Date().getFullYear();
