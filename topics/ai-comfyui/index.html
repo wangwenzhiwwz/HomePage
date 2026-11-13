@@ -78,6 +78,26 @@
 <p>这套流程以产品外观一致性为首要验收条件；分辨率、风格和特效不能替代主体准确性。</p>
 </section>
 <section class="section">
+<h2>实用检查：失败时先定位哪一层</h2>
+<div class="grid">
+<div class="card"><small>01 / ENVIRONMENT</small><h3>启动或导入失败</h3><p>先记录 ComfyUI 版本、Python 环境、GPU 驱动和启动日志。确认依赖安装到了当前运行环境，而不是另一套 Python。</p></div>
+<div class="card"><small>02 / DEPENDENCIES</small><h3>节点或模型缺失</h3><p>逐项核对节点包名称、模型文件名、目录位置和版本要求。先解决明确缺失项，不要一次性更新所有节点。</p></div>
+<div class="card"><small>03 / MEMORY</small><h3>显存不足或运行中断</h3><p>先缩小分辨率、帧数或批次做隔离测试，观察显存曲线和报错位置，再判断是否需要调整模型精度或分段处理。</p></div>
+<div class="card"><small>04 / OUTPUT</small><h3>结果不稳定</h3><p>固定输入图、提示词、种子和关键参数，每次只改一个因素。区分产品形变、运动闪烁、细节丢失和单纯风格差异。</p></div>
+</div>
+<p><strong>建议排障顺序：</strong>复现问题 → 保存日志 → 检查版本与依赖 → 缩小任务 → 单变量测试 → 恢复已知可用配置。先备份工作流和模型配置，再做升级或卸载。</p>
+</section>
+<section class="section">
+<h2>产品视频验收要点</h2>
+<ul>
+<li>外观：机身轮廓、镜头数量与位置、按键、接口、Logo、材质和颜色与参考图一致。</li>
+<li>镜头：运动方向、速度、景别和主体位置符合分镜，不因运镜而遮挡关键卖点。</li>
+<li>连续性：连续帧中无明显形变、闪烁、纹理跳动、零件复制或细节突然消失。</li>
+<li>交付：画幅、时长、帧率、分辨率、声音和编码格式满足最终发布要求。</li>
+<li>复现：保存输入素材、模型文件名、节点版本、参数和输出样片。</li>
+</ul>
+</section>
+<section class="section">
 <h2>相关入口</h2>
 <p><a href="https://wwz.im/videos/">作品与视频展示</a> · <a href="https://wwz.im/projects/app/">APP.WWZ.iM AI 资源目录</a> · <a href="https://wwz.im/blog.html">全部技术文章</a></p>
 </section>
