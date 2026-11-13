@@ -34,8 +34,8 @@
 /* Light Theme */
 :root[data-theme="light"] {
     --bg-body: #f5f5f7;
-    --bg-gradient: radial-gradient(ellipse at 20% 0%, rgba(200, 200, 255, 0.4) 0%, transparent 50%),
-                   radial-gradient(ellipse at 80% 100%, rgba(255, 200, 220, 0.3) 0%, transparent 50%),
+    --bg-gradient: radial-gradient(ellipse at 20% 0%, rgba(200,200,200,.12) 0%, transparent 50%),
+                   radial-gradient(ellipse at 80% 100%, rgba(190,190,190,.08) 0%, transparent 50%),
                    #f5f5f7;
     --text-primary: #1a1a1a;
     --text-secondary: #444444;
