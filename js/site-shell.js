@@ -78,7 +78,7 @@
     if (!main) return;
     const stylesheet = document.createElement("link");
     stylesheet.rel = "stylesheet";
-    stylesheet.href = "/css/page-experience.css?v=20261113-art1";
+    stylesheet.href = "/css/page-experience.css?v=20261113-art2";
     if (!document.querySelector('link[href*="page-experience.css"]')) document.head.append(stylesheet);
 
     if (isHome) {
@@ -100,7 +100,9 @@
         ['05','CURRENT','Now','What is being built, tested and explored at the moment.','See current focus','/now.html','fa-solid fa-compass'],
         ['06','ABOUT','About','Background, working approach, selected capabilities and contact details.','More about WWZ','/about.html','fa-solid fa-user']
       ].map(([n,k,t,d,cta,u,icon]) => '<a class="wwz-quick-link" href="'+u+'"><div class="wwz-quick-top"><span class="wwz-quick-number">'+n+'</span><span class="wwz-quick-icon"><i class="'+icon+'" aria-hidden="true"></i></span></div><div class="wwz-quick-copy"><small>'+k+'</small><strong>'+t+'</strong><span>'+d+'</span></div><span class="wwz-quick-cta">'+cta+' <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i></span></a>').join('');
-      banner.insertAdjacentElement("afterend", section);
+      const contactSection = main.querySelector("#contact, .contact-section");
+      if (contactSection) contactSection.insertAdjacentElement("beforebegin", section);
+      else main.append(section);
       return;
     }
 
