@@ -36,4 +36,28 @@
 
 <script src="/js/site-theme.js?v=20260920-inline-theme"></script>
 <script src="/js/site-shell.js?v=20261031-native-nav"></script>
+
+<script>
+(async () => {
+  const grid = document.querySelector('.grid');
+  if (!grid) return;
+  try {
+    const response = await fetch('/data/projects.json', { cache: 'no-cache' });
+    if (!response.ok) throw new Error('Project data unavailable');
+    const projects = await response.json();
+    grid.innerHTML = projects.map(project => {
+      const detail = project.detail || project.url;
+      const label = project.status === 'Published' ? 'View project ↗' : 'View source ↗';
+      return `<a class="card" href="${detail}">
+        <small>${project.type} · ${project.status}</small>
+        <h2>${project.name}</h2>
+        <p>${project.description}</p>
+        <p class="project-actions"><strong>${label}</strong></p>
+      </a>`;
+    }).join('');
+  } catch (error) {
+    console.warn('Projects list remains in its static fallback.', error);
+  }
+})();
+</script>
 </body></html>
