@@ -1963,3 +1963,29 @@ html, body {
     z-index:1;
   }
 }
+
+
+/* Clear, predictable navigation contrast: dark labels on glass, white only
+   while the moving black capsule is underneath the selected label. */
+@media (min-width:1100px) {
+  .wwz-topbar .wwz-primary-nav { isolation:isolate !important; }
+  .wwz-topbar .wwz-nav-indicator { z-index:0 !important; }
+  .wwz-topbar .wwz-primary-nav > .wwz-nav-link,
+  .wwz-topbar .wwz-primary-nav > .wwz-nav-link span {
+    color:#292929 !important;
+    mix-blend-mode:normal !important;
+    transition:color 220ms ease !important;
+  }
+  .wwz-topbar .wwz-primary-nav > .wwz-nav-link.active,
+  .wwz-topbar .wwz-primary-nav > .wwz-nav-link[aria-current="page"],
+  .wwz-topbar .wwz-primary-nav > .wwz-nav-link.is-pill-target,
+  .wwz-topbar .wwz-primary-nav > .wwz-nav-link.active span,
+  .wwz-topbar .wwz-primary-nav > .wwz-nav-link[aria-current="page"] span,
+  .wwz-topbar .wwz-primary-nav > .wwz-nav-link.is-pill-target span {
+    color:#fff !important;
+  }
+}
+@media (prefers-reduced-motion:reduce) {
+  .wwz-topbar .wwz-primary-nav > .wwz-nav-link,
+  .wwz-topbar .wwz-primary-nav > .wwz-nav-link span { transition:none !important; }
+}
