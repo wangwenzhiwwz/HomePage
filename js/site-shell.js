@@ -93,13 +93,13 @@
       section.className = "wwz-quick-links";
       section.setAttribute("aria-label", "Explore WWZ.iM");
       section.innerHTML = [
-        ['01 / WATCH','Selected Works','Photography, visual experiments and commercial films.','/works.html'],
-        ['02 / BUILD','Projects & Tools','Open practical tools and independent digital products.','/projects/'],
-        ['03 / EXPERIMENT','AI Lab','Reusable AI video workflows, validation and production notes.','/lab/'],
-        ['04 / LEARN','Guides & Notes','Step-by-step technical notes, checklists and field-tested ideas.','/blog.html'],
-        ['05 / CURRENT','Now','A clear snapshot of current creative and technical focus.','/now.html'],
-        ['06 / ABOUT','About','How I work, what I build and how to get in touch.','/about.html']
-      ].map(([k,t,d,u]) => '<a class="wwz-quick-link" href="'+u+'"><small>'+k+'</small><div><strong>'+t+'</strong><span>'+d+'</span></div></a>').join('');
+        ['01','WATCH','Selected Works','Photography, commercial films and visual experiments.','Explore the portfolio','/works.html','fa-solid fa-camera'],
+        ['02','BUILD','Projects & Tools','Useful web apps, independent products and open-source experiments.','Browse practical tools','/projects/','fa-solid fa-cubes'],
+        ['03','EXPERIMENT','AI Lab','ComfyUI workflows, image-to-video tests and product-consistency methods.','View AI workflows','/lab/','fa-solid fa-wand-magic-sparkles'],
+        ['04','LEARN','Guides & Notes','Deployment tutorials, technical checklists and lessons from real projects.','Read field notes','/blog.html','fa-solid fa-book-open'],
+        ['05','CURRENT','Now','What is being built, tested and explored at the moment.','See current focus','/now.html','fa-solid fa-compass'],
+        ['06','ABOUT','About','Background, working approach, selected capabilities and contact details.','More about WWZ','/about.html','fa-solid fa-user']
+      ].map(([n,k,t,d,cta,u,icon]) => '<a class="wwz-quick-link" href="'+u+'"><div class="wwz-quick-top"><span class="wwz-quick-number">'+n+'</span><span class="wwz-quick-icon"><i class="'+icon+'" aria-hidden="true"></i></span></div><div class="wwz-quick-copy"><small>'+k+'</small><strong>'+t+'</strong><span>'+d+'</span></div><span class="wwz-quick-cta">'+cta+' <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i></span></a>').join('');
       banner.insertAdjacentElement("afterend", section);
       return;
     }
