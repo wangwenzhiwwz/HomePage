@@ -106,7 +106,8 @@
       return;
     }
 
-    if (main.querySelector(".wwz-page-banner")) return;\n    if (path.endsWith("/works.html") && main.querySelector(".works-hub-hero")) return;
+    if (main.querySelector(".wwz-page-banner")) return;
+    if (path.endsWith("/works.html") && main.querySelector(".works-hub-hero")) return;
     const detail = path.includes("/projects/") && path.split("/").filter(Boolean).length > 1;
     const map = [
       [/\/projects\//,{section:detail?"tool":"projects",kicker:detail?"PROJECT FIELD GUIDE":"INDEPENDENT PRODUCTS",copy:detail?"Understand the use case, follow a practical start path and check important limitations before relying on a tool.":"Small independent products designed around real tasks — with clear use cases, practical instructions and honest limitations.",links:[["Projects","/works.html#projects"],["Guides","/works.html#guides"]]}],
@@ -244,11 +245,15 @@
     window.WWZTheme?.refresh();
     sidebar.querySelector("[data-shell-theme]")?.addEventListener("click", () => window.WWZTheme?.cycle());
 
-    // Use native document navigation. The previous iframe + pushState routing\n    // changed the address bar without changing the top-level document, so a\n    // browser refresh could restore the wrong page.\n    // Native links keep refresh, deep links, and browser history consistent.
+    // Use native document navigation. The previous iframe + pushState routing
+    // changed the address bar without changing the top-level document, so a
+    // browser refresh could restore the wrong page.
+    // Native links keep refresh, deep links, and browser history consistent.
   };
 
   const routeKey = url => (
-    url.hash === "#contact" ? "contact" :\n    url.hash === "#guides" ? "blog" :
+    url.hash === "#contact" ? "contact" :
+    url.hash === "#guides" ? "blog" :
     document.body?.dataset.activePage ||
     (url.pathname.endsWith("/about.html") ? "about" :
     url.pathname.includes("/videos/") ? "videos" :
