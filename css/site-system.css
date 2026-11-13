@@ -1895,3 +1895,28 @@ html, body {
 @media (prefers-reduced-motion: reduce) {
   .wwz-topbar .wwz-nav-indicator { transition: none !important; }
 }
+
+
+/* Final desktop alignment: center the capsule against the viewport, independent
+   of unequal left/right header content. */
+@media (min-width:1100px) {
+  .sidebar.wwz-topbar {
+    display:block !important;
+  }
+  .wwz-topbar .wwz-primary-nav {
+    position:absolute !important;
+    left:50% !important;
+    top:50% !important;
+    transform:translate(-50%,-50%) !important;
+    width:min(960px,calc(100vw - 80px)) !important;
+    max-width:960px !important;
+    margin:0 !important;
+  }
+  .wwz-topbar .wwz-nav-indicator {
+    top:0 !important;
+    left:0 !important;
+    opacity:0;
+    transition:transform 360ms cubic-bezier(.2,.8,.2,1),width 360ms cubic-bezier(.2,.8,.2,1),height 220ms ease !important;
+  }
+  .wwz-topbar .wwz-nav-indicator.is-ready { opacity:1 !important; }
+}
