@@ -68,6 +68,50 @@ h1{max-width:850px;margin:18px 0;font-size:clamp(2.8rem,7vw,5.8rem);line-height:
       <article class="experiment"><small>04 / RECOVERY</small><h3>Keep a rollback path</h3><p>Preserve known-good workflows and document how to revert when a model update or dependency change breaks a result.</p></article>
     </div>
   </section>
+  <section class="lab-section">
+    <h2>A practical image-to-video production path</h2>
+    <p>Use this as a repeatable sequence for product advertising. It is a process template, not a claim that every model or custom node is already installed on the workstation.</p>
+    <div class="experiments">
+      <article class="experiment"><small>STAGE 01 · SOURCE</small><h3>Prepare a product reference set</h3><p>Collect clean front, rear, side and detail views under neutral lighting. Keep one approved reference set and note any model-specific visual features that must not change.</p></article>
+      <article class="experiment"><small>STAGE 02 · SHOT DESIGN</small><h3>Define one camera move</h3><p>Write down shot duration, framing, camera direction, subject position and background action. Avoid asking the model to redesign the product and move the camera at the same time.</p></article>
+      <article class="experiment"><small>STAGE 03 · LOW-COST TEST</small><h3>Validate a short sample</h3><p>Start with a short, lower-resolution test. Change one variable at a time and record the seed, prompt, model, node versions and settings that produced the result.</p></article>
+      <article class="experiment"><small>STAGE 04 · REVIEW</small><h3>Inspect identity frame by frame</h3><p>Check silhouette, lens layout, buttons, ports, logo, material, color and scale. Reject clips where the product changes shape even if the overall image looks attractive.</p></article>
+      <article class="experiment"><small>STAGE 05 · FINISH</small><h3>Enhance only stable footage</h3><p>After motion and product identity pass review, test enhancement or upscaling on a short segment before processing the full clip.</p></article>
+      <article class="experiment"><small>STAGE 06 · ARCHIVE</small><h3>Keep a reproducible record</h3><p>Save the workflow JSON, model file names, custom-node commit/version, input references, output sample, known issues and rollback instructions together.</p></article>
+    </div>
+  </section>
+  <section class="lab-section">
+    <h2>Delivery acceptance checklist</h2>
+    <ul class="wwz-checklist">
+      <li>Product body shape and proportions remain stable throughout the clip.</li>
+      <li>Camera modules, buttons, ports, logo and distinctive details match the reference.</li>
+      <li>No obvious flicker, texture crawling, duplicated parts or frame-to-frame warping.</li>
+      <li>Camera movement follows the shot plan and does not obscure key selling points.</li>
+      <li>Output resolution, frame rate, duration and aspect ratio match the delivery brief.</li>
+      <li>Model dependencies, settings and source assets are recorded for later reproduction.</li>
+    </ul>
+    <p>Priority order: product identity → temporal stability → shot communication → image quality → stylistic polish.</p>
+  </section>
+  <section class="lab-section">
+    <h2>Experiment record template</h2>
+    <p>Copy this structure into the notes for each run. Mark unknown items as unknown instead of filling them with assumptions.</p>
+    <pre><code>Experiment:
+Date:
+Goal / shot:
+ComfyUI version:
+Model files (exact names):
+Custom nodes + versions:
+Input references:
+Prompt / negative prompt:
+Seed and key parameters:
+Output path:
+Observed VRAM / runtime:
+Product identity check:
+Temporal artifacts:
+Decision: PASS / RETEST / REJECT
+Known issues:
+Rollback / last known-good workflow:</code></pre>
+  </section>
   <footer class="lab-foot"><span>WWZ.iM · AI Lab</span><a href="/blog.html">Technical notes ↗</a></footer>
 </main>
 <script src="../js/site-theme.js?v=20260920-inline-theme"></script>
