@@ -78,7 +78,7 @@
     if (!main) return;
     const stylesheet = document.createElement("link");
     stylesheet.rel = "stylesheet";
-    stylesheet.href = "/css/page-experience.css?v=20261113-ulfhero2";
+    stylesheet.href = "/css/page-experience.css?v=20261113-ulfhero3";
     if (!document.querySelector('link[href*="page-experience.css"]')) document.head.append(stylesheet);
 
     if (isHome) {
