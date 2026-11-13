@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>AI Lab · ComfyUI & AI Video Workflows | WWZ.iM</title>
+<meta name="description" content="Practical AI video workflow notes: ComfyUI, image-to-video, product consistency, SeedVR2 enhancement and reproducible experiments.">
+<link rel="canonical" href="https://wwz.im/lab/">
+<link rel="icon" href="../favicon.ico">
+<link rel="stylesheet" href="../css/site-system.css?v=20261107-theme-right">
+<style>
+:root{--lab-bg:#f7f7f5;--lab-ink:#171715;--lab-muted:#70706a;--lab-line:rgba(20,20,18,.12);--lab-card:rgba(255,255,255,.68)}
+@media(prefers-color-scheme:dark){:root{--lab-bg:#0b0b0a;--lab-ink:#f3f3ef;--lab-muted:#a1a19a;--lab-line:rgba(255,255,255,.14);--lab-card:rgba(255,255,255,.035)}}
+body{margin:0;background:var(--lab-bg);color:var(--lab-ink);font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;line-height:1.7}
+.lab-wrap{width:min(100% - 40px,1040px);margin:0 auto;padding:76px 0 100px}
+.eyebrow{font:600 .72rem ui-monospace,monospace;letter-spacing:.15em;color:var(--lab-muted);text-transform:uppercase}
+h1{max-width:850px;margin:18px 0;font-size:clamp(2.8rem,7vw,5.8rem);line-height:.96;letter-spacing:-.075em}
+.lead{max-width:780px;color:var(--lab-muted);font-size:clamp(1.05rem,2vw,1.25rem);line-height:1.85}
+.lab-actions{display:flex;gap:12px;flex-wrap:wrap;margin:28px 0 60px}
+.lab-button{display:inline-flex;align-items:center;min-height:44px;padding:0 18px;border:1px solid var(--lab-line);border-radius:999px;font-size:.88rem;font-weight:650}
+.lab-button.primary{background:var(--lab-ink);color:var(--lab-bg)}
+.lab-section{padding:34px 0;border-top:1px solid var(--lab-line)}
+.lab-section h2{font-size:1.5rem;letter-spacing:-.04em;margin:0 0 18px}
+.lab-section p{color:var(--lab-muted)}
+.stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.stat,.experiment{padding:22px;border:1px solid var(--lab-line);border-radius:18px;background:var(--lab-card)}
+.stat strong{display:block;font-size:1.35rem;letter-spacing:-.04em}
+.stat span,.experiment small{color:var(--lab-muted);font-size:.78rem}
+.experiments{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px}
+.experiment h3{margin:12px 0 8px;font-size:1.12rem;letter-spacing:-.03em}
+.experiment p{margin:0 0 14px;font-size:.88rem;line-height:1.75}
+.status{display:inline-block;padding:4px 9px;border:1px solid var(--lab-line);border-radius:999px;color:var(--lab-muted);font-size:.68rem}
+.experiment a{font-size:.82rem;font-weight:700}
+.lab-foot{display:flex;gap:20px;justify-content:space-between;padding-top:24px;border-top:1px solid var(--lab-line);color:var(--lab-muted);font-size:.78rem}
+@media(max-width:650px){.lab-wrap{width:calc(100% - 28px);padding:62px 0 72px}.stats{grid-template-columns:1fr}.experiments{grid-template-columns:1fr}.lab-foot{flex-direction:column}}
+</style>
+</head>
+<body data-content-root="/" data-active-page="lab">
+<aside class="sidebar glass-panel" id="sidebar"></aside>
+<main class="lab-wrap">
+  <div class="eyebrow">Research · Workflows · Quality control</div>
+  <h1>AI creation,<br>made repeatable.</h1>
+  <p class="lead">A working notebook for practical AI-assisted video production. The focus is not just generating images, but building controllable workflows that preserve real product details and can be checked, reproduced and improved.</p>
+  <div class="lab-actions">
+    <a class="lab-button primary" href="/topics/ai-comfyui/">Explore ComfyUI topic ↗</a>
+    <a class="lab-button" href="/articles/comfyui-local-video/">Workstation notes ↗</a>
+  </div>
+  <section class="lab-section">
+    <h2>Local workstation baseline</h2>
+    <p>These are the recorded environment facts. Installed models, custom nodes and successful end-to-end runs are tracked separately and are not inferred from the hardware specification.</p>
+    <div class="stats">
+      <div class="stat"><strong>RTX 5080</strong><span>NVIDIA GPU · 16 GB dedicated VRAM</span></div>
+      <div class="stat"><strong>~128 GB</strong><span>System memory, approximate</span></div>
+      <div class="stat"><strong>ComfyUI</strong><span>Installed locally · model inventory is separate</span></div>
+    </div>
+  </section>
+  <section class="lab-section">
+    <h2>Experiments and workflow records</h2>
+    <div class="experiments" id="experiments"><p>Loading experiment records…</p></div>
+  </section>
+  <section class="lab-section">
+    <h2>Working principles</h2>
+    <div class="experiments">
+      <article class="experiment"><small>01 / PRODUCT FIRST</small><h3>Lock product identity</h3><p>Keep the real device geometry, camera arrangement, buttons, logo, materials and colors stable before optimizing atmosphere or style.</p></article>
+      <article class="experiment"><small>02 / TRACEABLE</small><h3>Record dependencies</h3><p>List model files, custom nodes, versions, inputs, outputs and parameters. Never assume a model or node is installed.</p></article>
+      <article class="experiment"><small>03 / ACCEPTANCE</small><h3>Define what “works” means</h3><p>Evaluate visual consistency, temporal stability, resolution, artifacts and practical production usability.</p></article>
+      <article class="experiment"><small>04 / RECOVERY</small><h3>Keep a rollback path</h3><p>Preserve known-good workflows and document how to revert when a model update or dependency change breaks a result.</p></article>
+    </div>
+  </section>
+  <footer class="lab-foot"><span>WWZ.iM · AI Lab</span><a href="/blog.html">Technical notes ↗</a></footer>
+</main>
+<script src="../js/site-theme.js?v=20260920-inline-theme"></script>
+<script src="../js/site-shell.js?v=20261031-native-nav"></script>
+<script>
+(async () => {
+ const root = document.getElementById('experiments');
+ try {
+   const response = await fetch('/data/experiments.json', {cache:'no-cache'});
+   if (!response.ok) throw new Error('Could not load experiment data');
+   const items = await response.json();
+   root.innerHTML = items.map(item => `<article class="experiment">
+     <span class="status">${item.status}</span><small> · ${item.category}</small>
+     <h3>${item.title}</h3><p>${item.summary}</p>
+     <a href="${item.href}">Open record ↗</a>
+   </article>`).join('');
+ } catch (error) {
+   root.innerHTML = '<p>Experiment records are temporarily unavailable. Please use the ComfyUI topic page.</p>';
+ }
+})();
+</script>
+</body></html>

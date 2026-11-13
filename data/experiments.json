@@ -1,0 +1,42 @@
+[
+  {
+    "id": "comfyui-baseline",
+    "title": "ComfyUI local video workstation",
+    "category": "Environment",
+    "status": "Documented",
+    "summary": "A documented baseline for the local AI workstation and ComfyUI installation. Model and custom-node availability are tracked separately rather than assumed.",
+    "href": "/articles/comfyui-local-video/"
+  },
+  {
+    "id": "image-to-video",
+    "title": "Product image-to-video",
+    "category": "Image to Video",
+    "status": "Workflow to document",
+    "summary": "Start from real product images, then evaluate camera movement, subject placement and product-shape consistency.",
+    "href": "/topics/ai-comfyui/"
+  },
+  {
+    "id": "seedvr2",
+    "title": "SeedVR2 video enhancement",
+    "category": "Upscaling",
+    "status": "Needs runtime validation",
+    "summary": "A SeedVR2 3B Int8 workflow template and related model filenames have been examined. Node installation, model loading and successful end-to-end execution remain separate validation items.",
+    "href": "/articles/comfyui-local-video/"
+  },
+  {
+    "id": "product-consistency",
+    "title": "Product appearance consistency",
+    "category": "Quality control",
+    "status": "Principle",
+    "summary": "Check body shape, camera layout, buttons, logos, materials and colors shot by shot before judging stylistic quality.",
+    "href": "/topics/ai-comfyui/"
+  },
+  {
+    "id": "workflow-reproducibility",
+    "title": "Reproducible workflow records",
+    "category": "Workflow engineering",
+    "status": "To document",
+    "summary": "Record model dependencies, node versions, inputs, outputs, parameters, acceptance criteria and rollback steps for each reusable workflow.",
+    "href": "/topics/ai-comfyui/"
+  }
+]

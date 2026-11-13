@@ -1,0 +1,38 @@
+{
+  "updated": "2026-11-13",
+  "intro": "A concise snapshot of the areas currently represented across WWZ.iM. This page is maintained as a living index; individual project status and technical validation belong to their linked records.",
+  "items": [
+    {
+      "id": "creative",
+      "title": "Commercial video production",
+      "category": "CREATIVE",
+      "summary": "Commercial product films, visual storytelling, shot planning, production coordination and post-production. Existing work is collected in the Videos archive.",
+      "status": "Ongoing focus",
+      "href": "/videos/"
+    },
+    {
+      "id": "ai",
+      "title": "AI video workflows",
+      "category": "AI LAB",
+      "summary": "ComfyUI, image-to-video workflows, product appearance consistency and video enhancement. Runtime validation is recorded explicitly for each model and node.",
+      "status": "Research and documentation",
+      "href": "/lab/"
+    },
+    {
+      "id": "products",
+      "title": "Independent digital products",
+      "category": "BUILD",
+      "summary": "A collection of practical WWZ web tools and open-source experiments, with project pages linking to available demos and source repositories.",
+      "status": "Ongoing maintenance",
+      "href": "/projects/"
+    },
+    {
+      "id": "infrastructure",
+      "title": "Infrastructure and networking",
+      "category": "TECH",
+      "summary": "Linux, Docker, VPS, IPv4/IPv6 connectivity and deployment recovery notes, documented through technical articles.",
+      "status": "Knowledge base",
+      "href": "/blog.html"
+    }
+  ]
+}
