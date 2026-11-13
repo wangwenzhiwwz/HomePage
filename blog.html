@@ -199,7 +199,6 @@
         #theme-btn-desktop { position: fixed; top: 30px; right: 40px; z-index: 10000; width: 44px; height: 44px; border-radius: 50%; background: var(--glass-bg); backdrop-filter: blur(10px); border: 1px solid var(--glass-border); color: var(--text-primary); display: flex; align-items: center; justify-content: center; transition: 0.2s; }
         #theme-btn-desktop:hover { transform: scale(1.1); background: var(--text-primary); color: var(--bg-body); }
         .mobile-btn { width: 36px; height: 36px; border-radius: 10px; background: rgba(125, 125, 125, 0.1); border: 1px solid var(--glass-border); color: var(--text-primary); display: flex; align-items: center; justify-content: center; }
-        #loader { position: fixed; inset: 0; background: var(--bg-body); z-index: 1000000; display: flex; justify-content: center; align-items: center; transition: 0.5s; }
 
         .topic-index { margin-top: 64px; padding-top: 30px; border-top: 1px solid var(--glass-border); }
         .topic-index h2 { font-size: 1.35rem; font-weight: 750; margin-bottom: 8px; }
@@ -250,7 +249,6 @@
 
 <body data-content-root="" data-active-page="blog">
 
-    <div id="loader"><div class="spinner-border" style="color: var(--text-secondary)" role="status"></div></div>
     <button id="theme-btn-desktop" class="d-none d-lg-flex" title="Toggle Theme"><i class="fa-solid fa-moon"></i></button>
 
     <aside class="sidebar glass-panel" id="sidebar"></aside>
@@ -379,8 +377,6 @@
     <script src="js/content-renderer.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            document.getElementById('loader').style.display = 'none';
-
             // Theme Logic
             const desktopBtn = document.getElementById('theme-btn-desktop');
             const mobileBtn = document.getElementById('theme-btn-mobile');
