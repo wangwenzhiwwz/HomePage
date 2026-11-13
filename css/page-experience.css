@@ -1,6 +1,6 @@
 /* WWZ.iM unified page experience — 2026 */
 :root{--wwz-content-max:1160px;--wwz-banner-radius:28px;--wwz-banner-ink:#fff;--wwz-banner-muted:rgba(255,255,255,.78)}
-.wwz-page-banner{position:relative;isolation:isolate;display:flex;align-items:flex-end;min-height:clamp(250px,32vw,390px);overflow:hidden;margin:0 0 clamp(34px,5vw,66px);padding:clamp(26px,5vw,58px);border:1px solid var(--glass-border,rgba(255,255,255,.12));border-radius:var(--wwz-banner-radius);color:var(--wwz-banner-ink);background:#292a29 url('/images/banner-image4.jpg') center 48%/cover no-repeat;box-shadow:0 24px 65px rgba(0,0,0,.12)}
+.wwz-page-banner{position:relative;isolation:isolate;display:flex;align-items:flex-end;min-height:clamp(250px,32vw,390px);overflow:hidden;margin:0 0 clamp(34px,5vw,66px);padding:clamp(26px,5vw,58px);border:1px solid var(--glass-border,rgba(255,255,255,.12));border-radius:var(--wwz-banner-radius);color:var(--wwz-banner-ink);background:radial-gradient(ellipse at 78% 22%,rgba(255,255,255,.12),transparent 34%),linear-gradient(125deg,#292a29 0%,#42413e 48%,#1b1c1b 100%);box-shadow:0 24px 65px rgba(0,0,0,.12)}
 .wwz-page-banner:before{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(90deg,rgba(8,9,10,.78) 0%,rgba(8,9,10,.42) 58%,rgba(8,9,10,.08) 100%),linear-gradient(0deg,rgba(8,9,10,.36),transparent 62%)}
 .wwz-page-banner:after{content:"";position:absolute;inset:0;z-index:-1;background:radial-gradient(ellipse at 78% 15%,rgba(255,255,255,.2),transparent 36%);pointer-events:none}
 .wwz-banner-content{width:min(850px,100%)}
@@ -11,13 +11,8 @@
 .wwz-banner-links{display:flex;flex-wrap:wrap;gap:9px;margin-top:25px}
 .wwz-banner-links a{display:inline-flex;align-items:center;min-height:39px;padding:0 14px;border:1px solid rgba(255,255,255,.34);border-radius:999px;color:#fff;font-size:.76rem;font-weight:700;background:rgba(255,255,255,.1);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);transition:background .2s,transform .2s}
 .wwz-banner-links a:hover{transform:translateY(-2px);background:rgba(255,255,255,.22)}
-.wwz-page-banner[data-section="projects"]{background-position:center 52%}
-.wwz-page-banner[data-section="lab"]{background-image:url('/images/videos/armor-28.jpg');background-position:center 43%}
 .wwz-page-banner[data-section="works"]{background-image:url('/images/photography/wwz02965.jpg');background-position:center 45%}
 .wwz-page-banner[data-section="videos"]{background-image:url('/images/videos/armor-26-ultra.jpg');background-position:center 50%}
-.wwz-page-banner[data-section="blog"]{background-image:url('/images/banner-image.png');background-position:center 45%}
-.wwz-page-banner[data-section="now"]{background-image:url('/images/photography/wwz02278.jpg');background-position:center 50%}
-.wwz-page-banner[data-section="about"]{background-image:url('/images/photography/wwz08123.jpg');background-position:center 42%}
 .wwz-page-banner[data-section="tool"]{min-height:260px;margin-bottom:38px}
 .wwz-page-banner[data-section="tool"] h1{font-size:clamp(2.2rem,4.6vw,3.8rem)!important}
 .wwz-quick-links{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin:28px 0 54px}
@@ -43,7 +38,7 @@
 @media(max-width:640px){.wwz-page-banner{min-height:260px;margin-bottom:30px;padding:24px;border-radius:22px;background-position:58% center}.wwz-page-banner:before{background:linear-gradient(90deg,rgba(8,9,10,.78),rgba(8,9,10,.28)),linear-gradient(0deg,rgba(8,9,10,.3),transparent)}.wwz-page-banner h2{font-size:clamp(2.3rem,12vw,3.7rem)!important}.wwz-banner-links{gap:7px}.wwz-banner-links a{min-height:36px;padding:0 11px;font-size:.7rem}.wwz-quick-links{gap:9px}.wwz-quick-link{min-height:155px;padding:16px}.wwz-practical-grid,.wwz-checklist{grid-template-columns:1fr}.wwz-practical-panel{padding:20px;border-radius:18px}}
 @media(prefers-reduced-motion:reduce){.wwz-page-banner *,.wwz-quick-link,.wwz-banner-links a{transition:none!important}}
 
-.wwz-home-banner{position:relative;isolation:isolate;display:flex;align-items:center;min-height:clamp(250px,30vw,360px);margin:8px 0 30px;padding:clamp(26px,5vw,58px);overflow:hidden;border-radius:28px;color:#fff;background:#292a29 url('/images/photography/wwz02965.jpg') center 48%/cover no-repeat;box-shadow:0 22px 60px rgba(0,0,0,.12)}
+.wwz-home-banner{position:relative;isolation:isolate;display:flex;align-items:center;min-height:clamp(250px,30vw,360px);margin:8px 0 30px;padding:clamp(26px,5vw,58px);overflow:hidden;border-radius:28px;color:#fff;background:radial-gradient(ellipse at 76% 24%,rgba(255,255,255,.13),transparent 34%),linear-gradient(120deg,#242523 0%,#41413d 52%,#171817 100%);box-shadow:0 22px 60px rgba(0,0,0,.12)}
 .wwz-home-banner:before{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(90deg,rgba(8,9,10,.78),rgba(8,9,10,.24) 78%),linear-gradient(0deg,rgba(8,9,10,.2),transparent)}
 .wwz-home-banner>div{max-width:660px}
 .wwz-home-banner span{color:rgba(255,255,255,.78);font:700 .68rem ui-monospace,monospace;letter-spacing:.16em}
