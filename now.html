@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>Now · Current Focus & Ongoing Work | WWZ.iM</title>
+<meta name="description" content="A living snapshot of Wang Wenzhi's current focus across commercial video, AI video workflows, independent digital products and infrastructure.">
+<link rel="canonical" href="https://wwz.im/now.html">
+<link rel="icon" href="/favicon.ico">
+<link rel="stylesheet" href="/css/site-system.css?v=20261107-theme-right">
+<style>
+:root{--now-bg:#f7f7f5;--now-ink:#171715;--now-muted:#70706a;--now-line:rgba(20,20,18,.12);--now-card:rgba(255,255,255,.68)}
+@media(prefers-color-scheme:dark){:root{--now-bg:#0b0b0a;--now-ink:#f3f3ef;--now-muted:#a1a19a;--now-line:rgba(255,255,255,.14);--now-card:rgba(255,255,255,.035)}}
+body{margin:0;background:var(--now-bg);color:var(--now-ink);font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;line-height:1.7}
+.now-wrap{width:min(100% - 40px,1040px);margin:0 auto;padding:76px 0 100px}
+.eyebrow{font:600 .72rem ui-monospace,monospace;letter-spacing:.15em;color:var(--now-muted);text-transform:uppercase}
+h1{max-width:850px;margin:18px 0;font-size:clamp(2.8rem,7vw,5.8rem);line-height:.96;letter-spacing:-.075em}
+.lead{max-width:780px;color:var(--now-muted);font-size:clamp(1.05rem,2vw,1.25rem);line-height:1.85}
+.meta{margin:24px 0 58px;color:var(--now-muted);font:600 .72rem ui-monospace,monospace;letter-spacing:.08em}
+.focus-list{border-top:1px solid var(--now-line)}
+.focus-item{display:grid;grid-template-columns:160px minmax(0,1fr) 160px;gap:26px;align-items:start;padding:28px 0;border-bottom:1px solid var(--now-line)}
+.focus-item small{color:var(--now-muted);font:600 .68rem ui-monospace,monospace;letter-spacing:.1em}
+.focus-item h2{margin:0 0 8px;font-size:1.35rem;letter-spacing:-.04em}
+.focus-item p{max-width:660px;margin:0;color:var(--now-muted);font-size:.9rem;line-height:1.8}
+.focus-item a{justify-self:end;font-size:.82rem;font-weight:700}
+.note{margin-top:36px;padding:22px;border:1px solid var(--now-line);border-radius:18px;background:var(--now-card);color:var(--now-muted);font-size:.84rem;line-height:1.8}
+.now-foot{display:flex;justify-content:space-between;gap:18px;padding-top:24px;color:var(--now-muted);font-size:.78rem}
+@media(max-width:700px){.now-wrap{width:calc(100% - 28px);padding:62px 0 72px}.focus-item{grid-template-columns:1fr;gap:10px}.focus-item a{justify-self:start}.now-foot{flex-direction:column}}
+</style>
+</head>
+<body data-content-root="/" data-active-page="now">
+<aside class="sidebar glass-panel" id="sidebar"></aside>
+<main class="now-wrap">
+  <div class="eyebrow">A living snapshot · WWZ.iM</div>
+  <h1>What I’m<br>working around.</h1>
+  <p class="lead" id="nowIntro">A concise snapshot of the areas currently represented across WWZ.iM.</p>
+  <div class="meta" id="updated">UPDATED · 2026-11-13</div>
+  <section class="focus-list" id="focusList"><p>Loading current focus…</p></section>
+  <aside class="note">This page is an editorial snapshot, not a real-time project tracker. Project delivery status, experiment results and exact completion dates should be confirmed in their linked records before being presented as completed work.</aside>
+  <footer class="now-foot"><span>WWZ.iM · Now</span><a href="/about.html">About Wang Wenzhi ↗</a></footer>
+</main>
+<script src="/js/site-theme.js?v=20260920-inline-theme"></script>
+<script src="/js/site-shell.js?v=20261031-native-nav"></script>
+<script>
+(async () => {
+ const list = document.getElementById('focusList');
+ try {
+   const response = await fetch('/data/now.json', {cache:'no-cache'});
+   if (!response.ok) throw new Error('Could not load current focus');
+   const data = await response.json();
+   document.getElementById('nowIntro').textContent = data.intro;
+   document.getElementById('updated').textContent = 'UPDATED · ' + data.updated;
+   list.innerHTML = data.items.map(item => `<article class="focus-item">
+     <small>${item.category}</small>
+     <div><h2>${item.title}</h2><p>${item.summary}</p></div>
+     <a href="${item.href}">Explore ↗</a>
+   </article>`).join('');
+ } catch (error) {
+   list.innerHTML = '<p>Current focus data is temporarily unavailable.</p>';
+ }
+})();
+</script>
+</body></html>
