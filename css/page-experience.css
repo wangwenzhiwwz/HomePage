@@ -145,3 +145,44 @@
   .wwz-page-banner[data-section="videos"] h2{font-size:clamp(2.55rem,10vw,3.7rem)!important}
   .wwz-page-banner[data-section="videos"] p{max-width:42ch}
 }
+
+
+/* Video hero — image-free editorial composition */
+.wwz-page-banner[data-section="videos"]{
+  min-height:clamp(390px,39vw,480px);display:flex;align-items:center;justify-content:flex-start;
+  padding:clamp(34px,5.5vw,76px);color:#202b30;background-color:#f1eee8;
+  background-image:linear-gradient(115deg,#f5eee5 0%,#f0f1ec 46%,#e5eef0 100%)!important;
+  background-position:center;box-shadow:0 22px 60px rgba(47,67,73,.10);border:1px solid rgba(80,104,108,.12)
+}
+.wwz-page-banner[data-section="videos"]:before{
+  background:radial-gradient(ellipse at 82% 48%,rgba(124,185,190,.34),transparent 42%),radial-gradient(ellipse at 65% 10%,rgba(239,183,147,.30),transparent 38%),linear-gradient(90deg,rgba(248,244,237,.18),rgba(235,242,239,.04) 65%,transparent)
+}
+.wwz-page-banner[data-section="videos"]:after{
+  inset:0 0 0 43%;opacity:.9;
+  background:radial-gradient(circle at 67% 50%,rgba(255,255,255,.78) 0 9%,rgba(255,255,255,.12) 9.4% 18%,transparent 18.4%),radial-gradient(circle at 67% 50%,rgba(98,157,169,.16) 0 27%,transparent 27.4%),repeating-radial-gradient(ellipse at 67% 50%,transparent 0 35px,rgba(73,132,145,.20) 36px 37px,transparent 38px 58px),radial-gradient(ellipse at 78% 48%,rgba(217,160,130,.20),transparent 52%);
+  pointer-events:none
+}
+.wwz-page-banner[data-section="videos"] .wwz-banner-content{position:relative;z-index:1;width:min(650px,58%);padding:0}
+.wwz-page-banner[data-section="videos"] .wwz-banner-kicker{margin-bottom:24px;color:#62777b}
+.wwz-page-banner[data-section="videos"] .wwz-banner-kicker:before{background:#c88766}
+.wwz-page-banner[data-section="videos"] h2{max-width:660px;color:#202b30!important;font-size:clamp(3.1rem,6.1vw,5.35rem)!important;line-height:.96!important;letter-spacing:-.075em!important;text-shadow:none}
+.wwz-page-banner[data-section="videos"] p{max-width:520px;margin-top:22px;color:#647276!important;font-size:clamp(.96rem,1.35vw,1.08rem)!important;line-height:1.78!important;text-shadow:none}
+.wwz-page-banner[data-section="videos"] .wwz-banner-links{margin-top:28px}
+.wwz-page-banner[data-section="videos"] .wwz-banner-links a{min-height:43px;padding-inline:18px;color:#26363b;border:1px solid rgba(67,94,99,.20);background:rgba(255,255,255,.52);box-shadow:0 5px 18px rgba(47,67,73,.05);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px)}
+.wwz-page-banner[data-section="videos"] .wwz-banner-links a:hover{color:#17272c;background:rgba(255,255,255,.82);transform:translateY(-3px);box-shadow:0 12px 24px rgba(47,67,73,.10)}
+:root[data-theme="dark"] .wwz-page-banner[data-section="videos"]{color:#eaf0ee;background-color:#182326;background-image:linear-gradient(115deg,#1d292b 0%,#202f34 52%,#26373a 100%)!important;border-color:rgba(220,237,235,.10);box-shadow:0 22px 60px rgba(0,0,0,.22)}
+:root[data-theme="dark"] .wwz-page-banner[data-section="videos"]:before{background:radial-gradient(ellipse at 82% 48%,rgba(92,157,164,.25),transparent 42%),radial-gradient(ellipse at 65% 10%,rgba(192,133,105,.16),transparent 38%)}
+:root[data-theme="dark"] .wwz-page-banner[data-section="videos"]:after{background:radial-gradient(circle at 67% 50%,rgba(228,242,238,.12) 0 9%,rgba(228,242,238,.035) 9.4% 18%,transparent 18.4%),radial-gradient(circle at 67% 50%,rgba(98,157,169,.12) 0 27%,transparent 27.4%),repeating-radial-gradient(ellipse at 67% 50%,transparent 0 35px,rgba(155,198,198,.13) 36px 37px,transparent 38px 58px)}
+:root[data-theme="dark"] .wwz-page-banner[data-section="videos"] .wwz-banner-kicker{color:#b1c7c7}
+:root[data-theme="dark"] .wwz-page-banner[data-section="videos"] h2{color:#f0f4f1!important}
+:root[data-theme="dark"] .wwz-page-banner[data-section="videos"] p{color:#bdcdca!important}
+:root[data-theme="dark"] .wwz-page-banner[data-section="videos"] .wwz-banner-links a{color:#e8f0ed;border-color:rgba(221,239,236,.18);background:rgba(238,248,245,.08)}
+:root[data-theme="dark"] .wwz-page-banner[data-section="videos"] .wwz-banner-links a:hover{background:rgba(238,248,245,.16)}
+@media(max-width:760px){
+  .wwz-page-banner[data-section="videos"]{min-height:440px;align-items:flex-end;padding:28px 25px;background-image:linear-gradient(145deg,#f5eee5 0%,#edf1ed 55%,#e1edef 100%)!important}
+  .wwz-page-banner[data-section="videos"]:after{inset:0 0 34% 18%;opacity:.62;background-position:center}
+  .wwz-page-banner[data-section="videos"] .wwz-banner-content{width:100%}
+  .wwz-page-banner[data-section="videos"] h2{font-size:clamp(2.75rem,11vw,4rem)!important}
+  .wwz-page-banner[data-section="videos"] p{max-width:42ch}
+}
+@media(prefers-reduced-motion:reduce){.wwz-page-banner[data-section="videos"] *{transition:none!important;animation:none!important}}
