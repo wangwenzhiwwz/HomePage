@@ -1945,3 +1945,21 @@ html, body {
     color:inherit !important;
   }
 }
+
+
+/* Keep link text readable and let only the glyphs invert against the moving pill. */
+@media (min-width:1100px) {
+  .wwz-topbar .wwz-primary-nav { isolation:isolate !important; }
+  .wwz-topbar .wwz-nav-indicator { z-index:0 !important; }
+  .wwz-topbar .wwz-primary-nav > .wwz-nav-link {
+    z-index:1 !important;
+    color:#fff !important;
+    mix-blend-mode:normal !important;
+  }
+  .wwz-topbar .wwz-primary-nav > .wwz-nav-link span {
+    color:#fff !important;
+    mix-blend-mode:difference !important;
+    position:relative;
+    z-index:1;
+  }
+}
