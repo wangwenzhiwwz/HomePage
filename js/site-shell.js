@@ -254,22 +254,40 @@
     indicator.setAttribute('aria-hidden', 'true');
     nav.prepend(indicator);
 
-    const moveTo = link => {
+    const moveTo = (link, animate = true) => {
       if (!link) return;
-      indicator.style.width = link.offsetWidth + 'px';
-      indicator.style.height = link.offsetHeight + 'px';
-      indicator.style.transform = 'translate3d(' + link.offsetLeft + 'px,0,0)';
+      const navRect = nav.getBoundingClientRect();
+      const linkRect = link.getBoundingClientRect();
+      if (!navRect.width || !linkRect.width) return;
+      if (!animate) indicator.style.transition = 'none';
+      indicator.style.width = linkRect.width + 'px';
+      indicator.style.height = linkRect.height + 'px';
+      indicator.style.transform = 'translate3d(' +
+        (linkRect.left - navRect.left) + 'px,' +
+        (linkRect.top - navRect.top) + 'px,0)';
+      if (!animate) {
+        indicator.getBoundingClientRect();
+        indicator.style.removeProperty('transition');
+      }
     };
-    const active = nav.querySelector('.wwz-nav-link.active');
-    requestAnimationFrame(() => {
-      moveTo(active);
-      indicator.classList.add('is-ready');
-    });
+
+    const current = () => nav.querySelector('.wwz-nav-link[aria-current="page"], .wwz-nav-link.active');
+    // Set the exact initial position synchronously before making the pill visible.
+    moveTo(current(), false);
+    indicator.classList.add('is-ready');
+
     nav.querySelectorAll('.wwz-nav-link').forEach(link => {
-      link.addEventListener('click', () => moveTo(link));
+      link.addEventListener('click', () => moveTo(link, true));
     });
-    addEventListener('resize', () => moveTo(nav.querySelector('.wwz-nav-link.active')));
-    addEventListener('pageshow', () => moveTo(nav.querySelector('.wwz-nav-link.active')));
+    const refresh = () => moveTo(current(), false);
+    addEventListener('resize', refresh);
+    addEventListener('pageshow', refresh);
+    if (document.fonts?.ready) document.fonts.ready.then(refresh);
+    if (window.ResizeObserver) {
+      const observer = new ResizeObserver(refresh);
+      observer.observe(nav);
+      nav.querySelectorAll('.wwz-nav-link').forEach(link => observer.observe(link));
+    }
   };
 
   const updateActiveRoute = (sidebar, url) => {
