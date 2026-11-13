@@ -6,7 +6,7 @@
 
   // Name the navigation only during cross-document view transitions.
   // A permanent name creates a backdrop root and blocks child glass effects.
-  const navTransitionName = 'wwz-site-navigation';
+  const navTransitionName = 'wwz-sidebar';
   const nameNavigation = () => {
     const nav = document.querySelector('.sidebar');
     if (nav) nav.style.viewTransitionName = navTransitionName;
@@ -18,9 +18,8 @@
   addEventListener('pagereveal', event => {
     if (!event.viewTransition) return;
     const nav = nameNavigation();
-    event.viewTransition.finished.finally(() => {
-      if (nav) nav.style.viewTransitionName = '';
-    });
+    // Keep the same shared-element name on both documents. Clearing it here
+    // can make the persistent navigation vanish during the transition.
   });
   const canonicalPath = url => url.pathname.replace(/\/index\.html$/, '/');
   // Keep relative assets stable when the persistent navigation changes the URL.
@@ -158,6 +157,7 @@
     sidebar.setAttribute("aria-label", "Primary navigation");
     sidebar.innerHTML = template;
     updateActiveRoute(sidebar, new URL(location.href));
+    mountNavIndicator(sidebar);
     const currentPath = location.pathname;
     const projectFolder = sidebar.querySelectorAll('.wwz-nav-folder')[0];
     const learningFolder = sidebar.querySelectorAll('.wwz-nav-folder')[1];
@@ -260,6 +260,32 @@
     url.pathname.includes("/article") || url.pathname.includes("/articles/") || url.pathname.includes("/topics/") ? "lab" : url.pathname.endsWith("/blog.html") ? "blog" :
     url.pathname.includes("/projects/") || url.pathname.endsWith("/works.html") ? "works" : "home")
   );
+
+  const mountNavIndicator = sidebar => {
+    const nav = sidebar.querySelector('.wwz-primary-nav');
+    if (!nav || nav.querySelector('.wwz-nav-indicator')) return;
+    nav.classList.add('wwz-nav-indicator-host');
+    const indicator = document.createElement('span');
+    indicator.className = 'wwz-nav-indicator';
+    indicator.setAttribute('aria-hidden', 'true');
+    nav.prepend(indicator);
+
+    const moveTo = link => {
+      if (!link) return;
+      indicator.style.height = link.offsetHeight + 'px';
+      indicator.style.transform = 'translate3d(0,' + link.offsetTop + 'px,0)';
+    };
+    const active = nav.querySelector('.wwz-nav-link.active');
+    requestAnimationFrame(() => {
+      moveTo(active);
+      indicator.classList.add('is-ready');
+    });
+    nav.querySelectorAll('.wwz-nav-link').forEach(link => {
+      link.addEventListener('click', () => moveTo(link));
+    });
+    addEventListener('resize', () => moveTo(nav.querySelector('.wwz-nav-link.active')));
+    addEventListener('pageshow', () => moveTo(nav.querySelector('.wwz-nav-link.active')));
+  };
 
   const updateActiveRoute = (sidebar, url) => {
     const key = routeKey(url);
