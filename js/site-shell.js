@@ -73,7 +73,7 @@
 
   const mountPageExperience = () => {
     const path = location.pathname;
-    const isHome = path === "/" || path.endsWith("/index.html") && !/\\/(projects|lab|topics|articles|videos)\\//.test(path);
+    const isHome = path === "/" || path.endsWith("/index.html") && !/\/(projects|lab|topics|articles|videos)\//.test(path);
     const main = document.querySelector("main");
     if (!main) return;
     const stylesheet = document.createElement("link");
@@ -103,14 +103,14 @@
     if (main.querySelector(".wwz-page-banner")) return;
     const detail = path.includes("/projects/") && path.split("/").filter(Boolean).length > 1;
     const map = [
-      [/\\/projects\\//,{section:detail?"tool":"projects",kicker:detail?"PROJECT FIELD GUIDE":"INDEPENDENT PRODUCTS",copy:detail?"Understand the use case, follow a practical start path and check important limitations before relying on a tool.":"Small independent products designed around real tasks — with clear use cases, practical instructions and honest limitations.",links:[["All projects","/projects/"],["Technical guides","/blog.html"]]}],
-      [/\\/lab\\//,{section:"lab",kicker:"AI LAB · RESEARCH & PRODUCTION",copy:"Turn generative experiments into repeatable production workflows: dependencies, inputs, quality checks and recovery steps.",links:[["ComfyUI topic","/topics/ai-comfyui/"],["Workstation notes","/articles/comfyui-local-video/"]]}],
-      [/\\/topics\\/|\\/articles\\//,{section:"lab",kicker:"PRACTICAL KNOWLEDGE",copy:"A working reference for decisions, setup steps, validation and troubleshooting — not just a collection of tool names.",links:[["AI Lab","/lab/"],["All guides","/blog.html"]]}],
-      [/\\/videos\\//,{section:"videos",kicker:"COMMERCIAL VIDEO · STORY & CRAFT",copy:"Selected product films and visual stories, with attention to the product, the shot and the final communication.",links:[["Selected works","/works.html"],["About the process","/about.html"]]}],
-      [/works\\.html|\\/works\\//,{section:"works",kicker:"SELECTED VISUAL WORK",copy:"Photography, 3D artwork and visual experiments — curated as a visual record rather than a raw archive.",links:[["Watch films","/videos/"],["About","/about.html"]]}],
-      [/blog\\.html|\\/blog\\//,{section:"blog",kicker:"FIELD NOTES · GUIDES · DOCUMENTATION",copy:"Practical explanations, deployment notes and reusable checklists for creative technology and independent infrastructure.",links:[["AI Lab","/lab/"],["Projects","/projects/"]]}],
-      [/now\\.html/,{section:"now",kicker:"CURRENT FOCUS · LIVING INDEX",copy:"A concise view of the themes being developed across visual production, AI workflows, digital products and infrastructure.",links:[["Projects","/projects/"],["AI Lab","/lab/"]]}],
-      [/about\\.html/,{section:"about",kicker:"ABOUT · WWZ.iM",copy:"Creative production and technical problem-solving, connected by curiosity, careful execution and useful outcomes.",links:[["Selected work","/works.html"],["Contact","/#contact"]]}]
+      [/\/projects\//,{section:detail?"tool":"projects",kicker:detail?"PROJECT FIELD GUIDE":"INDEPENDENT PRODUCTS",copy:detail?"Understand the use case, follow a practical start path and check important limitations before relying on a tool.":"Small independent products designed around real tasks — with clear use cases, practical instructions and honest limitations.",links:[["All projects","/projects/"],["Technical guides","/blog.html"]]}],
+      [/\/lab\//,{section:"lab",kicker:"AI LAB · RESEARCH & PRODUCTION",copy:"Turn generative experiments into repeatable production workflows: dependencies, inputs, quality checks and recovery steps.",links:[["ComfyUI topic","/topics/ai-comfyui/"],["Workstation notes","/articles/comfyui-local-video/"]]}],
+      [/\/topics\/|\/articles\//,{section:"lab",kicker:"PRACTICAL KNOWLEDGE",copy:"A working reference for decisions, setup steps, validation and troubleshooting — not just a collection of tool names.",links:[["AI Lab","/lab/"],["All guides","/blog.html"]]}],
+      [/\/videos\//,{section:"videos",kicker:"COMMERCIAL VIDEO · STORY & CRAFT",copy:"Selected product films and visual stories, with attention to the product, the shot and the final communication.",links:[["Selected works","/works.html"],["About the process","/about.html"]]}],
+      [/works\.html|\/works\//,{section:"works",kicker:"SELECTED VISUAL WORK",copy:"Photography, 3D artwork and visual experiments — curated as a visual record rather than a raw archive.",links:[["Watch films","/videos/"],["About","/about.html"]]}],
+      [/blog\.html|\/blog\//,{section:"blog",kicker:"FIELD NOTES · GUIDES · DOCUMENTATION",copy:"Practical explanations, deployment notes and reusable checklists for creative technology and independent infrastructure.",links:[["AI Lab","/lab/"],["Projects","/projects/"]]}],
+      [/now\.html/,{section:"now",kicker:"CURRENT FOCUS · LIVING INDEX",copy:"A concise view of the themes being developed across visual production, AI workflows, digital products and infrastructure.",links:[["Projects","/projects/"],["AI Lab","/lab/"]]}],
+      [/about\.html/,{section:"about",kicker:"ABOUT · WWZ.iM",copy:"Creative production and technical problem-solving, connected by curiosity, careful execution and useful outcomes.",links:[["Selected work","/works.html"],["Contact","/#contact"]]}]
     ];
     const config = map.find(([pattern]) => pattern.test(path))?.[1];
     if (!config) return;
