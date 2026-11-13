@@ -1,5 +1,5 @@
 .wwz-topbar .wwz-nav-link span { color: inherit; }
-.works-page * { cursor: auto !important; }
+.works-page, .works-page * { cursor: auto !important; }
 .works-page :is(a, button) { cursor: pointer !important; }
 .works-page .portfolio-card, .works-page .portfolio-card * { cursor: zoom-in !important; }
 .works-page .viewer-stage img { cursor: zoom-in !important; }
