@@ -1989,3 +1989,50 @@ html, body {
   .wwz-topbar .wwz-primary-nav > .wwz-nav-link,
   .wwz-topbar .wwz-primary-nav > .wwz-nav-link span { transition:none !important; }
 }
+
+
+/* Persistent chrome: navigation and fixed controls stay above page content
+   and are never hidden by scroll, route, or transient page effects. */
+.sidebar.wwz-topbar {
+  position:fixed !important;
+  top:0 !important;
+  left:0 !important;
+  right:0 !important;
+  z-index:2147483000 !important;
+  visibility:visible !important;
+  opacity:1 !important;
+  pointer-events:auto !important;
+  animation:none !important;
+  transition:none !important;
+}
+.sidebar.wwz-topbar,
+.sidebar.wwz-topbar * {
+  backface-visibility:visible;
+}
+.wwz-topbar .wwz-primary-nav,
+.wwz-topbar .wwz-sidebar-brand,
+.wwz-topbar .wwz-mobile-controls {
+  visibility:visible !important;
+  opacity:1 !important;
+}
+.wwz-scroll-top {
+  z-index:2147483001 !important;
+  visibility:visible !important;
+}
+.wwz-menu-scrim { z-index:2147482998 !important; }
+html.wwz-menu-open .sidebar.wwz-topbar { z-index:2147483000 !important; }
+
+/* On compact screens the header remains fixed while its menu opens below it. */
+@media (max-width:1099px) {
+  .sidebar.wwz-topbar {
+    position:fixed !important;
+    top:0 !important;
+    left:0 !important;
+    right:0 !important;
+    width:100% !important;
+  }
+  .wwz-topbar.sidebar-open {
+    max-height:100dvh !important;
+    overflow-y:auto !important;
+  }
+}
