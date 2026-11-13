@@ -85,6 +85,10 @@
       if (main.querySelector(".wwz-quick-links")) return;
       const hero = main.querySelector(".hero");
       if (!hero) return;
+      const banner = document.createElement("section");
+      banner.className = "wwz-home-banner";
+      banner.innerHTML = '<div><span>WWZ.iM · CREATIVE / BUILD / EXPLORE</span><h2>Visual stories.<br>Useful technology.</h2><p>A personal space for commercial video, AI workflows, independent tools and practical technical notes.</p><a href="/works.html">Explore selected work ↗</a></div>';
+      hero.insertAdjacentElement("afterend", banner);
       const section = document.createElement("section");
       section.className = "wwz-quick-links";
       section.setAttribute("aria-label", "Explore WWZ.iM");
@@ -96,7 +100,7 @@
         ['05 / CURRENT','Now','A clear snapshot of current creative and technical focus.','/now.html'],
         ['06 / ABOUT','About','How I work, what I build and how to get in touch.','/about.html']
       ].map(([k,t,d,u]) => '<a class="wwz-quick-link" href="'+u+'"><small>'+k+'</small><div><strong>'+t+'</strong><span>'+d+'</span></div></a>').join('');
-      hero.insertAdjacentElement("afterend", section);
+      banner.insertAdjacentElement("afterend", section);
       return;
     }
 
