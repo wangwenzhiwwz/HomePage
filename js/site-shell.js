@@ -74,7 +74,7 @@
   const mountPageExperience = () => {
     const path = location.pathname;
     const isHome = path === "/" || path.endsWith("/index.html") && !/\/(projects|lab|topics|articles|videos)\//.test(path);
-    const main = document.querySelector("main");
+    const main = document.querySelector("main, .main-content, article");
     if (!main) return;
     const stylesheet = document.createElement("link");
     stylesheet.rel = "stylesheet";
