@@ -29,9 +29,9 @@
     base.href = initialUrl.href;
     document.head.prepend(base);
   }
-  const active = (location.hash === "#guides" ? "blog" : document.body?.dataset.activePage) || (
+  const active = (document.body?.dataset.activePage) || (
     location.pathname.includes("/videos/") ? "videos" :
-    location.pathname.includes("/article") || location.pathname.includes("/articles/") || location.pathname.includes("/topics/") || location.pathname.endsWith("/blog.html") ? "works" :
+    location.pathname.includes("/article") || location.pathname.includes("/articles/") || location.pathname.includes("/topics/") || location.pathname.endsWith("/blog.html") ? "blog" :
     location.pathname.endsWith("/works.html") ? "works" : "home"
   );
 
@@ -53,12 +53,12 @@
         ${item("home",root+"index.html","fa-solid fa-house","Home")}
         ${item("works",root+"works.html","fa-solid fa-layer-group","Works")}
         ${item("videos",root+"videos/","fa-solid fa-film","Videos")}
-        ${item("blog",root+"works.html#guides","fa-solid fa-book-open","Blog")}
+        ${item("blog",root+"blog.html","fa-solid fa-book-open","Blog")}
         ${item("about",root+"about.html","fa-solid fa-user","About")}
       </nav></div>
       <div class="wwz-nav-group"><p class="wwz-nav-label">Explore <span>EXPLORE</span></p>
         <details class="wwz-nav-folder"><summary><span><i class="fa-solid fa-layer-group"></i> Works sections</span><i class="fa-solid fa-chevron-down"></i></summary><nav class="wwz-nav-sub" aria-label="Works sections">
-          <a href="${root}works.html#portfolio">Selected Work</a><a href="${root}works.html#projects">Digital Projects</a><a href="${root}works.html#guides">Blog & Guides</a>
+          <a href="${root}works.html#portfolio">Selected Work</a><a href="${root}works.html#projects">Digital Projects</a><a href="${root}blog.html">Blog & Guides</a>
         </nav></details>
         <details class="wwz-nav-folder"><summary><span><i class="fa-solid fa-lightbulb"></i> Topics & Learning</span><i class="fa-solid fa-chevron-down"></i></summary><nav class="wwz-nav-sub" aria-label="Topics & Learning"><a href="${root}lab/">AI Lab</a><a href="${root}topics/ai-comfyui/">ComfyUI / Local AI</a><a href="${root}now.html">Now · Current Focus</a><a href="${root}works.html#guides">Blog & Guides</a></nav></details>
       </div>
@@ -253,11 +253,11 @@
 
   const routeKey = url => (
     url.hash === "#contact" ? "contact" :
-    url.hash === "#guides" ? "blog" :
+    
     document.body?.dataset.activePage ||
     (url.pathname.endsWith("/about.html") ? "about" :
     url.pathname.includes("/videos/") ? "videos" :
-    url.pathname.includes("/article") || url.pathname.includes("/articles/") || url.pathname.includes("/topics/") || url.pathname.endsWith("/blog.html") ? "works" :
+    url.pathname.includes("/article") || url.pathname.includes("/articles/") || url.pathname.includes("/topics/") ? "lab" : url.pathname.endsWith("/blog.html") ? "blog" :
     url.pathname.includes("/projects/") || url.pathname.endsWith("/works.html") ? "works" : "home")
   );
 
