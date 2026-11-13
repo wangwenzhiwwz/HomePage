@@ -2128,3 +2128,36 @@ html.wwz-menu-open .sidebar.wwz-topbar { z-index:2147483000 !important; }
   border-color:rgba(255,255,255,.11) !important;
   color:#f2f2f2 !important;
 }
+
+
+/* Dark theme gradient restraint: preserve each category's hue, but lower
+   saturation and contrast so decorative color stays in the background. */
+:root[data-theme="dark"] {
+  --wwz-color-creative:#75645d;
+  --wwz-color-ai:#596f76;
+  --wwz-color-systems:#626f63;
+  --wwz-accent:#a0a0a0;
+  --accent-color:#a0a0a0;
+  --accent-glow:rgba(180,180,180,.10);
+}
+:root[data-theme="dark"] .experience-card--creative {
+  background:linear-gradient(142deg,#40332f 0%,#40363c 48%,#343b43 100%) !important;
+}
+:root[data-theme="dark"] .experience-card--ai {
+  background:linear-gradient(142deg,#263c40 0%,#2b4145 48%,#343849 100%) !important;
+}
+:root[data-theme="dark"] .experience-card--systems {
+  background:linear-gradient(142deg,#303d32 0%,#35443c 48%,#414333 100%) !important;
+}
+/* Tone down decorative gradient surfaces and glows without flattening imagery. */
+:root[data-theme="dark"] :is(
+  .gradient-card,.gradient-bg,.gradient-surface,
+  .experience-card,.project-card--gradient,.category-card--gradient
+) {
+  box-shadow:0 8px 28px rgba(0,0,0,.24) !important;
+}
+:root[data-theme="dark"] :is(
+  .gradient-text,.gradient-accent,.text-gradient
+) {
+  filter:saturate(.68) brightness(.88);
+}
