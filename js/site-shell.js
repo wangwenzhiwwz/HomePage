@@ -78,7 +78,7 @@
     if (!main) return;
     const stylesheet = document.createElement("link");
     stylesheet.rel = "stylesheet";
-    stylesheet.href = "/css/page-experience.css?v=20261113-brand-palette";
+    stylesheet.href = "/css/page-experience.css?v=20261113-video-hero";
     if (!document.querySelector('link[href*="page-experience.css"]')) document.head.append(stylesheet);
 
     if (isHome) {
@@ -112,7 +112,7 @@
       [/\/projects\//,{section:detail?"tool":"projects",kicker:detail?"PROJECT FIELD GUIDE":"INDEPENDENT PRODUCTS",copy:detail?"Understand the use case, follow a practical start path and check important limitations before relying on a tool.":"Small independent products designed around real tasks — with clear use cases, practical instructions and honest limitations.",links:[["All projects","/projects/"],["Technical guides","/blog.html"]]}],
       [/\/lab\//,{section:"lab",kicker:"AI LAB · RESEARCH & PRODUCTION",copy:"Turn generative experiments into repeatable production workflows: dependencies, inputs, quality checks and recovery steps.",links:[["ComfyUI topic","/topics/ai-comfyui/"],["Workstation notes","/articles/comfyui-local-video/"]]}],
       [/\/topics\/|\/articles\//,{section:"lab",kicker:"PRACTICAL KNOWLEDGE",copy:"A working reference for decisions, setup steps, validation and troubleshooting — not just a collection of tool names.",links:[["AI Lab","/lab/"],["All guides","/blog.html"]]}],
-      [/\/videos\//,{section:"videos",kicker:"COMMERCIAL VIDEO · STORY & CRAFT",copy:"Selected product films and visual stories, with attention to the product, the shot and the final communication.",links:[["Selected works","/works.html"],["About the process","/about.html"]]}],
+      [/\/videos\//,{section:"videos",kicker:"COMMERCIAL VIDEO · STORY & CRAFT",title:"Product films.<br>Stories that move.",copy:"Selected product films shaped around the product, the people and the details that make each story matter.",links:[["Selected works","/works.html"],["About the process","/about.html"]]}],
       [/works\.html|\/works\//,{section:"works",kicker:"SELECTED VISUAL WORK",copy:"Photography, 3D artwork and visual experiments — curated as a visual record rather than a raw archive.",links:[["Watch films","/videos/"],["About","/about.html"]]}],
       [/blog\.html|\/blog\//,{section:"blog",kicker:"FIELD NOTES · GUIDES · DOCUMENTATION",copy:"Practical explanations, deployment notes and reusable checklists for creative technology and independent infrastructure.",links:[["AI Lab","/lab/"],["Projects","/projects/"]]}],
       [/now\.html/,{section:"now",kicker:"CURRENT FOCUS · LIVING INDEX",copy:"A concise view of the themes being developed across visual production, AI workflows, digital products and infrastructure.",links:[["Projects","/projects/"],["AI Lab","/lab/"]]}],
@@ -123,7 +123,7 @@
     const banner = document.createElement("section");
     banner.className = "wwz-page-banner";
     banner.dataset.section = config.section;
-    banner.innerHTML = '<div class="wwz-banner-content"><div class="wwz-banner-kicker">'+config.kicker+'</div><h2>Make ideas useful.</h2><p>'+config.copy+'</p><nav class="wwz-banner-links" aria-label="Related pages">'+config.links.map(([label,href])=>'<a href="'+href+'">'+label+' ↗</a>').join('')+'</nav></div>';
+    banner.innerHTML = '<div class="wwz-banner-content"><div class="wwz-banner-kicker">'+config.kicker+'</div><h2>'+(config.title||"Make ideas useful.")+'</h2><p>'+config.copy+'</p><nav class="wwz-banner-links" aria-label="Related pages">'+config.links.map(([label,href])=>'<a href="'+href+'">'+label+' ↗</a>').join('')+'</nav></div>';
     main.prepend(banner);
   };
 
