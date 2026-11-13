@@ -1845,3 +1845,16 @@ html, body {
 :root[data-theme="light"] .experience-card--creative { background:linear-gradient(142deg,#f4c7a9 0%,#e9a98f 47%,#d9b6bd 100%); }
 :root[data-theme="light"] .experience-card--ai { background:linear-gradient(142deg,#b9e3e8 0%,#9ed4dc 48%,#b8bce8 100%); }
 :root[data-theme="light"] .experience-card--systems { background:linear-gradient(142deg,#c6dfc9 0%,#a9cbb9 48%,#d9d7b7 100%); }
+
+
+/* Topbar uses the active-link pill itself; suppress the legacy sliding layer
+   that can render as a detached gray rectangle in horizontal navigation. */
+.wwz-topbar .wwz-nav-indicator {
+  display: none !important;
+}
+
+::view-transition-old(wwz-sidebar),
+::view-transition-new(wwz-sidebar),
+::view-transition-image-pair(wwz-sidebar) {
+  border-radius: 999px !important;
+}
