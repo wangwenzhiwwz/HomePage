@@ -1858,3 +1858,40 @@ html, body {
 ::view-transition-image-pair(wwz-sidebar) {
   border-radius: 999px !important;
 }
+
+
+/* Motion is limited to the active black navigation pill.
+   Disable cross-document page transitions to prevent unexpected page sliding. */
+@view-transition { navigation: none !important; }
+.sidebar.wwz-topbar { view-transition-name: none !important; }
+.wwz-topbar .wwz-primary-nav { position: relative !important; }
+.wwz-topbar .wwz-nav-indicator {
+  display: block !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 0;
+  height: 100%;
+  border-radius: 999px !important;
+  background: #2b2b2b !important;
+  opacity: 0;
+  transform: translate3d(0,0,0);
+  transition: transform 360ms cubic-bezier(.2,.8,.2,1), width 360ms cubic-bezier(.2,.8,.2,1), opacity 160ms ease !important;
+  will-change: transform, width;
+}
+.wwz-topbar .wwz-nav-indicator.is-ready { opacity: 1 !important; }
+.wwz-topbar .wwz-primary-nav > .wwz-nav-link,
+.wwz-topbar .wwz-primary-nav > .wwz-nav-link.active,
+.wwz-topbar .wwz-primary-nav > .wwz-nav-link[aria-current="page"] {
+  position: relative !important;
+  z-index: 1 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  color: var(--nav-ink) !important;
+}
+.wwz-topbar .wwz-primary-nav > .wwz-nav-link.active span,
+.wwz-topbar .wwz-primary-nav > .wwz-nav-link[aria-current="page"] span { color: #fff !important; }
+.wwz-topbar .wwz-primary-nav > .wwz-nav-link.active,
+.wwz-topbar .wwz-primary-nav > .wwz-nav-link[aria-current="page"] { color: #fff !important; }
+@media (prefers-reduced-motion: reduce) {
+  .wwz-topbar .wwz-nav-indicator { transition: none !important; }
+}
