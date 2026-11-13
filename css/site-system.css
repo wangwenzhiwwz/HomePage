@@ -2036,3 +2036,95 @@ html.wwz-menu-open .sidebar.wwz-topbar { z-index:2147483000 !important; }
     overflow-y:auto !important;
   }
 }
+
+
+/* Mobile header recovery: keep the compact brand + menu control visible
+   regardless of desktop grid rules or sidebar collapsed state. */
+@media (max-width:1099px) {
+  .sidebar.wwz-topbar {
+    display:flex !important;
+    flex-direction:column !important;
+    align-items:stretch !important;
+    justify-content:flex-start !important;
+    position:fixed !important;
+    top:max(10px,env(safe-area-inset-top)) !important;
+    left:12px !important;
+    right:12px !important;
+    width:auto !important;
+    height:auto !important;
+    min-height:58px !important;
+    max-height:calc(100dvh - 20px - env(safe-area-inset-top)) !important;
+    padding:7px 12px !important;
+    overflow:visible !important;
+    visibility:visible !important;
+    opacity:1 !important;
+    z-index:2147483000 !important;
+    transform:none !important;
+  }
+  .wwz-topbar .wwz-sidebar-head {
+    display:flex !important;
+    flex:0 0 42px !important;
+    width:100% !important;
+    min-height:42px !important;
+    visibility:visible !important;
+    opacity:1 !important;
+  }
+  .wwz-topbar .wwz-sidebar-brand,
+  .wwz-topbar .wwz-mobile-controls,
+  .wwz-topbar .wwz-menu-button {
+    display:flex !important;
+    visibility:visible !important;
+    opacity:1 !important;
+  }
+  .wwz-topbar .wwz-sidebar-content {
+    position:static !important;
+    width:100% !important;
+    box-sizing:border-box !important;
+    margin-top:9px !important;
+  }
+  .wwz-topbar:not(.sidebar-open) .wwz-sidebar-content { display:none !important; }
+  .wwz-topbar.sidebar-open .wwz-sidebar-content {
+    display:flex !important;
+    max-height:calc(100dvh - 100px - env(safe-area-inset-top) - env(safe-area-inset-bottom)) !important;
+    overflow-y:auto !important;
+  }
+}
+
+/* Dark mode should read as true near-black, not blue-gray. */
+:root[data-theme="dark"] {
+  color-scheme:dark;
+  --wwz-page-bg:#050505;
+  --bg:#050505;
+  --bg-body:#050505;
+  --surface:#101010;
+  --panel:#101010;
+  --glass-bg:rgba(16,16,16,.94);
+  --glass-border:rgba(255,255,255,.10);
+  --text-primary:#f2f2f2;
+  --text-secondary:#a6a6a6;
+  --ink:#f2f2f2;
+  --muted:#a6a6a6;
+  --line:rgba(255,255,255,.10);
+  --nav-glass:rgba(12,12,12,.94);
+  --nav-line:rgba(255,255,255,.12);
+  --nav-ink:#f2f2f2;
+  --nav-sheen:linear-gradient(145deg,rgba(255,255,255,.055),rgba(255,255,255,.012) 65%);
+  --nav-shadow:inset 0 1px 0 rgba(255,255,255,.06),0 12px 36px rgba(0,0,0,.58);
+  --wwz-sidebar-bg:rgba(10,10,10,.96);
+  --wwz-sidebar-ink:#f2f2f2;
+  --wwz-sidebar-border:rgba(255,255,255,.10);
+  --wwz-sidebar-shadow:0 16px 42px rgba(0,0,0,.65);
+}
+:root[data-theme="dark"] body {
+  background:#050505 !important;
+  color:#f2f2f2;
+}
+:root[data-theme="dark"] .wwz-topbar .wwz-primary-nav,
+:root[data-theme="dark"] .wwz-topbar .wwz-sidebar-content,
+:root[data-theme="dark"] .wwz-topbar .wwz-icon-button,
+:root[data-theme="dark"] .wwz-topbar .wwz-menu-button {
+  background-color:rgba(10,10,10,.96) !important;
+  background-image:var(--nav-sheen) !important;
+  border-color:rgba(255,255,255,.11) !important;
+  color:#f2f2f2 !important;
+}
