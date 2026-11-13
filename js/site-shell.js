@@ -29,7 +29,7 @@
     base.href = initialUrl.href;
     document.head.prepend(base);
   }
-  const active = document.body?.dataset.activePage || (
+  const active = (location.hash === "#guides" ? "blog" : document.body?.dataset.activePage) || (
     location.pathname.includes("/videos/") ? "videos" :
     location.pathname.includes("/article") || location.pathname.includes("/articles/") || location.pathname.includes("/topics/") || location.pathname.endsWith("/blog.html") ? "works" :
     location.pathname.endsWith("/works.html") ? "works" : "home"
@@ -106,7 +106,7 @@
       return;
     }
 
-    if (main.querySelector(".wwz-page-banner")) return;
+    if (main.querySelector(".wwz-page-banner")) return;\n    if (path.endsWith("/works.html") && main.querySelector(".works-hub-hero")) return;
     const detail = path.includes("/projects/") && path.split("/").filter(Boolean).length > 1;
     const map = [
       [/\/projects\//,{section:detail?"tool":"projects",kicker:detail?"PROJECT FIELD GUIDE":"INDEPENDENT PRODUCTS",copy:detail?"Understand the use case, follow a practical start path and check important limitations before relying on a tool.":"Small independent products designed around real tasks — with clear use cases, practical instructions and honest limitations.",links:[["Projects","/works.html#projects"],["Guides","/works.html#guides"]]}],
@@ -248,7 +248,7 @@
   };
 
   const routeKey = url => (
-    url.hash === "#contact" ? "contact" :
+    url.hash === "#contact" ? "contact" :\n    url.hash === "#guides" ? "blog" :
     document.body?.dataset.activePage ||
     (url.pathname.endsWith("/about.html") ? "about" :
     url.pathname.includes("/videos/") ? "videos" :
