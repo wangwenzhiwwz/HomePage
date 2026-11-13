@@ -28,13 +28,7 @@
     html:not([data-theme-ready]), html:not([data-theme-ready]) body { background:var(--wwz-initial-bg) !important; background-image:none !important; }
     html:not([data-theme-ready]), html:not([data-theme-ready]) * { transition:none !important; }
   
-    /* Particle identity mark: a volumetric W formed from a living particle field. */
-    .logo-stage.particle-w-stage { min-height:480px; display:flex; align-items:center; justify-content:center; overflow:hidden; }
-    .particle-w-canvas { display:block; width:100%; height:460px; max-width:680px; touch-action:pan-y; cursor:default; }
-    .particle-w-caption { position:absolute; left:50%; bottom:12px; transform:translateX(-50%); color:var(--muted); font:600 .58rem ui-monospace,monospace; letter-spacing:.2em; white-space:nowrap; opacity:.62; pointer-events:none; }
-    @media (max-width:1060px) { .logo-stage.particle-w-stage { min-height:440px; } .particle-w-canvas { height:420px; } }
-    @media (max-width:760px) { .logo-stage.particle-w-stage { min-height:360px; margin:0; } .particle-w-canvas { height:350px; } .particle-w-caption { bottom:0; font-size:.5rem; letter-spacing:.14em; } }
-    @media (prefers-reduced-motion:reduce) { .particle-w-canvas { opacity:.9; } }
+
 </style>
   <script src="js/site-theme.js?v=20260920-inline-theme" defer></script>
   <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=5">
@@ -289,7 +283,14 @@
       html { scroll-behavior:auto }
       *,*::before,*::after { animation-duration:.01ms!important; animation-iteration-count:1!important; transition-duration:.01ms!important }
     }
-  </style>
+      /* Particle identity mark: a volumetric W formed from a living particle field. */
+    .logo-stage.particle-w-stage { min-height:480px; display:flex; align-items:center; justify-content:center; overflow:hidden; }
+    .particle-w-canvas { display:block; width:100%; height:460px; max-width:680px; touch-action:pan-y; cursor:default; }
+    .particle-w-caption { position:absolute; left:50%; bottom:12px; transform:translateX(-50%); color:var(--muted); font:600 .58rem ui-monospace,monospace; letter-spacing:.2em; white-space:nowrap; opacity:.62; pointer-events:none; }
+    @media (max-width:1060px) { .logo-stage.particle-w-stage { min-height:440px; } .particle-w-canvas { height:420px; } }
+    @media (max-width:760px) { .logo-stage.particle-w-stage { min-height:360px; margin:0; } .particle-w-canvas { height:350px; } .particle-w-caption { bottom:0; font-size:.5rem; letter-spacing:.14em; } }
+    @media (prefers-reduced-motion:reduce) { .particle-w-canvas { opacity:.9; } }
+    </style>
   <link rel="stylesheet" href="css/site-system.css?v=20261113-subtle-gradients">
   <script type="application/ld+json">
 {
