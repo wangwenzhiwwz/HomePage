@@ -31,7 +31,7 @@
   }
   const active = document.body?.dataset.activePage || (
     location.pathname.includes("/videos/") ? "videos" :
-    location.pathname.includes("/article") || location.pathname.endsWith("/blog.html") ? "blog" :
+    location.pathname.includes("/article") || location.pathname.includes("/articles/") || location.pathname.includes("/topics/") || location.pathname.endsWith("/blog.html") ? "works" :
     location.pathname.endsWith("/works.html") ? "works" : "home"
   );
 
@@ -53,14 +53,14 @@
         ${item("home",root+"index.html","fa-solid fa-house","Home")}
         ${item("works",root+"works.html","fa-solid fa-layer-group","Works")}
         ${item("videos",root+"videos/","fa-solid fa-film","Videos")}
-        ${item("blog",root+"blog.html","fa-solid fa-book-open","Blog & Guides")}
+        ${item("blog",root+"works.html#guides","fa-solid fa-book-open","Blog")}
         ${item("about",root+"about.html","fa-solid fa-user","About")}
       </nav></div>
       <div class="wwz-nav-group"><p class="wwz-nav-label">Explore <span>EXPLORE</span></p>
-        <details class="wwz-nav-folder"><summary><span><i class="fa-solid fa-grid-2"></i> Projects & Tools</span><i class="fa-solid fa-chevron-down"></i></summary><nav class="wwz-nav-sub" aria-label="Projects & Tools">
-          <a href="${root}projects/">All Projects</a><a href="${root}projects/app/">App Directory</a><a href="${root}projects/ip/">IP Lookup</a><a href="${root}projects/rmb/">Currency Converter</a><a href="${root}projects/sub/">Subscription Converter</a><a href="${root}projects/vps/">VPS Monitor</a><a href="https://github.com/wangwenzhiwwz/WBoard" target="_blank" rel="noopener noreferrer">WBoard · GitHub</a>
+        <details class="wwz-nav-folder"><summary><span><i class="fa-solid fa-layer-group"></i> Works sections</span><i class="fa-solid fa-chevron-down"></i></summary><nav class="wwz-nav-sub" aria-label="Works sections">
+          <a href="${root}works.html#portfolio">Selected Work</a><a href="${root}works.html#projects">Digital Projects</a><a href="${root}works.html#guides">Blog & Guides</a>
         </nav></details>
-        <details class="wwz-nav-folder"><summary><span><i class="fa-solid fa-lightbulb"></i> Topics & Learning</span><i class="fa-solid fa-chevron-down"></i></summary><nav class="wwz-nav-sub" aria-label="Topics & Learning"><a href="${root}lab/">AI Lab</a><a href="${root}topics/ai-comfyui/">ComfyUI / Local AI</a><a href="${root}now.html">Now · Current Focus</a><a href="${root}blog.html">All Articles</a></nav></details>
+        <details class="wwz-nav-folder"><summary><span><i class="fa-solid fa-lightbulb"></i> Topics & Learning</span><i class="fa-solid fa-chevron-down"></i></summary><nav class="wwz-nav-sub" aria-label="Topics & Learning"><a href="${root}lab/">AI Lab</a><a href="${root}topics/ai-comfyui/">ComfyUI / Local AI</a><a href="${root}now.html">Now · Current Focus</a><a href="${root}works.html#guides">Blog & Guides</a></nav></details>
       </div>
       <div class="wwz-nav-group wwz-nav-contact"><p class="wwz-nav-label">Connect <span>CONNECT</span></p>
         <a class="wwz-nav-link" href="${root}index.html#contact"><i class="fa-solid fa-paper-plane"></i><span>Contact</span></a>
@@ -109,11 +109,11 @@
     if (main.querySelector(".wwz-page-banner")) return;
     const detail = path.includes("/projects/") && path.split("/").filter(Boolean).length > 1;
     const map = [
-      [/\/projects\//,{section:detail?"tool":"projects",kicker:detail?"PROJECT FIELD GUIDE":"INDEPENDENT PRODUCTS",copy:detail?"Understand the use case, follow a practical start path and check important limitations before relying on a tool.":"Small independent products designed around real tasks — with clear use cases, practical instructions and honest limitations.",links:[["All projects","/projects/"],["Technical guides","/blog.html"]]}],
+      [/\/projects\//,{section:detail?"tool":"projects",kicker:detail?"PROJECT FIELD GUIDE":"INDEPENDENT PRODUCTS",copy:detail?"Understand the use case, follow a practical start path and check important limitations before relying on a tool.":"Small independent products designed around real tasks — with clear use cases, practical instructions and honest limitations.",links:[["Projects","/works.html#projects"],["Guides","/works.html#guides"]]}],
       [/\/lab\//,{section:"lab",kicker:"AI LAB · RESEARCH & PRODUCTION",copy:"Turn generative experiments into repeatable production workflows: dependencies, inputs, quality checks and recovery steps.",links:[["ComfyUI topic","/topics/ai-comfyui/"],["Workstation notes","/articles/comfyui-local-video/"]]}],
       [/\/topics\/|\/articles\//,{section:"lab",kicker:"PRACTICAL KNOWLEDGE",copy:"A working reference for decisions, setup steps, validation and troubleshooting — not just a collection of tool names.",links:[["AI Lab","/lab/"],["All guides","/blog.html"]]}],
       [/\/videos\//,{section:"videos",kicker:"COMMERCIAL VIDEO · STORY & CRAFT",title:"Product films.<br>Stories that move.",copy:"Selected product films shaped around the product, the people and the details that make each story matter.",links:[["Selected works","/works.html"],["About the process","/about.html"]]}],
-      [/works\.html|\/works\//,{section:"works",kicker:"SELECTED VISUAL WORK",copy:"Photography, 3D artwork and visual experiments — curated as a visual record rather than a raw archive.",links:[["Watch films","/videos/"],["About","/about.html"]]}],
+      [/works\.html|\/works\//,{section:"works",kicker:"CREATIVE WORK · DIGITAL PROJECTS · GUIDES",title:"Make ideas useful.",copy:"A connected portfolio of visual production, independent digital products and practical knowledge — built, tested and documented through real work.",links:[["Selected work","/works.html#portfolio"],["Projects","/works.html#projects"],["Guides","/works.html#guides"]]}],
       [/blog\.html|\/blog\//,{section:"blog",kicker:"FIELD NOTES · GUIDES · DOCUMENTATION",copy:"Practical explanations, deployment notes and reusable checklists for creative technology and independent infrastructure.",links:[["AI Lab","/lab/"],["Projects","/projects/"]]}],
       [/now\.html/,{section:"now",kicker:"CURRENT FOCUS · LIVING INDEX",copy:"A concise view of the themes being developed across visual production, AI workflows, digital products and infrastructure.",links:[["Projects","/projects/"],["AI Lab","/lab/"]]}],
       [/about\.html/,{section:"about",kicker:"ABOUT · WWZ.iM",copy:"Creative production and technical problem-solving, connected by curiosity, careful execution and useful outcomes.",links:[["Selected work","/works.html"],["Contact","/#contact"]]}]
@@ -252,7 +252,7 @@
     document.body?.dataset.activePage ||
     (url.pathname.endsWith("/about.html") ? "about" :
     url.pathname.includes("/videos/") ? "videos" :
-    url.pathname.includes("/article") || url.pathname.includes("/articles/") || url.pathname.includes("/topics/") || url.pathname.endsWith("/blog.html") ? "blog" :
+    url.pathname.includes("/article") || url.pathname.includes("/articles/") || url.pathname.includes("/topics/") || url.pathname.endsWith("/blog.html") ? "works" :
     url.pathname.includes("/projects/") || url.pathname.endsWith("/works.html") ? "works" : "home")
   );
 
