@@ -4,23 +4,7 @@
   const initialUrl = new URL(location.href);
   const initialTitle = document.title;
 
-  // Name the navigation only during cross-document view transitions.
-  // A permanent name creates a backdrop root and blocks child glass effects.
-  const navTransitionName = 'wwz-sidebar';
-  const nameNavigation = () => {
-    const nav = document.querySelector('.sidebar');
-    if (nav) nav.style.viewTransitionName = navTransitionName;
-    return nav;
-  };
-  addEventListener('pageswap', event => {
-    if (event.viewTransition) nameNavigation();
-  });
-  addEventListener('pagereveal', event => {
-    if (!event.viewTransition) return;
-    const nav = nameNavigation();
-    // Keep the same shared-element name on both documents. Clearing it here
-    // can make the persistent navigation vanish during the transition.
-  });
+  // Keep page navigation native; only the active navigation pill animates.
   const canonicalPath = url => url.pathname.replace(/\/index\.html$/, '/');
   // Keep relative assets stable when the persistent navigation changes the URL.
   if (!document.querySelector('base')) {
@@ -272,8 +256,9 @@
 
     const moveTo = link => {
       if (!link) return;
+      indicator.style.width = link.offsetWidth + 'px';
       indicator.style.height = link.offsetHeight + 'px';
-      indicator.style.transform = 'translate3d(0,' + link.offsetTop + 'px,0)';
+      indicator.style.transform = 'translate3d(' + link.offsetLeft + 'px,0,0)';
     };
     const active = nav.querySelector('.wwz-nav-link.active');
     requestAnimationFrame(() => {
