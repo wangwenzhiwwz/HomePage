@@ -272,12 +272,19 @@
     };
 
     const current = () => nav.querySelector('.wwz-nav-link[aria-current="page"], .wwz-nav-link.active');
+    const setPillTarget = link => {
+      nav.querySelectorAll('.wwz-nav-link').forEach(item => item.classList.toggle('is-pill-target', item === link));
+    };
     // Set the exact initial position synchronously before making the pill visible.
+    setPillTarget(current());
     moveTo(current(), false);
     indicator.classList.add('is-ready');
 
     nav.querySelectorAll('.wwz-nav-link').forEach(link => {
-      link.addEventListener('click', () => moveTo(link, true));
+      link.addEventListener('click', () => {
+        setPillTarget(link);
+        moveTo(link, true);
+      });
     });
     const refresh = () => moveTo(current(), false);
     addEventListener('resize', refresh);
