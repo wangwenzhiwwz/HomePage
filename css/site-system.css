@@ -2161,3 +2161,35 @@ html.wwz-menu-open .sidebar.wwz-topbar { z-index:2147483000 !important; }
 ) {
   filter:saturate(.68) brightness(.88);
 }
+
+
+/* Site-wide visual restraint: reduce pale gradient washes and glossy highlights.
+   Keep layout, imagery and interaction intact; use quieter neutral surfaces. */
+:root[data-theme="light"] {
+  --nav-sheen:linear-gradient(145deg,rgba(255,255,255,.16),rgba(255,255,255,.025) 65%);
+}
+:root[data-theme="light"] .sidebar.wwz-topbar {
+  background:rgba(248,248,246,.72) !important;
+  background-image:linear-gradient(135deg,rgba(255,255,255,.18),rgba(255,255,255,.035) 65%) !important;
+  border-color:rgba(30,30,30,.09) !important;
+  box-shadow:0 8px 28px rgba(20,20,20,.055) !important;
+  -webkit-backdrop-filter:blur(28px) saturate(1.08) !important;
+  backdrop-filter:blur(28px) saturate(1.08) !important;
+}
+:root[data-theme="light"] .experience-card--creative {
+  background:linear-gradient(142deg,#e8d7cb 0%,#dfc9c2 48%,#d2c9cb 100%) !important;
+}
+:root[data-theme="light"] .experience-card--ai {
+  background:linear-gradient(142deg,#d2e0e1 0%,#c4dadd 48%,#d0d1df 100%) !important;
+}
+:root[data-theme="light"] .experience-card--systems {
+  background:linear-gradient(142deg,#d5dfd5 0%,#c8d8cf 48%,#dddbcb 100%) !important;
+}
+/* Reduce decorative white sheen on common glass/card surfaces across pages. */
+:root[data-theme="light"] :is(
+  .glass,.glass-card,.glass-panel,.surface-glass,
+  .card-glass,.feature-card,.project-card,.content-card
+) {
+  background-image:linear-gradient(145deg,rgba(255,255,255,.12),rgba(255,255,255,.015) 70%) !important;
+  box-shadow:0 6px 22px rgba(20,20,20,.045) !important;
+}
