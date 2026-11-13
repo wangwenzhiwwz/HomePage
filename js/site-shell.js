@@ -58,9 +58,9 @@
       </nav></div>
       <div class="wwz-nav-group"><p class="wwz-nav-label">Explore <span>EXPLORE</span></p>
         <details class="wwz-nav-folder"><summary><span><i class="fa-solid fa-grid-2"></i> Projects & Tools</span><i class="fa-solid fa-chevron-down"></i></summary><nav class="wwz-nav-sub" aria-label="Projects & Tools">
-          <a href="${root}projects/">All Projects</a><a href="${root}projects/app/">App Directory</a><a href="${root}projects/ip/">IP Lookup</a><a href="${root}projects/rmb/">Currency Converter</a><a href="${root}projects/sub/">Subscription Converter</a><a href="${root}projects/vps/">VPS Monitor</a>
+          <a href="${root}projects/">All Projects</a><a href="${root}projects/app/">App Directory</a><a href="${root}projects/ip/">IP Lookup</a><a href="${root}projects/rmb/">Currency Converter</a><a href="${root}projects/sub/">Subscription Converter</a><a href="${root}projects/vps/">VPS Monitor</a><a href="https://github.com/wangwenzhiwwz/WBoard" target="_blank" rel="noopener noreferrer">WBoard · GitHub</a>
         </nav></details>
-        <details class="wwz-nav-folder"><summary><span><i class="fa-solid fa-lightbulb"></i> Topics & Learning</span><i class="fa-solid fa-chevron-down"></i></summary><nav class="wwz-nav-sub" aria-label="Topics & Learning"><a href="${root}topics/ai-comfyui/">ComfyUI / Local AI</a><a href="${root}blog.html">All Articles</a></nav></details>
+        <details class="wwz-nav-folder"><summary><span><i class="fa-solid fa-lightbulb"></i> Topics & Learning</span><i class="fa-solid fa-chevron-down"></i></summary><nav class="wwz-nav-sub" aria-label="Topics & Learning"><a href="${root}lab/">AI Lab</a><a href="${root}topics/ai-comfyui/">ComfyUI / Local AI</a><a href="${root}now.html">Now · Current Focus</a><a href="${root}blog.html">All Articles</a></nav></details>
       </div>
       <div class="wwz-nav-group wwz-nav-contact"><p class="wwz-nav-label">Connect <span>CONNECT</span></p>
         <a class="wwz-nav-link" href="${root}index.html#contact"><i class="fa-solid fa-paper-plane"></i><span>Contact</span></a>
