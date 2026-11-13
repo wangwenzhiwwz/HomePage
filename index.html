@@ -42,7 +42,7 @@
   <meta name="robots" content="index,follow">
   <link rel="canonical" href="https://wwz.im/">
   <link rel="icon" href="favicon.ico">
-  <link rel="preload" as="image" href="images/hero-glass-logo-transparent.png" fetchpriority="high">
+  
   <link rel="preconnect" href="https://cdnjs.cloudflare.com">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   <link rel="stylesheet" href="css/site-system.css?v=20261107-theme-right">
@@ -90,13 +90,45 @@
     .discipline strong { font-size:.92rem }
     .discipline p { color:var(--muted); margin:7px 0 0; font-size:.78rem }
 
-    .logo-stage { position:relative; min-height:480px; perspective:1400px; isolation:isolate; overflow:visible }
-    .logo-world { position:absolute; inset:4% 1%; transform-style:preserve-3d; transition:transform .9s var(--ease); will-change:transform }
-    .glass-logo-art { position:absolute; width:min(66%,390px); height:auto; left:54%; top:55%; translate:-50% -50%; z-index:8; transform-origin:52% 48%; animation:glassLogoFloat 18s var(--ease) infinite; will-change:transform }
-    @keyframes glassLogoFloat {
-      0%,16%,100%{transform:translate3d(-9px,20px,14px) rotateX(5deg) rotateY(-7deg) rotateZ(-2.5deg)}
-      48%,66%{transform:translate3d(12px,-28px,100px) rotateX(-8deg) rotateY(14deg) rotateZ(4deg)}
-    }
+    .logo-stage { position:relative; min-height:480px; perspective:1500px; isolation:isolate; overflow:visible }
+    .interactive-deck { display:grid; grid-template-columns:1.08fr .92fr; grid-template-rows:repeat(2,minmax(0,1fr)); gap:15px; height:460px; padding:10px 4px 12px 8px }
+    .experience-card { --card-x:0deg; --card-y:0deg; --card-lift:0px; position:relative; isolation:isolate; display:flex; min-width:0; flex-direction:column; justify-content:space-between; padding:22px; overflow:hidden; border:1px solid rgba(255,255,255,.64); border-radius:25px; color:#202b34; text-decoration:none; box-shadow:0 14px 35px rgba(34,49,67,.10),inset 0 1px 0 rgba(255,255,255,.8); transform:perspective(1000px) rotateX(var(--card-x)) rotateY(var(--card-y)) translateY(var(--card-lift)); transform-style:preserve-3d; transition:transform .42s cubic-bezier(.2,.75,.2,1),box-shadow .42s,border-color .3s; will-change:transform; animation:experience-card-in .8s both; animation-delay:calc(var(--card-order,0)*110ms); }
+    .experience-card--creative { --card-order:0; grid-row:1 / span 2; background:linear-gradient(150deg,#f8d6b9 0%,#f3bfa8 43%,#d7c9d9 100%) }
+    .experience-card--ai { --card-order:1; background:linear-gradient(145deg,#d5edfa 0%,#b9e5e8 48%,#c8c5f4 100%) }
+    .experience-card--systems { --card-order:2; background:linear-gradient(145deg,#d9e8d7 0%,#c2d9cb 50%,#d6d5bd 100%) }
+    .experience-card__orb { position:absolute; z-index:-1; width:230px; height:230px; right:-76px; top:16%; border-radius:50%; background:radial-gradient(circle at 35% 32%,rgba(255,255,255,.92),rgba(255,255,255,.24) 35%,rgba(255,255,255,0) 70%); filter:blur(1px); transition:transform .7s cubic-bezier(.2,.75,.2,1) }
+    .experience-card:after { content:""; position:absolute; z-index:-1; inset:0; opacity:.35; background:linear-gradient(135deg,rgba(255,255,255,.5),transparent 42%,rgba(255,255,255,.16)); pointer-events:none }
+    .experience-card__top { display:flex; justify-content:space-between; align-items:center; gap:8px; color:rgba(31,48,61,.68); font:750 .62rem ui-monospace,monospace; letter-spacing:.12em }
+    .experience-card__top i { display:grid; place-items:center; width:32px; height:32px; border:1px solid rgba(255,255,255,.65); border-radius:50%; background:rgba(255,255,255,.24); transition:transform .35s,background .35s }
+    .experience-card__visual { position:absolute; top:25%; right:8%; display:grid; place-items:center; width:118px; height:118px; border:1px solid rgba(255,255,255,.66); border-radius:34px; color:rgba(255,255,255,.92); background:linear-gradient(145deg,rgba(255,255,255,.54),rgba(255,255,255,.12)); box-shadow:inset 0 1px 1px rgba(255,255,255,.9),0 16px 35px rgba(60,70,90,.10); backdrop-filter:blur(14px); transform:rotate(-12deg); transition:transform .6s cubic-bezier(.2,.75,.2,1),box-shadow .5s }
+    .experience-card__visual i { font-size:3.2rem; filter:drop-shadow(0 5px 8px rgba(47,67,91,.14)) }
+    .experience-card__visual--camera { top:28%; right:10%; width:150px; height:150px; border-radius:43px; transform:rotate(-13deg) }
+    .experience-card__visual--camera i { font-size:4.2rem }
+    .experience-card__visual--ai { top:19%; right:8%; width:86px; height:86px; border-radius:27px; transform:rotate(12deg) }
+    .experience-card__visual--ai i { font-size:2.5rem }
+    .experience-card__visual--systems { top:19%; right:8%; width:86px; height:86px; border-radius:27px; transform:rotate(-9deg) }
+    .experience-card__visual--systems i { font-size:2.4rem }
+    .experience-card__bottom { display:flex; flex-direction:column; align-items:flex-start; gap:7px; margin-top:auto }
+    .experience-card__bottom strong { max-width:12ch; color:#1d2932; font-size:clamp(1.25rem,2vw,1.8rem); line-height:1.04; letter-spacing:-.065em }
+    .experience-card__bottom>span { max-width:27ch; color:rgba(31,48,61,.76); font-size:.74rem; line-height:1.5 }
+    .experience-card__bottom em { display:flex; align-items:center; gap:10px; margin-top:12px; color:#263d4b; font-size:.7rem; font-style:normal; font-weight:800 }
+    .experience-card__bottom em b { display:grid; place-items:center; width:25px; height:25px; border:1px solid rgba(38,61,75,.25); border-radius:50%; transition:transform .3s }
+    .experience-card:hover,.experience-card:focus-visible { --card-lift:-8px; z-index:3; border-color:rgba(255,255,255,.95); box-shadow:0 28px 58px rgba(34,49,67,.2),inset 0 1px 0 rgba(255,255,255,.95) }
+    .experience-card:hover .experience-card__orb { transform:scale(1.22) translate(-12px,8px) }
+    .experience-card:hover .experience-card__visual { transform:rotate(0deg) translateZ(28px) scale(1.06); box-shadow:inset 0 1px 1px rgba(255,255,255,.95),0 22px 42px rgba(60,70,90,.16) }
+    .experience-card:hover .experience-card__top i { transform:rotate(45deg); background:rgba(255,255,255,.56) }
+    .experience-card:hover .experience-card__bottom em b { transform:translate(3px,-3px) }
+    .experience-card:focus-visible { outline:3px solid #5488dc; outline-offset:4px }
+    @keyframes experience-card-in { from{opacity:0;transform:translateY(24px) scale(.97)} to{opacity:1;transform:translateY(0) scale(1)} }
+    [data-theme="dark"] .experience-card--creative { background:linear-gradient(145deg,#775c4e,#6a5261 55%,#4e596f);color:#f7f2ed }
+    [data-theme="dark"] .experience-card--ai { background:linear-gradient(145deg,#315b6c,#3c6f79 55%,#535b91);color:#f2fbff }
+    [data-theme="dark"] .experience-card--systems { background:linear-gradient(145deg,#476653,#4d7064 55%,#6d7053);color:#f4fff5 }
+    [data-theme="dark"] .experience-card__top,[data-theme="dark"] .experience-card__bottom strong,[data-theme="dark"] .experience-card__bottom em { color:#fff }
+    [data-theme="dark"] .experience-card__bottom>span { color:rgba(255,255,255,.8) }
+    [data-theme="dark"] .experience-card__bottom em b { border-color:rgba(255,255,255,.4) }
+    @media (max-width:1060px) { .interactive-deck { height:420px } }
+    @media (max-width:760px) { .logo-stage { min-height:390px; margin:0 } .interactive-deck { height:370px; gap:10px; padding:0 0 8px } .experience-card { padding:15px; border-radius:19px } .experience-card__visual--camera { width:105px;height:105px;top:30%;right:5% } .experience-card__visual--camera i {font-size:3rem} .experience-card__visual--ai,.experience-card__visual--systems {width:62px;height:62px;top:20%;right:7%;border-radius:19px} .experience-card__visual--ai i,.experience-card__visual--systems i {font-size:1.8rem} .experience-card__bottom strong {font-size:1.15rem} .experience-card__bottom>span {font-size:.66rem} .experience-card__bottom em {font-size:.64rem;gap:6px;margin-top:8px} .experience-card__top {font-size:.53rem;letter-spacing:.08em} .experience-card__top i {width:27px;height:27px} }
+    @media (prefers-reduced-motion:reduce) { .experience-card { animation:none!important;transition:none!important;transform:none!important } }
 
     .section-head { display:flex; align-items:end; justify-content:space-between; gap:20px; margin-bottom:28px }
     .section-head h2 { margin:0; font-size:clamp(2rem,3.2vw,3.25rem); letter-spacing:-.055em; line-height:1 }
@@ -199,7 +231,6 @@
       .actions { gap:10px }
       .actions > a { min-height:48px; justify-content:center }
       .logo-stage { min-height:260px; margin:0 }
-      .glass-logo-art { width:min(72%,310px); left:52%; top:54% }
       .disciplines { grid-template-columns:1fr; margin-top:0 }
       .discipline,.discipline:first-child { border-left:0; border-top:1px solid var(--line); padding:18px 0 }
       .section { padding:40px 0 }
@@ -286,9 +317,26 @@
           <p class="hero-copy">I work across commercial video production, AI-assisted creative workflows and practical digital products — bringing visual storytelling and technical problem-solving together.</p>
           <div class="actions"><a class="btn primary" href="#films">Explore Film Work <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a><a class="btn" href="about.html">More About Me</a></div>
         </div>
-        <div class="logo-stage" id="logoStage" aria-label="WWZ Logo 动态装置">
-          <div class="logo-world" id="logoWorld">
-            <img class="glass-logo-art" src="images/hero-glass-logo-transparent.png" width="1254" height="1254" alt="" aria-hidden="true" decoding="async" loading="eager" fetchpriority="high">
+        <div class="logo-stage" id="logoStage" aria-label="Explore creative work, AI workflows and digital systems">
+          <div class="interactive-deck">
+            <a class="experience-card experience-card--creative" href="#films" aria-label="Explore commercial video and creative work">
+              <span class="experience-card__orb" aria-hidden="true"></span>
+              <span class="experience-card__top"><span>01 / CREATIVE</span><i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i></span>
+              <span class="experience-card__visual experience-card__visual--camera" aria-hidden="true"><i class="fa-solid fa-aperture"></i></span>
+              <span class="experience-card__bottom"><strong>Visual stories.</strong><span>Commercial films · Photography · Art direction</span><em>Explore creative work <b>↗</b></em></span>
+            </a>
+            <a class="experience-card experience-card--ai" href="lab/" aria-label="Explore AI creative workflows">
+              <span class="experience-card__orb" aria-hidden="true"></span>
+              <span class="experience-card__top"><span>02 / AI WORKFLOW</span><i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i></span>
+              <span class="experience-card__visual experience-card__visual--ai" aria-hidden="true"><i class="fa-solid fa-wand-magic-sparkles"></i></span>
+              <span class="experience-card__bottom"><strong>Make with AI.</strong><span>ComfyUI · Image to video · Consistency</span><em>Explore AI Lab <b>↗</b></em></span>
+            </a>
+            <a class="experience-card experience-card--systems" href="projects/" aria-label="Explore digital products and systems">
+              <span class="experience-card__orb" aria-hidden="true"></span>
+              <span class="experience-card__top"><span>03 / DIGITAL SYSTEMS</span><i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i></span>
+              <span class="experience-card__visual experience-card__visual--systems" aria-hidden="true"><i class="fa-solid fa-cubes-stacked"></i></span>
+              <span class="experience-card__bottom"><strong>Build what works.</strong><span>Web tools · Open source · Infrastructure</span><em>Explore projects <b>↗</b></em></span>
+            </a>
           </div>
         </div>
         <div class="disciplines">
@@ -418,16 +466,23 @@
         : '<i class="fa-regular fa-copy" aria-hidden="true"></i> Copy email';
     });
 
-    const logoStage = document.getElementById("logoStage");
-    const logoWorld = document.getElementById("logoWorld");
+    const experienceCards = document.querySelectorAll(".experience-card");
     if(matchMedia("(pointer:fine)").matches && !matchMedia("(prefers-reduced-motion:reduce)").matches) {
-      logoStage.addEventListener("pointermove", event => {
-        const box = logoStage.getBoundingClientRect();
-        const x = (event.clientX - box.left) / box.width - .5;
-        const y = (event.clientY - box.top) / box.height - .5;
-        logoWorld.style.transform = `rotateY(${x * 6}deg) rotateX(${-y * 5}deg) translate3d(${x * 5}px,${y * 4}px,0)`;
+      experienceCards.forEach(card => {
+        card.addEventListener("pointermove", event => {
+          const box = card.getBoundingClientRect();
+          const x = (event.clientX - box.left) / box.width - .5;
+          const y = (event.clientY - box.top) / box.height - .5;
+          card.style.setProperty("--card-y", `${x * 5}deg`);
+          card.style.setProperty("--card-x", `${-y * 5}deg`);
+          card.style.setProperty("--pointer-x", `${(x + .5) * 100}%`);
+          card.style.setProperty("--pointer-y", `${(y + .5) * 100}%`);
+        });
+        card.addEventListener("pointerleave", () => {
+          card.style.setProperty("--card-x","0deg");
+          card.style.setProperty("--card-y","0deg");
+        });
       });
-      logoStage.addEventListener("pointerleave", () => logoWorld.style.transform = "");
     }
 
     document.getElementById("year").textContent = new Date().getFullYear();
