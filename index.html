@@ -27,7 +27,15 @@
     @media (prefers-color-scheme:dark) { html { --wwz-initial-bg:#0b0b0a; color-scheme:dark; } }
     html:not([data-theme-ready]), html:not([data-theme-ready]) body { background:var(--wwz-initial-bg) !important; background-image:none !important; }
     html:not([data-theme-ready]), html:not([data-theme-ready]) * { transition:none !important; }
-  </style>
+  
+    /* Particle identity mark: a volumetric W formed from a living particle field. */
+    .logo-stage.particle-w-stage { min-height:480px; display:flex; align-items:center; justify-content:center; overflow:hidden; }
+    .particle-w-canvas { display:block; width:100%; height:460px; max-width:680px; touch-action:pan-y; cursor:default; }
+    .particle-w-caption { position:absolute; left:50%; bottom:12px; transform:translateX(-50%); color:var(--muted); font:600 .58rem ui-monospace,monospace; letter-spacing:.2em; white-space:nowrap; opacity:.62; pointer-events:none; }
+    @media (max-width:1060px) { .logo-stage.particle-w-stage { min-height:440px; } .particle-w-canvas { height:420px; } }
+    @media (max-width:760px) { .logo-stage.particle-w-stage { min-height:360px; margin:0; } .particle-w-canvas { height:350px; } .particle-w-caption { bottom:0; font-size:.5rem; letter-spacing:.14em; } }
+    @media (prefers-reduced-motion:reduce) { .particle-w-canvas { opacity:.9; } }
+</style>
   <script src="js/site-theme.js?v=20260920-inline-theme" defer></script>
   <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=5">
   <title>Wang Wenzhi | Commercial Video, AI Creative &amp; Technology</title>  <meta name="twitter:card" content="summary">
@@ -334,27 +342,9 @@
           <p class="hero-copy">I work across commercial video production, AI-assisted creative workflows and practical digital products — bringing visual storytelling and technical problem-solving together.</p>
           <div class="actions"><a class="btn primary" href="#films">Explore Film Work <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a><a class="btn" href="about.html">More About Me</a></div>
         </div>
-        <div class="logo-stage" id="logoStage" aria-label="Explore creative work, AI workflows and digital systems">
-          <div class="interactive-deck">
-            <a class="experience-card experience-card--creative" href="#films" aria-label="Explore commercial video and creative work">
-              <span class="experience-card__orb" aria-hidden="true"></span>
-              <span class="experience-card__top"><span>01 / CREATIVE</span><i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i></span>
-              <span class="experience-card__visual experience-card__visual--camera" aria-hidden="true"><i class="fa-solid fa-aperture"></i></span>
-              <span class="experience-card__bottom"><strong>Visual stories.</strong><span>Commercial films · Photography · Art direction</span><em>Explore creative work <b>↗</b></em></span>
-            </a>
-            <a class="experience-card experience-card--ai" href="lab/" aria-label="Explore AI creative workflows">
-              <span class="experience-card__orb" aria-hidden="true"></span>
-              <span class="experience-card__top"><span>02 / AI WORKFLOW</span><i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i></span>
-              <span class="experience-card__visual experience-card__visual--ai" aria-hidden="true"><i class="fa-solid fa-wand-magic-sparkles"></i></span>
-              <span class="experience-card__bottom"><strong>Make with AI.</strong><span>ComfyUI · Image to video · Consistency</span><em>Explore AI Lab <b>↗</b></em></span>
-            </a>
-            <a class="experience-card experience-card--systems" href="projects/" aria-label="Explore digital products and systems">
-              <span class="experience-card__orb" aria-hidden="true"></span>
-              <span class="experience-card__top"><span>03 / DIGITAL SYSTEMS</span><i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i></span>
-              <span class="experience-card__visual experience-card__visual--systems" aria-hidden="true"><i class="fa-solid fa-cubes-stacked"></i></span>
-              <span class="experience-card__bottom"><strong>Build what works.</strong><span>Web tools · Open source · Infrastructure</span><em>Explore projects <b>↗</b></em></span>
-            </a>
-          </div>
+        <div class="logo-stage particle-w-stage" id="logoStage" aria-label="动态粒子组成的立体 W 标志">
+          <canvas class="particle-w-canvas" id="particleW" role="img" aria-label="粒子云不断聚合、散开并重新组成三维 W"></canvas>
+          <span class="particle-w-caption" aria-hidden="true">WWZ.iM&nbsp; / &nbsp;CREATIVE · TECHNOLOGY</span>
         </div>
         <div class="disciplines">
           <div class="discipline"><small>01 / CREATIVE</small><strong>Commercial Production</strong><p>Concepts, scripts, product filming and post-production</p></div>
@@ -483,24 +473,121 @@
         : '<i class="fa-regular fa-copy" aria-hidden="true"></i> Copy email';
     });
 
-    const experienceCards = document.querySelectorAll(".experience-card");
-    if(matchMedia("(pointer:fine)").matches && !matchMedia("(prefers-reduced-motion:reduce)").matches) {
-      experienceCards.forEach(card => {
-        card.addEventListener("pointermove", event => {
-          const box = card.getBoundingClientRect();
-          const x = (event.clientX - box.left) / box.width - .5;
-          const y = (event.clientY - box.top) / box.height - .5;
-          card.style.setProperty("--card-y", `${x * 5}deg`);
-          card.style.setProperty("--card-x", `${-y * 5}deg`);
-          card.style.setProperty("--pointer-x", `${(x + .5) * 100}%`);
-          card.style.setProperty("--pointer-y", `${(y + .5) * 100}%`);
+    (() => {
+      const canvas = document.getElementById("particleW");
+      if (!canvas) return;
+      const ctx = canvas.getContext("2d", { alpha: true });
+      if (!ctx) return;
+      const reduceMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
+      const finePointer = matchMedia("(pointer:fine)").matches;
+      const mask = document.createElement("canvas");
+      mask.width = 720; mask.height = 480;
+      const maskCtx = mask.getContext("2d", { willReadFrequently: true });
+      maskCtx.clearRect(0, 0, mask.width, mask.height);
+      maskCtx.fillStyle = "#fff";
+      maskCtx.font = '900 430px Inter, Arial, sans-serif';
+      maskCtx.textAlign = "center"; maskCtx.textBaseline = "middle";
+      maskCtx.fillText("W", mask.width / 2, mask.height / 2 + 8);
+      const pixels = maskCtx.getImageData(0, 0, mask.width, mask.height).data;
+      const samples = [];
+      for (let y = 18; y < mask.height - 18; y += 4) {
+        for (let x = 18; x < mask.width - 18; x += 4) {
+          if (pixels[(y * mask.width + x) * 4 + 3] > 100) samples.push({ x, y });
+        }
+      }
+      const rand = (min, max) => min + Math.random() * (max - min);
+      let width = 0, height = 0, dpr = 1, particles = [], raf = 0, visible = true;
+      let cycleStart = performance.now(), cycleLength = rand(10500, 15500);
+      const pointer = { x: -9999, y: -9999, active: false };
+      const makeParticles = () => {
+        const count = Math.min(samples.length, width < 500 ? 560 : 1050);
+        particles = Array.from({ length: count }, (_, i) => {
+          const p = samples[Math.floor(Math.random() * samples.length)];
+          const scale = Math.min(width * .88 / mask.width, height * .86 / mask.height);
+          const tx = (p.x - mask.width / 2) * scale;
+          const ty = (p.y - mask.height / 2) * scale;
+          const depth = rand(-34, 34);
+          return {
+            tx, ty, depth, phase: rand(0, 1),
+            sx: rand(-width * .55, width * 1.55), sy: rand(-height * .7, height * 1.7),
+            drift: rand(5, 24), size: rand(.65, 1.75), seed: rand(0, Math.PI * 2)
+          };
         });
-        card.addEventListener("pointerleave", () => {
-          card.style.setProperty("--card-x","0deg");
-          card.style.setProperty("--card-y","0deg");
-        });
+      };
+      const resize = () => {
+        const rect = canvas.getBoundingClientRect();
+        width = Math.max(1, rect.width); height = Math.max(1, rect.height);
+        dpr = Math.min(window.devicePixelRatio || 1, 2);
+        canvas.width = Math.round(width * dpr); canvas.height = Math.round(height * dpr);
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+        makeParticles();
+      };
+      const observer = new ResizeObserver(resize);
+      observer.observe(canvas);
+      const stageObserver = new IntersectionObserver(entries => {
+        visible = entries[0].isIntersecting;
+        if (visible && !raf) raf = requestAnimationFrame(draw);
+        if (!visible && raf) { cancelAnimationFrame(raf); raf = 0; }
       });
-    }
+      stageObserver.observe(canvas);
+      if (finePointer) {
+        canvas.addEventListener("pointermove", e => {
+          const r = canvas.getBoundingClientRect();
+          pointer.x = e.clientX - r.left; pointer.y = e.clientY - r.top; pointer.active = true;
+        });
+        canvas.addEventListener("pointerleave", () => { pointer.active = false; });
+      }
+      const draw = now => {
+        raf = 0;
+        if (!visible) return;
+        const elapsed = now - cycleStart;
+        if (elapsed > cycleLength) {
+          cycleStart = now; cycleLength = rand(10500, 15500);
+          for (const p of particles) {
+            p.sx = rand(-width * .55, width * 1.55);
+            p.sy = rand(-height * .7, height * 1.7);
+          }
+        }
+        const t = reduceMotion ? 0.96 : elapsed / cycleLength;
+        const scatter = reduceMotion ? 0 : (t < .48 ? 0 : t < .68 ? (t - .48) / .2 : 1 - Math.min(1, (t - .68) / .32));
+        const chaos = scatter * scatter * (3 - 2 * scatter);
+        const themeDark = document.documentElement.dataset.theme === "dark";
+        const color = themeDark ? "245,245,241" : "27,29,31";
+        ctx.clearRect(0, 0, width, height);
+        const rotation = reduceMotion ? 0 : Math.sin(now * .00022) * .16;
+        const perspective = 760;
+        for (const p of particles) {
+          const wobble = reduceMotion ? 0 : Math.sin(now * .0007 + p.seed) * p.drift;
+          let x = p.tx * (1 - chaos) + p.sx * chaos + Math.cos(now * .00045 + p.seed) * 5 * (1 - chaos);
+          let y = p.ty * (1 - chaos) + p.sy * chaos + Math.sin(now * .0005 + p.seed) * 5 * (1 - chaos);
+          const z = p.depth + Math.sin(now * .0006 + p.seed) * (reduceMotion ? 0 : 7);
+          const rotatedX = x * Math.cos(rotation) - z * Math.sin(rotation);
+          const rotatedZ = x * Math.sin(rotation) + z * Math.cos(rotation);
+          const factor = perspective / (perspective + rotatedZ);
+          x = width / 2 + rotatedX * factor;
+          y = height / 2 + y * factor + wobble * (1 - chaos);
+          if (pointer.active && !reduceMotion) {
+            const dx = x - pointer.x, dy = y - pointer.y, dist2 = dx * dx + dy * dy;
+            const radius = 112;
+            if (dist2 < radius * radius && dist2 > .01) {
+              const force = (1 - Math.sqrt(dist2) / radius) * 17;
+              const inv = force / Math.sqrt(dist2);
+              x += dx * inv; y += dy * inv;
+            }
+          }
+          const depthAlpha = .42 + (p.depth + 34) / 68 * .48;
+          const twinkle = .78 + Math.sin(now * .0012 + p.seed) * .18;
+          ctx.beginPath();
+          ctx.fillStyle = `rgba(${color},${depthAlpha * twinkle * (1 - chaos * .24)})`;
+          ctx.arc(x, y, p.size * factor, 0, Math.PI * 2);
+          ctx.fill();
+        }
+        if (!reduceMotion) raf = requestAnimationFrame(draw);
+      };
+      resize();
+      if (reduceMotion) { draw(performance.now()); }
+      else raf = requestAnimationFrame(draw);
+    })();
 
     document.getElementById("year").textContent = new Date().getFullYear();
   </script>
