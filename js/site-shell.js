@@ -235,15 +235,34 @@
     // Native links keep refresh, deep links, and browser history consistent.
   };
 
-  const routeKey = url => (
-    url.hash === "#contact" ? "contact" :
-    
-    document.body?.dataset.activePage ||
-    (url.pathname.endsWith("/about.html") ? "about" :
-    url.pathname.includes("/videos/") ? "videos" :
-    url.pathname.includes("/article") || url.pathname.includes("/articles/") || url.pathname.includes("/topics/") ? "lab" : url.pathname.endsWith("/blog.html") ? "blog" :
-    url.pathname.includes("/projects/") || url.pathname.endsWith("/works.html") ? "works" : "home")
-  );
+  // Map every content route to an item that actually exists in the primary nav.
+  // Detail pages and topic pages belong to Blog; Now belongs to Works.
+  const routeKey = url => {
+    const declared = document.body?.dataset.activePage;
+    if (url.hash === "#contact") return "home";
+    if (declared) {
+      if (declared === "lab" || declared === "article" || declared === "topics") return "blog";
+      if (declared === "now" || declared === "projects") return "works";
+      return declared;
+    }
+    const path = url.pathname;
+    if (path.endsWith("/about.html")) return "about";
+    if (path.includes("/videos/")) return "videos";
+    if (
+      path.includes("/article") ||
+      path.includes("/articles/") ||
+      path.includes("/topics/") ||
+      path.includes("/lab/") ||
+      path.endsWith("/blog.html") ||
+      path.includes("/blog/")
+    ) return "blog";
+    if (
+      path.includes("/projects/") ||
+      path.endsWith("/works.html") ||
+      path.endsWith("/now.html")
+    ) return "works";
+    return "home";
+  };
 
   const mountNavIndicator = sidebar => {
     const nav = sidebar.querySelector('.wwz-primary-nav');
