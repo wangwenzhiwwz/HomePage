@@ -2517,3 +2517,149 @@ html.wwz-menu-open .sidebar.wwz-topbar { z-index:2147483000 !important; }
     color:#171717 !important;
   }
 }
+
+
+/* Desktop topbar: retain the left brand and right controls; center only the
+   navigation capsule. The outer shell is transparent, never a full-width glass bar. */
+@media (min-width:1100px) {
+  .sidebar.wwz-topbar {
+    position:fixed !important;
+    top:18px !important;
+    left:0 !important;
+    right:0 !important;
+    width:100% !important;
+    height:56px !important;
+    min-height:56px !important;
+    max-height:56px !important;
+    box-sizing:border-box !important;
+    display:grid !important;
+    grid-template-columns:minmax(0,1fr) auto minmax(0,1fr) !important;
+    grid-template-rows:56px !important;
+    align-items:center !important;
+    padding:0 28px !important;
+    margin:0 !important;
+    overflow:visible !important;
+    transform:none !important;
+    background:transparent !important;
+    background-image:none !important;
+    border:0 !important;
+    border-radius:0 !important;
+    box-shadow:none !important;
+    -webkit-backdrop-filter:none !important;
+    backdrop-filter:none !important;
+    z-index:2147483000 !important;
+  }
+  .wwz-topbar .wwz-sidebar-head,
+  .wwz-topbar .wwz-sidebar-content,
+  .wwz-topbar .wwz-nav-group {
+    display:contents !important;
+    background:transparent !important;
+    background-image:none !important;
+    border:0 !important;
+    box-shadow:none !important;
+    -webkit-backdrop-filter:none !important;
+    backdrop-filter:none !important;
+  }
+  .wwz-topbar .wwz-sidebar-brand {
+    display:flex !important;
+    grid-column:1 !important;
+    grid-row:1 !important;
+    position:static !important;
+    align-self:center !important;
+    justify-self:start !important;
+    margin:0 !important;
+    transform:none !important;
+    visibility:visible !important;
+    opacity:1 !important;
+    z-index:2 !important;
+  }
+  .wwz-topbar .wwz-primary-nav {
+    display:flex !important;
+    grid-column:2 !important;
+    grid-row:1 !important;
+    position:relative !important;
+    inset:auto !important;
+    transform:none !important;
+    align-self:center !important;
+    justify-self:center !important;
+    align-items:center !important;
+    justify-content:center !important;
+    gap:4px !important;
+    width:max-content !important;
+    max-width:calc(100vw - 420px) !important;
+    margin:0 !important;
+    padding:6px !important;
+    background:rgba(248,248,246,.80) !important;
+    background-image:linear-gradient(145deg,rgba(255,255,255,.28),rgba(255,255,255,.06)) !important;
+    border:1px solid rgba(30,30,30,.09) !important;
+    border-radius:999px !important;
+    box-shadow:0 6px 22px rgba(20,20,20,.075) !important;
+    -webkit-backdrop-filter:blur(26px) saturate(1.18) !important;
+    backdrop-filter:blur(26px) saturate(1.18) !important;
+    isolation:isolate !important;
+    z-index:2 !important;
+  }
+  :root[data-theme="dark"] .wwz-topbar .wwz-primary-nav {
+    background:rgba(25,25,25,.88) !important;
+    background-image:linear-gradient(145deg,rgba(255,255,255,.07),rgba(255,255,255,.015)) !important;
+    border-color:rgba(255,255,255,.11) !important;
+    box-shadow:0 7px 24px rgba(0,0,0,.34) !important;
+  }
+  .wwz-topbar .wwz-mobile-controls {
+    display:flex !important;
+    grid-column:3 !important;
+    grid-row:1 !important;
+    position:static !important;
+    align-self:center !important;
+    justify-self:end !important;
+    align-items:center !important;
+    justify-content:flex-end !important;
+    gap:10px !important;
+    margin:0 !important;
+    transform:none !important;
+    visibility:visible !important;
+    opacity:1 !important;
+    z-index:2 !important;
+  }
+  .wwz-topbar .wwz-nav-label,
+  .wwz-topbar .wwz-resources,
+  .wwz-topbar .wwz-nav-contact,
+  .wwz-topbar .wwz-nav-indicator,
+  .wwz-topbar .wwz-primary-nav::before,
+  .wwz-topbar .wwz-primary-nav::after {
+    display:none !important;
+    content:none !important;
+  }
+  .wwz-topbar .wwz-primary-nav > .wwz-nav-link {
+    display:flex !important;
+    position:static !important;
+    transform:none !important;
+    align-items:center !important;
+    justify-content:center !important;
+    min-height:40px !important;
+    padding:0 17px !important;
+    border:0 !important;
+    border-radius:999px !important;
+    background:transparent !important;
+    box-shadow:none !important;
+    color:var(--nav-ink,#292929) !important;
+    white-space:nowrap !important;
+  }
+  .wwz-topbar .wwz-primary-nav > .wwz-nav-link:is(.active,[aria-current="page"]) {
+    background:#292929 !important;
+    color:#fff !important;
+  }
+  .wwz-topbar .wwz-primary-nav > .wwz-nav-link:is(.active,[aria-current="page"]) span {
+    color:#fff !important;
+  }
+  :root[data-theme="dark"] .wwz-topbar .wwz-primary-nav > .wwz-nav-link {
+    color:#f2f2f2 !important;
+  }
+  :root[data-theme="dark"] .wwz-topbar .wwz-primary-nav > .wwz-nav-link:is(.active,[aria-current="page"]) {
+    background:#f0f0f0 !important;
+    color:#171717 !important;
+  }
+  :root[data-theme="dark"] .wwz-topbar .wwz-primary-nav > .wwz-nav-link:is(.active,[aria-current="page"]) span {
+    color:#171717 !important;
+  }
+}
