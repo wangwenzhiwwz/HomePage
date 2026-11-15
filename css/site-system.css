@@ -2206,3 +2206,19 @@ html.wwz-menu-open .sidebar.wwz-topbar { z-index:2147483000 !important; }
   background: transparent !important;
   box-shadow: none !important;
 }
+
+
+/* Navigation rendering recovery:
+   disable the legacy translated indicator layer that can detach from the
+   horizontal capsule, and render the selected state on the link itself. */
+.wwz-topbar .wwz-primary-nav > .wwz-nav-indicator {
+  display: none !important;
+}
+.wwz-topbar .wwz-primary-nav > .wwz-nav-link:is(.active,[aria-current="page"]) {
+  background: #2b2b2b !important;
+  color: #fff !important;
+  box-shadow: none !important;
+}
+.wwz-topbar .wwz-primary-nav > .wwz-nav-link:is(.active,[aria-current="page"]) span {
+  color: #fff !important;
+}
