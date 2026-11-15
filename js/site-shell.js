@@ -142,6 +142,7 @@
     sidebar.innerHTML = template;
     updateActiveRoute(sidebar, new URL(location.href));
     mountNavIndicator(sidebar);
+    setupPersistentNavigation(sidebar);
     const currentPath = location.pathname;
     const projectFolder = sidebar.querySelectorAll('.wwz-nav-folder')[0];
     const learningFolder = sidebar.querySelectorAll('.wwz-nav-folder')[1];
@@ -308,6 +309,9 @@
     const refresh = () => moveTo(current(), false);
     addEventListener('resize', refresh);
     addEventListener('pageshow', refresh);
+    // Hash navigation can change the active route without reloading the page.
+    addEventListener('hashchange', () => requestAnimationFrame(refresh));
+    addEventListener('popstate', () => requestAnimationFrame(refresh));
     if (document.fonts?.ready) document.fonts.ready.then(refresh);
     if (window.ResizeObserver) {
       const observer = new ResizeObserver(refresh);
