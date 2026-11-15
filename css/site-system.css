@@ -2237,7 +2237,7 @@ html.wwz-menu-open .sidebar.wwz-topbar { z-index:2147483000 !important; }
     display: contents !important;
   }
   .wwz-topbar .wwz-nav-label,
-  .wwz-topbar .wwz-nav-group:not(:has(> .wwz-primary-nav)),
+  .wwz-topbar .wwz-sidebar-content > .wwz-nav-group:not(:first-child),
   .wwz-topbar .wwz-resources {
     display: none !important;
   }
