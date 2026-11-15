@@ -2266,3 +2266,16 @@ html.wwz-menu-open .sidebar.wwz-topbar { z-index:2147483000 !important; }
     display: none !important;
   }
 }
+
+
+/* Remove the detached navigation underline/pill on every viewport. */
+.wwz-topbar .wwz-nav-indicator,
+.wwz-topbar .wwz-primary-nav::before,
+.wwz-topbar .wwz-primary-nav::after {
+  display: none !important;
+  content: none !important;
+}
+.wwz-topbar .wwz-sidebar-content {
+  border: 0 !important;
+  box-shadow: none !important;
+}
