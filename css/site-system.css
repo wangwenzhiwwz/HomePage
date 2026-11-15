@@ -2193,3 +2193,16 @@ html.wwz-menu-open .sidebar.wwz-topbar { z-index:2147483000 !important; }
   background-image:linear-gradient(145deg,rgba(255,255,255,.12),rgba(255,255,255,.015) 70%) !important;
   box-shadow:0 6px 22px rgba(20,20,20,.045) !important;
 }
+
+
+/* Navigation state: keep the active label readable above the moving glass pill. */
+.wwz-topbar .wwz-nav-indicator {
+  border: 1px solid var(--nav-line);
+  border-radius: 999px;
+  background: var(--nav-selected);
+}
+.wwz-topbar .wwz-nav-link:is(.active,[aria-current="page"]) {
+  color: var(--nav-ink) !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
