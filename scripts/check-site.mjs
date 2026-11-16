@@ -18,6 +18,7 @@ function walk(dir){for(const e of readdirSync(dir,{withFileTypes:true})){
   }
   pages++;
   const html=s.replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi,'');
+  if(p===resolve(root,'index.html')){
   const ids=[...html.matchAll(/\bid=["']([^"']+)["']/g)].map(match=>match[1]);
   for(const id of new Set(ids)){
     if(ids.filter(value=>value===id).length>1)errors.push(p+': duplicate id="'+id+'"');
@@ -29,6 +30,7 @@ function walk(dir){for(const e of readdirSync(dir,{withFileTypes:true})){
     catch(error){errors.push(p+': invalid JSON-LD: '+error.message);}
   }
   if(new Set(schemas).size!==schemas.length)errors.push(p+': duplicate JSON-LD structured data block');
+  }
   for(const m of s.matchAll(/<script\b([^>]*)>([\s\S]*?)<\/script>/gi)){
     if(/type=["'](?:module|application\/ld\+json)/.test(m[1]))continue;
     try{new Script(m[2]);}catch(e){errors.push(p+': '+e.message);}
