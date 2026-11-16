@@ -546,7 +546,7 @@
         canvas.addEventListener("pointerleave",()=>pointer.active=false);
       }
       const draw=now=>{
-        raf=0;if(!visible)return;
+        raf=0;if(!visible || canvas.dataset.webglActive === "true")return;
         const elapsed=now-cycleStart;
         if(elapsed>cycleLength){cycleStart=now;cycleLength=rand(12500,17500);for(const p of particles){p.sx=rand(-width*.62,width*1.62);p.sy=rand(-height*.72,height*1.72);p.sz=rand(-110,110);}}
         const t=reduceMotion?0:elapsed/cycleLength;
@@ -598,6 +598,7 @@
         }
         ctx.restore();if(!reduceMotion)raf=requestAnimationFrame(draw);
       };
+      canvas.addEventListener("wwz:webgl-fallback",()=>{if(!visible)return;if(reduceMotion)draw(performance.now());else if(!raf)raf=requestAnimationFrame(draw);});
       resize();if(reduceMotion)draw(performance.now());else raf=requestAnimationFrame(draw);
     })();
 
