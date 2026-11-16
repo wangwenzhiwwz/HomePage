@@ -2975,3 +2975,44 @@ html.wwz-menu-open .sidebar.wwz-topbar { z-index:2147483000 !important; }
     box-shadow:none !important;
   }
 }
+
+
+/* 2026-11-16: desktop header must never span the viewport. */
+@media (min-width:1100px) {
+  .sidebar.wwz-topbar {
+    left:50% !important;
+    right:auto !important;
+    width:max-content !important;
+    max-width:calc(100vw - 48px) !important;
+    height:58px !important;
+    min-height:58px !important;
+    max-height:58px !important;
+    grid-template-columns:auto auto auto !important;
+    grid-template-rows:58px !important;
+    column-gap:clamp(18px,2.2vw,34px) !important;
+    padding:0 !important;
+    margin:0 !important;
+    transform:translateX(-50%) !important;
+    background:transparent !important;
+    background-color:transparent !important;
+    background-image:none !important;
+    border:0 !important;
+    border-radius:0 !important;
+    box-shadow:none !important;
+    -webkit-backdrop-filter:none !important;
+    backdrop-filter:none !important;
+  }
+  .wwz-topbar .wwz-sidebar-brand {
+    grid-column:1 !important;
+    justify-self:center !important;
+  }
+  .wwz-topbar .wwz-primary-nav {
+    grid-column:2 !important;
+    justify-self:center !important;
+    max-width:calc(100vw - 260px) !important;
+  }
+  .wwz-topbar .wwz-mobile-controls {
+    grid-column:3 !important;
+    justify-self:center !important;
+  }
+}
