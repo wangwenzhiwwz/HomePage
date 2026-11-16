@@ -2696,11 +2696,11 @@ html.wwz-menu-open .sidebar.wwz-topbar { z-index:2147483000 !important; }
     backdrop-filter:blur(34px) saturate(1.45) !important;
     box-shadow:inset 0 1px 0 rgba(255,255,255,.72),inset 0 -1px 0 rgba(255,255,255,.16),0 12px 34px rgba(20,24,30,.075) !important;
   }
-  .wwz-topbar .wwz-primary-nav .wwz-nav-link {
-    min-height:52px;
-    padding:0 clamp(25px,2.15vw,38px);
-    font-size:clamp(19px,1.22vw,22px);
-    letter-spacing:-.04em;
+  .wwz-topbar .wwz-primary-nav > .wwz-nav-link {
+    min-height:52px !important;
+    padding:0 clamp(25px,2.15vw,38px) !important;
+    font-size:clamp(19px,1.22vw,22px) !important;
+    letter-spacing:-.04em !important;
   }
   :root[data-theme="dark"] .wwz-topbar .wwz-primary-nav {
     background:rgba(32,32,32,.48) !important;
