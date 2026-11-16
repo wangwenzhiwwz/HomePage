@@ -34,7 +34,6 @@
   renderer.setClearColor(0x000000, 0);
   renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, mobile ? 1.35 : 1.75));
   stage.appendChild(renderer.domElement);
-  fallback.style.opacity = "0";
 
   const scene = new THREE.Scene();
   const camera = new THREE.PerspectiveCamera(36, 1, 0.1, 100);
@@ -205,6 +204,7 @@
   resize();
 
   let visible = true;
+  let webglReady = false;
   let raf = 0;
   const clock = new THREE.Clock();
   const render = () => {
@@ -217,6 +217,11 @@
     ring.rotation.z += reduceMotion ? 0 : 0.0007;
     innerRing.rotation.z -= reduceMotion ? 0 : 0.00045;
     renderer.render(scene, camera);
+    if (!webglReady) {
+      webglReady = true;
+      fallback.dataset.webglActive = "true";
+      fallback.style.opacity = "0";
+    }
     if (!reduceMotion) raf = requestAnimationFrame(render);
   };
 
@@ -245,6 +250,8 @@
   renderer.domElement.addEventListener("webglcontextlost", event => {
     event.preventDefault();
     fallback.style.opacity = "1";
+    fallback.dataset.webglActive = "false";
+    fallback.dispatchEvent(new Event("wwz:webgl-fallback"));
     stage.dataset.webglStarted = "false";
     if (raf) cancelAnimationFrame(raf);
   });
