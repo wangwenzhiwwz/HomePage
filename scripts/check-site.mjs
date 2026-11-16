@@ -17,7 +17,8 @@ function walk(dir){for(const e of readdirSync(dir,{withFileTypes:true})){
     continue;
   }
   pages++;
-  const ids=[...s.matchAll(/\bid=["']([^"']+)["']/g)].map(match=>match[1]);
+  const html=s.replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi,'');
+  const ids=[...html.matchAll(/\bid=["']([^"']+)["']/g)].map(match=>match[1]);
   for(const id of new Set(ids)){
     if(ids.filter(value=>value===id).length>1)errors.push(p+': duplicate id="'+id+'"');
   }
@@ -32,7 +33,6 @@ function walk(dir){for(const e of readdirSync(dir,{withFileTypes:true})){
     if(/type=["'](?:module|application\/ld\+json)/.test(m[1]))continue;
     try{new Script(m[2]);}catch(e){errors.push(p+': '+e.message);}
   }
-  const html=s.replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi,'');
   for(const m of html.matchAll(/(?:src|href)=["']([^"']+)["']/g)){
     const v=m[1];if(/^(?:[a-z]+:|\/\/|#)/i.test(v)||v.includes('${'))continue;
     const target=resolve(dirname(p),decodeURIComponent(v.split(/[?#]/)[0]));
