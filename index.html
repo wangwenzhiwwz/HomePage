@@ -330,7 +330,7 @@
   ]
 }
 </script>
-<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Person","@id":"https://wwz.im/#person","name":"Wang Wenzhi","url":"https://wwz.im/","jobTitle":"Commercial Video Producer and Technology Creator","description":"Works across commercial video production, AI-assisted creative workflows, independent web products and network infrastructure.","knowsAbout":["Commercial video production","AI video generation","ComfyUI workflows","Web development","Linux server administration","Network infrastructure"]},{"@type":"WebSite","@id":"https://wwz.im/#website","url":"https://wwz.im/","name":"WWZ.iM","publisher":{"@id":"https://wwz.im/#person"},"inLanguage":["zh-CN","en"]}]}</script>
+
 </head>
 <body data-content-root="" data-active-page="home">
   <a class="skip" href="#main">跳到主要内容</a>
@@ -438,12 +438,33 @@
     const modal = document.getElementById("videoModal");
     const frame = document.getElementById("videoFrame");
     let returnFocus = null;
-    const closeVideo = () => { modal.classList.remove("open"); frame.removeAttribute('src'); document.body.style.overflow=''; returnFocus?.focus(); };
+    let modalInertSnapshot = [];
+    const setModalBackgroundInert = enabled => {
+      if (enabled) {
+        modalInertSnapshot = [...document.body.children]
+          .filter(element => element !== modal)
+          .map(element => [element, element.inert]);
+        modalInertSnapshot.forEach(([element]) => { element.inert = true; });
+        return;
+      }
+      modalInertSnapshot.forEach(([element, wasInert]) => { element.inert = wasInert; });
+      modalInertSnapshot = [];
+    };
+    const closeVideo = () => {
+      modal.classList.remove("open");
+      frame.removeAttribute('src');
+      document.body.style.overflow = '';
+      setModalBackgroundInert(false);
+      returnFocus?.focus();
+    };
     document.querySelectorAll(".js-video").forEach(button => button.addEventListener("click", () => {
       returnFocus = button;
       const join = button.dataset.video.includes("?") ? "&" : "?";
       frame.src = button.dataset.video + join + "autoplay=1&rel=0";
-      modal.classList.add("open"); document.body.style.overflow='hidden'; document.getElementById("modalClose").focus();
+      modal.classList.add("open");
+      document.body.style.overflow = 'hidden';
+      setModalBackgroundInert(true);
+      document.getElementById("modalClose").focus();
     }));
     document.getElementById("modalClose").addEventListener("click", closeVideo);
     modal.addEventListener("click", event => { if(event.target === modal) closeVideo(); });
