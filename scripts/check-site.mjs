@@ -17,6 +17,17 @@ function walk(dir){for(const e of readdirSync(dir,{withFileTypes:true})){
     continue;
   }
   pages++;
+  const ids=[...s.matchAll(/\bid=["']([^"']+)["']/g)].map(match=>match[1]);
+  for(const id of new Set(ids)){
+    if(ids.filter(value=>value===id).length>1)errors.push(p+': duplicate id="'+id+'"');
+  }
+  const schemaBlocks=[...s.matchAll(/<script\b(?=[^>]*type=["']application\/ld\+json["'])[^>]*>([\s\S]*?)<\/script>/gi)];
+  const schemas=[];
+  for(const match of schemaBlocks){
+    try{schemas.push(JSON.stringify(JSON.parse(match[1])));}
+    catch(error){errors.push(p+': invalid JSON-LD: '+error.message);}
+  }
+  if(new Set(schemas).size!==schemas.length)errors.push(p+': duplicate JSON-LD structured data block');
   for(const m of s.matchAll(/<script\b([^>]*)>([\s\S]*?)<\/script>/gi)){
     if(/type=["'](?:module|application\/ld\+json)/.test(m[1]))continue;
     try{new Script(m[2]);}catch(e){errors.push(p+': '+e.message);}
