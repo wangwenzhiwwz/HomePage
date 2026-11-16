@@ -2917,3 +2917,61 @@ html.wwz-menu-open .sidebar.wwz-topbar { z-index:2147483000 !important; }
 @media (prefers-reduced-motion:reduce) {
   .particle-w-canvas,.particle-w-webgl { transition:none !important; }
 }
+
+
+/* Desktop navigation correction: remove the oversized horizontal-bar look. */
+@media (min-width:1100px) {
+  .sidebar.wwz-topbar {
+    height:58px !important;
+    min-height:58px !important;
+    max-height:58px !important;
+    grid-template-rows:58px !important;
+    inset:14px 0 auto !important;
+  }
+  .wwz-topbar .wwz-primary-nav {
+    width:max-content !important;
+    min-width:0 !important;
+    max-width:calc(100vw - 440px) !important;
+    min-height:48px !important;
+    height:48px !important;
+    padding:4px 6px !important;
+    gap:2px !important;
+    border-radius:999px !important;
+    background:rgba(255,255,255,.30) !important;
+    background-image:none !important;
+    border:1px solid rgba(120,120,120,.12) !important;
+    box-shadow:0 4px 18px rgba(20,20,20,.045),inset 0 1px 0 rgba(255,255,255,.55) !important;
+    -webkit-backdrop-filter:blur(28px) saturate(1.35) !important;
+    backdrop-filter:blur(28px) saturate(1.35) !important;
+  }
+  .wwz-topbar .wwz-primary-nav > .wwz-nav-link {
+    min-height:38px !important;
+    height:38px !important;
+    padding:0 15px !important;
+    gap:6px !important;
+    font-size:14px !important;
+    font-weight:600 !important;
+    letter-spacing:-.02em !important;
+    line-height:1 !important;
+  }
+  .wwz-topbar .wwz-primary-nav > .wwz-nav-link i {
+    width:12px !important;
+    font-size:12px !important;
+  }
+  .wwz-topbar .wwz-primary-nav > .wwz-nav-link:is(.active,[aria-current="page"]) {
+    background:rgba(30,30,32,.075) !important;
+    color:#222 !important;
+    box-shadow:none !important;
+  }
+  :root[data-theme="dark"] .wwz-topbar .wwz-primary-nav {
+    background:rgba(30,30,32,.38) !important;
+    background-image:none !important;
+    border-color:rgba(255,255,255,.12) !important;
+    box-shadow:0 5px 20px rgba(0,0,0,.16),inset 0 1px 0 rgba(255,255,255,.10) !important;
+  }
+  :root[data-theme="dark"] .wwz-topbar .wwz-primary-nav > .wwz-nav-link:is(.active,[aria-current="page"]) {
+    background:rgba(255,255,255,.12) !important;
+    color:#fff !important;
+    box-shadow:none !important;
+  }
+}
