@@ -51,11 +51,11 @@
         gradient.addColorStop(.48, darkMode ? "rgba(185,220,245,.52)" : "rgba(80,105,130,.42)");
         gradient.addColorStop(1, darkMode ? "rgba(255,255,255,.12)" : "rgba(255,255,255,.72)");
         ctx.strokeStyle = gradient;
-        ctx.lineWidth = Math.max(2, scale * (.018 - layer * .002));
+        ctx.lineWidth = Math.max(18, scale * (.16 - layer * .012));
         ctx.shadowBlur = 18;
         ctx.shadowColor = darkMode ? "rgba(160,210,255,.22)" : "rgba(90,120,150,.16)";
         ctx.beginPath();
-        ctx.ellipse(0, 0, scale * (1 + layer * .075), scale * (.56 + layer * .045), Math.sin(t + layer) * .18, 0, Math.PI * 2);
+        ctx.ellipse(0, 0, scale * (.72 + layer * .055), scale * (.48 + layer * .035), Math.sin(t + layer) * .18, 0, Math.PI * 2);
         ctx.stroke();
         ctx.restore();
       }
@@ -114,7 +114,8 @@
     const sculpture = new THREE.Group();
     scene.add(sculpture);
 
-    const glassGeometry = new THREE.TorusKnotGeometry(1.02, .285, mobile ? 150 : 240, mobile ? 20 : 32, 2, 3);
+    const glassGeometry = new THREE.TorusKnotGeometry(1.0, .39, mobile ? 180 : 280, mobile ? 28 : 40, 2, 3);
+    glassGeometry.computeBoundingSphere();
     const glassMaterial = new THREE.ShaderMaterial({
       uniforms: {
         uTime: { value: 0 },
@@ -175,18 +176,6 @@
     const glass = new THREE.Mesh(glassGeometry, glassMaterial);
     sculpture.add(glass);
 
-    const makeOrbit = (radius, tube, color, opacity, rotation) => {
-      const mesh = new THREE.Mesh(
-        new THREE.TorusGeometry(radius, tube, 5, 180),
-        new THREE.MeshBasicMaterial({ color, transparent: true, opacity, depthWrite: false })
-      );
-      mesh.rotation.set(rotation[0], rotation[1], rotation[2]);
-      sculpture.add(mesh);
-      return mesh;
-    };
-    const orbitA = makeOrbit(1.72, .006, dark() ? 0xb6d9ee : 0x8298aa, .22, [1.16, .28, -.24]);
-    const orbitB = makeOrbit(1.88, .0035, dark() ? 0x8abfe0 : 0xb0bac4, .15, [.72, -.44, .58]);
-
     const pointer = new THREE.Vector2(0, 0);
     let pointerActive = false;
     const onPointerMove = event => {
@@ -204,7 +193,12 @@
       const rect = stage.getBoundingClientRect();
       const w = Math.max(1, rect.width), h = Math.max(1, rect.height);
       camera.aspect = w / h;
-      camera.position.z = w < 520 ? 5.9 : 5.2;
+      camera.updateProjectionMatrix();
+      const verticalFov = THREE.MathUtils.degToRad(camera.fov);
+      const horizontalFov = 2 * Math.atan(Math.tan(verticalFov * .5) * camera.aspect);
+      const limitingFov = Math.min(verticalFov, horizontalFov);
+      const objectRadius = glassGeometry.boundingSphere.radius * .94;
+      camera.position.z = Math.max(4.8, objectRadius / Math.sin(limitingFov * .5) * 1.32);
       camera.updateProjectionMatrix();
       renderer.setSize(w, h, false);
     };
@@ -225,8 +219,6 @@
       sculpture.rotation.x += (targetX + Math.sin(t * .18) * .045 - sculpture.rotation.x) * .025;
       sculpture.rotation.y += (targetY + t * .075 - sculpture.rotation.y) * .018;
       sculpture.rotation.z = Math.sin(t * .13) * .045;
-      orbitA.rotation.z += reduceMotion ? 0 : .00055;
-      orbitB.rotation.x -= reduceMotion ? 0 : .00032;
       renderer.render(scene, camera);
       if (fallback.style.opacity !== "0") {
         fallback.style.opacity = "0";
@@ -258,8 +250,6 @@
 
     const themeObserver = new MutationObserver(() => {
       glassMaterial.uniforms.uDark.value = dark() ? 1 : 0;
-      orbitA.material.color.setHex(dark() ? 0xb6d9ee : 0x8298aa);
-      orbitB.material.color.setHex(dark() ? 0x8abfe0 : 0xb0bac4);
       if (reduceMotion && visible) render();
     });
     themeObserver.observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
@@ -274,8 +264,6 @@
       if (raf) cancelAnimationFrame(raf);
       glassGeometry.dispose();
       glassMaterial.dispose();
-      orbitA.geometry.dispose(); orbitA.material.dispose();
-      orbitB.geometry.dispose(); orbitB.material.dispose();
       renderer.dispose();
       renderer.domElement.remove();
     };
