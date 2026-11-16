@@ -2663,3 +2663,56 @@ html.wwz-menu-open .sidebar.wwz-topbar { z-index:2147483000 !important; }
     color:#171717 !important;
   }
 }
+
+
+/* 2026-11-16: floating glass navigation refinement */
+@media (min-width:1100px) {
+  /* Keep the header itself completely invisible; only the controls and capsule are surfaces. */
+  .sidebar.wwz-topbar,
+  .sidebar.wwz-topbar::before,
+  .sidebar.wwz-topbar::after {
+    background:transparent !important;
+    background-color:transparent !important;
+    border:0 !important;
+    box-shadow:none !important;
+    -webkit-backdrop-filter:none !important;
+    backdrop-filter:none !important;
+  }
+  .wwz-topbar .wwz-sidebar-head,
+  .wwz-topbar .wwz-sidebar-content {
+    background:transparent !important;
+    border:0 !important;
+    box-shadow:none !important;
+  }
+  .wwz-topbar .wwz-primary-nav {
+    gap:10px;
+    padding:9px 11px;
+    min-height:70px;
+    background:rgba(255,255,255,.34) !important;
+    background-image:linear-gradient(145deg,rgba(255,255,255,.62),rgba(255,255,255,.13) 58%,rgba(255,255,255,.22)) !important;
+    border:1px solid rgba(255,255,255,.48) !important;
+    border-radius:999px;
+    -webkit-backdrop-filter:blur(34px) saturate(1.45) !important;
+    backdrop-filter:blur(34px) saturate(1.45) !important;
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.72),inset 0 -1px 0 rgba(255,255,255,.16),0 12px 34px rgba(20,24,30,.075) !important;
+  }
+  .wwz-topbar .wwz-primary-nav .wwz-nav-link {
+    min-height:52px;
+    padding:0 clamp(25px,2.15vw,38px);
+    font-size:clamp(19px,1.22vw,22px);
+    letter-spacing:-.04em;
+  }
+  :root[data-theme="dark"] .wwz-topbar .wwz-primary-nav {
+    background:rgba(32,32,32,.48) !important;
+    background-image:linear-gradient(145deg,rgba(255,255,255,.13),rgba(255,255,255,.025) 58%,rgba(255,255,255,.065)) !important;
+    border-color:rgba(255,255,255,.17) !important;
+    -webkit-backdrop-filter:blur(34px) saturate(1.25) !important;
+    backdrop-filter:blur(34px) saturate(1.25) !important;
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.14),inset 0 -1px 0 rgba(0,0,0,.14),0 12px 34px rgba(0,0,0,.2) !important;
+  }
+  :root[data-theme="dark"] .wwz-topbar .wwz-primary-nav .wwz-nav-link:is(.active,[aria-current="page"]) {
+    background:rgba(245,245,242,.16) !important;
+    color:#fff !important;
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.14) !important;
+  }
+}
