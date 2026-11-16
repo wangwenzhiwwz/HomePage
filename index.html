@@ -30,6 +30,61 @@
   
 
 
+
+    /* Separate brand mark; integrate the site name into a soft glass base. */
+    .fluid-glass-logo-mark {
+      position:absolute; z-index:3; top:18px; left:50%;
+      width:46px; height:46px; object-fit:contain;
+      transform:translateX(-50%);
+      filter:drop-shadow(0 5px 14px rgba(45,65,82,.18));
+      pointer-events:none;
+    }
+    .fluid-glass-signature {
+      position:absolute; z-index:3; left:50%; bottom:22px;
+      transform:translateX(-50%);
+      min-width:166px; height:46px; padding:0 25px;
+      display:flex; align-items:center; justify-content:center;
+      border-radius:999px;
+      color:#34414b;
+      background:linear-gradient(145deg,rgba(255,255,255,.54),rgba(198,213,225,.20));
+      border:1px solid rgba(255,255,255,.34);
+      box-shadow:0 10px 30px rgba(73,94,112,.10),inset 0 1px 0 rgba(255,255,255,.72);
+      -webkit-backdrop-filter:blur(24px) saturate(1.45);
+      backdrop-filter:blur(24px) saturate(1.45);
+      pointer-events:none;
+    }
+    .fluid-glass-signature:before {
+      content:""; position:absolute; z-index:-1; inset:5px -20px;
+      border-radius:50%;
+      background:radial-gradient(ellipse,rgba(151,179,199,.23),transparent 72%);
+      filter:blur(10px);
+    }
+    .fluid-glass-signature span {
+      font:700 .82rem/1 ui-sans-serif,system-ui,sans-serif;
+      letter-spacing:.22em; padding-left:.22em;
+      text-shadow:0 1px 1px rgba(255,255,255,.34);
+    }
+    [data-theme="dark"] .fluid-glass-logo-mark {
+      filter:brightness(1.12) drop-shadow(0 5px 16px rgba(0,0,0,.42));
+    }
+    [data-theme="dark"] .fluid-glass-signature {
+      color:#e6edf2;
+      background:linear-gradient(145deg,rgba(72,87,100,.58),rgba(34,45,55,.34));
+      border-color:rgba(222,237,248,.16);
+      box-shadow:0 12px 32px rgba(0,0,0,.24),inset 0 1px 0 rgba(255,255,255,.13);
+    }
+    [data-theme="dark"] .fluid-glass-signature:before {
+      background:radial-gradient(ellipse,rgba(128,169,197,.22),transparent 72%);
+    }
+    [data-theme="dark"] .fluid-glass-signature span {
+      text-shadow:0 1px 8px rgba(0,0,0,.28);
+    }
+    @media (max-width:760px) {
+      .fluid-glass-logo-mark { top:12px; width:38px; height:38px; }
+      .fluid-glass-signature { bottom:12px; min-width:148px; height:40px; padding:0 20px; }
+      .fluid-glass-signature span { font-size:.74rem; }
+    }
+
     /* Sculptural fluid-glass hero stage */
     .logo-stage.fluid-glass-stage { min-height:520px; display:flex; align-items:center; justify-content:center; overflow:visible; isolation:isolate; }
     .logo-stage.fluid-glass-stage:before { content:""; position:absolute; z-index:0; width:76%; height:72%; left:12%; top:13%; border-radius:50%; background:radial-gradient(ellipse,rgba(145,170,190,.15),rgba(105,135,165,.055) 46%,transparent 74%); filter:blur(34px); pointer-events:none; }
@@ -59,7 +114,7 @@
   
   <link rel="preconnect" href="https://cdnjs.cloudflare.com">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-  <link rel="stylesheet" href="css/site-system.css?v=20261116-animated-active-pill">
+  <link rel="stylesheet" href="css/site-system.css?v=20261116-previous-capsule-brand-stage">
   <style>
     :root {
       --bg:#f7f7f5; --surface:#fff; --ink:#11110f; --muted:#6f706c;
@@ -359,7 +414,10 @@
         </div>
         <div class="logo-stage fluid-glass-stage" id="logoStage" aria-label="缓慢形变的三维流体玻璃艺术装置">
           <canvas class="fluid-glass-fallback" id="fluidGlassFallback" aria-hidden="true"></canvas>
-          <span class="fluid-glass-caption" aria-hidden="true">WWZ.iM&nbsp; / &nbsp;CREATIVE · TECHNOLOGY</span>
+          <img class="fluid-glass-logo-mark" src="favicon.png" alt="WWZ logo" width="48" height="48">
+          <div class="fluid-glass-signature" aria-label="WWZ.iM">
+            <span>WWZ.iM</span>
+          </div>
         </div>
         <div class="disciplines">
           <div class="discipline"><small>01 / CREATIVE</small><strong>Commercial Production</strong><p>Concepts, scripts, product filming and post-production</p></div>
