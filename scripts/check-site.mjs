@@ -37,7 +37,8 @@ function walk(dir){for(const e of readdirSync(dir,{withFileTypes:true})){
   }
   for(const m of html.matchAll(/(?:src|href)=["']([^"']+)["']/g)){
     const v=m[1];if(/^(?:[a-z]+:|\/\/|#)/i.test(v)||v.includes('${'))continue;
-    const target=resolve(dirname(p),decodeURIComponent(v.split(/[?#]/)[0]));
+    const cleanPath=decodeURIComponent(v.split(/[?#]/)[0]);
+    const target=cleanPath.startsWith('/')?resolve(root,'.'+cleanPath):resolve(dirname(p),cleanPath);
     if(!existsSync(target))errors.push(p+': missing '+v);
   }
   if(/user-scalable=no/.test(s))errors.push(p+': zoom disabled');
@@ -47,30 +48,32 @@ walk(root);
 const context={window:{}};
 runInNewContext(readFileSync(resolve(root,'data/site-content.js'),'utf8'),context);
 const content=context.window.WWZ_CONTENT;
-let works=[];
-if(existsSync(resolve(root,'data/works.json'))){
-  works=JSON.parse(readFileSync(resolve(root,'data/works.json'),'utf8'));
-}else{
-  const worksContext={window:{},atob,Blob,DecompressionStream,Response};
-  runInNewContext(readFileSync(resolve(root,'data/works.js'),'utf8'),worksContext);
-  works=await worksContext.window.WWZ_WORKS_READY;
-}
+const works=JSON.parse(readFileSync(resolve(root,'data/works.json'),'utf8'));
 for(const item of [...content.videos,...content.posts,...works]){
   for(const key of ['image','href']){
     const value=item[key];
     if(!value||/^[a-z]+:/i.test(value))continue;
-    if(!existsSync(resolve(root,value)))errors.push('Content: missing '+value);
+    const relVal=value.startsWith('/')?'.'+value:value;
+    if(!existsSync(resolve(root,relVal)))errors.push('Content: missing '+value);
   }
 }
 const redirects=JSON.parse(readFileSync(resolve(root,'data/legacy-routes.json'),'utf8'));
+const redirectsFile=readFileSync(resolve(root,'_redirects'),'utf8');
+const notFoundHtml=readFileSync(resolve(root,'404.html'),'utf8');
+const sitesWorker=readFileSync(resolve(root,'sites-worker.js'),'utf8');
 for(const [from,to] of Object.entries(redirects)){
-  const file=resolve(root,from),target=resolve(root,to);
-  if(!existsSync(file)||!existsSync(target))errors.push('Broken legacy route: '+from);
+  const target=resolve(root,to);
+  if(!existsSync(target))errors.push('Broken legacy route target: '+to);
+  const routeKey = from.replace(/\/index\.html$/, '');
+  if(!redirectsFile.includes(routeKey))errors.push('Missing in _redirects: '+from);
+  if(!notFoundHtml.includes(from)&&!notFoundHtml.includes(routeKey))errors.push('Missing in 404.html: '+from);
+  if(!sitesWorker.includes(from)&&!sitesWorker.includes(routeKey))errors.push('Missing in sites-worker.js: '+from);
 }
 // macOS can hide casing errors that would fail on Linux hosting.
 function exactPath(path){
   let current=root;
-  for(const part of path.split('/').filter(Boolean)){
+  const clean = path.replace(/^\.+[\/\\]+/, '');
+  for(const part of clean.split('/').filter(Boolean)){
     if(!readdirSync(current).includes(part)) return false;
     current=resolve(current,part);
   }
@@ -79,7 +82,8 @@ function exactPath(path){
 for(const item of [...content.videos,...content.posts,...works]){
   for(const key of ['image','href']){
     const value=item[key];
-    if(value&&!/^[a-z]+:/i.test(value)&&existsSync(resolve(root,value))&&!exactPath(value))errors.push('Case mismatch: '+value);
+    const relVal=value&&value.startsWith('/')?'.'+value:value;
+    if(relVal&&!/^[a-z]+:/i.test(relVal)&&existsSync(resolve(root,relVal))&&!exactPath(relVal))errors.push('Case mismatch: '+value);
   }
 }
 if(errors.length){console.error(errors.join('\n'));process.exit(1);}

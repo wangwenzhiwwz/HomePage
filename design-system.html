@@ -12,7 +12,7 @@
       try { mode = localStorage.getItem('wwz-theme-mode') || 'system'; } catch (_) {}
       if (!['light', 'dark'].includes(mode)) mode = 'system';
       const theme = mode === 'system' ? (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : mode;
-      const background = theme === 'dark' ? '#0b0b0a' : '#f7f7f5';
+      const background = theme === 'dark' ? '#000000' : '#f7f7f5';
       root.dataset.theme = theme;
       root.dataset.themeMode = mode;
       root.style.colorScheme = theme;
@@ -24,26 +24,18 @@
   </script>
   <style data-theme-startup>
     html { --wwz-initial-bg:#f7f7f5; background:var(--wwz-initial-bg); color-scheme:light; }
-    @media (prefers-color-scheme:dark) { html { --wwz-initial-bg:#0b0b0a; color-scheme:dark; } }
+    @media (prefers-color-scheme:dark) { html { --wwz-initial-bg:#000000; color-scheme:dark; } }
     html:not([data-theme-ready]), html:not([data-theme-ready]) body { background:var(--wwz-initial-bg) !important; background-image:none !important; }
     html:not([data-theme-ready]), html:not([data-theme-ready]) * { transition:none !important; }
   </style>
-  <script src="js/site-theme.js?v=20260920-inline-theme"></script>
+  <script src="js/site-theme.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Design System - WWZ.iM</title>
     <meta name="description" content="WWZ.iM Design System - Colors, Typography, Components, and UI Kit.">
     <meta name="author" content="Wang Wenzhi">
-
-
-
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="icon" href="https://wangwenzhi.eu.org/images/favicon_io/favicon.ico">
-
-    <link href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.1/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="icon" href="favicon.ico">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/legacy-pages.css">
+    <link rel="stylesheet" href="css/site-system.css">
 
     <style>
         .style-section {

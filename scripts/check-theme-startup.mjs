@@ -30,7 +30,7 @@ function check(directory) {
         const expected = ['light', 'dark'].includes(mode) ? mode : systemDark ? 'dark' : 'light';
         assert.equal(element.dataset.theme, expected, path);
         assert.equal(element.style.colorScheme, expected, path);
-        assert.equal(element.style.backgroundColor, expected === 'dark' ? '#0b0b0a' : '#f7f7f5', path);
+        assert.equal(element.style.backgroundColor, expected === 'dark' ? '#000000' : '#f7f7f5', path);
         assert.equal(element.style['--wwz-initial-bg'], element.style.backgroundColor, path);
         assert.equal(metas['meta[name="theme-color"]'], element.style.backgroundColor, path);
       }

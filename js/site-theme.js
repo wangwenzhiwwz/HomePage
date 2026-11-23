@@ -13,7 +13,7 @@
     root.dataset.theme = theme;
     root.dataset.themeMode = mode;
     root.style.colorScheme = theme;
-    root.style.backgroundColor = theme === 'dark' ? '#0b0b0a' : '#f7f7f5';
+    root.style.backgroundColor = theme === 'dark' ? '#000000' : '#f7f7f5';
     root.style.setProperty('--wwz-initial-bg', root.style.backgroundColor);
     document.querySelector('meta[name="theme-color"]')?.setAttribute('content', root.style.backgroundColor);
     document.querySelector('meta[name="color-scheme"]')?.setAttribute('content', theme);

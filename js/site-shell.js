@@ -1,358 +1,558 @@
+/**
+ * WWZ.iM Apple Studio Minimalist Shell
+ * 
+ * Features:
+ * 1. Fixed Frosted-Glass Apple Navigation Bar.
+ * 2. Icon-Based Dark/Light Mode Switcher with Smooth Rotation.
+ * 3. Safari/Apple-grade Top Loading Progress Bar.
+ * 4. Zero-Flicker Seamless PJAX Page Transitions.
+ * 5. Interactive 3D Card Tilt & Dynamic Cursor Specular Glow.
+ * 6. High-End Optical Aperture & Depth-of-Field Interactive Stage.
+ */
+
 (function () {
-  const root = document.body?.dataset.contentRoot || "/";
-  const embedded = window.self !== window.top;
-  const initialUrl = new URL(location.href);
-  const initialTitle = document.title;
+  'use strict';
 
-  // Keep page navigation native; only the active navigation pill animates.
-  const canonicalPath = url => url.pathname.replace(/\/index\.html$/, '/');
-  // Keep relative assets stable when the persistent navigation changes the URL.
-  if (!document.querySelector('base')) {
-    const base = document.createElement('base');
-    base.href = initialUrl.href;
-    document.head.prepend(base);
-  }
-  const active = (document.body?.dataset.activePage) || (
-    location.pathname.includes("/videos/") ? "videos" :
-    location.pathname.includes("/article") || location.pathname.includes("/articles/") || location.pathname.includes("/topics/") || location.pathname.endsWith("/blog.html") ? "blog" :
-    location.pathname.endsWith("/works.html") ? "works" : "home"
-  );
+  // Compute Root Path
+  const getRoot = () => {
+    const depth = (location.pathname.match(/\//g) || []).length;
+    if (location.pathname === '/' || (location.pathname.endsWith('/index.html') && depth <= 1)) return '';
+    return '/';
+  };
 
-  const item = (key, href, icon, label) => `
-    <a href="${href}" data-shell-route="${key}" class="wwz-nav-link${active === key ? " active" : ""}"${active === key ? ' aria-current="page"' : ""}>
-      <i class="${icon}" aria-hidden="true"></i><span>${label}</span>
-    </a>`;
+  const ROOT = getRoot();
 
-  const template = `
-    <div class="wwz-sidebar-head">
-      <a class="wwz-sidebar-brand" href="${root}index.html"><img src="${root}favicon.png" alt="WWZ Logo"><span><strong>WWZ.iM</strong></span></a>
-      <div class="wwz-mobile-controls">
-        <button class="wwz-icon-button" type="button" data-shell-theme aria-label="Toggle color theme"><i class="fa-solid fa-circle-half-stroke"></i></button>
-        <button class="wwz-menu-button" type="button" data-shell-menu aria-label="Open navigation" aria-expanded="false">Menu</button>
+  // Helper: Match Current Route Key
+  const getRouteKey = (pathname) => {
+    if (pathname === '/' || (pathname.endsWith('/index.html') && !/\/(videos|articles|projects|topics|lab)\//.test(pathname))) {
+      return 'home';
+    }
+    if (pathname.includes('/works')) return 'works';
+    if (pathname.includes('/videos')) return 'videos';
+    if (pathname.includes('/blog') || pathname.includes('/articles') || pathname.includes('/article') || pathname.includes('/topics') || pathname.includes('/lab')) {
+      return 'blog';
+    }
+    if (pathname.includes('/about') || pathname.includes('/team')) return 'about';
+    return 'home';
+  };
+
+  // SVGs for Theme Toggle: Moon (for switching to dark) & Sun (for switching to light)
+  const ICON_MOON = `<svg class="theme-icon-svg" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>`;
+  const ICON_SUN = `<svg class="theme-icon-svg" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>`;
+
+  // Build Fixed Apple Navigation Bar Template
+  const buildNavHTML = (activeKey) => {
+    const isDark = document.documentElement.dataset.theme === 'dark';
+    const themeIcon = isDark ? ICON_SUN : ICON_MOON;
+    const themeLabel = isDark ? 'Switch to light mode' : 'Switch to dark mode';
+
+    return `
+      <div class="apple-nav-inner">
+        <a href="${ROOT || '/'}index.html" class="apple-brand" data-shell-nav="home">
+          <img src="${ROOT || '/'}favicon.png" alt="WWZ Logo" width="22" height="22">
+          <span>WWZ.iM</span>
+        </a>
+        <nav class="apple-links" aria-label="Primary navigation">
+          <a href="${ROOT || '/'}index.html" class="apple-link ${activeKey === 'home' ? 'active' : ''}" data-shell-nav="home" ${activeKey === 'home' ? 'aria-current="page"' : ''}>Home</a>
+          <a href="${ROOT || '/'}works.html" class="apple-link ${activeKey === 'works' ? 'active' : ''}" data-shell-nav="works" ${activeKey === 'works' ? 'aria-current="page"' : ''}>Works</a>
+          <a href="${ROOT || '/'}videos/" class="apple-link ${activeKey === 'videos' ? 'active' : ''}" data-shell-nav="videos" ${activeKey === 'videos' ? 'aria-current="page"' : ''}>Videos</a>
+          <a href="${ROOT || '/'}blog.html" class="apple-link ${activeKey === 'blog' ? 'active' : ''}" data-shell-nav="blog" ${activeKey === 'blog' ? 'aria-current="page"' : ''}>Blog</a>
+          <a href="${ROOT || '/'}about.html" class="apple-link ${activeKey === 'about' ? 'active' : ''}" data-shell-nav="about" ${activeKey === 'about' ? 'aria-current="page"' : ''}>About</a>
+        </nav>
+        <div class="apple-controls">
+          <button class="apple-icon-btn" type="button" data-shell-theme aria-label="${themeLabel}" title="${themeLabel}">
+            ${themeIcon}
+          </button>
+          <button class="apple-menu-toggle" type="button" id="appleMenuToggle" aria-label="Open mobile menu" aria-expanded="false">
+            <span></span>
+            <span></span>
+          </button>
+        </div>
       </div>
-    </div>
-    <div class="wwz-sidebar-content" id="wwz-navigation">
-      <div class="wwz-nav-group"><p class="wwz-nav-label">Main navigation <span>MAIN</span></p><nav class="wwz-nav wwz-primary-nav" aria-label="Main navigation">
-        ${item("home",root+"index.html","fa-solid fa-house","Home")}
-        ${item("works",root+"works.html","fa-solid fa-layer-group","Works")}
-        ${item("videos",root+"videos/","fa-solid fa-film","Videos")}
-        ${item("blog",root+"blog.html","fa-solid fa-book-open","Blog")}
-        ${item("about",root+"about.html","fa-solid fa-user","About")}
-      </nav></div>
-      <div class="wwz-nav-group"><p class="wwz-nav-label">Explore <span>EXPLORE</span></p>
-        <details class="wwz-nav-folder"><summary><span><i class="fa-solid fa-layer-group"></i> Works sections</span><i class="fa-solid fa-chevron-down"></i></summary><nav class="wwz-nav-sub" aria-label="Works sections">
-          <a href="${root}works.html#portfolio">Selected Work</a><a href="${root}works.html#projects">Digital Projects</a><a href="${root}blog.html">Blog & Guides</a>
-        </nav></details>
-        <details class="wwz-nav-folder"><summary><span><i class="fa-solid fa-lightbulb"></i> Topics & Learning</span><i class="fa-solid fa-chevron-down"></i></summary><nav class="wwz-nav-sub" aria-label="Topics & Learning"><a href="${root}lab/">AI Lab</a><a href="${root}topics/ai-comfyui/">ComfyUI / Local AI</a><a href="${root}now.html">Now · Current Focus</a><a href="${root}works.html#guides">Blog & Guides</a></nav></details>
+      <div class="apple-mobile-drawer" id="appleMobileDrawer">
+        <nav class="apple-mobile-nav">
+          <a href="${ROOT || '/'}index.html" class="apple-mobile-link ${activeKey === 'home' ? 'active' : ''}" data-shell-nav="home">Home</a>
+          <a href="${ROOT || '/'}works.html" class="apple-mobile-link ${activeKey === 'works' ? 'active' : ''}" data-shell-nav="works">Works</a>
+          <a href="${ROOT || '/'}videos/" class="apple-mobile-link ${activeKey === 'videos' ? 'active' : ''}" data-shell-nav="videos">Videos</a>
+          <a href="${ROOT || '/'}blog.html" class="apple-mobile-link ${activeKey === 'blog' ? 'active' : ''}" data-shell-nav="blog">Blog</a>
+          <a href="${ROOT || '/'}about.html" class="apple-mobile-link ${activeKey === 'about' ? 'active' : ''}" data-shell-nav="about">About</a>
+        </nav>
+        <div class="apple-mobile-footer">
+          <span>WWZ.iM · Wang Wenzhi</span>
+          <a href="https://github.com/wangwenzhiwwz" target="_blank" rel="noopener noreferrer" style="color:var(--ink-secondary)">GitHub ↗</a>
+        </div>
       </div>
-      <div class="wwz-nav-group wwz-nav-contact"><p class="wwz-nav-label">Connect <span>CONNECT</span></p>
-        <a class="wwz-nav-link" href="${root}index.html#contact"><i class="fa-solid fa-paper-plane"></i><span>Contact</span></a>
-        <details class="wwz-resources"><summary>External Links <i class="fa-solid fa-chevron-down"></i></summary><div class="wwz-resources-panel">
-          <nav class="wwz-nav"><a href="https://blog.wwz.im/" target="_blank" rel="noopener noreferrer" class="wwz-nav-link"><i class="fa-brands fa-blogger"></i><span>External Blog</span></a><a href="https://app.wwz.im/" target="_blank" rel="noopener noreferrer" class="wwz-nav-link"><i class="fa-solid fa-compass"></i><span>App Directory</span></a></nav>
-          <div class="wwz-socials"><a href="https://x.com/wwz_im" target="_blank" rel="noopener noreferrer" aria-label="X"><i class="fa-brands fa-x-twitter"></i></a><a href="https://github.com/wangwenzhiwwz" target="_blank" rel="noopener noreferrer" aria-label="GitHub"><i class="fa-brands fa-github"></i></a><a href="https://www.youtube.com/@wangwenzhi" target="_blank" rel="noopener noreferrer" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a><a href="mailto:wwz.im@outlook.com" aria-label="Email"><i class="fa-solid fa-envelope"></i></a></div>
-        </div></details>
-      </div>
-    </div>`;
+    `;
+  };
 
-  const mountPageExperience = () => {
-    const path = location.pathname;
-    const isHome = path === "/" || path.endsWith("/index.html") && !/\/(projects|lab|topics|articles|videos)\//.test(path);
-    const main = document.querySelector("main, .main-content, article");
-    if (!main) return;
-    const stylesheet = document.createElement("link");
-    stylesheet.rel = "stylesheet";
-    stylesheet.href = "/css/page-experience.css?v=20261113-video-hero-color-refined";
-    if (!document.querySelector('link[href*="page-experience.css"]')) document.head.append(stylesheet);
+  // Update Theme Icons
+  const updateThemeIcons = () => {
+    const isDark = document.documentElement.dataset.theme === 'dark';
+    const icon = isDark ? ICON_SUN : ICON_MOON;
+    const label = isDark ? 'Switch to light mode' : 'Switch to dark mode';
+    document.querySelectorAll('[data-shell-theme]').forEach(btn => {
+      btn.innerHTML = icon;
+      btn.setAttribute('aria-label', label);
+      btn.title = label;
+      btn.classList.add('icon-pulse');
+      setTimeout(() => btn.classList.remove('icon-pulse'), 400);
+    });
+  };
 
-    if (isHome) {
-      if (main.querySelector(".wwz-quick-links")) return;
-      const hero = main.querySelector(".hero");
-      if (!hero) return;
-      const banner = document.createElement("section");
-      banner.className = "wwz-home-banner";
-      banner.innerHTML = '<div><span>WWZ.iM · CREATIVE / BUILD / EXPLORE</span><h2>Visual stories.<br>Useful technology.</h2><p>A personal space for commercial video, AI workflows, independent tools and practical technical notes.</p><a href="/works.html">Explore selected work ↗</a></div>';
-      hero.insertAdjacentElement("afterend", banner);
-      const section = document.createElement("section");
-      section.className = "wwz-quick-links";
-      section.setAttribute("aria-label", "Explore WWZ.iM");
-      section.innerHTML = [
-        ['01','WATCH','Selected Works','Photography, commercial films and visual experiments.','Explore the portfolio','/works.html','fa-solid fa-camera'],
-        ['02','BUILD','Projects & Tools','Useful web apps, independent products and open-source experiments.','Browse practical tools','/projects/','fa-solid fa-cubes'],
-        ['03','EXPERIMENT','AI Lab','ComfyUI workflows, image-to-video tests and product-consistency methods.','View AI workflows','/lab/','fa-solid fa-wand-magic-sparkles'],
-        ['04','LEARN','Guides & Notes','Deployment tutorials, technical checklists and lessons from real projects.','Read field notes','/blog.html','fa-solid fa-book-open'],
-        ['05','CURRENT','Now','What is being built, tested and explored at the moment.','See current focus','/now.html','fa-solid fa-compass'],
-        ['06','ABOUT','About','Background, working approach, selected capabilities and contact details.','More about WWZ','/about.html','fa-solid fa-user']
-      ].map(([n,k,t,d,cta,u,icon]) => '<a class="wwz-quick-link" href="'+u+'"><div class="wwz-quick-top"><span class="wwz-quick-number">'+n+'</span><span class="wwz-quick-icon"><i class="'+icon+'" aria-hidden="true"></i></span></div><div class="wwz-quick-copy"><small>'+k+'</small><strong>'+t+'</strong><span>'+d+'</span></div><span class="wwz-quick-cta">'+cta+' <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i></span></a>').join('');
-      const contactSection = main.querySelector("#contact, .contact-section");
-      if (contactSection) contactSection.insertAdjacentElement("beforebegin", section);
-      else main.append(section);
+  // Mount Header (Ensures single persistent instance across transitions)
+  const mountNav = () => {
+    let header = document.getElementById('wwz-header');
+    const activeKey = getRouteKey(location.pathname);
+
+    if (!header) {
+      header = document.createElement('header');
+      header.id = 'wwz-header';
+      header.className = 'apple-nav';
+      header.setAttribute('role', 'banner');
+      header.innerHTML = buildNavHTML(activeKey);
+      document.body.prepend(header);
+    } else {
+      updateActiveNavLinks(activeKey);
+      updateThemeIcons();
+    }
+
+    // Bind Mobile Toggle
+    const menuToggle = header.querySelector('#appleMenuToggle');
+    const mobileDrawer = header.querySelector('#appleMobileDrawer');
+
+    if (menuToggle && mobileDrawer && !menuToggle.dataset.bound) {
+      menuToggle.dataset.bound = 'true';
+      const closeDrawer = () => {
+        mobileDrawer.classList.remove('is-open');
+        menuToggle.classList.remove('is-active');
+        menuToggle.setAttribute('aria-expanded', 'false');
+        document.body.style.overflow = '';
+      };
+
+      menuToggle.addEventListener('click', () => {
+        const isOpen = mobileDrawer.classList.toggle('is-open');
+        menuToggle.classList.toggle('is-active', isOpen);
+        menuToggle.setAttribute('aria-expanded', String(isOpen));
+        document.body.style.overflow = isOpen ? 'hidden' : '';
+      });
+
+      // Close drawer on link click
+      mobileDrawer.querySelectorAll('.apple-mobile-link').forEach(link => {
+        link.addEventListener('click', closeDrawer);
+      });
+
+      // Close on Escape key
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && mobileDrawer.classList.contains('is-open')) {
+          closeDrawer();
+        }
+      });
+    }
+
+    // Bind Theme Button
+    header.querySelectorAll('[data-shell-theme]').forEach(btn => {
+      if (!btn.dataset.bound) {
+        btn.dataset.bound = 'true';
+        btn.addEventListener('click', () => {
+          const isDark = document.documentElement.dataset.theme === 'dark';
+          const newTheme = isDark ? 'light' : 'dark';
+          document.documentElement.dataset.theme = newTheme;
+          document.documentElement.dataset.themeMode = newTheme;
+          document.documentElement.style.colorScheme = newTheme;
+          try { localStorage.setItem('wwz-theme-mode', newTheme); } catch (_) {}
+          updateThemeIcons();
+        });
+      }
+    });
+
+    // Cleanup legacy sidebar if present
+    document.querySelectorAll('.sidebar, .wwz-topbar:not(#wwz-header)').forEach(el => el.remove());
+  };
+
+  // Update Active Link State
+  const updateActiveNavLinks = (activeKey) => {
+    document.querySelectorAll('[data-shell-nav]').forEach(link => {
+      const match = link.dataset.shellNav === activeKey;
+      link.classList.toggle('active', match);
+      if (match) link.setAttribute('aria-current', 'page');
+      else link.removeAttribute('aria-current');
+    });
+  };
+
+  // Interactive 3D Tilt & Dynamic Specular Spotlight Effect
+  const initInteractiveSpecular = () => {
+    const cards = document.querySelectorAll('.bento-card, .bento-hero-film, .film-card, .interactive-card');
+    cards.forEach(card => {
+      if (card.dataset.specularBound) return;
+      card.dataset.specularBound = 'true';
+
+      card.addEventListener('mousemove', (e) => {
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        card.style.setProperty('--mx', `${x}px`);
+        card.style.setProperty('--my', `${y}px`);
+
+        // Subtle 3D tilt (max 3 degrees)
+        const centerX = rect.width / 2;
+        const centerY = rect.height / 2;
+        const rotateX = ((y - centerY) / centerY) * -3;
+        const rotateY = ((x - centerX) / centerX) * 3;
+        card.style.setProperty('--rx', `${rotateX.toFixed(2)}deg`);
+        card.style.setProperty('--ry', `${rotateY.toFixed(2)}deg`);
+      });
+
+      card.addEventListener('mouseleave', () => {
+        card.style.removeProperty('--mx');
+        card.style.removeProperty('--my');
+        card.style.setProperty('--rx', '0deg');
+        card.style.setProperty('--ry', '0deg');
+      });
+    });
+  };
+
+  // Mobbin Interactive Hero Showcase Tab Switcher
+  const initHeroShowcaseTabs = () => {
+    const tabs = document.querySelectorAll('.showcase-tab');
+    const card = document.getElementById('heroShowcaseCard');
+    const img = document.getElementById('heroShowcaseImg');
+    const title = document.getElementById('heroShowcaseTitle');
+    const desc = document.getElementById('heroShowcaseDesc');
+    const badge = document.getElementById('heroShowcaseBadge');
+
+    if (!tabs.length || !card) return;
+
+    tabs.forEach(tab => {
+      if (tab.dataset.bound) return;
+      tab.dataset.bound = 'true';
+
+      tab.addEventListener('click', (e) => {
+        e.preventDefault();
+        tabs.forEach(t => {
+          t.classList.remove('active');
+          t.setAttribute('aria-selected', 'false');
+        });
+        tab.classList.add('active');
+        tab.setAttribute('aria-selected', 'true');
+
+        const videoUrl = tab.dataset.video;
+        const imgSrc = tab.dataset.img;
+        const titleText = tab.dataset.title;
+        const descText = tab.dataset.desc;
+        const badgeText = tab.dataset.badge;
+
+        // Smooth subtle fade transition
+        const overlay = card.querySelector('.showcase-overlay');
+        if (img) img.style.opacity = '0.3';
+        if (overlay) overlay.style.opacity = '0.4';
+
+        setTimeout(() => {
+          if (img && imgSrc) img.src = imgSrc;
+          if (card && videoUrl) {
+            card.dataset.video = videoUrl;
+            card.setAttribute('aria-label', `Play featured film ${titleText || 'Commercial'}`);
+          }
+          if (title && titleText) title.textContent = titleText;
+          if (desc && descText) desc.textContent = descText;
+          if (badge && badgeText) badge.innerHTML = `<i class="fa-solid fa-film"></i> ${badgeText}`;
+
+          if (img) img.style.opacity = '0.9';
+          if (overlay) overlay.style.opacity = '1';
+        }, 140);
+      });
+    });
+  };
+
+  // Component Initializer (Runs on initial page load and after every PJAX route change)
+  const initPageComponents = () => {
+    // 1. Copy Email Button
+    const copyBtn = document.getElementById('copyContactEmail') || document.querySelector('.js-copy-email');
+    const copyStatus = document.getElementById('contactStatus');
+    if (copyBtn && !copyBtn.dataset.bound) {
+      copyBtn.dataset.bound = 'true';
+      copyBtn.addEventListener('click', async () => {
+        const email = "wwz.im@outlook.com";
+        let success = false;
+        try {
+          if (navigator.clipboard && window.isSecureContext) {
+            await navigator.clipboard.writeText(email);
+            success = true;
+          } else {
+            const temp = document.createElement('textarea');
+            temp.value = email;
+            temp.style.position = 'fixed';
+            temp.style.opacity = '0';
+            document.body.appendChild(temp);
+            temp.select();
+            success = document.execCommand('copy');
+            temp.remove();
+          }
+        } catch (_) { success = false; }
+
+        if (copyStatus) {
+          copyStatus.textContent = success ? "Email copied to clipboard!" : "Please select wwz.im@outlook.com";
+        }
+        copyBtn.innerHTML = success
+          ? '<i class="fa-solid fa-check" aria-hidden="true"></i> Copied'
+          : '<i class="fa-regular fa-copy" aria-hidden="true"></i> Copy email';
+        setTimeout(() => {
+          copyBtn.innerHTML = '<i class="fa-regular fa-copy" aria-hidden="true"></i> Copy email';
+          if (copyStatus) copyStatus.textContent = '';
+        }, 3000);
+      });
+    }
+
+    // 2. Video Modals
+    const videoModal = document.getElementById('videoModal');
+    const videoFrame = document.getElementById('videoFrame');
+    const modalClose = document.getElementById('modalClose');
+
+    const closeVideo = () => {
+      if (!videoModal || !videoFrame) return;
+      videoModal.classList.remove('open');
+      videoFrame.removeAttribute('src');
+      document.body.style.overflow = '';
+    };
+
+    if (videoModal && videoFrame) {
+      document.querySelectorAll('.js-video, [data-video]').forEach(btn => {
+        if (!btn.dataset.videoBound) {
+          btn.dataset.videoBound = 'true';
+          btn.addEventListener('click', (e) => {
+            e.preventDefault();
+            const src = btn.dataset.video;
+            if (!src) return;
+            const join = src.includes('?') ? '&' : '?';
+            videoFrame.src = src + join + 'autoplay=1&rel=0';
+            videoModal.classList.add('open');
+            document.body.style.overflow = 'hidden';
+            modalClose?.focus();
+          });
+        }
+      });
+
+      if (modalClose && !modalClose.dataset.bound) {
+        modalClose.dataset.bound = 'true';
+        modalClose.addEventListener('click', closeVideo);
+      }
+
+      if (!videoModal.dataset.bound) {
+        videoModal.dataset.bound = 'true';
+        videoModal.addEventListener('click', (e) => {
+          if (e.target === videoModal) closeVideo();
+        });
+        window.addEventListener('keydown', (e) => {
+          if (e.key === 'Escape' && videoModal.classList.contains('open')) closeVideo();
+        });
+      }
+    }
+
+    // 3. Dynamic Year
+    document.querySelectorAll('#year, [data-copyright-year]').forEach(el => {
+      el.textContent = String(new Date().getFullYear());
+    });
+
+    // 4. Interactive Specular & Hero Showcase Tabs
+    initInteractiveSpecular();
+    initHeroShowcaseTabs();
+
+    // 5. Works Gallery Initializer if on works.html
+    if (window.WWZWorksInit && typeof window.WWZWorksInit === 'function') {
+      window.WWZWorksInit();
+    }
+
+    // 6. Article Code Block Copy & Back-to-Top Floating Button
+    document.querySelectorAll('.copy-btn').forEach(btn => {
+      if (btn.dataset.bound) return;
+      btn.dataset.bound = 'true';
+      btn.addEventListener('click', async (e) => {
+        e.preventDefault();
+        const codeBlock = btn.parentElement.querySelector('code') || btn.closest('pre')?.querySelector('code');
+        if (!codeBlock) return;
+        const text = codeBlock.innerText;
+        try {
+          if (navigator.clipboard && window.isSecureContext) {
+            await navigator.clipboard.writeText(text);
+          } else {
+            const ta = document.createElement('textarea');
+            ta.value = text;
+            document.body.appendChild(ta);
+            ta.select();
+            document.execCommand('copy');
+            document.body.removeChild(ta);
+          }
+          const feedback = btn.parentElement.querySelector('.copy-feedback');
+          if (feedback) feedback.classList.add('show');
+          const orig = btn.innerHTML;
+          btn.innerHTML = '<i class="fa-solid fa-check"></i>';
+          setTimeout(() => {
+            if (feedback) feedback.classList.remove('show');
+            btn.innerHTML = orig;
+          }, 2000);
+        } catch (_) {}
+      });
+    });
+
+    const fab = document.getElementById('back-to-top');
+    if (fab && !fab.dataset.bound) {
+      fab.dataset.bound = 'true';
+      window.addEventListener('scroll', () => {
+        if (window.scrollY > 300) fab.classList.add('visible');
+        else fab.classList.remove('visible');
+      }, { passive: true });
+      fab.addEventListener('click', (e) => {
+        e.preventDefault();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+    }
+  };
+
+  // Zero-Flicker PJAX Navigation (HTML5 History API) with Safari Top Loading Bar
+  const navigateTo = async (urlStr, pushToHistory = true) => {
+    const targetUrl = new URL(urlStr, location.origin);
+    const activeKey = getRouteKey(targetUrl.pathname);
+
+    // Progress Bar Animation
+    const progressBar = document.getElementById('apple-progress-bar');
+    if (progressBar) {
+      progressBar.classList.add('is-loading');
+      progressBar.style.width = '35%';
+      setTimeout(() => { if (progressBar.classList.contains('is-loading')) progressBar.style.width = '75%'; }, 80);
+    }
+
+    // Close mobile drawer if open
+    const drawer = document.getElementById('appleMobileDrawer');
+    const menuToggle = document.getElementById('appleMenuToggle');
+    if (drawer && drawer.classList.contains('is-open')) {
+      drawer.classList.remove('is-open');
+      menuToggle?.classList.remove('is-active');
+      menuToggle?.setAttribute('aria-expanded', 'false');
+      document.body.style.overflow = '';
+    }
+
+    // Locate current content container
+    const currentContainer = document.querySelector('#page-content') || document.querySelector('main.main-content') || document.querySelector('main');
+    if (!currentContainer) {
+      location.href = targetUrl.href;
       return;
     }
 
-    if (main.querySelector(".wwz-page-banner")) return;
-    if (path.endsWith("/works.html") && main.querySelector(".works-hub-hero")) return;
-    const detail = path.includes("/projects/") && path.split("/").filter(Boolean).length > 1;
-    const map = [
-      [/\/projects\//,{section:detail?"tool":"projects",kicker:detail?"PROJECT FIELD GUIDE":"INDEPENDENT PRODUCTS",copy:detail?"Understand the use case, follow a practical start path and check important limitations before relying on a tool.":"Small independent products designed around real tasks — with clear use cases, practical instructions and honest limitations.",links:[["Projects","/works.html#projects"],["Guides","/works.html#guides"]]}],
-      [/\/lab\//,{section:"lab",kicker:"AI LAB · RESEARCH & PRODUCTION",copy:"Turn generative experiments into repeatable production workflows: dependencies, inputs, quality checks and recovery steps.",links:[["ComfyUI topic","/topics/ai-comfyui/"],["Workstation notes","/articles/comfyui-local-video/"]]}],
-      [/\/topics\/|\/articles\//,{section:"lab",kicker:"PRACTICAL KNOWLEDGE",copy:"A working reference for decisions, setup steps, validation and troubleshooting — not just a collection of tool names.",links:[["AI Lab","/lab/"],["All guides","/works.html#guides"]]}],
-      [/\/videos\//,{section:"videos",kicker:"COMMERCIAL VIDEO · STORY & CRAFT",title:"Product films.<br>Stories that move.",copy:"Selected product films shaped around the product, the people and the details that make each story matter.",links:[["Selected works","/works.html"],["About the process","/about.html"]]}],
-      [/works\.html|\/works\//,{section:"works",kicker:"CREATIVE WORK · DIGITAL PROJECTS · GUIDES",title:"Make ideas useful.",copy:"A connected portfolio of visual production, independent digital products and practical knowledge — built, tested and documented through real work.",links:[["Selected work","/works.html#portfolio"],["Projects","/works.html#projects"],["Guides","/works.html#guides"]]}],
-      [/blog\.html|\/blog\//,{section:"works",kicker:"FIELD NOTES · GUIDES · DOCUMENTATION",title:"Knowledge from practice.",copy:"Practical explanations, deployment notes and reusable checklists for creative technology and independent infrastructure.",links:[["Works home","/works.html"],["Guides","/works.html#guides"]]}],
-      [/now\.html/,{section:"now",kicker:"CURRENT FOCUS · LIVING INDEX",copy:"A concise view of the themes being developed across visual production, AI workflows, digital products and infrastructure.",links:[["Projects","/works.html#projects"],["AI Lab","/lab/"]]}],
-      [/about\.html/,{section:"about",kicker:"ABOUT · WWZ.iM",copy:"Creative production and technical problem-solving, connected by curiosity, careful execution and useful outcomes.",links:[["Selected work","/works.html"],["Contact","/#contact"]]}]
-    ];
-    const config = map.find(([pattern]) => pattern.test(path))?.[1];
-    if (!config) return;
-    const banner = document.createElement("section");
-    banner.className = "wwz-page-banner";
-    banner.dataset.section = config.section;
-    banner.innerHTML = '<div class="wwz-banner-content"><div class="wwz-banner-kicker">'+config.kicker+'</div><h2>'+(config.title||"Make ideas useful.")+'</h2><p>'+config.copy+'</p><nav class="wwz-banner-links" aria-label="Related pages">'+config.links.map(([label,href])=>'<a href="'+href+'">'+label+' ↗</a>').join('')+'</nav></div>';
-    main.prepend(banner);
-  };
+    // Begin Transition Fade-out
+    currentContainer.classList.add('page-fade-out');
 
-  const mount = () => {
-    mountPageExperience();
-    document.querySelectorAll('[data-copyright-year]').forEach(node => {
-      node.textContent = String(new Date().getFullYear());
-    });
-    const sidebar = document.querySelector(".sidebar");
-    if (!sidebar) return;
-    if (sidebar.dataset.shellMounted === "true") return;
-    sidebar.dataset.shellMounted = "true";
-    // One scroll control per document, including routed iframe pages.
-    const scrollTop = document.createElement('button');
-    scrollTop.type = 'button';
-    scrollTop.className = 'wwz-scroll-top';
-    scrollTop.setAttribute('aria-label', 'Back to top');
-    scrollTop.title = 'Back to top';
-    scrollTop.hidden = true;
-    scrollTop.innerHTML = '<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5m-6 6 6-6 6 6"/></svg>';
-    document.body.append(scrollTop);
-    const updateScrollTop = () => { scrollTop.hidden = window.scrollY < 300; };
-    addEventListener('scroll', updateScrollTop, { passive:true });
-    addEventListener('pageshow', updateScrollTop);
-    scrollTop.addEventListener('click', () => {
-      window.scrollTo({ top:0, behavior:matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth' });
-    });
-    updateScrollTop();
-    sidebar.id = "sidebar";
-    sidebar.classList.add("wwz-topbar");
-    sidebar.setAttribute("aria-label", "Primary navigation");
-    sidebar.innerHTML = template;
-    updateActiveRoute(sidebar, new URL(location.href));
-    mountNavIndicator(sidebar);
-    setupPersistentNavigation(sidebar);
-    const currentPath = location.pathname;
-    const projectFolder = sidebar.querySelectorAll('.wwz-nav-folder')[0];
-    const learningFolder = sidebar.querySelectorAll('.wwz-nav-folder')[1];
-    if (currentPath.includes('/projects/')) projectFolder?.setAttribute('open', '');
-    if (currentPath.includes('/topics/') || currentPath.includes('/articles/') || currentPath.includes('/article/') || currentPath.includes('/lab/') || currentPath.endsWith('/now.html')) learningFolder?.setAttribute('open', '');
-    sidebar.querySelectorAll('.wwz-nav-sub a').forEach(link => {
-      const target = new URL(link.href, location.href);
-      if (canonicalPath(target) === canonicalPath(new URL(location.href))) link.setAttribute('aria-current', 'page');
-    });
+    try {
+      const response = await fetch(targetUrl.href, { credentials: 'same-origin' });
+      if (!response.ok) throw new Error(`HTTP ${response.status}`);
+      const htmlText = await response.text();
 
-    // Keep resources in the page flow, including independently loaded articles.
-    const resources = sidebar.querySelector('.wwz-resources');
-    const main = document.querySelector('body > main');
-    if (resources && main && !main.querySelector('.wwz-footer-resources')) {
-      const footer = document.createElement('footer');
-      footer.className = 'wwz-footer-resources';
-      footer.setAttribute('aria-label', 'Resources');
-      const heading = document.createElement('h2');
-      heading.textContent = 'Resources';
-      footer.append(heading, resources.querySelector('.wwz-resources-panel'));
-      main.append(footer);
-      resources.remove();
-    }
+      const parser = new DOMParser();
+      const newDoc = parser.parseFromString(htmlText, 'text/html');
 
-    const menu = sidebar.querySelector("[data-shell-menu]");
-    menu?.setAttribute('aria-controls', 'wwz-navigation');
-    const scrim = !embedded ? document.body.appendChild(Object.assign(document.createElement("button"), {
-      className: "wwz-menu-scrim",
-      type: "button",
-      ariaLabel: "Close navigation"
-    })) : null;
-    if (scrim) scrim.tabIndex = -1;
-    const setBackgroundInert = value => {
-      document.querySelectorAll('body > main, .wwz-route-frame').forEach(el => { el.inert = value; });
-    };
-    const closeMenu = () => {
-      setBackgroundInert(false);
-      sidebar.classList.remove("sidebar-open");
-      document.documentElement.classList.remove("wwz-menu-open");
-      menu?.setAttribute("aria-expanded", "false");
-      menu?.setAttribute("aria-label", "Open navigation");
-      sidebar.querySelector('.wwz-resources')?.removeAttribute('open');
-      if (menu) menu.textContent = "Menu";
-    };
-    menu?.addEventListener("click", () => {
-      const open = sidebar.classList.toggle("sidebar-open");
-      document.documentElement.classList.toggle("wwz-menu-open", open);
-      setBackgroundInert(open);
-      menu.setAttribute("aria-expanded", String(open));
-      menu.setAttribute("aria-label", open ? "Close navigation" : "Open navigation");
-      menu.textContent = open ? "Close" : "Menu";
-    });
-    scrim?.addEventListener("click", closeMenu);
-    const desktopMenu = matchMedia('(min-width: 1100px)');
-    const themeButton = sidebar.querySelector('[data-shell-theme]');
-    const placeThemeButton = () => {
-      const focused = document.activeElement === themeButton;
-      const destination = sidebar.querySelector('.wwz-mobile-controls');
-      if (!destination || !themeButton) return;
-      if (themeButton.parentElement !== destination) destination.prepend(themeButton);
-      if (focused) themeButton.focus();
-    };
-    placeThemeButton();
-    desktopMenu.addEventListener('change', () => { closeMenu(); placeThemeButton(); });
-    document.addEventListener('click', event => {
-      if (!sidebar.contains(event.target)) sidebar.querySelector('.wwz-resources')?.removeAttribute('open');
-    });
-    document.addEventListener("keydown", event => {
-      if (event.key === 'Tab' && sidebar.classList.contains('sidebar-open')) {
-        const controls = [...sidebar.querySelectorAll('a[href], button, summary')].filter(el => el.getClientRects().length);
-        const first = controls[0], last = controls[controls.length - 1];
-        if (event.shiftKey && document.activeElement === first) { event.preventDefault(); last?.focus(); }
-        else if (!event.shiftKey && document.activeElement === last) { event.preventDefault(); first?.focus(); }
+      // Update Document Title
+      document.title = newDoc.title;
+
+      // Locate new content container
+      const newContainer = newDoc.querySelector('#page-content') || newDoc.querySelector('main.main-content') || newDoc.querySelector('main');
+      if (!newContainer) {
+        location.href = targetUrl.href;
+        return;
       }
-      if (event.key === "Escape" && sidebar.classList.contains("sidebar-open")) {
-        closeMenu();
-        menu?.focus();
+
+      // Update Nav state immediately
+      updateActiveNavLinks(activeKey);
+
+      // Smooth Wait
+      await new Promise(r => setTimeout(r, 100));
+
+      // Swap content
+      currentContainer.innerHTML = newContainer.innerHTML;
+      if (newContainer.className) currentContainer.className = newContainer.className;
+
+      // Finish Progress Bar
+      if (progressBar) {
+        progressBar.style.width = '100%';
+        setTimeout(() => {
+          progressBar.classList.remove('is-loading');
+          progressBar.style.width = '0%';
+        }, 250);
       }
-    });
-    sidebar.querySelectorAll("a").forEach(link => link.addEventListener("click", event => {
-      closeMenu();
-      // An active section can still link from its article back to the listing.
-    }));
 
-    window.WWZTheme?.refresh();
-    sidebar.querySelector("[data-shell-theme]")?.addEventListener("click", () => window.WWZTheme?.cycle());
+      // Handle PushState
+      if (pushToHistory) {
+        history.pushState({ path: targetUrl.pathname }, '', targetUrl.href);
+      }
 
-    // Use native document navigation. The previous iframe + pushState routing
-    // changed the address bar without changing the top-level document, so a
-    // browser refresh could restore the wrong page.
-    // Native links keep refresh, deep links, and browser history consistent.
-  };
+      // Scroll to Top smoothly
+      window.scrollTo({ top: 0, behavior: 'instant' });
 
-  // Map every content route to an item that actually exists in the primary nav.
-  // Detail pages and topic pages belong to Blog; Now belongs to Works.
-  const routeKey = url => {
-    const declared = document.body?.dataset.activePage;
-    if (url.hash === "#contact") return "home";
-    if (declared) {
-      if (declared === "lab" || declared === "article" || declared === "topics") return "blog";
-      if (declared === "now" || declared === "projects") return "works";
-      return declared;
+      // Run Page Initializers
+      initPageComponents();
+
+      // Transition Fade-in
+      currentContainer.classList.remove('page-fade-out');
+      currentContainer.classList.add('page-fade-in');
+      setTimeout(() => currentContainer.classList.remove('page-fade-in'), 300);
+
+    } catch (err) {
+      console.warn('[PJAX] Fallback to standard navigation:', err);
+      if (progressBar) {
+        progressBar.classList.remove('is-loading');
+        progressBar.style.width = '0%';
+      }
+      location.href = targetUrl.href;
     }
-    const path = url.pathname;
-    if (path.endsWith("/about.html")) return "about";
-    if (path.includes("/videos/")) return "videos";
-    if (
-      path.includes("/article") ||
-      path.includes("/articles/") ||
-      path.includes("/topics/") ||
-      path.includes("/lab/") ||
-      path.endsWith("/blog.html") ||
-      path.includes("/blog/")
-    ) return "blog";
-    if (
-      path.includes("/projects/") ||
-      path.endsWith("/works.html") ||
-      path.endsWith("/now.html")
-    ) return "works";
-    return "home";
   };
 
-  const mountNavIndicator = sidebar => {
-    const nav = sidebar.querySelector('.wwz-primary-nav');
-    if (!nav || nav.querySelector('.wwz-nav-indicator')) return;
-    nav.classList.add('wwz-nav-indicator-host');
-    const indicator = document.createElement('span');
-    indicator.className = 'wwz-nav-indicator';
-    indicator.setAttribute('aria-hidden', 'true');
-    nav.prepend(indicator);
-
-    const moveTo = (link, animate = true) => {
+  // Intercept Same-Origin Navigation Links
+  const setupLinkInterceptor = () => {
+    document.addEventListener('click', (event) => {
+      const link = event.target.closest('a');
       if (!link) return;
-      const navRect = nav.getBoundingClientRect();
-      const linkRect = link.getBoundingClientRect();
-      if (!navRect.width || !linkRect.width) return;
-      if (!animate) indicator.style.transition = 'none';
-      indicator.style.width = linkRect.width + 'px';
-      indicator.style.height = linkRect.height + 'px';
-      indicator.style.transform = 'translate3d(' +
-        (linkRect.left - navRect.left) + 'px,' +
-        (linkRect.top - navRect.top) + 'px,0)';
-      if (!animate) {
-        indicator.getBoundingClientRect();
-        indicator.style.removeProperty('transition');
+
+      const href = link.getAttribute('href');
+      if (!href) return;
+
+      if (link.target === '_blank' || link.hasAttribute('download')) return;
+      if (href.startsWith('mailto:') || href.startsWith('tel:')) return;
+      if (href.startsWith('#')) return;
+
+      const targetUrl = new URL(link.href, location.origin);
+      if (targetUrl.origin !== location.origin) return;
+
+      if (targetUrl.pathname === location.pathname && !targetUrl.hash) {
+        event.preventDefault();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        return;
       }
-    };
 
-    const current = () => nav.querySelector('.wwz-nav-link[aria-current="page"], .wwz-nav-link.active');
-    const setPillTarget = link => {
-      nav.querySelectorAll('.wwz-nav-link').forEach(item => item.classList.toggle('is-pill-target', item === link));
-    };
-    // Set the exact initial position synchronously before making the pill visible.
-    setPillTarget(current());
-    moveTo(current(), false);
-    indicator.classList.add('is-ready');
-
-    nav.querySelectorAll('.wwz-nav-link').forEach(link => {
-      link.addEventListener('click', () => {
-        setPillTarget(link);
-        moveTo(link, true);
-      });
-    });
-    const refresh = () => moveTo(current(), false);
-    addEventListener('resize', refresh);
-    addEventListener('pageshow', refresh);
-    // Hash navigation can change the active route without reloading the page.
-    addEventListener('hashchange', () => requestAnimationFrame(refresh));
-    addEventListener('popstate', () => requestAnimationFrame(refresh));
-    if (document.fonts?.ready) document.fonts.ready.then(refresh);
-    if (window.ResizeObserver) {
-      const observer = new ResizeObserver(refresh);
-      observer.observe(nav);
-      nav.querySelectorAll('.wwz-nav-link').forEach(link => observer.observe(link));
-    }
-  };
-
-  const updateActiveRoute = (sidebar, url) => {
-    const key = routeKey(url);
-    sidebar.querySelectorAll("[data-shell-route]").forEach(link => {
-      const current = link.dataset.shellRoute === key;
-      link.classList.toggle("active", current);
-      if (current) link.setAttribute("aria-current", "page");
-      else link.removeAttribute("aria-current");
-    });
-  };
-
-  const setupPersistentNavigation = sidebar => {
-    if (sidebar.dataset.shellNavigationReady === "true") return;
-    sidebar.dataset.shellNavigationReady = "true";
-    // Keep normal document navigation. Avoid iframe swaps and pushState-only routing,
-    // which can expose an empty frame while the next page is loading.
-    sidebar.querySelectorAll("[data-shell-route]").forEach(link => {
-      if (canonicalPath(new URL(link.href)) === canonicalPath(new URL(location.href))) {
-        link.setAttribute("aria-current", "page");
+      if (targetUrl.pathname === location.pathname && targetUrl.hash) {
+        return;
       }
+
+      if (!/\.html$/.test(targetUrl.pathname) && !targetUrl.pathname.endsWith('/')) {
+        return;
+      }
+
+      event.preventDefault();
+      navigateTo(targetUrl.href, true);
     });
-    addEventListener("hashchange", () => updateActiveRoute(sidebar, new URL(location.href)));
-    addEventListener("pageshow", () => updateActiveRoute(sidebar, new URL(location.href)));
-    sidebar.querySelectorAll("[data-shell-route], .wwz-sidebar-brand").forEach(link => {
-      link.addEventListener("click", () => {
-        sidebar.classList.remove("sidebar-open");
-        document.documentElement.classList.remove("wwz-menu-open");
-      });
+
+    window.addEventListener('popstate', () => {
+      navigateTo(location.href, false);
     });
   };
 
+  // DOM Ready Execution
+  const onReady = () => {
+    mountNav();
+    initPageComponents();
+    setupLinkInterceptor();
+    updateThemeIcons();
+  };
 
-  // The script is loaded at the end of each page, so mount immediately and
-  // keep the same sidebar DOM for the lifetime of this document.
-  mount();
-  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", mount, { once:true });
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', onReady);
+  } else {
+    onReady();
+  }
 })();

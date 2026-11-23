@@ -1,47 +1,76 @@
-# File layout and naming
+# File Layout and Structure
 
 Use lowercase English names with hyphens for new files and folders. Avoid spaces, timestamps as content names, and presentation-specific page names.
 
 ```text
-index.html                  Home
-works.html                  Works gallery
-blog.html                   Blog listing
-videos/index.html           Videos
-articles/                   Article details, one folder per article
-  be6500-ssh/
-  linux-server-setup/
+index.html                  Home (commercial video, featured works, notes, tools)
+about.html                  About Wang Wenzhi
+works.html                  Curated creative works gallery & image viewer
+blog.html                   Technical notes and guides listing
+now.html                    Living snapshot of current focus
+design-system.html          Design system tokens and components showcase
+404.html                    Custom 404 page & client-side fallback router
+_redirects                  Cloudflare Pages / Netlify 301 redirects
+sites-worker.js             Cloudflare Workers edge router & 301 handler
+articles/                   Technical article details, one folder per article
   3x-ui/
+  be6500-ssh/
+  comfyui-local-video/
+  docker-backup-guide/
   hysteria-2/
-data/
-  site-content.js           Videos and posts
-  works.js                  Works metadata
-  legacy-routes.json        Old-to-new public page routes
-css/
-  site-system.css           Shared visual foundation
-  works.css                 Works-only layout
-  legacy-pages.css          Existing supporting page styles
-js/
-  site-shell.js             Shared top navigation and page routing
-  site-theme.js             Theme preference
-  content-renderer.js        Home/Blog rendering
-  article-nav.js            Article navigation
-  works.js                  Gallery interactions
-  legacy-interactions.js    Supporting-page controllers
-images/
-  videos/                   Named by video ID
-  photography/              Lowercase original shot IDs
-  blog/                     Shared blog covers
-scripts/                    Validation and asset tooling
-docs/                       Maintenance and design documentation
+  ipv6-nat64-guide/
+  linux-server-setup/
+projects/                   Independent digital tools & product details
+  app/
+  ip/
+  rmb/
+  sub/
+  vps/
+topics/                     Curated thematic guides
+  ai-comfyui/
+videos/                     Commercial video campaign index
+data/                       Structured data feeds (JSON)
+  brand-links.json
+  featured-feed.json
+  legacy-routes.json
+  now.json
+  site-content.js
+  videos.json
+  works.json
+css/                        Unified Apple/Mobbin CSS architecture
+  apple-design-system.css
+  apple-pages.css
+  projects-redesign.css
+  site-system.css
+js/                         Core site scripts
+  article-nav.js
+  site-shell.js
+  site-theme.js
+  works.js
+images/                     Active media assets
+  blog/
+  videos/
+  works/
+scripts/                    Validation and developer tooling
+  tools/                    Developer utilities (e.g., ZCOOL portfolio exporter)
+  check-site.mjs
+  check-theme-startup.mjs
+  mirror-works-images.mjs
+docs/                       Maintenance, design QA, and architecture documentation
 ```
 
-## Compatibility
+## Legacy Route Compatibility
 
-- `portfolio-masonry.html` → `works.html`
-- `article.html` → `blog.html`
-- `styles.html` → `design-system.html`
-- Old `article/<name>/` pages → normalized `articles/<slug>/` pages
+All historical URLs from previous website iterations are retained with 100% backward compatibility:
 
-These small HTML files are intentional redirects, not duplicate content.
+- `/portfolio-masonry.html` → `/works.html`
+- `/article.html` → `/blog.html`
+- `/styles.html` → `/design-system.html`
+- `/team.html` → `/about.html`
+- `/article/<slug>/` → `/articles/<slug>/`
+- `/projects/` → `/#tools`
 
-The root verification text file, favicon names and `sites-worker.js` are preserved because external services may depend on them. Existing legacy image assets are retained; this reorganization does not delete potentially useful originals or redesign supporting pages. QA artifacts and the one-time migration script stay under ignored `.qa/` and are not published.
+Redirection is handled through a high-performance 3-layer architecture:
+1. **Edge CDN Layer**: `_redirects` delivers instant HTTP 301 redirects on Cloudflare Pages and Netlify.
+2. **Worker Layer**: `sites-worker.js` intercepts legacy paths on Cloudflare Workers and issues 301 responses.
+3. **Static Fallback Layer**: `404.html` detects legacy routes and calls `window.location.replace()` instantaneously on GitHub Pages without requiring dummy HTML files on disk. If an unknown route is accessed, a polished Apple-style 404 screen is displayed.

@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="zh-CN" data-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <meta name="theme-color" content="#f7f7f5">
+  <script data-theme-bootstrap>
+    (() => {
+      // 1. Instant fallback redirect engine for legacy paths (GitHub Pages compatibility)
+      const legacyRoutes = {
+        "/portfolio-masonry.html": "/works.html",
+        "/article.html": "/blog.html",
+        "/styles.html": "/design-system.html",
+        "/team.html": "/about.html",
+        "/article/BE6500-SSH/index.html": "/articles/be6500-ssh/",
+        "/article/BE6500-SSH/": "/articles/be6500-ssh/",
+        "/article/BE6500-SSH": "/articles/be6500-ssh/",
+        "/article/LiunxOrder/index.html": "/articles/linux-server-setup/",
+        "/article/LiunxOrder/": "/articles/linux-server-setup/",
+        "/article/LiunxOrder": "/articles/linux-server-setup/",
+        "/article/xui/index.html": "/articles/3x-ui/",
+        "/article/xui/": "/articles/3x-ui/",
+        "/article/xui": "/articles/3x-ui/",
+        "/article/hysteria2/index.html": "/articles/hysteria-2/",
+        "/article/hysteria2/": "/articles/hysteria-2/",
+        "/article/hysteria2": "/articles/hysteria-2/",
+        "/projects/": "/#tools",
+        "/projects": "/#tools"
+      };
+      try {
+        const rawPath = window.location.pathname;
+        const normPath = rawPath.replace(/\/index\.html$/, '/');
+        const target = legacyRoutes[rawPath] || legacyRoutes[normPath];
+        if (target) {
+          window.location.replace(target + window.location.search + window.location.hash);
+          return;
+        }
+      } catch (_) {}
+
+      // 2. Pre-paint theme bootstrap
+      const root = document.documentElement;
+      let mode = 'system';
+      try { mode = localStorage.getItem('wwz-theme-mode') || 'system'; } catch (_) {}
+      if (!['light', 'dark'].includes(mode)) mode = 'system';
+      const theme = mode === 'system' ? (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : mode;
+      const background = theme === 'dark' ? '#000000' : '#f7f7f5';
+      root.dataset.theme = theme;
+      root.dataset.themeMode = mode;
+      root.style.colorScheme = theme;
+      root.style.backgroundColor = background;
+      root.style.setProperty('--wwz-initial-bg', background);
+      document.querySelector('meta[name="theme-color"]').setAttribute('content', background);
+    })();
+  </script>
+
+  <title>Page Not Found · 404 | WWZ.iM</title>
+  <meta name="description" content="The page you requested could not be found. Return to WWZ.iM home page or explore selected works.">
+  <link rel="icon" href="/favicon.ico">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="/css/site-system.css">
+
+  <script src="/js/site-theme.js" defer></script>
+  <script src="/js/site-shell.js" defer></script>
+
+  <style>
+    .notfound-main {
+      min-height: calc(100vh - 180px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 100px 24px 60px;
+    }
+    .notfound-card {
+      max-width: 580px;
+      text-align: center;
+      padding: 56px 40px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-xl);
+      background: var(--surface);
+      backdrop-filter: blur(24px);
+      box-shadow: 0 20px 48px -12px var(--shadow-sm);
+    }
+    .notfound-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 14px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-pill);
+      font-family: var(--font-mono);
+      font-size: 0.76rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--ink-secondary);
+      margin-bottom: 24px;
+    }
+    .notfound-card h1 {
+      font-size: clamp(2.2rem, 5vw, 3.4rem);
+      font-weight: 750;
+      letter-spacing: -0.04em;
+      line-height: 1.1;
+      margin-bottom: 16px;
+    }
+    .notfound-card p {
+      color: var(--ink-secondary);
+      font-size: 1.05rem;
+      line-height: 1.7;
+      margin-bottom: 32px;
+    }
+    .notfound-actions {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+  </style>
+</head>
+<body data-content-root="/" data-active-page="none">
+  <main class="notfound-main">
+    <div class="notfound-card">
+      <div class="notfound-badge">
+        <i class="fa-solid fa-triangle-exclamation"></i> 404 · Not Found
+      </div>
+      <h1>The page you’re looking for<br>can’t be found.</h1>
+      <p>The link may be outdated, or the address might have moved during our recent website architecture redesign.</p>
+      <div class="notfound-actions">
+        <a href="/" class="btn btn-primary">
+          <i class="fa-solid fa-house"></i> 返回首页 Home
+        </a>
+        <a href="/works.html" class="btn btn-secondary">
+          <i class="fa-solid fa-shapes"></i> Works Gallery
+        </a>
+        <a href="/blog.html" class="btn btn-secondary">
+          <i class="fa-solid fa-book-open"></i> Blog Notes
+        </a>
+      </div>
+    </div>
+  </main>
+</body>
+</html>

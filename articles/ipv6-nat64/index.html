@@ -1,0 +1,102 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="color-scheme" content="light dark"><meta name="theme-color" content="#f7f7f5"><script data-theme-bootstrap>
+  (() => {
+    const root = document.documentElement;
+    let mode = 'system';
+    try { mode = localStorage.getItem('wwz-theme-mode') || 'system'; } catch (_) {}
+    if (!['light', 'dark'].includes(mode)) mode = 'system';
+    const theme = mode === 'system' ? (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : mode;
+    const background = theme === 'dark' ? '#000000' : '#f7f7f5';
+    root.dataset.theme = theme;
+    root.dataset.themeMode = mode;
+    root.style.colorScheme = theme;
+    root.style.backgroundColor = background;
+    root.style.setProperty('--wwz-initial-bg', background);
+    document.querySelector('meta[name="theme-color"]').setAttribute('content', background);
+  })();
+</script><title>纯 IPv6 VPS 如何访问 IPv4：NAT64 原理、部署判断与回滚 | WWZ.iM</title><meta name="description" content="从地址与路由诊断开始，理解 DNS64/NAT64 的分工，判断纯 IPv6 与双栈场景，安全选择网关方案并建立验证和回滚流程。"><meta name="author" content="Wang Wenzhi"><link rel="canonical" href="https://wwz.im/articles/ipv6-nat64-guide/"><link rel="icon" href="../../favicon.ico"><meta property="og:type" content="article"><meta property="og:title" content="纯 IPv6 VPS 如何访问 IPv4：NAT64 原理、部署判断与回滚 | WWZ.iM"><meta property="og:description" content="从地址与路由诊断开始，理解 DNS64/NAT64 的分工，判断纯 IPv6 与双栈场景，安全选择网关方案并建立验证和回滚流程。"><meta property="og:image" content="https://wwz.im/articles/ipv6-nat64/cover.png"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="纯 IPv6 VPS 如何访问 IPv4：NAT64 原理、部署判断与回滚"><meta name="twitter:description" content="从地址与路由诊断开始，理解 DNS64/NAT64 的分工，判断纯 IPv6 与双栈场景，安全选择网关方案并建立验证和回滚流程。"><script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"纯 IPv6 VPS 如何访问 IPv4：NAT64 原理、部署判断与回滚","description":"从地址与路由诊断开始，理解 DNS64/NAT64 的分工，判断纯 IPv6 与双栈场景，安全选择网关方案并建立验证和回滚流程。","author":{"@type":"Person","name":"Wang Wenzhi"},"datePublished":"2026-10-31","mainEntityOfPage":"https://wwz.im/articles/ipv6-nat64-guide/"}</script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"><link rel="stylesheet" href="../../css/site-system.css"></head>
+<body data-content-root="../../" data-active-page="blog">
+  <main class="editorial-layout">
+    <a href="../../blog.html" class="editorial-back">
+      <i class="fa-solid fa-arrow-left"></i> 返回 Blog 列表
+    </a>
+
+    <header class="editorial-header">
+      <div class="editorial-meta">
+        <span class="editorial-badge">NETWORK · IPV6 · NAT64</span>
+        <span>2026-10-31</span> · <span>8 MIN READ</span> · <span>WANG WENZHI</span>
+      </div>
+      <h1 class="editorial-title">纯 IPv6 VPS 如何访问 IPv4：NAT64 原理、部署判断与回滚</h1>
+      <p class="editorial-lead">从地址与路由诊断开始，理解 DNS64/NAT64 的分工，判断纯 IPv6 与双栈场景，安全选择网关方案并建立验证和回滚流程。</p>
+      <img class="editorial-cover" src="cover.png" alt="纯 IPv6 VPS 如何访问 IPv4：NAT64 原理、部署判断与回滚">
+    </header>
+
+    <article class="editorial-body">
+      <section>
+        <h2>先判断：你的服务器真的只有 IPv6 吗？</h2>
+        <p>NAT64 解决的是：服务器所在网络没有原生 IPv4 出口，但需要访问 IPv4-only 目标。部署前先确认网卡地址、默认路由、DNS 解析和实际出站路径。</p>
+        <ul>
+          <li><strong>纯 IPv6：</strong>没有可用 IPv4 默认路由，访问 IPv4-only 服务失败。</li>
+          <li><strong>双栈：</strong>同时有可用 IPv4 和 IPv6 出口。通常不应为了“看起来完整”而叠加 NAT64。</li>
+          <li><strong>IPv6 + 共享 IPv4 网关：</strong>先确认服务商是否已提供转换能力，避免重复配置。</li>
+        </ul>
+        <div class="callout"><strong>重要：</strong>先做只读检查并保存网络配置。不要直接覆盖 DNS、默认路由或防火墙规则。</div>
+      </section>
+
+      <section>
+        <h2>一、做最小化诊断</h2>
+        <p>在 Debian / Ubuntu 上记录地址、路由和 DNS 状态：</p>
+        <pre><code>ip -br address
+ip -6 route
+ip -4 route
+cat /etc/resolv.conf
+getent ahosts github.com
+curl -4 -I --connect-timeout 5 https://github.com
+curl -6 -I --connect-timeout 5 https://github.com</code><button class="copy-btn" type="button"><i class="fa-solid fa-copy"></i> 复制</button><div class="copy-feedback">已复制！</div></pre>
+        <p>如果 IPv6 请求成功、IPv4 请求失败，只能说明当前 IPv4 访问路径不可用；还要区分没有 IPv4 地址、没有默认路由、DNS 返回问题或目标网络阻断。不要仅凭 ping 结果判断 HTTPS 可用性。</p>
+      </section>
+
+      <section>
+        <h2>二、理解 DNS64 与 NAT64 的分工</h2>
+        <p><strong>DNS64 负责合成 AAAA 记录，NAT64 负责转换数据包。</strong>当域名只有 A 记录时，DNS64 解析器可以根据 NAT64 前缀合成可路由的 IPv6 地址；客户端连接该地址后，由 NAT64 网关将 IPv6 流量转换为 IPv4。</p>
+        <p>单独配置 DNS64 不等于已经拥有 NAT64 出口。两端必须使用匹配的前缀和转换服务。常见 Well-Known Prefix 是 <code>64:ff9b::/96</code>，但只有网络确实提供对应 NAT64 服务时才能使用。</p>
+      </section>
+
+      <section>
+        <h2>三、选择部署方式</h2>
+        <h3>方式 A：使用服务商提供的 NAT64</h3>
+        <p>优先使用服务商官方地址和配置说明。确认递归 DNS、NAT64 前缀、TCP/UDP 支持范围以及流量限制。</p>
+        <h3>方式 B：通过独立 NAT64 网关</h3>
+        <p>如果管理多个纯 IPv6 节点，可以单独部署受控 NAT64 网关，让业务节点通过明确路由或代理访问 IPv4。网关应与业务服务隔离，限制管理面暴露，并监控连接数、带宽和日志。</p>
+        <h3>方式 C：使用现成脚本</h3>
+        <p>可研究 <a href="https://github.com/wangwenzhiwwz/Nat64-OneClick" target="_blank" rel="noopener noreferrer">Nat64-OneClick</a>。使用前核对脚本支持的系统版本、网络拓扑、依赖和卸载/恢复能力。仅在确认目标为纯 IPv6、且已备份路由与防火墙状态后考虑运行；不要把它用于双栈服务器。</p>
+      </section>
+
+      <section>
+        <h2>四、上线前后验证</h2>
+        <ol>
+          <li>记录执行前的地址、路由、DNS 和防火墙规则。</li>
+          <li>确认 DNS64 对 IPv4-only 域名能返回合成 AAAA，原生 IPv6 域名解析不受影响。</li>
+          <li>用 <code>curl -4</code>、<code>curl -6</code> 分别测试目标，必要时用多个 IPv4-only 域名交叉验证。</li>
+          <li>检查软件包仓库、GitHub Release 下载等真实业务场景，不要只验证 ICMP。</li>
+          <li>观察 DNS 延迟、连接失败率、MTU/分片问题和长连接稳定性。</li>
+        </ol>
+        <div class="callout">NAT64 不保证所有 IPv4 应用都能工作。硬编码 IPv4 地址、应用层 IP 字面量和特殊 UDP 行为可能需要额外处理。</div>
+      </section>
+
+      <section>
+        <h2>五、回滚原则</h2>
+        <p>回滚必须恢复原始 DNS、路由和防火墙状态，而不是简单删除一个软件包。先停止新服务，再按安装前备份恢复配置，最后重新执行 IPv4/IPv6 连通性测试。若脚本没有明确卸载步骤和恢复说明，不应在生产服务器上直接试跑。</p>
+        <p>对双栈机器，优先保留系统原有 IPv4/IPv6 路由策略；如果只是某个程序无法连接 IPv4-only 目标，应先检查程序代理、DNS 和目标网络，不要把整机网络改成 NAT64 架构。</p>
+      </section>
+    </article>
+
+    <footer class="editorial-footer">
+      <a href="../../blog.html" class="editorial-back"><i class="fa-solid fa-arrow-left"></i> 返回 Blog 列表</a>
+      <span>© 2026 WWZ.iM · Wang Wenzhi</span>
+    </footer>
+  </main>
+
+  <script src="../../js/site-theme.js"></script>
+  <script src="../../js/site-shell.js"></script>
+</body>
+</html>

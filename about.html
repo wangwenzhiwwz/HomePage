@@ -1,9 +1,14 @@
 <!doctype html>
-<html lang="en">
+<html lang="zh-CN" data-theme="light">
 <head>
   <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5">
   <meta name="color-scheme" content="light dark">
   <meta name="theme-color" content="#f7f7f5">
+  <title>About Wang Wenzhi | Video Production, AI &amp; Technology</title>
+  <meta name="description" content="Learn about Wang Wenzhi's work in commercial video production, AI-assisted creative workflows, independent web products, and Linux server infrastructure.">
+  <link rel="canonical" href="https://wwz.im/about.html">
+  <link rel="icon" href="favicon.ico">
   <script data-theme-bootstrap>
     (() => {
       const root = document.documentElement;
@@ -11,299 +16,248 @@
       try { mode = localStorage.getItem('wwz-theme-mode') || 'system'; } catch (_) {}
       if (!['light', 'dark'].includes(mode)) mode = 'system';
       const theme = mode === 'system' ? (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : mode;
-      const background = theme === 'dark' ? '#0b0b0a' : '#f7f7f5';
+      const background = theme === 'dark' ? '#000000' : '#f7f7f5';
       root.dataset.theme = theme;
       root.dataset.themeMode = mode;
       root.style.colorScheme = theme;
       root.style.backgroundColor = background;
       root.style.setProperty('--wwz-initial-bg', background);
       document.querySelector('meta[name="theme-color"]').setAttribute('content', background);
-      document.querySelector('meta[name="color-scheme"]').setAttribute('content', theme);
     })();
   </script>
-  <style data-theme-startup>
-    html { --wwz-initial-bg:#f7f7f5; background:var(--wwz-initial-bg); color-scheme:light; }
-    @media (prefers-color-scheme:dark) { html { --wwz-initial-bg:#0b0b0a; color-scheme:dark; } }
-    html:not([data-theme-ready]), html:not([data-theme-ready]) body { background:var(--wwz-initial-bg) !important; background-image:none !important; }
-    html:not([data-theme-ready]), html:not([data-theme-ready]) * { transition:none !important; }
-  </style>
-  <script src="js/site-theme.js?v=20261030-about2"></script>
-  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=5">
-  <title>About Wang Wenzhi | Video Production, AI &amp; Technology</title>  <meta name="twitter:card" content="summary">
-  <meta name="twitter:title" content="About Wang Wenzhi | Video Production, AI & Technology">
-  <meta name="twitter:description" content="Learn about Wang Wenzhi's work in commercial video production, AI-assisted creative workflows, independent web products, Linux infrastructure and network automation.">
-  <meta name="description" content="Learn about Wang Wenzhi's work in commercial video production, AI-assisted creative workflows, independent web products, Linux infrastructure and network automation.">
-  <meta name="author" content="Wang Wenzhi">
-  <meta name="robots" content="index,follow">
-  <link rel="canonical" href="https://wwz.im/about.html">
-  <meta property="og:type" content="profile">
-  <meta property="og:title" content="About Wang Wenzhi | Video Production, AI & Technology">
-  <meta property="og:description" content="Learn about Wang Wenzhi's work in commercial video production, AI-assisted creative workflows, independent web products, Linux infrastructure and network automation.">
-  <meta property="og:url" content="https://wwz.im/about.html">
-  <meta property="og:image" content="https://wwz.im/favicon.png">
-  <link rel="icon" href="favicon.ico">
+
   <link rel="preconnect" href="https://cdnjs.cloudflare.com">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-  <link rel="stylesheet" href="css/site-system.css?v=20261113-subtle-gradients">
-  <style>
-    .skip-link:focus { transform:none !important; }
-    :root {
-      --about-line:var(--glass-border); --about-muted:var(--text-secondary);
-      --about-ink:var(--text-primary); --about-accent:var(--wwz-accent,#ee7b2d);
-      --about-ease:cubic-bezier(.2,.75,.2,1);
-    }
-    * { box-sizing:border-box; }
-    html { scroll-behavior:smooth; scroll-padding-top:34px; }
-    body { margin:0; color:var(--about-ink); background:var(--wwz-page-bg); }
-    a { color:inherit; text-decoration:none; }
-    button { font:inherit; }
-    .about-main { padding:44px 42px 100px 0; }
-    .about-wrap { width:min(1160px,100%); margin:0 auto; }
-    .about-kicker { display:flex; align-items:center; gap:10px; margin:0 0 28px; color:var(--about-muted); font:700 .68rem/1.2 ui-monospace,SFMono-Regular,monospace; letter-spacing:.16em; text-transform:uppercase; }
-    .about-kicker::before { content:""; width:25px; height:1px; background:var(--about-accent); }
-    .about-hero { position:relative; display:grid; grid-template-columns:minmax(0,1.2fr) minmax(270px,.8fr); align-items:center; gap:clamp(28px,5vw,76px); min-height:570px; padding:50px 0 68px; }
-    .about-hero-copy { position:relative; z-index:1; }
-    .about-hero h1 { max-width:800px; margin:0; font-size:clamp(4.2rem,8.8vw,8.6rem); line-height:.84; letter-spacing:-.09em; font-weight:820; }
-    .about-hero h1 span { display:block; color:var(--about-muted); font-weight:430; }
-    .about-intro { max-width:590px; margin:34px 0 0; color:var(--about-muted); font-size:clamp(1rem,1.45vw,1.18rem); line-height:1.85; letter-spacing:-.015em; }
-    .about-actions { display:flex; flex-wrap:wrap; gap:11px; margin-top:30px; }
-    .about-action { display:inline-flex; align-items:center; justify-content:center; gap:10px; min-height:47px; padding:0 19px; border:1px solid var(--about-line); border-radius:999px; color:var(--about-ink); background:transparent; font-size:.82rem; font-weight:750; cursor:pointer; transition:transform .25s var(--about-ease),background .25s,border-color .25s; }
-    .about-action.primary { color:var(--bg-body); background:var(--about-ink); border-color:var(--about-ink); }
-    .about-action:hover { transform:translateY(-3px); }
-    .about-action.primary:hover { opacity:.86; }
-    .about-action:focus-visible,.text-link:focus-visible,.project-link:focus-visible { outline:2px solid var(--about-accent); outline-offset:4px; }
-    .copy-status { min-height:1.2em; margin:12px 0 0; color:var(--about-muted); font-size:.75rem; }
-    .about-art { position:relative; display:grid; place-items:center; min-height:410px; isolation:isolate; overflow:visible; border:0; border-radius:0; background:transparent; }
-    .art-core { position:relative; z-index:1; display:block; width:clamp(210px,23vw,280px); aspect-ratio:1; overflow:hidden; clip-path:circle(50%); border:0; border-radius:50%; object-fit:contain; object-position:center; background:transparent; box-shadow:none; }
+  <link rel="stylesheet" href="css/site-system.css">
 
-    .about-scroll { position:absolute; left:0; bottom:18px; display:flex; align-items:center; gap:12px; color:var(--about-muted); font:600 .65rem ui-monospace,monospace; letter-spacing:.12em; text-transform:uppercase; }
-    .about-scroll i { color:var(--about-accent); }
-    .about-section { padding:76px 0; border-top:1px solid var(--about-line); }
-    .section-heading { display:grid; grid-template-columns:minmax(180px,.7fr) minmax(0,1.3fr); gap:30px; align-items:start; margin-bottom:34px; }
-    .section-index { padding-top:8px; color:var(--about-accent); font:700 .68rem ui-monospace,monospace; letter-spacing:.13em; }
-    .section-heading h2 { max-width:700px; margin:0; font-size:clamp(2.25rem,4.3vw,4.2rem); line-height:.98; letter-spacing:-.065em; }
-    .section-heading p { max-width:650px; margin:18px 0 0; color:var(--about-muted); font-size:.98rem; line-height:1.8; }
-    .principles { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); border-top:1px solid var(--about-line); }
-    .principle { padding:25px 25px 8px 0; }
-    .principle + .principle { padding-left:25px; border-left:1px solid var(--about-line); }
-    .principle small { color:var(--about-muted); font:650 .65rem ui-monospace,monospace; letter-spacing:.12em; }
-    .principle h3 { margin:15px 0 9px; font-size:1.16rem; letter-spacing:-.035em; }
-    .principle p { max-width:320px; margin:0; color:var(--about-muted); font-size:.84rem; line-height:1.75; }
-    .focus-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:14px; }
-    .focus-card { position:relative; min-height:220px; padding:27px 28px; overflow:hidden; border:1px solid var(--about-line); border-radius:23px; background:var(--glass-bg); transition:transform .3s var(--about-ease),border-color .3s; }
-    .focus-card:hover { transform:translateY(-4px); border-color:color-mix(in srgb,var(--about-accent) 45%,var(--about-line)); }
-    .focus-card .number { color:var(--about-accent); font:700 .68rem ui-monospace,monospace; letter-spacing:.1em; }
-    .focus-card h3 { margin:29px 0 9px; font-size:1.45rem; letter-spacing:-.045em; }
-    .focus-card p { max-width:460px; margin:0; color:var(--about-muted); font-size:.87rem; line-height:1.75; }
-    .focus-card > i { position:absolute; top:25px; right:27px; color:var(--about-muted); opacity:.55; font-size:1.1rem; }
-    .detail-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:28px 44px; }
-    .detail-block { padding-top:20px; border-top:1px solid var(--about-line); }
-    .detail-block h3 { margin:0 0 13px; font-size:1.08rem; letter-spacing:-.03em; }
-    .detail-block p { margin:0; color:var(--about-muted); font-size:.87rem; line-height:1.85; }
-    .tag-list { display:flex; flex-wrap:wrap; gap:8px; margin-top:15px; }
-    .tag { padding:7px 11px; border:1px solid var(--about-line); border-radius:999px; color:var(--about-muted); font-size:.72rem; }
-    .project-list { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:12px; }
-    .project-link { display:flex; align-items:center; justify-content:space-between; gap:20px; min-height:88px; padding:20px 22px; border:1px solid var(--about-line); border-radius:18px; background:var(--glass-bg); transition:transform .25s var(--about-ease),border-color .25s; }
-    .project-link:hover { transform:translateY(-3px); border-color:color-mix(in srgb,var(--about-accent) 48%,var(--about-line)); }
-    .project-link strong { display:block; margin-bottom:5px; font-size:.95rem; }
-    .project-link small { color:var(--about-muted); font-size:.75rem; line-height:1.5; }
-    .project-link i { color:var(--about-muted); }
-    .workflow { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); border-top:1px solid var(--about-line); }
-    .workflow-step { padding:22px 20px 0 0; }
-    .workflow-step + .workflow-step { padding-left:20px; border-left:1px solid var(--about-line); }
-    .workflow-step span { color:var(--about-accent); font:700 .67rem ui-monospace,monospace; }
-    .workflow-step h3 { margin:13px 0 8px; font-size:1rem; }
-    .workflow-step p { margin:0; color:var(--about-muted); font-size:.8rem; line-height:1.75; }
-    .approach { display:grid; grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr); gap:50px; align-items:start; }
-    .approach-lead { margin:0; font-size:clamp(1.8rem,3.2vw,3.1rem); line-height:1.08; letter-spacing:-.06em; }
-    .approach-copy { color:var(--about-muted); font-size:.96rem; line-height:1.9; }
-    .approach-copy p { margin:0 0 16px; }
-    .about-bottom { display:flex; align-items:center; justify-content:space-between; gap:25px; padding:32px; border:1px solid var(--about-line); border-radius:25px; background:linear-gradient(115deg,rgba(238,123,45,.09),transparent 58%),var(--glass-bg); }
-    .about-bottom h2 { margin:0 0 8px; font-size:clamp(1.7rem,3vw,2.5rem); letter-spacing:-.055em; }
-    .about-bottom p { margin:0; color:var(--about-muted); font-size:.86rem; }
-    .about-bottom .about-action { flex-shrink:0; }
-    .about-footer { display:flex; justify-content:space-between; gap:18px; padding-top:25px; color:var(--about-muted); font-size:.72rem; }
-    @media (min-width:761px) { .about-main { margin-left:300px; } }
-    @media (max-width:1100px) { .about-main { padding-right:26px; } .about-hero { min-height:500px; gap:28px; } .about-art { min-height:350px; } .about-hero h1 { font-size:clamp(4rem,8vw,6.8rem); } }
-    @media (max-width:760px) {
-      .about-main { margin:0; padding:95px 18px 55px; } .about-wrap { width:100%; }
-      .about-kicker { margin-bottom:21px; }
-      .about-hero { grid-template-columns:1fr; gap:27px; min-height:0; padding:25px 0 62px; }
-      .about-hero h1 { font-size:clamp(4rem,16vw,6.2rem); }
-      .about-intro { margin-top:24px; font-size:.98rem; }
-      .about-art { min-height:260px; } .art-core { width:180px; }
-      .about-scroll { bottom:18px; }
-      .about-section { padding:55px 0; }
-      .section-heading { grid-template-columns:1fr; gap:13px; margin-bottom:25px; }
-      .section-heading h2 { font-size:clamp(2.35rem,10vw,3.5rem); } .section-heading p { margin-top:13px; }
-      .principles,.focus-grid,.detail-grid,.project-list { grid-template-columns:1fr; }
-      .principle,.principle + .principle { padding:21px 0; border-left:0; border-bottom:1px solid var(--about-line); }
-      .principle h3 { margin-top:10px; }
-      .focus-grid { gap:10px; } .focus-card { min-height:190px; padding:23px; } .focus-card h3 { margin-top:25px; }
-      .workflow { grid-template-columns:1fr 1fr; }
-      .workflow-step,.workflow-step + .workflow-step { padding:18px 14px 18px 0; border-left:0; border-bottom:1px solid var(--about-line); }
-      .workflow-step:nth-child(even) { padding-left:14px; border-left:1px solid var(--about-line); }
-      .approach { grid-template-columns:1fr; gap:20px; } .approach-lead { font-size:2.3rem; }
-      .about-bottom { align-items:flex-start; flex-direction:column; padding:24px; }
-      .about-footer { flex-direction:column; }
+  <style>
+    .about-avatar-frame {
+      width: clamp(140px, 18vw, 200px);
+      aspect-ratio: 1;
+      border-radius: 50%;
+      border: 1px solid var(--line-strong);
+      padding: 6px;
+      background: var(--surface);
+      box-shadow: var(--shadow-md);
     }
-    @media (prefers-reduced-motion:reduce) { html { scroll-behavior:auto; } *,*::before,*::after { transition-duration:.01ms !important; animation-duration:.01ms !important; animation-iteration-count:1 !important; } }
+    .about-avatar-frame img {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      object-fit: cover;
+    }
   </style>
-  <script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "ProfilePage",
-  "name": "About Wang Wenzhi",
-  "url": "https://wwz.im/about.html",
-  "mainEntity": {
-    "@type": "Person",
-    "name": "Wang Wenzhi",
-    "url": "https://wwz.im/",
-    "jobTitle": "Commercial Video Producer and Technology Creator",
-    "knowsAbout": [
-      "Commercial video production",
-      "AI video generation",
-      "Web development",
-      "Linux server administration",
-      "Network infrastructure"
-    ]
-  }
-}
-</script>
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"ProfilePage","name":"About Wang Wenzhi","url":"https://wwz.im/about.html","mainEntity":{"@type":"Person","name":"Wang Wenzhi","url":"https://wwz.im/","jobTitle":"Commercial Video Producer and Technology Creator","knowsAbout":["Commercial video production","AI video generation","Web development","Linux server administration","Network infrastructure"]}}</script>
+
+  <script src="js/site-theme.js" defer></script>
+  <script src="data/site-content.js" defer></script>
+  <script src="js/site-shell.js" defer></script>
 </head>
 <body data-active-page="about">
-  <a class="skip-link" href="#main" style="position:fixed;left:16px;top:12px;z-index:9999;padding:10px 14px;border-radius:999px;background:var(--about-ink);color:var(--bg-body);transform:translateY(-160%)">Skip to content</a>
-  <aside class="sidebar" aria-label="Main navigation"></aside>
-  <main class="about-main" id="main">
-    <div class="about-wrap">
-      <header class="about-hero">
-        <div class="about-hero-copy">
-          <p class="about-kicker">A little introduction · WWZ.iM</p>
-          <h1>Wang<span>Wenzhi.</span></h1>
-          <p class="about-intro">I work where creativity meets technology — shaping visual stories, building digital products and turning complex ideas into practical, well-crafted experiences.</p>
-          <div class="about-actions">
-            <a class="about-action primary" href="videos/">Watch selected films <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i></a>
-            <a class="about-action" href="works.html">Explore visual work <i class="fa-solid fa-images" aria-hidden="true"></i></a>
-            <button class="about-action" type="button" data-copy-email><i class="fa-regular fa-copy" aria-hidden="true"></i> Copy email</button>
-          </div>
-          <p class="copy-status" id="copyStatus" role="status" aria-live="polite"></p>
-        </div>
-        <div class="about-art" aria-label="WWZ visual identity">
-          <img class="art-core" src="https://wwz.im/favicon.png" alt="WWZ avatar" width="440" height="440" fetchpriority="high">
-        </div>
-        <a class="about-scroll" href="#about-story"><i class="fa-solid fa-arrow-down" aria-hidden="true"></i> Scroll to explore</a>
-      </header>
+  <a class="skip" href="#page-content">Skip to content</a>
 
-      <section class="about-section" id="about-story">
-        <div class="section-heading">
-          <span class="section-index">01 / THE STORY</span>
-          <div><h2>Different disciplines.<br>One way of thinking.</h2>
-            <p>My work moves between visual production and technical problem-solving. I enjoy understanding how things work, finding a clear direction, then bringing the details together into something useful and well made.</p>
+  <main class="main-content" id="page-content">
+    <div class="wrap">
+      
+      <!-- About Hero -->
+      <section style="padding: 48px 0 64px;">
+        <div style="display:grid;grid-template-columns:1.2fr 0.8fr;gap:48px;align-items:center;">
+          <div>
+            <span class="kicker"><i class="fa-solid fa-user"></i> About · Wang Wenzhi</span>
+            <h1>Visual Stories.<br>Useful Systems.</h1>
+            <p style="font-size:1.15rem;line-height:1.75;color:var(--ink-secondary);margin:20px 0 32px;max-width:540px;">
+              Creative production and technical problem-solving, connected by curiosity, careful execution, and useful outcomes. Moving between visual storytelling and software engineering.
+            </p>
+            <div style="display:flex;flex-wrap:wrap;gap:12px;">
+              <a href="mailto:wwz.im@outlook.com?subject=Project%20Enquiry" class="btn btn-primary"><i class="fa-regular fa-paper-plane"></i> Send an Email</a>
+              <button class="btn btn-secondary js-copy-email" type="button" id="copyContactEmail"><i class="fa-regular fa-copy"></i> Copy Email</button>
+            </div>
+            <p id="contactStatus" style="margin-top:12px;font-size:0.8rem;color:var(--ink-secondary)" role="status" aria-live="polite"></p>
+          </div>
+
+          <div style="display:flex;justify-content:center;align-items:center;">
+            <div class="about-avatar-frame">
+              <img src="favicon.png" alt="Wang Wenzhi" width="200" height="200">
+            </div>
           </div>
         </div>
-        <div class="principles">
-          <article class="principle"><small>01 — SEE</small><h3>Visual thinking</h3><p>Start with the feeling, the frame and the story. Make complex ideas clear through thoughtful visual communication.</p></article>
-          <article class="principle"><small>02 — BUILD</small><h3>Practical technology</h3><p>Turn ideas into working products — from websites and automation to servers, networks and connected tools.</p></article>
-          <article class="principle"><small>03 — IMPROVE</small><h3>Always experimenting</h3><p>Test new workflows, learn from the results and refine the balance between quality, speed and simplicity.</p></article>
+      </section>
+
+      <!-- 01 / Story & Principles -->
+      <section class="section-block">
+        <div class="section-head">
+          <div class="section-head-copy">
+            <span class="kicker">01 / THE STORY</span>
+            <h2>Different disciplines.<br>One way of thinking.</h2>
+            <p>My work moves between visual production and technical problem-solving. I enjoy understanding how things work, finding a clear direction, then bringing the details together into something useful and well-made.</p>
+          </div>
+        </div>
+
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px;">
+          <div class="bento-card" style="padding:28px;">
+            <span class="kicker">01 — SEE</span>
+            <h3 style="margin:12px 0 8px;">Visual Thinking</h3>
+            <p style="font-size:0.85rem;line-height:1.6;margin:0;">Start with the feeling, the frame and the story. Make complex ideas clear through thoughtful visual communication and pacing.</p>
+          </div>
+
+          <div class="bento-card" style="padding:28px;">
+            <span class="kicker">02 — BUILD</span>
+            <h3 style="margin:12px 0 8px;">Practical Technology</h3>
+            <p style="font-size:0.85rem;line-height:1.6;margin:0;">Turn ideas into working products — from websites and AI generation pipelines to servers, networks and connected tools.</p>
+          </div>
+
+          <div class="bento-card" style="padding:28px;">
+            <span class="kicker">03 — REFINE</span>
+            <h3 style="margin:12px 0 8px;">Always Experimenting</h3>
+            <p style="font-size:0.85rem;line-height:1.6;margin:0;">Test new workflows, learn from the results and refine the balance between high quality, speed and simplicity.</p>
+          </div>
         </div>
       </section>
 
-      <section class="about-section" id="what-i-do">
-        <div class="section-heading"><span class="section-index">02 / WHAT I DO</span><div><h2>From the first idea<br>to the final detail.</h2><p>A multidisciplinary practice across content, software and infrastructure. The common thread is making things work better — and making the result feel considered.</p></div></div>
-        <div class="focus-grid">
-          <article class="focus-card"><span class="number">01 / CREATIVE</span><i class="fa-solid fa-clapperboard" aria-hidden="true"></i><h3>Video &amp; Visual Production</h3><p>Commercial video planning, creative direction, scripting, product filming and editing. From product features to campaign stories, the goal is to communicate the value clearly and make every shot count.</p></article>
-          <article class="focus-card"><span class="number">02 / EMERGING TOOLS</span><i class="fa-solid fa-wand-magic-sparkles" aria-hidden="true"></i><h3>AI-assisted Creation</h3><p>Building practical image and video workflows with generative tools, ComfyUI, image-to-video techniques and video enhancement — with particular attention to product consistency and repeatability.</p></article>
-          <article class="focus-card"><span class="number">03 / DIGITAL</span><i class="fa-solid fa-code" aria-hidden="true"></i><h3>Web &amp; Product Building</h3><p>Designing and developing lightweight websites, personal tools and focused digital experiences. I care about responsive layouts, useful interactions, clear information and maintainable code.</p></article>
-          <article class="focus-card"><span class="number">04 / INFRASTRUCTURE</span><i class="fa-solid fa-network-wired" aria-hidden="true"></i><h3>Networks &amp; Automation</h3><p>Linux servers, VPS environments, IPv4/IPv6 networking, proxy connectivity, Docker-based services and self-hosted tools — with an emphasis on reliability, observability and safe changes.</p></article>
+      <!-- 02 / What I Do -->
+      <section class="section-block">
+        <div class="section-head">
+          <div class="section-head-copy">
+            <span class="kicker">02 / WHAT I DO</span>
+            <h2>From the first idea to the final detail.</h2>
+            <p>A multidisciplinary practice across content, software and infrastructure. Making things work better and feel considered.</p>
+          </div>
+        </div>
+
+        <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:24px;">
+          <div class="bento-card" style="padding:28px;">
+            <span class="kicker">01 / CREATIVE</span>
+            <h3 style="margin:12px 0 8px;">Video &amp; Visual Production</h3>
+            <p style="font-size:0.88rem;line-height:1.65;margin:0;">Commercial video planning, creative direction, scripting, product filming and editing. From product features to campaign stories, the goal is to communicate the value clearly and make every shot count.</p>
+          </div>
+
+          <div class="bento-card" style="padding:28px;">
+            <span class="kicker">02 / EMERGING TOOLS</span>
+            <h3 style="margin:12px 0 8px;">AI-Assisted Workflows</h3>
+            <p style="font-size:0.88rem;line-height:1.65;margin:0;">Building practical image and video workflows with generative tools, ComfyUI, image-to-video techniques and video enhancement — with particular attention to product consistency and repeatability.</p>
+          </div>
+
+          <div class="bento-card" style="padding:28px;">
+            <span class="kicker">03 / DIGITAL</span>
+            <h3 style="margin:12px 0 8px;">Web &amp; Product Building</h3>
+            <p style="font-size:0.88rem;line-height:1.65;margin:0;">Designing and developing lightweight websites, personal tools and focused digital experiences. I care about responsive layouts, useful interactions, clear information and maintainable code.</p>
+          </div>
+
+          <div class="bento-card" style="padding:28px;">
+            <span class="kicker">04 / INFRASTRUCTURE</span>
+            <h3 style="margin:12px 0 8px;">Networks &amp; Infrastructure</h3>
+            <p style="font-size:0.88rem;line-height:1.65;margin:0;">Linux servers, VPS environments, IPv4/IPv6 networking, proxy connectivity, Docker-based services and self-hosted tools — with an emphasis on reliability, observability and safe changes.</p>
+          </div>
         </div>
       </section>
 
-      <section class="about-section" id="capabilities">
-        <div class="section-heading"><span class="section-index">03 / CAPABILITIES</span><div><h2>What I work with.</h2><p>A practical overview of the areas, tools and systems I explore and use. The exact stack changes with the project; tools are chosen to solve the problem, not to fill a checklist.</p></div></div>
-        <div class="detail-grid">
-          <article class="detail-block"><h3>Production &amp; storytelling</h3><p>Product positioning, creative concepts, script structure, shot planning, on-location filming, lighting, editing, motion graphics and delivery review. Comfortable coordinating a production from brief to final output.</p><div class="tag-list"><span class="tag">Creative direction</span><span class="tag">Product films</span><span class="tag">Cinematography</span><span class="tag">Post-production</span></div></article>
-          <article class="detail-block"><h3>AI creative workflows</h3><p>Local and online generation workflows, ComfyUI node pipelines, image-to-video experiments, visual consistency checks and enhancement/upscaling stages. Workflow documentation includes dependencies, inputs, outputs and recovery considerations.</p><div class="tag-list"><span class="tag">ComfyUI</span><span class="tag">Image-to-video</span><span class="tag">SeedVR2</span><span class="tag">Workflow design</span></div></article>
-          <article class="detail-block"><h3>Web &amp; interface development</h3><p>Responsive front-end pages, small utility sites, navigation interfaces, visual systems, theme behavior and interaction details. Projects favor lightweight implementation, clear hierarchy and progressive enhancement.</p><div class="tag-list"><span class="tag">HTML</span><span class="tag">CSS</span><span class="tag">JavaScript</span><span class="tag">GitHub Pages</span></div></article>
-          <article class="detail-block"><h3>Infrastructure &amp; networking</h3><p>Debian/Linux administration, VPS selection and maintenance, Docker services, reverse proxy setups, DNS, IPv4/IPv6 routing and proxy protocol troubleshooting. Changes are approached with inspection, backup and rollback in mind.</p><div class="tag-list"><span class="tag">Linux</span><span class="tag">Debian</span><span class="tag">Docker</span><span class="tag">IPv4 / IPv6</span><span class="tag">Self-hosting</span></div></article>
+      <!-- 03 / How I Work -->
+      <section class="section-block">
+        <div class="section-head">
+          <div class="section-head-copy">
+            <span class="kicker">03 / HOW I WORK</span>
+            <h2>Clear process. Careful execution.</h2>
+            <p>Good outcomes usually come from making the problem clear before choosing the tools.</p>
+          </div>
+        </div>
+
+        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:20px;">
+          <div class="bento-card" style="padding:22px;">
+            <span class="badge" style="margin-bottom:12px;">STEP 01</span>
+            <h3 style="font-size:1.05rem;margin-bottom:6px;">Understand</h3>
+            <p style="font-size:0.82rem;line-height:1.55;margin:0;">Clarify the goal, audience, constraints and what a successful result should achieve.</p>
+          </div>
+
+          <div class="bento-card" style="padding:22px;">
+            <span class="badge" style="margin-bottom:12px;">STEP 02</span>
+            <h3 style="font-size:1.05rem;margin-bottom:6px;">Plan</h3>
+            <p style="font-size:0.82rem;line-height:1.55;margin:0;">Break the work into a clear structure, choose the right tools and identify dependencies.</p>
+          </div>
+
+          <div class="bento-card" style="padding:22px;">
+            <span class="badge" style="margin-bottom:12px;">STEP 03</span>
+            <h3 style="font-size:1.05rem;margin-bottom:6px;">Build &amp; Test</h3>
+            <p style="font-size:0.82rem;line-height:1.55;margin:0;">Create in focused iterations, check real-world behavior and keep important details consistent.</p>
+          </div>
+
+          <div class="bento-card" style="padding:22px;">
+            <span class="badge" style="margin-bottom:12px;">STEP 04</span>
+            <h3 style="font-size:1.05rem;margin-bottom:6px;">Refine</h3>
+            <p style="font-size:0.82rem;line-height:1.55;margin:0;">Review the result, remove unnecessary complexity and document what matters for future use.</p>
+          </div>
         </div>
       </section>
 
-      <section class="about-section" id="projects">
-        <div class="section-heading"><span class="section-index">04 / DIGITAL PROJECTS</span><div><h2>Small tools.<br>Useful every day.</h2><p>Alongside creative production, I build and maintain a collection of personal web projects focused on practical utility, clean interfaces and independent infrastructure.</p></div></div>
-        <div class="project-list">
-          <a class="project-link" href="https://app.wwz.im/" target="_blank" rel="noopener noreferrer"><span><strong>APP.WWZ.iM</strong><small>A personal navigation and tool hub</small></span><i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i></a>
-          <a class="project-link" href="https://sub.wwz.im/" target="_blank" rel="noopener noreferrer"><span><strong>SUB.WWZ.iM</strong><small>A focused subscription and configuration utility</small></span><i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i></a>
-          <a class="project-link" href="https://rmb.wwz.im/" target="_blank" rel="noopener noreferrer"><span><strong>RMB.WWZ.iM</strong><small>A lightweight RMB amount conversion tool</small></span><i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i></a>
-          <a class="project-link" href="https://ip.wwz.im/" target="_blank" rel="noopener noreferrer"><span><strong>IP.WWZ.iM</strong><small>A minimal IP information utility</small></span><i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i></a>
-          <a class="project-link" href="https://vps.wwz.im/" target="_blank" rel="noopener noreferrer"><span><strong>VPS.WWZ.iM</strong><small>Server and network monitoring interface</small></span><i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i></a>
-          <a class="project-link" href="https://github.com/wangwenzhiwwz" target="_blank" rel="noopener noreferrer"><span><strong>Open-source work</strong><small>Code, experiments and project repositories on GitHub</small></span><i class="fa-brands fa-github" aria-hidden="true"></i></a>
+      <!-- 04 / Connect Section -->
+      <section class="section-block" style="border-bottom:none;">
+        <div class="contact-box">
+          <div class="contact-copy">
+            <span class="kicker">04 / COLLABORATION</span>
+            <h2>Have a project in mind?</h2>
+            <p>For creative projects, video production, digital products, technical collaboration or simply a good conversation.</p>
+            <div class="contact-actions-row">
+              <a href="mailto:wwz.im@outlook.com?subject=Project%20Enquiry" class="btn btn-primary"><i class="fa-regular fa-paper-plane"></i> Start a Project</a>
+              <a href="https://github.com/wangwenzhiwwz" target="_blank" rel="noopener noreferrer" class="btn btn-secondary"><i class="fa-brands fa-github"></i> GitHub Profile</a>
+            </div>
+          </div>
+          <div class="contact-social-pane">
+            <a href="https://github.com/wangwenzhiwwz" target="_blank" rel="noopener noreferrer" class="social-pill">
+              <span><i class="fa-brands fa-github" style="margin-right:8px"></i> GitHub</span>
+              <i class="fa-solid fa-arrow-up-right-from-square" style="font-size:0.75rem"></i>
+            </a>
+            <a href="https://www.youtube.com/@wangwenzhi" target="_blank" rel="noopener noreferrer" class="social-pill">
+              <span><i class="fa-brands fa-youtube" style="margin-right:8px"></i> YouTube</span>
+              <i class="fa-solid fa-arrow-up-right-from-square" style="font-size:0.75rem"></i>
+            </a>
+            <a href="https://x.com/wwz_im" target="_blank" rel="noopener noreferrer" class="social-pill">
+              <span><i class="fa-brands fa-x-twitter" style="margin-right:8px"></i> X (Twitter)</span>
+              <i class="fa-solid fa-arrow-up-right-from-square" style="font-size:0.75rem"></i>
+            </a>
+            <a href="mailto:wwz.im@outlook.com" class="social-pill">
+              <span><i class="fa-regular fa-envelope" style="margin-right:8px"></i> wwz.im@outlook.com</span>
+              <i class="fa-solid fa-arrow-up-right-from-square" style="font-size:0.75rem"></i>
+            </a>
+          </div>
         </div>
       </section>
 
-      <section class="about-section" id="workflow">
-        <div class="section-heading"><span class="section-index">05 / HOW I WORK</span><div><h2>Clear process.<br>Careful execution.</h2><p>Good outcomes usually come from making the problem clear before choosing the tools. I prefer a repeatable process that makes progress visible and keeps quality under control.</p></div></div>
-        <div class="workflow">
-          <article class="workflow-step"><span>STEP 01</span><h3>Understand</h3><p>Clarify the goal, audience, constraints and what a successful result should achieve.</p></article>
-          <article class="workflow-step"><span>STEP 02</span><h3>Plan</h3><p>Break the work into a clear structure, choose the right tools and identify dependencies.</p></article>
-          <article class="workflow-step"><span>STEP 03</span><h3>Build &amp; test</h3><p>Create in focused iterations, check real-world behavior and keep important details consistent.</p></article>
-          <article class="workflow-step"><span>STEP 04</span><h3>Refine</h3><p>Review the result, remove unnecessary complexity and document what matters for future use.</p></article>
-        </div>
-      </section>
-
-      <section class="about-section">
-        <div class="approach"><div><span class="section-index">06 / THE APPROACH</span><h2 class="approach-lead">Good work is a mix of curiosity, craft and consistency.</h2></div><div class="approach-copy"><p>I value simple interfaces, thoughtful details and solutions that solve a real problem. Whether shaping a film, refining a website or building a technical workflow, I care about the whole experience — not just how it looks at first glance.</p><p>I am especially interested in the space between creative work and engineering: using technology to expand what is possible while keeping the result coherent, practical and reliable.</p><p>I also believe a useful system should be understandable after it is built. Clear documentation, maintainable structure and a safe way to recover are part of the finished work.</p></div></div>
-      </section>
-
-      <section class="about-section" id="collaborate">
-        <div class="section-heading"><span class="section-index">07 / WORK TOGETHER</span><div><h2>A useful brief<br>makes a better result.</h2><p>For a creative, digital or technical collaboration, these details help turn an initial idea into a clear scope and a realistic first step.</p></div></div>
-        <div class="wwz-practical-grid">
-          <article class="wwz-practical-card"><small>CREATIVE</small><h3>Video or visual project</h3><p>Product and audience, key selling point, reference links, required formats, deadline, available footage and approval process.</p></article>
-          <article class="wwz-practical-card"><small>DIGITAL</small><h3>Website or tool</h3><p>Who will use it, the task they need to complete, required data, existing links or repository, deployment preference and constraints.</p></article>
-          <article class="wwz-practical-card"><small>TECHNICAL</small><h3>Infrastructure or workflow</h3><p>Current environment, exact error or expected outcome, relevant logs with secrets removed, what has already been tested and rollback requirements.</p></article>
-        </div>
-      </section>
-
-      <section class="about-section" id="contact">
-        <div class="about-bottom"><div><h2>Have an idea in mind?</h2><p>For creative projects, digital products, technical collaboration or a thoughtful exchange.</p></div><a class="about-action primary" href="mailto:wwz.im@outlook.com?subject=Project%20Enquiry">Send an email <i class="fa-regular fa-envelope" aria-hidden="true"></i></a></div>
-        <footer class="about-footer"><span>© <span data-copyright-year></span> WWZ.iM · Wang Wenzhi</span><a href="https://github.com/wangwenzhiwwz" target="_blank" rel="noopener noreferrer">GitHub <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i></a></footer>
-      </section>
     </div>
+
+    <!-- Apple Clean Footer -->
+    <footer class="apple-footer">
+      <div class="wrap">
+        <div class="apple-footer-grid">
+          <div class="apple-footer-brand">
+            <h4>WWZ.iM</h4>
+            <p>Official portfolio of Wang Wenzhi. Commercial films, generative AI workflows, and independent digital tools.</p>
+          </div>
+          <div class="apple-footer-col">
+            <h5>Navigation</h5>
+            <ul>
+              <li><a href="index.html">Home</a></li>
+              <li><a href="works.html">Works Gallery</a></li>
+              <li><a href="videos/">Videos</a></li>
+              <li><a href="blog.html">Blog & Guides</a></li>
+              <li><a href="about.html">About</a></li>
+            </ul>
+          </div>
+          <div class="apple-footer-col">
+            <h5>Connect</h5>
+            <ul>
+              <li><a href="https://github.com/wangwenzhiwwz" target="_blank" rel="noopener noreferrer">GitHub</a></li>
+              <li><a href="https://www.youtube.com/@wangwenzhi" target="_blank" rel="noopener noreferrer">YouTube</a></li>
+              <li><a href="https://x.com/wwz_im" target="_blank" rel="noopener noreferrer">X (Twitter)</a></li>
+              <li><a href="mailto:wwz.im@outlook.com">Email</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="apple-footer-bottom">
+          <span>© <span id="year">2026</span> WWZ.iM · Wang Wenzhi. All rights reserved.</span>
+          <div class="apple-footer-socials">
+            <a href="#top">Back to top <i class="fa-solid fa-arrow-up" style="margin-left:4px"></i></a>
+          </div>
+        </div>
+      </div>
+    </footer>
   </main>
-  <script>
-    (() => {
-      const email = 'wwz.im@outlook.com';
-      const button = document.querySelector('[data-copy-email]');
-      const status = document.getElementById('copyStatus');
-      if (!button || !status) return;
-      const fallbackCopy = () => {
-        const field = document.createElement('textarea');
-        field.value = email;
-        field.setAttribute('readonly', '');
-        field.style.position = 'fixed';
-        field.style.opacity = '0';
-        document.body.appendChild(field);
-        field.select();
-        let copied = false;
-        try { copied = document.execCommand('copy'); } catch (_) {}
-        field.remove();
-        return copied;
-      };
-      button.addEventListener('click', async () => {
-        let copied = false;
-        try {
-          if (navigator.clipboard && window.isSecureContext) {
-            await navigator.clipboard.writeText(email);
-            copied = true;
-          } else copied = fallbackCopy();
-        } catch (_) { copied = fallbackCopy(); }
-        status.textContent = copied ? 'Email address copied: ' + email : 'Copy was unavailable. Use the email link below instead.';
-        button.innerHTML = copied
-          ? '<i class="fa-solid fa-check" aria-hidden="true"></i> Copied'
-          : '<i class="fa-regular fa-copy" aria-hidden="true"></i> Try again';
-      });
-    })();
-  </script>
-  <script src="js/site-shell.js?v=20261113-mobile-dark-fix"></script>
 </body>
 </html>

@@ -27,7 +27,7 @@ window.WWZ_CONTENT = {
     { id:"armor-13", title:"Ulefone Armor 13", description:"Ultra-Large Battery Rugged Phone", year:"2021", image:"images/videos/armor-13.jpg", embed:"https://www.youtube.com/embed/fAaV4eftTAs" }
   ],
   posts: [
-    { id:"ipv6-nat64-guide", title:"纯 IPv6 VPS 如何访问 IPv4：NAT64 原理、部署判断与回滚", excerpt:"从地址与路由诊断开始，理解 DNS64/NAT64 分工，区分纯 IPv6 与双栈场景，并建立安全验证和回滚流程。", date:"Oct 2026", readTime:"8 min", category:"Network", tags:["IPv6","NAT64"], image:"articles/ipv6-nat64-guide/cover.svg", href:"articles/ipv6-nat64-guide/" },
+    { id:"ipv6-nat64-guide", title:"纯 IPv6 VPS 如何访问 IPv4：NAT64 原理、部署判断与回滚", excerpt:"从地址与路由诊断开始，理解 DNS64/NAT64 分工，区分纯 IPv6 与双栈场景，并建立安全验证和回滚流程。", date:"Oct 2026", readTime:"8 min", category:"Network", tags:["IPv6","NAT64"], image:"articles/ipv6-nat64-guide/cover.png", href:"articles/ipv6-nat64-guide/" },
     { id:"docker-backup-guide", title:"Docker Compose 应用备份与恢复：从卷盘点到异地演练", excerpt:"识别容器持久化数据，备份 Compose 配置与数据库，校验归档，并在隔离环境完成恢复演练。", date:"Oct 2026", readTime:"9 min", category:"Server", tags:["Docker","Backup"], image:"articles/docker-backup-guide/cover.svg", href:"articles/docker-backup-guide/" },
     { id:"comfyui-local-video", title:"ComfyUI 本地 AI 视频工作站记录", excerpt:"记录 RTX 5080 本地工作站、ComfyUI 当前状态、SeedVR2 3B Int8 模板与模型文件观察，以及产品图生视频的一致性检查原则。", date:"Oct 2026", readTime:"5 min", category:"AI & ComfyUI", tags:["ComfyUI","AI Video"], image:"articles/comfyui-local-video/cover.svg", href:"articles/comfyui-local-video/" },
     { id:"be6500-shellcrash", title:"安装ShellCrash科学上网", excerpt:"小米路由器 BE6500 解锁 SSH 并安装 ShellCrash，无需刷入 OpenWrt，同时保留路由器原有功能。BE3600 与 AX3000T 也可参考。", date:"Nov 2025", readTime:"1 min", category:"Network", tags:["Router","SSH"], image:"images/blog/shellcrash.jpg", href:"articles/be6500-ssh/" },

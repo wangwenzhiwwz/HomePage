@@ -1,0 +1,15 @@
+# WWZ.iM Cloudflare Pages & Netlify Redirects
+/portfolio-masonry.html   /works.html                   301
+/article.html             /blog.html                    301
+/styles.html              /design-system.html           301
+/team.html                /about.html                   301
+/article/BE6500-SSH/*     /articles/be6500-ssh/         301
+/article/BE6500-SSH       /articles/be6500-ssh/         301
+/article/LiunxOrder/*     /articles/linux-server-setup/ 301
+/article/LiunxOrder       /articles/linux-server-setup/ 301
+/article/xui/*            /articles/3x-ui/              301
+/article/xui              /articles/3x-ui/              301
+/article/hysteria2/*      /articles/hysteria-2/         301
+/article/hysteria2        /articles/hysteria-2/         301
+/projects/                /#tools                       301
+/projects                 /#tools                       301

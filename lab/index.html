@@ -1,101 +1,124 @@
 <!doctype html>
-<html lang="en">
+<html lang="zh-CN">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="color-scheme" content="light dark">
-<title>AI Lab · ComfyUI & AI Video Workflows | WWZ.iM</title>
-<meta name="description" content="Practical AI video workflow notes: ComfyUI, image-to-video, product consistency, SeedVR2 enhancement and reproducible experiments.">
-<link rel="canonical" href="https://wwz.im/lab/">
-<link rel="icon" href="../favicon.ico">
-<link rel="stylesheet" href="../css/site-system.css?v=20261113-brand-palette">
-<style>
-:root{--lab-bg:#f7f7f5;--lab-ink:#171715;--lab-muted:#70706a;--lab-line:rgba(20,20,18,.12);--lab-card:rgba(255,255,255,.68)}
-@media(prefers-color-scheme:dark){:root{--lab-bg:#0b0b0a;--lab-ink:#f3f3ef;--lab-muted:#a1a19a;--lab-line:rgba(255,255,255,.14);--lab-card:rgba(255,255,255,.035)}}
-body{margin:0;background:var(--lab-bg);color:var(--lab-ink);font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;line-height:1.7}
-.lab-wrap{width:min(100% - 40px,1040px);margin:0 auto;padding:76px 0 100px}
-.eyebrow{font:600 .72rem ui-monospace,monospace;letter-spacing:.15em;color:var(--lab-muted);text-transform:uppercase}
-h1{max-width:850px;margin:18px 0;font-size:clamp(2.8rem,7vw,5.8rem);line-height:.96;letter-spacing:-.075em}
-.lead{max-width:780px;color:var(--lab-muted);font-size:clamp(1.05rem,2vw,1.25rem);line-height:1.85}
-.lab-actions{display:flex;gap:12px;flex-wrap:wrap;margin:28px 0 60px}
-.lab-button{display:inline-flex;align-items:center;min-height:44px;padding:0 18px;border:1px solid var(--lab-line);border-radius:999px;font-size:.88rem;font-weight:650}
-.lab-button.primary{background:var(--lab-ink);color:var(--lab-bg)}
-.lab-section{padding:34px 0;border-top:1px solid var(--lab-line)}
-.lab-section h2{font-size:1.5rem;letter-spacing:-.04em;margin:0 0 18px}
-.lab-section p{color:var(--lab-muted)}
-.stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
-.stat,.experiment{padding:22px;border:1px solid var(--lab-line);border-radius:18px;background:var(--lab-card)}
-.stat strong{display:block;font-size:1.35rem;letter-spacing:-.04em}
-.stat span,.experiment small{color:var(--lab-muted);font-size:.78rem}
-.experiments{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px}
-.experiment h3{margin:12px 0 8px;font-size:1.12rem;letter-spacing:-.03em}
-.experiment p{margin:0 0 14px;font-size:.88rem;line-height:1.75}
-.status{display:inline-block;padding:4px 9px;border:1px solid var(--lab-line);border-radius:999px;color:var(--lab-muted);font-size:.68rem}
-.experiment a{font-size:.82rem;font-weight:700}
-.lab-foot{display:flex;gap:20px;justify-content:space-between;padding-top:24px;border-top:1px solid var(--lab-line);color:var(--lab-muted);font-size:.78rem}
-@media(max-width:650px){.lab-wrap{width:calc(100% - 28px);padding:62px 0 72px}.stats{grid-template-columns:1fr}.experiments{grid-template-columns:1fr}.lab-foot{flex-direction:column}}
-</style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <meta name="theme-color" content="#f7f7f5">
+  <script data-theme-bootstrap>
+    (() => {
+      const root = document.documentElement;
+      let mode = 'system';
+      try { mode = localStorage.getItem('wwz-theme-mode') || 'system'; } catch (_) {}
+      if (!['light', 'dark'].includes(mode)) mode = 'system';
+      const theme = mode === 'system' ? (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : mode;
+      const background = theme === 'dark' ? '#000000' : '#f7f7f5';
+      root.dataset.theme = theme;
+      root.dataset.themeMode = mode;
+      root.style.colorScheme = theme;
+      root.style.backgroundColor = background;
+      root.style.setProperty('--wwz-initial-bg', background);
+      document.querySelector('meta[name="theme-color"]').setAttribute('content', background);
+    })();
+  </script>
+  <title>AI Lab · ComfyUI &amp; AI Video Workflows | WWZ.iM</title>
+  <meta name="description" content="Practical AI video workflow notes: ComfyUI, image-to-video, product consistency, SeedVR2 enhancement and reproducible experiments.">
+  <link rel="canonical" href="https://wwz.im/lab/">
+  <link rel="icon" href="../favicon.ico">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="../css/site-system.css">
 </head>
-<body data-content-root="/" data-active-page="lab">
-<aside class="sidebar glass-panel" id="sidebar"></aside>
-<main class="lab-wrap">
-  <div class="eyebrow">Research · Workflows · Quality control</div>
-  <h1>AI creation,<br>made repeatable.</h1>
-  <p class="lead">A working notebook for practical AI-assisted video production. The focus is not just generating images, but building controllable workflows that preserve real product details and can be checked, reproduced and improved.</p>
-  <div class="lab-actions">
-    <a class="lab-button primary" href="/topics/ai-comfyui/">Explore ComfyUI topic ↗</a>
-    <a class="lab-button" href="/articles/comfyui-local-video/">Workstation notes ↗</a>
-  </div>
-  <section class="lab-section">
-    <h2>Local workstation baseline</h2>
-    <p>These are the recorded environment facts. Installed models, custom nodes and successful end-to-end runs are tracked separately and are not inferred from the hardware specification.</p>
-    <div class="stats">
-      <div class="stat"><strong>RTX 5080</strong><span>NVIDIA GPU · 16 GB dedicated VRAM</span></div>
-      <div class="stat"><strong>~128 GB</strong><span>System memory, approximate</span></div>
-      <div class="stat"><strong>ComfyUI</strong><span>Installed locally · model inventory is separate</span></div>
-    </div>
-  </section>
-  <section class="lab-section">
-    <h2>Experiments and workflow records</h2>
-    <div class="experiments" id="experiments"><p>Loading experiment records…</p></div>
-  </section>
-  <section class="lab-section">
-    <h2>Working principles</h2>
-    <div class="experiments">
-      <article class="experiment"><small>01 / PRODUCT FIRST</small><h3>Lock product identity</h3><p>Keep the real device geometry, camera arrangement, buttons, logo, materials and colors stable before optimizing atmosphere or style.</p></article>
-      <article class="experiment"><small>02 / TRACEABLE</small><h3>Record dependencies</h3><p>List model files, custom nodes, versions, inputs, outputs and parameters. Never assume a model or node is installed.</p></article>
-      <article class="experiment"><small>03 / ACCEPTANCE</small><h3>Define what “works” means</h3><p>Evaluate visual consistency, temporal stability, resolution, artifacts and practical production usability.</p></article>
-      <article class="experiment"><small>04 / RECOVERY</small><h3>Keep a rollback path</h3><p>Preserve known-good workflows and document how to revert when a model update or dependency change breaks a result.</p></article>
-    </div>
-  </section>
-  <section class="lab-section">
-    <h2>A practical image-to-video production path</h2>
-    <p>Use this as a repeatable sequence for product advertising. It is a process template, not a claim that every model or custom node is already installed on the workstation.</p>
-    <div class="experiments">
-      <article class="experiment"><small>STAGE 01 · SOURCE</small><h3>Prepare a product reference set</h3><p>Collect clean front, rear, side and detail views under neutral lighting. Keep one approved reference set and note any model-specific visual features that must not change.</p></article>
-      <article class="experiment"><small>STAGE 02 · SHOT DESIGN</small><h3>Define one camera move</h3><p>Write down shot duration, framing, camera direction, subject position and background action. Avoid asking the model to redesign the product and move the camera at the same time.</p></article>
-      <article class="experiment"><small>STAGE 03 · LOW-COST TEST</small><h3>Validate a short sample</h3><p>Start with a short, lower-resolution test. Change one variable at a time and record the seed, prompt, model, node versions and settings that produced the result.</p></article>
-      <article class="experiment"><small>STAGE 04 · REVIEW</small><h3>Inspect identity frame by frame</h3><p>Check silhouette, lens layout, buttons, ports, logo, material, color and scale. Reject clips where the product changes shape even if the overall image looks attractive.</p></article>
-      <article class="experiment"><small>STAGE 05 · FINISH</small><h3>Enhance only stable footage</h3><p>After motion and product identity pass review, test enhancement or upscaling on a short segment before processing the full clip.</p></article>
-      <article class="experiment"><small>STAGE 06 · ARCHIVE</small><h3>Keep a reproducible record</h3><p>Save the workflow JSON, model file names, custom-node commit/version, input references, output sample, known issues and rollback instructions together.</p></article>
-    </div>
-  </section>
-  <section class="lab-section">
-    <h2>Delivery acceptance checklist</h2>
-    <ul class="wwz-checklist">
-      <li>Product body shape and proportions remain stable throughout the clip.</li>
-      <li>Camera modules, buttons, ports, logo and distinctive details match the reference.</li>
-      <li>No obvious flicker, texture crawling, duplicated parts or frame-to-frame warping.</li>
-      <li>Camera movement follows the shot plan and does not obscure key selling points.</li>
-      <li>Output resolution, frame rate, duration and aspect ratio match the delivery brief.</li>
-      <li>Model dependencies, settings and source assets are recorded for later reproduction.</li>
-    </ul>
-    <p>Priority order: product identity → temporal stability → shot communication → image quality → stylistic polish.</p>
-  </section>
-  <section class="lab-section">
-    <h2>Experiment record template</h2>
-    <p>Copy this structure into the notes for each run. Mark unknown items as unknown instead of filling them with assumptions.</p>
-    <pre><code>Experiment:
+<body data-content-root="../" data-active-page="lab">
+  <main class="editorial-layout">
+    <a href="../blog.html" class="editorial-back">
+      <i class="fa-solid fa-arrow-left"></i> 返回 Blog 列表
+    </a>
+
+    <header class="editorial-header">
+      <div class="editorial-meta">
+        <span class="editorial-badge">RESEARCH · WORKFLOWS · QUALITY CONTROL</span>
+        <span>AI LAB</span> · <span>WANG WENZHI</span>
+      </div>
+      <h1 class="editorial-title">AI Creation, Made Repeatable.</h1>
+      <p class="editorial-lead">实用型 AI 视频创作实验记录：重点不是单纯生成画面，而是构建可复现、可控且保持真实产品外观细节的工作流程。</p>
+    </header>
+
+    <article class="editorial-body">
+      <section>
+        <h2>本地工作站环境基线</h2>
+        <p>已确认记录的环境参数与硬件规格：</p>
+        <div class="specs">
+          <div class="spec">
+            <strong>RTX 5080</strong>
+            <div>NVIDIA GPU · 16 GB 专用显存</div>
+          </div>
+          <div class="spec">
+            <strong>128 GB</strong>
+            <div>系统内存规格</div>
+          </div>
+          <div class="spec">
+            <strong>ComfyUI</strong>
+            <div>本地工作流与节点体系</div>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <h2>实验记录与工作流目录</h2>
+        <div class="resource-grid" id="experiments">
+          <p style="color: var(--ink-secondary);">加载实验记录中…</p>
+        </div>
+      </section>
+
+      <section>
+        <h2>工作原则 (Principles)</h2>
+        <div class="resource-grid">
+          <div class="resource">
+            <i class="fa-solid fa-cube fa-2x"></i>
+            <div>
+              <strong>01 / 锁定产品主体</strong>
+              <div>在优化氛围或艺术风格之前，优先保持真机轮廓、按键与 Logo 材质稳定。</div>
+            </div>
+          </div>
+          <div class="resource">
+            <i class="fa-solid fa-code-branch fa-2x"></i>
+            <div>
+              <strong>02 / 明确记录依赖</strong>
+              <div>记录模型文件名、自定义节点版本、输入输出与参数，不依赖未记录假设。</div>
+            </div>
+          </div>
+          <div class="resource">
+            <i class="fa-solid fa-check-double fa-2x"></i>
+            <div>
+              <strong>03 / 设定验收标准</strong>
+              <div>逐镜头评估视觉一致性、时间稳定性、伪影与商用可用性。</div>
+            </div>
+          </div>
+          <div class="resource">
+            <i class="fa-solid fa-rotate-left fa-2x"></i>
+            <div>
+              <strong>04 / 保证回滚路径</strong>
+              <div>保留已知可用的基线工作流，当依赖升级异常时能够随时回退。</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <h2>交付验收清单 (Checklist)</h2>
+        <ul>
+          <li><strong>产品外形：</strong>机身轮廓和比例在全片中保持稳定，不发生几何漂移。</li>
+          <li><strong>镜头组件：</strong>摄像头模组、按键、接口、Logo 与参考图保持严密一致。</li>
+          <li><strong>画面连贯：</strong>无明显的逐帧闪烁、纹理爬行、零件复制或异常形变。</li>
+          <li><strong>分镜调度：</strong>运镜符合脚本规划，不遮挡关键产品卖点与特征。</li>
+          <li><strong>规格达标：</strong>输出分辨率、帧率、时长与编码格式满足交付需求。</li>
+          <li><strong>资产归档：</strong>模型依赖、关键参数与源素材已完整归档便于复现。</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>实验记录模板</h2>
+        <pre><code>Experiment:
 Date:
 Goal / shot:
 ComfyUI version:
@@ -106,31 +129,44 @@ Prompt / negative prompt:
 Seed and key parameters:
 Output path:
 Observed VRAM / runtime:
-Product identity check:
-Temporal artifacts:
-Decision: PASS / RETEST / REJECT
+Product identity check: PASS / RETEST / REJECT
 Known issues:
-Rollback / last known-good workflow:</code></pre>
-  </section>
-  <footer class="lab-foot"><span>WWZ.iM · AI Lab</span><a href="/blog.html">Technical notes ↗</a></footer>
-</main>
-<script src="../js/site-theme.js?v=20260920-inline-theme"></script>
-<script src="../js/site-shell.js?v=20261113-page-experience"></script>
-<script>
-(async () => {
- const root = document.getElementById('experiments');
- try {
-   const response = await fetch('/data/experiments.json', {cache:'no-cache'});
-   if (!response.ok) throw new Error('Could not load experiment data');
-   const items = await response.json();
-   root.innerHTML = items.map(item => `<article class="experiment">
-     <span class="status">${item.status}</span><small> · ${item.category}</small>
-     <h3>${item.title}</h3><p>${item.summary}</p>
-     <a href="${item.href}">Open record ↗</a>
-   </article>`).join('');
- } catch (error) {
-   root.innerHTML = '<p>Experiment records are temporarily unavailable. Please use the ComfyUI topic page.</p>';
- }
-})();
-</script>
-</body></html>
+Rollback / last known-good workflow:</code><button class="copy-btn" type="button"><i class="fa-solid fa-copy"></i> 复制</button><div class="copy-feedback">已复制！</div></pre>
+      </section>
+    </article>
+
+    <footer class="editorial-footer">
+      <a href="../blog.html" class="editorial-back"><i class="fa-solid fa-arrow-left"></i> 返回 Blog 列表</a>
+      <span>© 2026 WWZ.iM · Wang Wenzhi</span>
+    </footer>
+  </main>
+
+  <script src="../js/site-theme.js"></script>
+  <script src="../js/site-shell.js"></script>
+  <script>
+  (async () => {
+    const root = document.getElementById('experiments');
+    try {
+      const response = await fetch('../data/experiments.json', {cache:'no-cache'});
+      if (!response.ok) throw new Error('Could not load experiment data');
+      const items = await response.json();
+      root.innerHTML = items.map(item => `
+        <a class="resource" href="../${item.href.replace(/^\//, '')}">
+          <i class="fa-solid fa-flask-vial fa-2x"></i>
+          <div>
+            <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px;">
+              <span class="editorial-badge">${item.category}</span>
+              <span style="font-size:0.75rem;color:var(--ink-secondary);">${item.status}</span>
+            </div>
+            <strong>${item.title}</strong>
+            <div>${item.summary}</div>
+          </div>
+        </a>
+      `).join('');
+    } catch (error) {
+      root.innerHTML = '<p style="color:var(--ink-secondary);">实验记录加载失败，请直接访问 <a href="../topics/ai-comfyui/">ComfyUI 专题页面</a>。</p>';
+    }
+  })();
+  </script>
+</body>
+</html>

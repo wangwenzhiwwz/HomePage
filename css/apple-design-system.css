@@ -1,0 +1,913 @@
+/**
+ * Mobbin-Inspired Design System
+ * WWZ.iM Official Core Stylesheet
+ * 
+ * Features:
+ * - Mobbin signature Slate color palette (Slate 50 to Slate 950).
+ * - Ultra-crisp 1px borders, subtle floating shadows, and pill chips.
+ * - Refined geometric typography, tight-tracked headings, and data labels.
+ * - Snappy spring micro-interactions (cubic-bezier(0.16, 1, 0.3, 1)).
+ * - Frosted glass navigation with segmented pill tabs.
+ */
+
+/* ==========================================================================
+   1. Design Tokens & Theme Variables (Mobbin Slate Palette)
+   ========================================================================== */
+
+:root,
+:root[data-theme="light"] {
+  color-scheme: light;
+
+  /* Neutral Apple Palette - Light Mode */
+  --bg: #f7f7f5;
+  --bg-secondary: #f0f0ed;
+  --bg-tertiary: #e6e6e2;
+  --surface: #ffffff;
+  --surface-raised: #ffffff;
+  --surface-hover: #f4f4f1;
+  --surface-active: #ecece8;
+
+  /* Neutral Apple Typography */
+  --ink: #111111;
+  --ink-inverted: #ffffff;
+  --ink-secondary: #52525b;
+  --ink-tertiary: #a1a1aa;
+  --ink-quaternary: #d4d4d8;
+
+  /* Clean Hairlines */
+  --line: rgba(0, 0, 0, 0.08);
+  --line-subtle: rgba(0, 0, 0, 0.04);
+  --line-strong: rgba(0, 0, 0, 0.16);
+  --line-focus: #111111;
+
+  /* Monochrome Accents (Zero Blue) */
+  --accent: #111111;
+  --accent-blue: #111111;
+  --accent-pill: #111111;
+  --accent-pill-text: #ffffff;
+
+  /* Frosted Glass */
+  --glass-nav: rgba(247, 247, 245, 0.82);
+  --glass-card: rgba(255, 255, 255, 0.85);
+  --glass-blur: blur(20px) saturate(180%);
+  --glass-border: rgba(0, 0, 0, 0.08);
+
+  /* Elevation Shadows */
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-card: 0 1px 3px 0 rgba(0, 0, 0, 0.04), 0 0 0 1px rgba(0, 0, 0, 0.04);
+  --shadow-hover: 0 12px 28px -5px rgba(0, 0, 0, 0.08), 0 0 0 1px rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 20px 48px -12px rgba(0, 0, 0, 0.12);
+
+  /* Radii */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 22px;
+  --radius-pill: 9999px;
+
+  /* Motion */
+  --ease: cubic-bezier(0.16, 1, 0.3, 1);
+  --duration-fast: 0.16s;
+  --duration-normal: 0.28s;
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+
+  /* Pure Black & Neutral Monochrome Dark Mode (Zero Blue Tint) */
+  --bg: #000000;                /* Pure black base */
+  --bg-secondary: #0a0a0a;      /* Deep black secondary */
+  --bg-tertiary: #141414;       /* Elevated dark */
+  --surface: #111111;           /* Card surface */
+  --surface-raised: #181818;
+  --surface-hover: #1f1f1f;
+  --surface-active: #272727;
+
+  /* Pure Neutral Inks */
+  --ink: #ffffff;
+  --ink-inverted: #000000;
+  --ink-secondary: #a1a1aa;     /* Neutral zinc */
+  --ink-tertiary: #71717a;
+  --ink-quaternary: #52525b;
+
+  /* Hairlines */
+  --line: rgba(255, 255, 255, 0.09);
+  --line-subtle: rgba(255, 255, 255, 0.05);
+  --line-strong: rgba(255, 255, 255, 0.18);
+  --line-focus: #ffffff;
+
+  /* Monochrome Accents (Zero Blue) */
+  --accent: #ffffff;
+  --accent-blue: #ffffff;
+  --accent-pill: #ffffff;
+  --accent-pill-text: #000000;
+
+  /* Frosted Glass */
+  --glass-nav: rgba(0, 0, 0, 0.85);
+  --glass-card: rgba(17, 17, 17, 0.85);
+  --glass-blur: blur(24px) saturate(180%);
+  --glass-border: rgba(255, 255, 255, 0.09);
+
+  /* Shadows */
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.6);
+  --shadow-card: 0 1px 3px 0 rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.07);
+  --shadow-hover: 0 16px 36px -6px rgba(0, 0, 0, 0.9), 0 0 0 1px rgba(255, 255, 255, 0.15);
+  --shadow-lg: 0 24px 54px -12px rgba(0, 0, 0, 0.95);
+}
+
+/* ==========================================================================
+   2. Reset & Typography
+   ========================================================================== */
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  scroll-behavior: smooth;
+  scroll-padding-top: 72px;
+  background-color: var(--bg);
+  color: var(--ink);
+  transition: background-color var(--duration-normal) var(--ease), color var(--duration-normal) var(--ease);
+}
+
+body {
+  margin: 0;
+  background-color: var(--bg);
+  color: var(--ink);
+  font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "PingFang SC", "Hiragino Sans GB", sans-serif;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+/* Typography Hierarchy */
+h1, h2, h3, h4, h5, h6 {
+  color: var(--ink);
+  font-family: inherit;
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.03em;
+}
+
+h1 {
+  font-size: clamp(2.2rem, 4.8vw, 3.8rem);
+  letter-spacing: -0.035em;
+  font-weight: 750;
+}
+
+h2 {
+  font-size: clamp(1.6rem, 3vw, 2.3rem);
+  letter-spacing: -0.025em;
+}
+
+h3 {
+  font-size: clamp(1.15rem, 1.8vw, 1.45rem);
+  letter-spacing: -0.02em;
+}
+
+p {
+  color: var(--ink-secondary);
+  font-size: 0.98rem;
+  line-height: 1.65;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+  transition: all var(--duration-fast) var(--ease);
+}
+
+button {
+  background: none;
+  border: none;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+  outline: none;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+code, kbd, samp, pre {
+  font-family: "JetBrains Mono", "SF Mono", Menlo, Consolas, monospace;
+  font-size: 0.88em;
+}
+
+:focus-visible {
+  outline: 2px solid var(--line-focus);
+  outline-offset: 3px;
+}
+
+/* Layout Container */
+.wrap {
+  width: min(1200px, calc(100% - 48px));
+  margin: 0 auto;
+}
+
+@media (max-width: 640px) {
+  .wrap {
+    width: calc(100% - 32px);
+  }
+}
+
+main.main-content,
+#page-content {
+  min-height: calc(100vh - 180px);
+  padding-top: 72px;
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 0.2s var(--ease), transform 0.2s var(--ease);
+}
+
+/* Page Transition States & Safari Top Progress Bar */
+#apple-progress-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 2.5px;
+  width: 0%;
+  background: var(--ink);
+  z-index: 10000;
+  opacity: 0;
+  transition: width 0.28s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.2s ease;
+  pointer-events: none;
+}
+
+#apple-progress-bar.is-loading {
+  opacity: 1;
+}
+
+.page-fade-out {
+  opacity: 0 !important;
+  transform: translateY(6px) !important;
+}
+
+.page-fade-in {
+  opacity: 1 !important;
+  transform: translateY(0) !important;
+}
+
+@keyframes appleFadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ==========================================================================
+   3. Mobbin Sticky Navigation Bar
+   ========================================================================== */
+
+#wwz-header,
+.apple-nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  height: 52px;
+  background-color: var(--glass-nav);
+  -webkit-backdrop-filter: var(--glass-blur);
+  backdrop-filter: var(--glass-blur);
+  border-bottom: 1px solid var(--line);
+  transition: background-color var(--duration-normal) var(--ease), border-color var(--duration-normal) var(--ease);
+}
+
+.apple-nav-inner {
+  width: min(1120px, calc(100% - 40px));
+  height: 100%;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* Brand */
+.apple-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 750;
+  font-size: 0.92rem;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+  text-decoration: none;
+}
+
+.apple-brand img {
+  width: 22px;
+  height: 22px;
+  border-radius: 5px;
+  object-fit: cover;
+}
+
+.apple-brand span {
+  font-weight: 750;
+  letter-spacing: -0.02em;
+}
+
+/* Minimalist Clean Apple Links */
+.apple-links {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+  list-style: none;
+  background: transparent;
+  padding: 0;
+  margin: 0;
+}
+
+.apple-link {
+  display: inline-flex;
+  align-items: center;
+  font-size: 0.88rem;
+  font-weight: 500;
+  color: var(--ink-secondary);
+  text-decoration: none;
+  position: relative;
+  padding: 4px 0;
+  transition: color var(--duration-fast) var(--ease);
+}
+
+.apple-link:hover {
+  color: var(--ink);
+}
+
+.apple-link[aria-current="page"],
+.apple-link.active {
+  color: var(--ink);
+  font-weight: 600;
+}
+
+.apple-link[aria-current="page"]::after,
+.apple-link.active::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background-color: var(--ink);
+  border-radius: 2px;
+}
+
+/* Controls */
+.apple-controls {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.apple-icon-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  color: var(--ink-secondary);
+  background-color: transparent;
+  border: 1px solid var(--line);
+  cursor: pointer;
+  transition: all var(--duration-fast) var(--ease);
+}
+
+.apple-icon-btn:hover {
+  color: var(--ink);
+  background-color: var(--surface);
+  border-color: var(--line-strong);
+}
+
+.apple-icon-btn .theme-icon-svg {
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), color 0.2s ease;
+}
+
+.apple-icon-btn.icon-pulse .theme-icon-svg {
+  transform: rotate(180deg) scale(1.15);
+}
+
+/* Mobile Hamburger Toggle */
+.apple-menu-toggle {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 36px;
+  height: 36px;
+  gap: 5px;
+  border-radius: var(--radius-sm);
+  background-color: transparent;
+  border: 1px solid var(--line);
+  cursor: pointer;
+  padding: 0;
+}
+
+.apple-menu-toggle span {
+  display: block;
+  width: 18px;
+  height: 1.5px;
+  background-color: var(--ink);
+  transition: transform var(--duration-fast) var(--ease), opacity var(--duration-fast) var(--ease);
+}
+
+.apple-menu-toggle.is-active span:nth-child(1) {
+  transform: translateY(3.25px) rotate(45deg);
+}
+
+.apple-menu-toggle.is-active span:nth-child(2) {
+  transform: translateY(-3.25px) rotate(-45deg);
+}
+
+/* Mobile Sheet Drawer (Seamless full viewport, no clipping) */
+.apple-mobile-drawer {
+  position: fixed;
+  top: 52px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: calc(100dvh - 52px);
+  z-index: 999;
+  background-color: var(--bg);
+  padding: 32px 28px 48px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-8px);
+  transition: opacity var(--duration-normal) var(--ease), transform var(--duration-normal) var(--ease), visibility var(--duration-normal);
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.apple-mobile-drawer.is-open {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.apple-mobile-nav {
+  display: flex;
+  flex-direction: column;
+}
+
+.apple-mobile-link {
+  font-size: 1.35rem;
+  font-weight: 650;
+  letter-spacing: -0.025em;
+  padding: 16px 0;
+  border-bottom: 1px solid var(--line);
+  color: var(--ink-secondary);
+  text-decoration: none;
+  transition: color var(--duration-fast) var(--ease);
+}
+
+.apple-mobile-link:hover,
+.apple-mobile-link[aria-current="page"],
+.apple-mobile-link.active {
+  color: var(--ink);
+}
+
+.apple-mobile-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 24px;
+  border-top: 1px solid var(--line);
+  font-size: 0.82rem;
+  color: var(--ink-tertiary);
+}
+
+@media (max-width: 768px) {
+  .apple-links {
+    display: none !important;
+  }
+  .apple-menu-toggle {
+    display: flex !important;
+  }
+}
+
+/* ==========================================================================
+   4. Buttons & Mobbin Pill Badges
+   ========================================================================== */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 40px;
+  padding: 0 16px;
+  border-radius: var(--radius-pill);
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all var(--duration-fast) var(--ease);
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.btn-primary {
+  background-color: var(--ink);
+  color: var(--bg);
+  border: 1px solid var(--ink);
+  box-shadow: var(--shadow-sm);
+}
+
+.btn-primary:hover {
+  opacity: 0.92;
+  transform: translateY(-1px);
+}
+
+.btn-secondary {
+  background-color: var(--surface);
+  color: var(--ink);
+  border: 1px solid var(--line);
+  box-shadow: var(--shadow-sm);
+}
+
+.btn-secondary:hover {
+  background-color: var(--surface-hover);
+  border-color: var(--line-strong);
+  transform: translateY(-1px);
+}
+
+.btn-ghost {
+  background-color: transparent;
+  color: var(--ink-secondary);
+  border: 1px solid transparent;
+}
+
+.btn-ghost:hover {
+  color: var(--ink);
+  background-color: var(--surface-hover);
+}
+
+/* Mobbin Kicker & Pill Chips */
+.kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: "JetBrains Mono", Menlo, monospace;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ink-tertiary);
+  margin-bottom: 10px;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 10px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  border-radius: var(--radius-pill);
+  background-color: var(--bg-tertiary);
+  border: 1px solid var(--line);
+  color: var(--ink-secondary);
+}
+
+/* Mobbin Segmented Filter Bar */
+.filter-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 32px;
+}
+
+.filter-pill {
+  padding: 7px 16px;
+  border-radius: var(--radius-pill);
+  font-size: 0.82rem;
+  font-weight: 550;
+  color: var(--ink-secondary);
+  background-color: var(--surface);
+  border: 1px solid var(--line);
+  cursor: pointer;
+  box-shadow: var(--shadow-sm);
+  transition: all var(--duration-fast) var(--ease);
+}
+
+.filter-pill:hover {
+  color: var(--ink);
+  border-color: var(--line-strong);
+  background-color: var(--surface-hover);
+}
+
+.filter-pill[aria-pressed="true"],
+.filter-pill.active {
+  color: var(--accent-pill-text);
+  background-color: var(--accent-pill);
+  border-color: var(--accent-pill);
+  font-weight: 600;
+}
+
+/* ==========================================================================
+   5. Mobbin Showcase Card Base
+   ========================================================================== */
+
+.section-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 24px;
+  margin-bottom: 28px;
+}
+
+.section-head-copy h2 {
+  margin-top: 4px;
+}
+
+.section-head-copy p {
+  margin-top: 6px;
+  max-width: 620px;
+  font-size: 0.95rem;
+}
+
+.section-head-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--ink);
+  white-space: nowrap;
+}
+
+.section-head-link:hover {
+  opacity: 0.75;
+}
+
+/* Bento Card Base & Specular Glow */
+.bento-card, .bento-hero-film, .film-card {
+  position: relative;
+  background-color: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-card);
+  transform: perspective(1000px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg));
+  transition: transform 0.18s cubic-bezier(0.16, 1, 0.3, 1), border-color var(--duration-normal) var(--ease), box-shadow var(--duration-normal) var(--ease);
+  will-change: transform;
+}
+
+.bento-card:hover, .film-card:hover {
+  border-color: var(--line-strong);
+  box-shadow: var(--shadow-hover);
+}
+
+.bento-card::after, .film-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(350px circle at var(--mx, -500px) var(--my, -500px), rgba(255, 255, 255, 0.14), transparent 70%);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: 4;
+}
+
+[data-theme="light"] .bento-card::after,
+[data-theme="light"] .film-card::after {
+  background: radial-gradient(350px circle at var(--mx, -500px) var(--my, -500px), rgba(15, 23, 42, 0.035), transparent 70%);
+}
+
+.bento-card:hover::after, .film-card:hover::after {
+  opacity: 1;
+}
+
+/* Interactive Optical Aperture Controller */
+.optical-aperture-stage {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 8px 14px;
+  background-color: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-pill);
+  box-shadow: var(--shadow-sm);
+  margin-top: 14px;
+}
+
+.optical-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: "JetBrains Mono", Menlo, monospace;
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--ink-secondary);
+  text-transform: uppercase;
+}
+
+.optical-dial {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+}
+
+.aperture-btn {
+  padding: 3px 9px;
+  border-radius: var(--radius-pill);
+  font-family: "JetBrains Mono", Menlo, monospace;
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--ink-tertiary);
+  background: transparent;
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: all var(--duration-fast) var(--ease);
+}
+
+.aperture-btn:hover {
+  color: var(--ink);
+  background-color: var(--bg-tertiary);
+}
+
+.aperture-btn.active {
+  color: var(--bg);
+  background-color: var(--ink);
+  border-color: var(--ink);
+}
+
+.aperture-readout {
+  font-family: "JetBrains Mono", Menlo, monospace;
+  font-size: 0.7rem;
+  color: var(--ink-secondary);
+}
+
+/* ==========================================================================
+   6. Video Modal & Lightbox Styles
+   ========================================================================== */
+
+.modal {
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(9, 13, 22, 0.75);
+  -webkit-backdrop-filter: blur(16px);
+  backdrop-filter: blur(16px);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--duration-normal) var(--ease);
+}
+
+.modal.open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.modal-inner {
+  position: relative;
+  width: min(960px, 92vw);
+  aspect-ratio: 16 / 9;
+  background-color: #000;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  box-shadow: var(--shadow-lg);
+  border: 1px solid var(--line);
+}
+
+.modal-inner iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+.modal-close {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  z-index: 10;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background-color: rgba(15, 23, 42, 0.85);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  transition: transform var(--duration-fast) var(--ease), background-color var(--duration-fast) var(--ease);
+}
+
+.modal-close:hover {
+  transform: scale(1.08);
+  background-color: rgba(15, 23, 42, 0.98);
+}
+
+/* ==========================================================================
+   7. Mobbin Footer
+   ========================================================================== */
+
+.apple-footer {
+  margin-top: 100px;
+  border-top: 1px solid var(--line);
+  background-color: var(--bg);
+  padding: 64px 0 48px;
+  font-size: 0.85rem;
+  color: var(--ink-secondary);
+}
+
+.apple-footer-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: 40px;
+  margin-bottom: 48px;
+}
+
+.apple-footer-brand h4 {
+  font-size: 1.1rem;
+  font-weight: 750;
+  color: var(--ink);
+  margin-bottom: 12px;
+}
+
+.apple-footer-brand p {
+  max-width: 320px;
+  font-size: 0.85rem;
+  line-height: 1.6;
+}
+
+.apple-footer-col h5 {
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--ink);
+  margin-bottom: 14px;
+}
+
+.apple-footer-col ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.apple-footer-col a {
+  color: var(--ink-secondary);
+  transition: color var(--duration-fast) var(--ease);
+}
+
+.apple-footer-col a:hover {
+  color: var(--ink);
+}
+
+.apple-footer-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 24px;
+  border-top: 1px solid var(--line);
+  font-size: 0.78rem;
+  color: var(--ink-tertiary);
+}
+
+.apple-footer-socials {
+  display: flex;
+  gap: 16px;
+}
+
+.apple-footer-socials a {
+  color: var(--ink-tertiary);
+}
+
+.apple-footer-socials a:hover {
+  color: var(--ink);
+}
+
+@media (max-width: 768px) {
+  .apple-footer-grid {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+  .apple-footer-bottom {
+    flex-direction: column;
+    gap: 16px;
+    align-items: flex-start;
+  }
+}
