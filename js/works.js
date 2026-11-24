@@ -1,17 +1,178 @@
 (() => {
 'use strict';
-const $=id=>document.getElementById(id),grid=$('portfolioGrid'),count=$('worksCount'),search=$('worksSearch'),sort=$('worksSort'),dialog=$('imageViewer'),viewer=$('viewerImage'),stage=$('viewerStage'),status=$('viewerStatus'),zoom=$('viewerZoom'),prev=$('viewerPrevious'),next=$('viewerNext');
-if(!grid||!count||!search||!sort||!dialog||!viewer||!stage){console.error('[WWZ Works] Required DOM node missing');return;}
-let items=[],visible=[],current=0,opener=null,category='all',touchStart=null;
-const imagePath=value=>{const path=String(value||'').trim();if(!/^\/images\/works\/[^/]+\.jpg$/i.test(path))throw Error('Invalid local JPG path: '+path);if(/[()]/.test(path))return path.replace(/\(/g,'%28').replace(/\)/g,'%29')+'?v=20261112';return path;};
-const diagnose=async(url,error)=>{let info={status:'unknown',contentType:'unknown'};try{const r=await fetch(url,{cache:'no-store'});info={status:r.status,contentType:r.headers.get('content-type')||'unknown'};if(r.body)await r.body.cancel();}catch(e){info.error=e.message;}console.error('[WWZ Works] Image failed',{url,...info,error:error?.message||'Image decode/load error'});};
-const failed=(img,url,error)=>{img.dataset.imageState='error';img.classList.add('image-unavailable');img.removeAttribute('src');const media=img.closest('.portfolio-media');if(media){media.classList.add('image-unavailable');if(!media.querySelector('.image-fallback')){const hint=document.createElement('span');hint.className='image-fallback';hint.textContent='图片暂时无法显示';media.append(hint);}}diagnose(url,error);};
-const bindImage=(img,url)=>{img.dataset.imageState='loading';img.addEventListener('load',()=>{img.dataset.imageState='loaded';img.classList.remove('image-unavailable');},{once:true});img.addEventListener('error',e=>failed(img,url,e),{once:true});img.src=url;};
-const setZoom=on=>{stage.classList.toggle('is-zoomed',on);zoom.setAttribute('aria-pressed',String(on));zoom.textContent=on?'缩小':'放大';stage.scrollTo(0,0);};
-const show=position=>{if(!visible.length)return;current=(position+visible.length)%visible.length;const w=visible[current],url=w.image?imagePath(w.image):null;setZoom(false);stage.setAttribute('aria-busy','true');status.textContent=url?'图片载入中…':'该作品暂无图片';zoom.disabled=!url;viewer.removeAttribute('src');$('viewerTitle').textContent=w.title||'';$('viewerPosition').textContent=(current+1)+' / '+visible.length+' · '+(w.category||'')+' / '+(w.subcategory||'');$('viewerDate').textContent=w.date||'';$('viewerSource').href=w.url||'#';viewer.alt=w.title||'';viewer.dataset.imageState=url?'loading':'empty';viewer.onload=()=>{viewer.dataset.imageState='loaded';stage.setAttribute('aria-busy','false');status.textContent='';zoom.disabled=false;};viewer.onerror=e=>{viewer.dataset.imageState='error';stage.setAttribute('aria-busy','false');status.textContent='原图暂时无法载入';zoom.disabled=true;diagnose(url,e);};if(url)viewer.src=url;else stage.setAttribute('aria-busy','false');prev.disabled=next.disabled=visible.length<2;};
-const makeCard=(w,pos)=>{const item=document.createElement('article');item.className='portfolio-item';item.dataset.category=w.category||'';const button=document.createElement('button');button.type='button';button.className='portfolio-card';button.setAttribute('aria-label','查看作品：'+(w.title||'未命名作品'));button.setAttribute('aria-haspopup','dialog');const media=document.createElement('span');media.className='portfolio-media';const img=document.createElement('img');img.className='portfolio-img';img.alt=w.title||'';img.width=800;img.height=600;img.loading=pos<6?'eager':'lazy';img.decoding='async';if(pos<6)img.fetchPriority='high';if(w.image){bindImage(img,imagePath(w.image));media.append(img);}else{media.classList.add('image-unavailable');const hint=document.createElement('span');hint.className='image-fallback';hint.textContent='暂无图片';media.append(hint);}const info=document.createElement('span');info.className='portfolio-info';const copy=document.createElement('span'),title=document.createElement('strong'),meta=document.createElement('small'),arrow=document.createElement('span');title.textContent=w.title||'';meta.textContent=[w.category,w.subcategory].filter(Boolean).join(' · ');arrow.className='portfolio-open';arrow.textContent='↗';copy.append(title,meta);info.append(copy,arrow);button.append(media,info);button.addEventListener('click',()=>{opener=button;show(visible.indexOf(w));dialog.showModal();});const source=document.createElement('a');source.className='portfolio-original';source.href=w.url||'#';source.target='_blank';source.rel='noopener noreferrer';source.textContent='打开站酷原作 ↗';item.append(button,source);return item;};
-const render=()=>{const q=search.value.trim().toLowerCase();visible=items.filter(w=>(category==='all'||w.category===category)&&(!q||[w.title,w.category,w.subcategory].join(' ').toLowerCase().includes(q)));if(sort.value==='oldest')visible.reverse();const fragment=document.createDocumentFragment();visible.forEach((w,i)=>fragment.append(makeCard(w,i)));grid.replaceChildren(fragment);count.textContent='共 '+visible.length+' 件作品'+(q?' · 搜索结果':'');if(!visible.length){const empty=document.createElement('p');empty.className='works-empty';empty.textContent='没有找到匹配的作品，试试其他关键词。';grid.append(empty);}};
-document.querySelectorAll('[data-filter]').forEach(btn=>btn.addEventListener('click',()=>{category=btn.dataset.filter;document.querySelectorAll('[data-filter]').forEach(x=>x.setAttribute('aria-pressed',String(x===btn)));render();}));
-search.addEventListener('input',render);sort.addEventListener('change',render);$('viewerClose').addEventListener('click',()=>dialog.close());dialog.addEventListener('close',()=>{setZoom(false);opener?.focus({preventScroll:true});});prev.addEventListener('click',()=>show(current-1));next.addEventListener('click',()=>show(current+1));zoom.addEventListener('click',()=>setZoom(!stage.classList.contains('is-zoomed')));viewer.addEventListener('click',()=>{if(!zoom.disabled)zoom.click();});stage.addEventListener('click',e=>{if(e.target===stage)dialog.close();});dialog.addEventListener('keydown',e=>{if(!stage.classList.contains('is-zoomed')&&(e.key==='ArrowLeft'||e.key==='ArrowRight')){e.preventDefault();show(current+(e.key==='ArrowLeft'?-1:1));}});stage.addEventListener('touchstart',e=>{touchStart=e.touches.length===1&&!stage.classList.contains('is-zoomed')?{x:e.touches[0].clientX,y:e.touches[0].clientY}:null;},{passive:true});stage.addEventListener('touchend',e=>{if(!touchStart||!e.changedTouches.length)return;const dx=e.changedTouches[0].clientX-touchStart.x,dy=e.changedTouches[0].clientY-touchStart.y;touchStart=null;if(Math.abs(dx)>55&&Math.abs(dx)>Math.abs(dy)*1.4)show(current+(dx<0?1:-1));},{passive:true});stage.addEventListener('touchcancel',()=>touchStart=null);
-fetch('data/works.json',{cache:'no-cache'}).then(r=>{if(!r.ok)throw Error('data/works.json HTTP '+r.status);return r.json();}).then(data=>{if(!Array.isArray(data)||data.length!==81)throw Error('Expected 81 works, got '+(Array.isArray(data)?data.length:'non-array'));const bad=data.filter(w=>!w||!w.title||!w.category||!w.url||(w.image!==null&&!/^\/images\/works\/[^/]+\.jpg$/i.test(w.image)));if(bad.length)throw Error('Invalid work records/local JPG paths: '+bad.length);items=data;console.info('[WWZ Works] JSON loaded',{count:items.length,url:'data/works.json'});render();}).catch(e=>{count.textContent='作品数据载入失败，请稍后重试。';console.error('[WWZ Works] Data load failed',{url:'data/works.json',error:e.message});});
+const $ = id => document.getElementById(id);
+const grid = $('portfolioGrid');
+const count = $('worksCount');
+const search = $('worksSearch');
+const sort = $('worksSort');
+
+if (!grid || !count || !search || !sort) {
+  console.error('[WWZ Works] Required DOM node missing');
+  return;
+}
+
+let items = [];
+let visible = [];
+let category = 'all';
+
+const imagePath = value => {
+  const path = String(value || '').trim();
+  if (!/^\/images\/works\/[^/]+\.jpg$/i.test(path)) {
+    throw Error('Invalid local JPG path: ' + path);
+  }
+  if (/[()]/.test(path)) {
+    return path.replace(/\(/g, '%28').replace(/\)/g, '%29') + '?v=20261112';
+  }
+  return path;
+};
+
+const diagnose = async (url, error) => {
+  let info = { status: 'unknown', contentType: 'unknown' };
+  try {
+    const r = await fetch(url, { cache: 'no-store' });
+    info = { status: r.status, contentType: r.headers.get('content-type') || 'unknown' };
+    if (r.body) await r.body.cancel();
+  } catch (e) {
+    info.error = e.message;
+  }
+  console.error('[WWZ Works] Image failed', { url, ...info, error: error?.message || 'Image decode/load error' });
+};
+
+const failed = (img, url, error) => {
+  img.dataset.imageState = 'error';
+  img.classList.add('image-unavailable');
+  img.removeAttribute('src');
+  const media = img.closest('.portfolio-media');
+  if (media) {
+    media.classList.add('image-unavailable');
+    if (!media.querySelector('.image-fallback')) {
+      const hint = document.createElement('span');
+      hint.className = 'image-fallback';
+      hint.textContent = '图片暂时无法显示';
+      media.append(hint);
+    }
+  }
+  diagnose(url, error);
+};
+
+const bindImage = (img, url) => {
+  img.dataset.imageState = 'loading';
+  img.addEventListener('load', () => {
+    img.dataset.imageState = 'loaded';
+    img.classList.remove('image-unavailable');
+  }, { once: true });
+  img.addEventListener('error', e => failed(img, url, e), { once: true });
+  img.src = url;
+};
+
+const makeCard = (w, pos) => {
+  const item = document.createElement('article');
+  item.className = 'portfolio-item';
+  item.dataset.category = w.category || '';
+
+  const link = document.createElement('a');
+  link.className = 'portfolio-card';
+  link.href = w.url || '#';
+  link.target = '_blank';
+  link.rel = 'noopener noreferrer';
+  link.setAttribute('aria-label', '查看作品：' + (w.title || '未命名作品') + '（新窗口打开）');
+
+  const media = document.createElement('span');
+  media.className = 'portfolio-media';
+
+  const img = document.createElement('img');
+  img.className = 'portfolio-img';
+  img.alt = w.title || '';
+  img.width = 800;
+  img.height = 600;
+  img.loading = pos < 6 ? 'eager' : 'lazy';
+  img.decoding = 'async';
+  if (pos < 6) img.fetchPriority = 'high';
+
+  if (w.image) {
+    bindImage(img, imagePath(w.image));
+    media.append(img);
+  } else {
+    media.classList.add('image-unavailable');
+    const hint = document.createElement('span');
+    hint.className = 'image-fallback';
+    hint.textContent = '暂无图片';
+    media.append(hint);
+  }
+
+  const info = document.createElement('span');
+  info.className = 'portfolio-info';
+
+  const copy = document.createElement('span');
+  const title = document.createElement('strong');
+  const meta = document.createElement('small');
+  const arrow = document.createElement('span');
+
+  title.textContent = w.title || '';
+  meta.textContent = [w.category, w.subcategory].filter(Boolean).join(' · ');
+  arrow.className = 'portfolio-open';
+  arrow.textContent = '↗';
+  arrow.setAttribute('aria-hidden', 'true');
+
+  copy.append(title, meta);
+  info.append(copy, arrow);
+  link.append(media, info);
+  item.append(link);
+  return item;
+};
+
+const render = () => {
+  const q = search.value.trim().toLowerCase();
+  visible = items.filter(w =>
+    (category === 'all' || w.category === category) &&
+    (!q || [w.title, w.category, w.subcategory].join(' ').toLowerCase().includes(q))
+  );
+
+  if (sort.value === 'oldest') visible.reverse();
+
+  const fragment = document.createDocumentFragment();
+  visible.forEach((w, i) => fragment.append(makeCard(w, i)));
+  grid.replaceChildren(fragment);
+
+  count.textContent = '共 ' + visible.length + ' 件作品' + (q ? ' · 搜索结果' : '');
+  if (!visible.length) {
+    const empty = document.createElement('p');
+    empty.className = 'works-empty';
+    empty.textContent = '没有找到匹配的作品，试试其他关键词。';
+    grid.append(empty);
+  }
+};
+
+document.querySelectorAll('[data-filter]').forEach(btn => {
+  btn.addEventListener('click', () => {
+    category = btn.dataset.filter;
+    document.querySelectorAll('[data-filter]').forEach(x => {
+      x.setAttribute('aria-pressed', String(x === btn));
+    });
+    render();
+  });
+});
+
+search.addEventListener('input', render);
+sort.addEventListener('change', render);
+
+fetch('data/works.json', { cache: 'no-cache' })
+  .then(r => {
+    if (!r.ok) throw Error('data/works.json HTTP ' + r.status);
+    return r.json();
+  })
+  .then(data => {
+    if (!Array.isArray(data) || data.length !== 81) {
+      throw Error('Expected 81 works, got ' + (Array.isArray(data) ? data.length : 'non-array'));
+    }
+    const bad = data.filter(w => !w || !w.title || !w.category || !w.url || (w.image !== null && !/^\/images\/works\/[^/]+\.jpg$/i.test(w.image)));
+    if (bad.length) throw Error('Invalid work records/local JPG paths: ' + bad.length);
+    items = data;
+    console.info('[WWZ Works] JSON loaded', { count: items.length, url: 'data/works.json' });
+    render();
+  })
+  .catch(e => {
+    count.textContent = '作品数据载入失败，请稍后重试。';
+    console.error('[WWZ Works] Data load failed', { url: 'data/works.json', error: e.message });
+  });
 })();

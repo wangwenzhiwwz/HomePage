@@ -49,99 +49,22 @@
     }
 
     .blog-header {
-      padding-bottom: 40px;
+      padding-bottom: 36px;
     }
     .blog-header h1 {
-      font-size: clamp(2.4rem, 6vw, 4.2rem);
+      font-size: clamp(2.2rem, 5vw, 3.6rem);
       font-weight: 750;
-      letter-spacing: -0.04em;
-      line-height: 1.05;
-      margin: 12px 0 16px;
-    }
-    .blog-lead {
-      max-width: 680px;
-      font-size: 1.15rem;
-      line-height: 1.7;
-      color: var(--ink-secondary);
-      margin: 0;
-    }
-
-    /* Spotlight Bento Card */
-    .blog-spotlight {
-      display: grid;
-      grid-template-columns: 1.1fr 0.9fr;
-      gap: 32px;
-      align-items: center;
-      padding: 36px;
-      border: 1px solid var(--line);
-      border-radius: var(--radius-xl);
-      background-color: var(--surface);
-      box-shadow: var(--shadow-card);
-      margin-bottom: 48px;
-      text-decoration: none;
-      color: inherit;
-      transition: transform var(--duration-normal) var(--ease), box-shadow var(--duration-normal) var(--ease), border-color var(--duration-normal) var(--ease);
-    }
-    .blog-spotlight:hover {
-      transform: translateY(-3px);
-      box-shadow: var(--shadow-hover);
-      border-color: var(--line-strong);
-    }
-    .spotlight-copy {
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-    }
-    .spotlight-badge {
-      font-family: var(--font-mono);
-      font-size: 0.72rem;
-      font-weight: 650;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--ink-secondary);
-      padding: 4px 10px;
-      border-radius: var(--radius-pill);
-      border: 1px solid var(--line);
-      background-color: var(--surface-hover);
-      margin-bottom: 16px;
-    }
-    .spotlight-copy h2 {
-      font-size: clamp(1.6rem, 3.5vw, 2.2rem);
-      font-weight: 750;
-      letter-spacing: -0.03em;
-      line-height: 1.2;
-      margin: 0 0 14px;
+      letter-spacing: -0.035em;
+      line-height: 1.1;
+      margin: 12px 0 14px;
       color: var(--ink);
     }
-    .spotlight-copy p {
-      font-size: 1.02rem;
-      line-height: 1.75;
+    .blog-lead {
+      max-width: 640px;
+      font-size: 1.05rem;
+      line-height: 1.65;
       color: var(--ink-secondary);
-      margin: 0 0 24px;
-    }
-    .spotlight-media {
-      position: relative;
-      aspect-ratio: 16 / 9;
-      border-radius: var(--radius-lg);
-      overflow: hidden;
-      border: 1px solid var(--line);
-      background-color: var(--bg-tertiary);
-    }
-    .spotlight-media img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      transition: transform 0.6s var(--ease);
-    }
-    .blog-spotlight:hover .spotlight-media img {
-      transform: scale(1.03);
-    }
-    @media (max-width: 860px) {
-      .blog-spotlight {
-        grid-template-columns: 1fr;
-        padding: 24px;
-        gap: 24px;
-      }
+      margin: 0;
     }
 
     /* Toolbar: Filters & Search */
@@ -151,8 +74,8 @@
       align-items: center;
       flex-wrap: wrap;
       gap: 16px;
-      margin-bottom: 36px;
-      padding-bottom: 24px;
+      margin-bottom: 32px;
+      padding-bottom: 20px;
       border-bottom: 1px solid var(--line);
     }
     .blog-filters {
@@ -210,11 +133,11 @@
     /* Grid of Editorial Cards */
     .editorial-grid {
       display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
       gap: 24px;
-      margin-bottom: 64px;
+      margin-bottom: 56px;
     }
-    @media (max-width: 760px) {
+    @media (max-width: 680px) {
       .editorial-grid {
         grid-template-columns: 1fr;
         gap: 20px;
@@ -253,7 +176,7 @@
       transform: scale(1.04);
     }
     .editorial-card-body {
-      padding: 24px;
+      padding: 22px 24px 20px;
       display: flex;
       flex-direction: column;
       flex-grow: 1;
@@ -263,22 +186,23 @@
       align-items: center;
       gap: 10px;
       font-family: var(--font-mono);
-      font-size: 0.74rem;
+      font-size: 0.72rem;
       color: var(--ink-tertiary);
-      margin-bottom: 12px;
+      margin-bottom: 10px;
       text-transform: uppercase;
+      letter-spacing: 0.04em;
     }
     .editorial-card-body h3 {
-      font-size: 1.22rem;
-      font-weight: 700;
-      letter-spacing: -0.025em;
-      line-height: 1.3;
+      font-size: 1.15rem;
+      font-weight: 650;
+      letter-spacing: -0.02em;
+      line-height: 1.35;
       margin: 0 0 10px;
       color: var(--ink);
     }
     .editorial-card-body p {
-      font-size: 0.94rem;
-      line-height: 1.7;
+      font-size: 0.9rem;
+      line-height: 1.65;
       color: var(--ink-secondary);
       margin: 0 0 20px;
       flex-grow: 1;
@@ -293,29 +217,53 @@
       padding-top: 14px;
       border-top: 1px solid var(--line);
     }
+    .editorial-card-footer i {
+      transition: transform 0.2s var(--ease);
+    }
+    .editorial-card:hover .editorial-card-footer i {
+      transform: translateX(4px);
+    }
 
-    /* Thematic Gateways */
-    .gateways-panel {
-      padding-top: 48px;
+    .blog-empty {
+      grid-column: 1 / -1;
+      text-align: center;
+      padding: 64px 20px;
+      color: var(--ink-secondary);
+      font-size: 0.95rem;
+    }
+
+    /* Thematic Gateways (Compact) */
+    .gateways-compact {
+      padding-top: 36px;
       border-top: 1px solid var(--line);
     }
-    .gateways-panel h2 {
-      font-size: 1.35rem;
-      letter-spacing: -0.03em;
-      margin-bottom: 20px;
+    .gateways-compact-header {
+      margin-bottom: 16px;
     }
-    .gateways-grid {
+    .gateways-compact-header h2 {
+      font-size: 1rem;
+      font-weight: 650;
+      color: var(--ink);
+      margin: 0;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .gateways-compact-grid {
       display: grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 16px;
+      gap: 14px;
     }
     @media (max-width: 760px) {
-      .gateways-grid {
+      .gateways-compact-grid {
         grid-template-columns: 1fr;
       }
     }
-    .gateway-card {
-      padding: 24px;
+    .gateway-compact-card {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 14px 16px;
       border-radius: var(--radius-md);
       border: 1px solid var(--line);
       background-color: var(--surface);
@@ -323,30 +271,53 @@
       color: inherit;
       transition: all var(--duration-fast) var(--ease);
     }
-    .gateway-card:hover {
+    .gateway-compact-card:hover {
       border-color: var(--line-strong);
       transform: translateY(-2px);
+      box-shadow: var(--shadow-sm);
     }
-    .gateway-card small {
-      font-family: var(--font-mono);
-      font-size: 0.72rem;
-      letter-spacing: 0.1em;
-      color: var(--ink-tertiary);
-      text-transform: uppercase;
-      display: block;
-      margin-bottom: 8px;
-    }
-    .gateway-card h3 {
-      font-size: 1.1rem;
-      font-weight: 650;
-      margin: 0 0 8px;
+    .gateway-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: var(--radius-sm);
+      background: var(--surface-hover);
+      border: 1px solid var(--line);
+      display: flex;
+      align-items: center;
+      justify-content: center;
       color: var(--ink);
+      font-size: 0.85rem;
+      flex-shrink: 0;
     }
-    .gateway-card p {
-      font-size: 0.88rem;
+    .gateway-text {
+      flex-grow: 1;
+      min-width: 0;
+    }
+    .gateway-text strong {
+      display: block;
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--ink);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .gateway-text small {
+      display: block;
+      font-size: 0.75rem;
       color: var(--ink-secondary);
-      line-height: 1.6;
-      margin: 0;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .gateway-arrow {
+      color: var(--ink-tertiary);
+      font-size: 0.8rem;
+      transition: transform 0.2s var(--ease);
+    }
+    .gateway-compact-card:hover .gateway-arrow {
+      color: var(--ink);
+      transform: translate(2px, -2px);
     }
   </style>
 </head>
@@ -358,26 +329,10 @@
       
       <!-- Editorial Header -->
       <section class="blog-header">
-        <span class="kicker"><i class="fa-solid fa-layer-group"></i> Field Notes &amp; Infrastructure</span>
-        <h1>Engineering Notes<br>&amp; System Workflows.</h1>
-        <p class="blog-lead">Practical documentation across local generative AI video pipelines, Debian server environments, and independent web engineering.</p>
+        <span class="kicker"><i class="fa-solid fa-terminal"></i> Field Notes &amp; Systems</span>
+        <h1>Engineering Notes &amp; Workflows.</h1>
+        <p class="blog-lead">Practical documentation across Linux servers, network protocols, and production workflows.</p>
       </section>
-
-      <!-- Featured Spotlight Article -->
-      <a href="articles/linux-server-setup/" class="blog-spotlight" data-category="Infrastructure">
-        <div class="spotlight-copy">
-          <span class="spotlight-badge">Featured Guide · Infrastructure</span>
-          <h2>服务器初始化与部署指南：从系统构建到运维清单</h2>
-          <p>全新 Debian / Ubuntu 服务器环境快速配置、常用工具安装、Xray 面板与日常运维。助你从零构建高可用且结构清晰的服务端生产基线。</p>
-          <div style="display:flex;align-items:center;gap:12px;font-family:var(--font-mono);font-size:0.8rem;color:var(--ink-tertiary);margin-bottom:20px;">
-            <span>JAN 2026</span> · <span>8 MIN READ</span> · <span>DEBIAN / UBUNTU</span>
-          </div>
-          <span class="btn btn-primary">Read Flagship Guide <i class="fa-solid fa-arrow-right" style="margin-left:6px;"></i></span>
-        </div>
-        <div class="spotlight-media">
-          <img src="articles/linux-server-setup/cover.png" alt="服务器初始化与部署指南" loading="lazy">
-        </div>
-      </a>
 
       <!-- Toolbar: Categories & Search -->
       <div class="blog-toolbar">
@@ -396,7 +351,25 @@
       <!-- Article Grid -->
       <div class="editorial-grid" id="blogGrid">
 
-        <!-- 1. IPv6 NAT64 -->
+        <!-- 1. Linux Server Setup -->
+        <a href="articles/linux-server-setup/" class="editorial-card" data-category="Infrastructure">
+          <div class="editorial-card-media">
+            <img src="articles/linux-server-setup/cover.png" alt="服务器初始化与部署指南" loading="lazy">
+          </div>
+          <div class="editorial-card-body">
+            <div class="editorial-card-meta">
+              <span>[ INFRASTRUCTURE ]</span> · <span>8 MIN READ</span>
+            </div>
+            <h3>服务器初始化与部署指南：从系统构建到运维清单</h3>
+            <p>全新 Debian / Ubuntu 服务器快速配置、常用运维工具安装、Xray 面板与日常生产基线构建。</p>
+            <div class="editorial-card-footer">
+              <span>Read Guide</span>
+              <i class="fa-solid fa-arrow-right"></i>
+            </div>
+          </div>
+        </a>
+
+        <!-- 2. IPv6 NAT64 -->
         <a href="articles/ipv6-nat64-guide/" class="editorial-card" data-category="Network">
           <div class="editorial-card-media">
             <img src="articles/ipv6-nat64-guide/cover.png" alt="纯 IPv6 VPS 如何访问 IPv4" loading="lazy">
@@ -414,7 +387,7 @@
           </div>
         </a>
 
-        <!-- 2. 3X-UI -->
+        <!-- 3. 3X-UI -->
         <a href="articles/3x-ui/" class="editorial-card" data-category="Server">
           <div class="editorial-card-media">
             <img src="articles/3x-ui/cover.png" alt="3X-UI 安装与 TLS 升级指南" loading="lazy">
@@ -432,7 +405,7 @@
           </div>
         </a>
 
-        <!-- 3. Hysteria 2 -->
+        <!-- 4. Hysteria 2 -->
         <a href="articles/hysteria-2/" class="editorial-card" data-category="Network">
           <div class="editorial-card-media">
             <img src="articles/hysteria-2/cover.png" alt="Hysteria 2 部署与网络优化" loading="lazy">
@@ -450,7 +423,7 @@
           </div>
         </a>
 
-        <!-- 4. Xiaomi BE6500 SSH -->
+        <!-- 5. Xiaomi BE6500 SSH -->
         <a href="articles/be6500-ssh/" class="editorial-card" data-category="Network">
           <div class="editorial-card-media">
             <img src="images/blog/shellcrash.jpg" alt="小米路由器 BE6500 解锁 SSH" loading="lazy">
@@ -468,26 +441,40 @@
           </div>
         </a>
 
+        <!-- Empty Filter State -->
+        <p class="blog-empty" id="blogEmpty" style="display:none;">没有找到匹配的技术笔记，试试其他分类或搜索关键词。</p>
+
       </div>
 
-      <!-- Thematic Gateways -->
-      <section class="gateways-panel">
-        <h2>Thematic Gateways &amp; Research</h2>
-        <div class="gateways-grid">
-          <a href="lab/" class="gateway-card">
-            <small>01 / WORKSTATION</small>
-            <h3>AI Lab Research ↗</h3>
-            <p>本地 AI 视频生成实验笔记、RTX 5080 性能基线与 SeedVR2 工作流测试。</p>
+      <!-- Thematic Gateways (Compact) -->
+      <section class="gateways-compact">
+        <div class="gateways-compact-header">
+          <h2><i class="fa-solid fa-compass" style="color:var(--ink-secondary);"></i> Explore Topics &amp; Workstations</h2>
+        </div>
+        <div class="gateways-compact-grid">
+          <a href="lab/" class="gateway-compact-card">
+            <div class="gateway-icon"><i class="fa-solid fa-flask"></i></div>
+            <div class="gateway-text">
+              <strong>AI Lab Research</strong>
+              <small>Local AI video benchmarks &amp; SeedVR2</small>
+            </div>
+            <i class="fa-solid fa-arrow-up-right-from-square gateway-arrow"></i>
           </a>
-          <a href="topics/ai-comfyui/" class="gateway-card">
-            <small>02 / TOPIC GUIDE</small>
-            <h3>ComfyUI Topic ↗</h3>
-            <p>商业分镜视频制作全流程，围绕外观稳定与可控生成的产品级指南。</p>
+          <a href="topics/ai-comfyui/" class="gateway-compact-card">
+            <div class="gateway-icon"><i class="fa-solid fa-diagram-project"></i></div>
+            <div class="gateway-text">
+              <strong>ComfyUI Topic Guide</strong>
+              <small>Production workflows for stable AI cinema</small>
+            </div>
+            <i class="fa-solid fa-arrow-up-right-from-square gateway-arrow"></i>
           </a>
-          <a href="now.html" class="gateway-card">
-            <small>03 / SNAPSHOT</small>
-            <h3>Current Focus (Now) ↗</h3>
-            <p>关于商业视频、独立数字产品与服务器架构的当前进展速览。</p>
+          <a href="now.html" class="gateway-compact-card">
+            <div class="gateway-icon"><i class="fa-regular fa-clock"></i></div>
+            <div class="gateway-text">
+              <strong>Current Focus (Now)</strong>
+              <small>Live engineering updates &amp; active focus</small>
+            </div>
+            <i class="fa-solid fa-arrow-up-right-from-square gateway-arrow"></i>
           </a>
         </div>
       </section>
@@ -536,27 +523,26 @@
     document.addEventListener('DOMContentLoaded', () => {
       const filters = document.getElementById('blogFilters');
       const cards = document.querySelectorAll('#blogGrid .editorial-card');
-      const spotlight = document.querySelector('.blog-spotlight');
       const search = document.getElementById('blogSearch');
+      const empty = document.getElementById('blogEmpty');
 
       let currentCat = 'all';
       let currentQuery = '';
 
       const applyFilters = () => {
-        if (spotlight) {
-          const spotCat = spotlight.dataset.category || '';
-          const spotCatMatch = currentCat === 'all' || currentCat === spotCat;
-          const spotText = (spotlight.innerText || '').toLowerCase();
-          const spotQueryMatch = !currentQuery || spotText.includes(currentQuery);
-          spotlight.style.display = (spotCatMatch && spotQueryMatch) ? 'flex' : 'none';
-        }
-
+        let visibleCount = 0;
         cards.forEach(card => {
           const catMatch = currentCat === 'all' || card.dataset.category === currentCat;
           const text = (card.innerText || '').toLowerCase();
           const queryMatch = !currentQuery || text.includes(currentQuery);
-          card.style.display = (catMatch && queryMatch) ? 'flex' : 'none';
+          const isVisible = catMatch && queryMatch;
+          card.style.display = isVisible ? 'flex' : 'none';
+          if (isVisible) visibleCount++;
         });
+
+        if (empty) {
+          empty.style.display = visibleCount === 0 ? 'block' : 'none';
+        }
       };
 
       filters?.addEventListener('click', (e) => {
