@@ -88,6 +88,18 @@ curl -6 -I --connect-timeout 5 https://github.com</code><button class="copy-btn"
         <p>回滚必须恢复原始 DNS、路由和防火墙状态，而不是简单删除一个软件包。先停止新服务，再按安装前备份恢复配置，最后重新执行 IPv4/IPv6 连通性测试。若脚本没有明确卸载步骤和恢复说明，不应在生产服务器上直接试跑。</p>
         <p>对双栈机器，优先保留系统原有 IPv4/IPv6 路由策略；如果只是某个程序无法连接 IPv4-only 目标，应先检查程序代理、DNS 和目标网络，不要把整机网络改成 NAT64 架构。</p>
       </section>
+
+      <!-- Article Read Next Navigation -->
+      <nav class="article-nav" aria-label="相关文章导航">
+        <a href="../be6500-ssh/" class="article-nav-card prev">
+          <small><i class="fa-solid fa-arrow-left"></i> 上一篇</small>
+          <strong>小米路由器 BE6500 解锁 SSH 安装 ShellCrash</strong>
+        </a>
+        <a href="../linux-server-setup/" class="article-nav-card next">
+          <small>下一篇 <i class="fa-solid fa-arrow-right"></i></small>
+          <strong>服务器初始化与部署指南</strong>
+        </a>
+      </nav>
     </article>
 
     <footer class="editorial-footer">

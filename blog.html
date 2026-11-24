@@ -364,29 +364,28 @@
       </section>
 
       <!-- Featured Spotlight Article -->
-      <a href="articles/comfyui-local-video/" class="blog-spotlight" data-category="AI & ComfyUI">
+      <a href="articles/linux-server-setup/" class="blog-spotlight" data-category="Infrastructure">
         <div class="spotlight-copy">
-          <span class="spotlight-badge">Featured Note · Local AI Video</span>
-          <h2>ComfyUI 本地 AI 视频工作站记录：RTX 5080 与 SeedVR2</h2>
-          <p>围绕本地 RTX 5080 工作站，记录从产品图片、图生视频到画面增强与成片检查的实际流程。重点在可控前提下保持产品外观一致性与交付标准。</p>
+          <span class="spotlight-badge">Featured Guide · Infrastructure</span>
+          <h2>服务器初始化与部署指南：从系统构建到运维清单</h2>
+          <p>全新 Debian / Ubuntu 服务器环境快速配置、常用工具安装、Xray 面板与日常运维。助你从零构建高可用且结构清晰的服务端生产基线。</p>
           <div style="display:flex;align-items:center;gap:12px;font-family:var(--font-mono);font-size:0.8rem;color:var(--ink-tertiary);margin-bottom:20px;">
-            <span>OCT 2026</span> · <span>5 MIN READ</span> · <span>COMFYUI / RTX 5080</span>
+            <span>JAN 2026</span> · <span>8 MIN READ</span> · <span>DEBIAN / UBUNTU</span>
           </div>
-          <span class="btn btn-primary">Read Flagship Note <i class="fa-solid fa-arrow-right" style="margin-left:6px;"></i></span>
+          <span class="btn btn-primary">Read Flagship Guide <i class="fa-solid fa-arrow-right" style="margin-left:6px;"></i></span>
         </div>
         <div class="spotlight-media">
-          <img src="articles/comfyui-local-video/cover.svg" alt="ComfyUI 本地 AI 视频工作站" loading="lazy">
+          <img src="articles/linux-server-setup/cover.png" alt="服务器初始化与部署指南" loading="lazy">
         </div>
       </a>
 
       <!-- Toolbar: Categories & Search -->
       <div class="blog-toolbar">
         <div class="blog-filters" id="blogFilters" role="group" aria-label="文章分类筛选">
-          <button class="filter-chip active" type="button" data-cat="all" aria-pressed="true">All (7)</button>
-          <button class="filter-chip" type="button" data-cat="Server" aria-pressed="false">Server (2)</button>
-          <button class="filter-chip" type="button" data-cat="Network" aria-pressed="false">Network (3)</button>
+          <button class="filter-chip active" type="button" data-cat="all" aria-pressed="true">All (5)</button>
           <button class="filter-chip" type="button" data-cat="Infrastructure" aria-pressed="false">Infrastructure (1)</button>
-          <button class="filter-chip" type="button" data-cat="AI & ComfyUI" aria-pressed="false">AI &amp; ComfyUI (1)</button>
+          <button class="filter-chip" type="button" data-cat="Network" aria-pressed="false">Network (3)</button>
+          <button class="filter-chip" type="button" data-cat="Server" aria-pressed="false">Server (1)</button>
         </div>
         <div class="blog-search-box">
           <i class="fa-solid fa-magnifying-glass"></i>
@@ -397,25 +396,7 @@
       <!-- Article Grid -->
       <div class="editorial-grid" id="blogGrid">
 
-        <!-- 1. Linux Server Setup -->
-        <a href="articles/linux-server-setup/" class="editorial-card" data-category="Infrastructure">
-          <div class="editorial-card-media">
-            <img src="articles/linux-server-setup/cover.png" alt="服务器初始化与部署指南" loading="lazy">
-          </div>
-          <div class="editorial-card-body">
-            <div class="editorial-card-meta">
-              <span>[ INFRASTRUCTURE ]</span> · <span>8 MIN READ</span>
-            </div>
-            <h3>服务器初始化与部署指南</h3>
-            <p>基础环境配置、常用工具安装、Xray 面板与系统维护。助你从零开始构建稳定的服务端环境。</p>
-            <div class="editorial-card-footer">
-              <span>Read Guide</span>
-              <i class="fa-solid fa-arrow-right"></i>
-            </div>
-          </div>
-        </a>
-
-        <!-- 2. IPv6 NAT64 -->
+        <!-- 1. IPv6 NAT64 -->
         <a href="articles/ipv6-nat64-guide/" class="editorial-card" data-category="Network">
           <div class="editorial-card-media">
             <img src="articles/ipv6-nat64-guide/cover.png" alt="纯 IPv6 VPS 如何访问 IPv4" loading="lazy">
@@ -433,25 +414,7 @@
           </div>
         </a>
 
-        <!-- 3. Docker Backup -->
-        <a href="articles/docker-backup-guide/" class="editorial-card" data-category="Server">
-          <div class="editorial-card-media">
-            <img src="articles/docker-backup-guide/cover.svg" alt="Docker Compose 应用备份与恢复" loading="lazy">
-          </div>
-          <div class="editorial-card-body">
-            <div class="editorial-card-meta">
-              <span>[ SERVER ]</span> · <span>9 MIN READ</span>
-            </div>
-            <h3>Docker Compose 应用备份与恢复：异地演练</h3>
-            <p>识别持久化数据，备份 Compose 配置与数据库原生导出，校验备份并在隔离环境完成灾难恢复演练。</p>
-            <div class="editorial-card-footer">
-              <span>Read Guide</span>
-              <i class="fa-solid fa-arrow-right"></i>
-            </div>
-          </div>
-        </a>
-
-        <!-- 4. 3X-UI -->
+        <!-- 2. 3X-UI -->
         <a href="articles/3x-ui/" class="editorial-card" data-category="Server">
           <div class="editorial-card-media">
             <img src="articles/3x-ui/cover.png" alt="3X-UI 安装与 TLS 升级指南" loading="lazy">
@@ -469,7 +432,7 @@
           </div>
         </a>
 
-        <!-- 5. Hysteria 2 -->
+        <!-- 3. Hysteria 2 -->
         <a href="articles/hysteria-2/" class="editorial-card" data-category="Network">
           <div class="editorial-card-media">
             <img src="articles/hysteria-2/cover.png" alt="Hysteria 2 部署与网络优化" loading="lazy">
@@ -487,7 +450,7 @@
           </div>
         </a>
 
-        <!-- 6. Xiaomi BE6500 SSH -->
+        <!-- 4. Xiaomi BE6500 SSH -->
         <a href="articles/be6500-ssh/" class="editorial-card" data-category="Network">
           <div class="editorial-card-media">
             <img src="images/blog/shellcrash.jpg" alt="小米路由器 BE6500 解锁 SSH" loading="lazy">
@@ -581,7 +544,8 @@
 
       const applyFilters = () => {
         if (spotlight) {
-          const spotCatMatch = currentCat === 'all' || currentCat === 'AI & ComfyUI';
+          const spotCat = spotlight.dataset.category || '';
+          const spotCatMatch = currentCat === 'all' || currentCat === spotCat;
           const spotText = (spotlight.innerText || '').toLowerCase();
           const spotQueryMatch = !currentQuery || spotText.includes(currentQuery);
           spotlight.style.display = (spotCatMatch && spotQueryMatch) ? 'flex' : 'none';
