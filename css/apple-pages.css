@@ -293,7 +293,7 @@
   flex-direction: column;
   justify-content: space-between;
   padding: 20px 24px;
-  background: linear-gradient(180deg, rgba(15,23,42,0.4) 0%, rgba(15,23,42,0) 40%, rgba(15,23,42,0.85) 100%);
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.35) 0%, rgba(0, 0, 0, 0) 40%, rgba(0, 0, 0, 0.85) 100%);
   color: #fff;
   z-index: 2;
 }
@@ -382,7 +382,7 @@
   position: absolute;
   inset: 0;
   z-index: 1;
-  background: linear-gradient(180deg, rgba(15,23,42,0.2) 0%, rgba(15,23,42,0.75) 100%);
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0.75) 100%);
 }
 
 .bento-photo-card-content {

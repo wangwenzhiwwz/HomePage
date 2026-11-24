@@ -324,26 +324,75 @@
     const videoModal = document.getElementById('videoModal');
     const videoFrame = document.getElementById('videoFrame');
     const modalClose = document.getElementById('modalClose');
+    const modalPoster = document.getElementById('modalPoster');
+    const modalPosterImg = document.getElementById('modalPosterImg');
+    let lastFocusedElement = null;
 
     const closeVideo = () => {
       if (!videoModal || !videoFrame) return;
       videoModal.classList.remove('open');
       videoFrame.removeAttribute('src');
+      if (modalPoster) modalPoster.classList.remove('is-hidden');
+      if (modalPosterImg) modalPosterImg.removeAttribute('src');
       document.body.style.overflow = '';
+      if (lastFocusedElement && typeof lastFocusedElement.focus === 'function') {
+        lastFocusedElement.focus();
+        lastFocusedElement = null;
+      }
     };
 
     if (videoModal && videoFrame) {
       document.querySelectorAll('.js-video, [data-video]').forEach(btn => {
         if (!btn.dataset.videoBound) {
           btn.dataset.videoBound = 'true';
+          btn.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+              e.preventDefault();
+              btn.click();
+            }
+          });
           btn.addEventListener('click', (e) => {
             e.preventDefault();
             const src = btn.dataset.video;
             if (!src) return;
+            lastFocusedElement = btn;
+
+            // 1. Immediately paint poster preview to eliminate perceived black screen
+            const thumbImg = btn.querySelector('img') || document.getElementById('heroShowcaseImg');
+            const posterSrc = btn.dataset.img || (thumbImg ? thumbImg.src : '');
+            if (modalPoster && modalPosterImg) {
+              if (posterSrc) {
+                modalPosterImg.src = posterSrc;
+                modalPosterImg.style.display = 'block';
+              } else {
+                modalPosterImg.style.display = 'none';
+              }
+              modalPoster.classList.remove('is-hidden');
+            }
+
+            // 2. Embed parameters tailored for fast playback & autohiding overlays
             const join = src.includes('?') ? '&' : '?';
-            const params = src.includes('vimeo.com')
-              ? 'autoplay=1&dnt=1&playsinline=1'
-              : 'autoplay=1&rel=0&modestbranding=1&playsinline=1';
+            let params = '';
+            if (src.includes('vimeo.com')) {
+              params = 'autoplay=1&dnt=1&playsinline=1&title=0&byline=0&portrait=0&badge=0&autopause=0';
+            } else {
+              params = 'autoplay=1&rel=0&modestbranding=1&playsinline=1&iv_load_policy=3&fs=1&enablejsapi=1';
+            }
+
+            // 3. Smooth fade-out of poster once player iframe finishes loading
+            let ready = false;
+            const onIframeLoaded = () => {
+              if (ready) return;
+              ready = true;
+              videoFrame.removeEventListener('load', onIframeLoaded);
+              setTimeout(() => {
+                if (modalPoster) modalPoster.classList.add('is-hidden');
+              }, 300);
+            };
+
+            videoFrame.addEventListener('load', onIframeLoaded);
+            setTimeout(onIframeLoaded, 2500);
+
             videoFrame.src = src + join + params;
             videoModal.classList.add('open');
             document.body.style.overflow = 'hidden';
