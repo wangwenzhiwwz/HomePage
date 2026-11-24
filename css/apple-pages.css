@@ -1369,24 +1369,6 @@ html:has(.image-viewer[open]) {
   box-shadow: var(--shadow-sm);
 }
 
-/* Reading Progress Indicator */
-.reading-progress-bar {
-  position: fixed;
-  top: 52px;
-  left: 0;
-  height: 2.5px;
-  width: 0%;
-  background: var(--ink);
-  z-index: 1001;
-  transition: width 0.08s ease-out;
-  pointer-events: none;
-}
-
-:root[data-theme="dark"] .reading-progress-bar {
-  background: #ffffff;
-  box-shadow: 0 0 8px rgba(255, 255, 255, 0.4);
-}
-
 .editorial-header {
   margin-bottom: 36px;
 }

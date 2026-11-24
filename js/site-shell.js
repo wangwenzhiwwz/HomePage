@@ -406,32 +406,6 @@
         window.scrollTo({ top: 0, behavior: 'smooth' });
       });
     }
-
-    // 7. Article Reading Progress Bar
-    const article = document.querySelector('.editorial-layout') || document.querySelector('article.editorial-body');
-    if (article) {
-      let bar = document.getElementById('reading-progress-bar');
-      if (!bar) {
-        bar = document.createElement('div');
-        bar.id = 'reading-progress-bar';
-        bar.className = 'reading-progress-bar';
-        document.body.appendChild(bar);
-      }
-      const updateProgress = () => {
-        const rect = article.getBoundingClientRect();
-        const winHeight = window.innerHeight;
-        const total = rect.height - winHeight;
-        if (total <= 0) {
-          bar.style.width = '0%';
-          return;
-        }
-        const current = -rect.top;
-        const pct = Math.min(Math.max((current / total) * 100, 0), 100);
-        bar.style.width = `${pct}%`;
-      };
-      window.addEventListener('scroll', updateProgress, { passive: true });
-      updateProgress();
-    }
   };
 
   // DOM Ready Execution

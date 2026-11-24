@@ -281,17 +281,17 @@ main.main-content,
   right: 0;
   z-index: 1000;
   height: 54px;
-  background-color: rgba(247, 247, 245, 0.7);
-  -webkit-backdrop-filter: blur(16px);
-  backdrop-filter: blur(16px);
-  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
-  transition: background-color var(--duration-normal) var(--ease), border-color var(--duration-normal) var(--ease);
+  background-color: transparent;
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+  border-bottom: none;
+  pointer-events: none;
 }
 
 :root[data-theme="dark"] #wwz-header,
 :root[data-theme="dark"] .apple-nav {
-  background-color: rgba(0, 0, 0, 0.7);
-  border-bottom-color: rgba(255, 255, 255, 0.06);
+  background-color: transparent;
+  border-bottom: none;
 }
 
 .apple-nav-inner {
@@ -302,6 +302,13 @@ main.main-content,
   display: flex;
   align-items: center;
   justify-content: space-between;
+  pointer-events: none;
+}
+
+.apple-brand,
+.apple-links,
+.apple-controls {
+  pointer-events: auto;
 }
 
 /* Brand */
@@ -520,6 +527,7 @@ main.main-content,
   transition: opacity var(--duration-normal) var(--ease), transform var(--duration-normal) var(--ease), visibility var(--duration-normal);
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
+  pointer-events: auto;
 }
 
 .apple-mobile-drawer.is-open {
