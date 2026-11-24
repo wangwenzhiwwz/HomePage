@@ -15,12 +15,12 @@
 
   // Compute Root Path
   const getRoot = () => {
-    const depth = (location.pathname.match(/\//g) || []).length;
-    if (location.pathname === '/' || (location.pathname.endsWith('/index.html') && depth <= 1)) return '';
-    return '/';
+    const customRoot = document.body?.dataset?.contentRoot;
+    if (typeof customRoot === 'string') return customRoot;
+    if (location.pathname.includes('/articles/')) return '../../';
+    if (location.pathname.includes('/videos/') || location.pathname.includes('/lab/') || location.pathname.includes('/topics/')) return '../';
+    return '';
   };
-
-  const ROOT = getRoot();
 
   // Helper: Match Current Route Key
   const getRouteKey = (pathname) => {
@@ -42,22 +42,23 @@
 
   // Build Fixed Apple Navigation Bar Template
   const buildNavHTML = (activeKey) => {
+    const root = getRoot();
     const isDark = document.documentElement.dataset.theme === 'dark';
     const themeIcon = isDark ? ICON_SUN : ICON_MOON;
     const themeLabel = isDark ? 'Switch to light mode' : 'Switch to dark mode';
 
     return `
       <div class="apple-nav-inner">
-        <a href="${ROOT || '/'}index.html" class="apple-brand" data-shell-nav="home">
-          <img src="${ROOT || '/'}favicon.png" alt="WWZ Logo" width="22" height="22">
+        <a href="${root}index.html" class="apple-brand" data-shell-nav="home">
+          <img src="${root}favicon.png" alt="WWZ Logo" width="22" height="22">
           <span>WWZ.iM</span>
         </a>
         <nav class="apple-links" aria-label="Primary navigation">
-          <a href="${ROOT || '/'}index.html" class="apple-link ${activeKey === 'home' ? 'active' : ''}" data-shell-nav="home" ${activeKey === 'home' ? 'aria-current="page"' : ''}>Home</a>
-          <a href="${ROOT || '/'}videos/" class="apple-link ${activeKey === 'videos' ? 'active' : ''}" data-shell-nav="videos" ${activeKey === 'videos' ? 'aria-current="page"' : ''}>Videos</a>
-          <a href="${ROOT || '/'}works.html" class="apple-link ${activeKey === 'works' ? 'active' : ''}" data-shell-nav="works" ${activeKey === 'works' ? 'aria-current="page"' : ''}>Works</a>
-          <a href="${ROOT || '/'}blog.html" class="apple-link ${activeKey === 'blog' ? 'active' : ''}" data-shell-nav="blog" ${activeKey === 'blog' ? 'aria-current="page"' : ''}>Blog</a>
-          <a href="${ROOT || '/'}about.html" class="apple-link ${activeKey === 'about' ? 'active' : ''}" data-shell-nav="about" ${activeKey === 'about' ? 'aria-current="page"' : ''}>About</a>
+          <a href="${root}index.html" class="apple-link ${activeKey === 'home' ? 'active' : ''}" data-shell-nav="home" ${activeKey === 'home' ? 'aria-current="page"' : ''}>Home</a>
+          <a href="${root}videos/" class="apple-link ${activeKey === 'videos' ? 'active' : ''}" data-shell-nav="videos" ${activeKey === 'videos' ? 'aria-current="page"' : ''}>Videos</a>
+          <a href="${root}works.html" class="apple-link ${activeKey === 'works' ? 'active' : ''}" data-shell-nav="works" ${activeKey === 'works' ? 'aria-current="page"' : ''}>Works</a>
+          <a href="${root}blog.html" class="apple-link ${activeKey === 'blog' ? 'active' : ''}" data-shell-nav="blog" ${activeKey === 'blog' ? 'aria-current="page"' : ''}>Blog</a>
+          <a href="${root}about.html" class="apple-link ${activeKey === 'about' ? 'active' : ''}" data-shell-nav="about" ${activeKey === 'about' ? 'aria-current="page"' : ''}>About</a>
         </nav>
         <div class="apple-controls">
           <button class="apple-icon-btn" type="button" data-shell-theme aria-label="${themeLabel}" title="${themeLabel}">
@@ -71,15 +72,30 @@
       </div>
       <div class="apple-mobile-drawer" id="appleMobileDrawer">
         <nav class="apple-mobile-nav">
-          <a href="${ROOT || '/'}index.html" class="apple-mobile-link ${activeKey === 'home' ? 'active' : ''}" data-shell-nav="home">Home</a>
-          <a href="${ROOT || '/'}videos/" class="apple-mobile-link ${activeKey === 'videos' ? 'active' : ''}" data-shell-nav="videos">Videos</a>
-          <a href="${ROOT || '/'}works.html" class="apple-mobile-link ${activeKey === 'works' ? 'active' : ''}" data-shell-nav="works">Works</a>
-          <a href="${ROOT || '/'}blog.html" class="apple-mobile-link ${activeKey === 'blog' ? 'active' : ''}" data-shell-nav="blog">Blog</a>
-          <a href="${ROOT || '/'}about.html" class="apple-mobile-link ${activeKey === 'about' ? 'active' : ''}" data-shell-nav="about">About</a>
+          <a href="${root}index.html" class="apple-mobile-link ${activeKey === 'home' ? 'active' : ''}" data-shell-nav="home" ${activeKey === 'home' ? 'aria-current="page"' : ''}>
+            <span>Home</span>
+            <span class="active-dot"><i class="fa-solid fa-chevron-right"></i></span>
+          </a>
+          <a href="${root}videos/" class="apple-mobile-link ${activeKey === 'videos' ? 'active' : ''}" data-shell-nav="videos" ${activeKey === 'videos' ? 'aria-current="page"' : ''}>
+            <span>Videos</span>
+            <span class="active-dot"><i class="fa-solid fa-chevron-right"></i></span>
+          </a>
+          <a href="${root}works.html" class="apple-mobile-link ${activeKey === 'works' ? 'active' : ''}" data-shell-nav="works" ${activeKey === 'works' ? 'aria-current="page"' : ''}>
+            <span>Works</span>
+            <span class="active-dot"><i class="fa-solid fa-chevron-right"></i></span>
+          </a>
+          <a href="${root}blog.html" class="apple-mobile-link ${activeKey === 'blog' ? 'active' : ''}" data-shell-nav="blog" ${activeKey === 'blog' ? 'aria-current="page"' : ''}>
+            <span>Blog</span>
+            <span class="active-dot"><i class="fa-solid fa-chevron-right"></i></span>
+          </a>
+          <a href="${root}about.html" class="apple-mobile-link ${activeKey === 'about' ? 'active' : ''}" data-shell-nav="about" ${activeKey === 'about' ? 'aria-current="page"' : ''}>
+            <span>About</span>
+            <span class="active-dot"><i class="fa-solid fa-chevron-right"></i></span>
+          </a>
         </nav>
         <div class="apple-mobile-footer">
           <span>WWZ.iM · Wang Wenzhi</span>
-          <a href="https://github.com/wangwenzhiwwz" target="_blank" rel="noopener noreferrer" style="color:var(--ink-secondary)">GitHub ↗</a>
+          <a href="https://github.com/wangwenzhiwwz" target="_blank" rel="noopener noreferrer">GitHub ↗</a>
         </div>
       </div>
     `;
@@ -127,24 +143,54 @@
         mobileDrawer.classList.remove('is-open');
         menuToggle.classList.remove('is-active');
         menuToggle.setAttribute('aria-expanded', 'false');
+        document.documentElement.classList.remove('drawer-locked');
+        document.body.classList.remove('drawer-locked');
         document.body.style.overflow = '';
       };
 
-      menuToggle.addEventListener('click', () => {
-        const isOpen = mobileDrawer.classList.toggle('is-open');
-        menuToggle.classList.toggle('is-active', isOpen);
-        menuToggle.setAttribute('aria-expanded', String(isOpen));
-        document.body.style.overflow = isOpen ? 'hidden' : '';
+      const openDrawer = () => {
+        mobileDrawer.classList.add('is-open');
+        menuToggle.classList.add('is-active');
+        menuToggle.setAttribute('aria-expanded', 'true');
+        document.documentElement.classList.add('drawer-locked');
+        document.body.classList.add('drawer-locked');
+        document.body.style.overflow = 'hidden';
+      };
+
+      menuToggle.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const isOpen = mobileDrawer.classList.contains('is-open');
+        if (isOpen) {
+          closeDrawer();
+        } else {
+          openDrawer();
+        }
       });
 
       // Close drawer on link click
       mobileDrawer.querySelectorAll('.apple-mobile-link').forEach(link => {
-        link.addEventListener('click', closeDrawer);
+        link.addEventListener('click', () => {
+          closeDrawer();
+        });
+      });
+
+      // Close on click outside header/drawer
+      document.addEventListener('click', (e) => {
+        if (mobileDrawer.classList.contains('is-open') && !header.contains(e.target)) {
+          closeDrawer();
+        }
       });
 
       // Close on Escape key
       document.addEventListener('keydown', (e) => {
         if (e.key === 'Escape' && mobileDrawer.classList.contains('is-open')) {
+          closeDrawer();
+        }
+      });
+
+      // Auto close on window resize to desktop
+      window.addEventListener('resize', () => {
+        if (window.innerWidth > 768 && mobileDrawer.classList.contains('is-open')) {
           closeDrawer();
         }
       });
