@@ -510,14 +510,14 @@ main.main-content,
 /* Mobile Sheet Drawer (Seamless full viewport, no clipping) */
 .apple-mobile-drawer {
   position: fixed;
-  top: 52px;
+  top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  height: calc(100dvh - 52px);
+  height: 100dvh;
   z-index: 999;
   background-color: var(--bg);
-  padding: 32px 28px 48px;
+  padding: 72px 28px 40px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -574,6 +574,21 @@ main.main-content,
   }
   .apple-menu-toggle {
     display: flex !important;
+  }
+  #wwz-header.is-scrolled,
+  .apple-nav.is-scrolled {
+    background: rgba(247, 247, 245, 0.88);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    backdrop-filter: blur(20px) saturate(180%);
+    border-bottom: 1px solid var(--line);
+    box-shadow: 0 4px 16px -2px rgba(0, 0, 0, 0.05);
+    pointer-events: auto;
+  }
+  :root[data-theme="dark"] #wwz-header.is-scrolled,
+  :root[data-theme="dark"] .apple-nav.is-scrolled {
+    background: rgba(0, 0, 0, 0.88);
+    border-bottom-color: rgba(255, 255, 255, 0.08);
+    box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.6);
   }
 }
 

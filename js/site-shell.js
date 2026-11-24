@@ -150,6 +150,23 @@
       });
     }
 
+    // Bind Header Scroll State for Mobile Frosted Glass
+    if (!header.dataset.scrollBound) {
+      header.dataset.scrollBound = 'true';
+      let ticking = false;
+      const updateHeaderScroll = () => {
+        header.classList.toggle('is-scrolled', window.scrollY > 20);
+        ticking = false;
+      };
+      window.addEventListener('scroll', () => {
+        if (!ticking) {
+          requestAnimationFrame(updateHeaderScroll);
+          ticking = true;
+        }
+      }, { passive: true });
+      updateHeaderScroll();
+    }
+
     // Bind Theme Button
     header.querySelectorAll('[data-shell-theme]').forEach(btn => {
       if (!btn.dataset.bound) {

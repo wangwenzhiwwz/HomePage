@@ -205,7 +205,7 @@
   flex-direction: column;
   justify-content: space-between;
   padding: 24px 28px;
-  background: linear-gradient(180deg, rgba(9, 13, 22, 0.35) 0%, rgba(9, 13, 22, 0.05) 45%, rgba(9, 13, 22, 0.88) 100%);
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0.1) 35%, rgba(0, 0, 0, 0.85) 75%, rgba(0, 0, 0, 0.95) 100%);
   color: #fff;
   z-index: 2;
   transition: opacity 0.25s var(--ease);
@@ -483,8 +483,14 @@
    ========================================================================== */
 
 .section-block {
-  padding: 72px 0;
+  padding: 64px 0;
   border-top: 1px solid var(--line);
+}
+
+@media (max-width: 640px) {
+  .section-block {
+    padding: 42px 0;
+  }
 }
 
 .film-grid {
@@ -1251,6 +1257,14 @@ html:has(.image-viewer[open]) {
 @media (max-width: 640px) {
   .tools-grid {
     grid-template-columns: 1fr;
+    gap: 12px;
+  }
+  .tool-card {
+    padding: 16px 18px;
+  }
+  .tool-card p {
+    margin-bottom: 10px;
+    font-size: 0.82rem;
   }
 }
 
