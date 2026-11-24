@@ -66,7 +66,61 @@
       <section>
         <h2>实验记录与工作流目录</h2>
         <div class="resource-grid" id="experiments">
-          <p style="color: var(--ink-secondary);">加载实验记录中…</p>
+          <a class="resource" href="../articles/comfyui-local-video/">
+            <i class="fa-solid fa-flask-vial fa-2x"></i>
+            <div>
+              <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px;">
+                <span class="editorial-badge">Environment</span>
+                <span style="font-size:0.75rem;color:var(--ink-secondary);">Documented</span>
+              </div>
+              <strong>ComfyUI local video workstation</strong>
+              <div>A documented baseline for the local AI workstation and ComfyUI installation. Model and custom-node availability are tracked separately rather than assumed.</div>
+            </div>
+          </a>
+          <a class="resource" href="../topics/ai-comfyui/">
+            <i class="fa-solid fa-flask-vial fa-2x"></i>
+            <div>
+              <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px;">
+                <span class="editorial-badge">Image to Video</span>
+                <span style="font-size:0.75rem;color:var(--ink-secondary);">Workflow to document</span>
+              </div>
+              <strong>Product image-to-video</strong>
+              <div>Start from real product images, then evaluate camera movement, subject placement and product-shape consistency.</div>
+            </div>
+          </a>
+          <a class="resource" href="../articles/comfyui-local-video/">
+            <i class="fa-solid fa-flask-vial fa-2x"></i>
+            <div>
+              <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px;">
+                <span class="editorial-badge">Upscaling</span>
+                <span style="font-size:0.75rem;color:var(--ink-secondary);">Needs runtime validation</span>
+              </div>
+              <strong>SeedVR2 video enhancement</strong>
+              <div>A SeedVR2 3B Int8 workflow template and related model filenames have been examined. Node installation, model loading and successful end-to-end execution remain separate validation items.</div>
+            </div>
+          </a>
+          <a class="resource" href="../topics/ai-comfyui/">
+            <i class="fa-solid fa-flask-vial fa-2x"></i>
+            <div>
+              <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px;">
+                <span class="editorial-badge">Quality control</span>
+                <span style="font-size:0.75rem;color:var(--ink-secondary);">Principle</span>
+              </div>
+              <strong>Product appearance consistency</strong>
+              <div>Check body shape, camera layout, buttons, logos, materials and colors shot by shot before judging stylistic quality.</div>
+            </div>
+          </a>
+          <a class="resource" href="../topics/ai-comfyui/">
+            <i class="fa-solid fa-flask-vial fa-2x"></i>
+            <div>
+              <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px;">
+                <span class="editorial-badge">Workflow engineering</span>
+                <span style="font-size:0.75rem;color:var(--ink-secondary);">To document</span>
+              </div>
+              <strong>Reproducible workflow records</strong>
+              <div>Record model dependencies, node versions, inputs, outputs, parameters, acceptance criteria and rollback steps for each reusable workflow.</div>
+            </div>
+          </a>
         </div>
       </section>
 
@@ -148,8 +202,9 @@ Rollback / last known-good workflow:</code><button class="copy-btn" type="button
     const root = document.getElementById('experiments');
     try {
       const response = await fetch('../data/experiments.json', {cache:'no-cache'});
-      if (!response.ok) throw new Error('Could not load experiment data');
+      if (!response.ok) return;
       const items = await response.json();
+      if (!Array.isArray(items) || !items.length) return;
       root.innerHTML = items.map(item => `
         <a class="resource" href="../${item.href.replace(/^\//, '')}">
           <i class="fa-solid fa-flask-vial fa-2x"></i>
@@ -163,8 +218,8 @@ Rollback / last known-good workflow:</code><button class="copy-btn" type="button
           </div>
         </a>
       `).join('');
-    } catch (error) {
-      root.innerHTML = '<p style="color:var(--ink-secondary);">实验记录加载失败，请直接访问 <a href="../topics/ai-comfyui/">ComfyUI 专题页面</a>。</p>';
+    } catch (_) {
+      // Keep pre-rendered HTML on any network error
     }
   })();
   </script>

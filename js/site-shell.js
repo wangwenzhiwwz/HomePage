@@ -102,7 +102,8 @@
   // Mount Header (Ensures single persistent instance across transitions)
   const mountNav = () => {
     let header = document.getElementById('wwz-header');
-    const activeKey = getRouteKey(location.pathname);
+    const pageKey = document.body.dataset.activePage || getRouteKey(location.pathname);
+    const activeKey = (pageKey === 'lab' || pageKey === 'article' || pageKey === 'topic') ? 'blog' : pageKey;
 
     if (!header) {
       header = document.createElement('header');
@@ -407,146 +408,10 @@
     }
   };
 
-  // Zero-Flicker PJAX Navigation (HTML5 History API) with Safari Top Loading Bar
-  const navigateTo = async (urlStr, pushToHistory = true) => {
-    const targetUrl = new URL(urlStr, location.origin);
-    const activeKey = getRouteKey(targetUrl.pathname);
-
-    // Progress Bar Animation
-    const progressBar = document.getElementById('apple-progress-bar');
-    if (progressBar) {
-      progressBar.classList.add('is-loading');
-      progressBar.style.width = '35%';
-      setTimeout(() => { if (progressBar.classList.contains('is-loading')) progressBar.style.width = '75%'; }, 80);
-    }
-
-    // Close mobile drawer if open
-    const drawer = document.getElementById('appleMobileDrawer');
-    const menuToggle = document.getElementById('appleMenuToggle');
-    if (drawer && drawer.classList.contains('is-open')) {
-      drawer.classList.remove('is-open');
-      menuToggle?.classList.remove('is-active');
-      menuToggle?.setAttribute('aria-expanded', 'false');
-      document.body.style.overflow = '';
-    }
-
-    // Locate current content container
-    const currentContainer = document.querySelector('#page-content') || document.querySelector('main.main-content') || document.querySelector('main');
-    if (!currentContainer) {
-      location.href = targetUrl.href;
-      return;
-    }
-
-    // Begin Transition Fade-out
-    currentContainer.classList.add('page-fade-out');
-
-    try {
-      const response = await fetch(targetUrl.href, { credentials: 'same-origin' });
-      if (!response.ok) throw new Error(`HTTP ${response.status}`);
-      const htmlText = await response.text();
-
-      const parser = new DOMParser();
-      const newDoc = parser.parseFromString(htmlText, 'text/html');
-
-      // Update Document Title
-      document.title = newDoc.title;
-
-      // Locate new content container
-      const newContainer = newDoc.querySelector('#page-content') || newDoc.querySelector('main.main-content') || newDoc.querySelector('main');
-      if (!newContainer) {
-        location.href = targetUrl.href;
-        return;
-      }
-
-      // Update Nav state immediately
-      updateActiveNavLinks(activeKey);
-
-      // Smooth Wait
-      await new Promise(r => setTimeout(r, 100));
-
-      // Swap content
-      currentContainer.innerHTML = newContainer.innerHTML;
-      if (newContainer.className) currentContainer.className = newContainer.className;
-
-      // Finish Progress Bar
-      if (progressBar) {
-        progressBar.style.width = '100%';
-        setTimeout(() => {
-          progressBar.classList.remove('is-loading');
-          progressBar.style.width = '0%';
-        }, 250);
-      }
-
-      // Handle PushState
-      if (pushToHistory) {
-        history.pushState({ path: targetUrl.pathname }, '', targetUrl.href);
-      }
-
-      // Scroll to Top smoothly
-      window.scrollTo({ top: 0, behavior: 'instant' });
-
-      // Run Page Initializers
-      initPageComponents();
-
-      // Transition Fade-in
-      currentContainer.classList.remove('page-fade-out');
-      currentContainer.classList.add('page-fade-in');
-      setTimeout(() => currentContainer.classList.remove('page-fade-in'), 300);
-
-    } catch (err) {
-      console.warn('[PJAX] Fallback to standard navigation:', err);
-      if (progressBar) {
-        progressBar.classList.remove('is-loading');
-        progressBar.style.width = '0%';
-      }
-      location.href = targetUrl.href;
-    }
-  };
-
-  // Intercept Same-Origin Navigation Links
-  const setupLinkInterceptor = () => {
-    document.addEventListener('click', (event) => {
-      const link = event.target.closest('a');
-      if (!link) return;
-
-      const href = link.getAttribute('href');
-      if (!href) return;
-
-      if (link.target === '_blank' || link.hasAttribute('download')) return;
-      if (href.startsWith('mailto:') || href.startsWith('tel:')) return;
-      if (href.startsWith('#')) return;
-
-      const targetUrl = new URL(link.href, location.origin);
-      if (targetUrl.origin !== location.origin) return;
-
-      if (targetUrl.pathname === location.pathname && !targetUrl.hash) {
-        event.preventDefault();
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-        return;
-      }
-
-      if (targetUrl.pathname === location.pathname && targetUrl.hash) {
-        return;
-      }
-
-      if (!/\.html$/.test(targetUrl.pathname) && !targetUrl.pathname.endsWith('/')) {
-        return;
-      }
-
-      event.preventDefault();
-      navigateTo(targetUrl.href, true);
-    });
-
-    window.addEventListener('popstate', () => {
-      navigateTo(location.href, false);
-    });
-  };
-
   // DOM Ready Execution
   const onReady = () => {
     mountNav();
     initPageComponents();
-    setupLinkInterceptor();
     updateThemeIcons();
   };
 

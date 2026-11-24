@@ -51,7 +51,40 @@ h1{max-width:850px;margin:18px 0;font-size:clamp(2.8rem,7vw,5.8rem);line-height:
   <h1>What I’m<br>working around.</h1>
   <p class="lead" id="nowIntro">A concise snapshot of the areas currently represented across WWZ.iM.</p>
   <div class="meta" id="updated">UPDATED · 2026-11-13</div>
-  <section class="focus-list" id="focusList"><p>Loading current focus…</p></section>
+  <section class="focus-list" id="focusList">
+    <article class="focus-item">
+      <small>CREATIVE</small>
+      <div>
+        <h2>Commercial video production</h2>
+        <p>Commercial product films, visual storytelling, shot planning, production coordination and post-production. Existing work is collected in the Videos archive.</p>
+      </div>
+      <a href="/videos/">Explore ↗</a>
+    </article>
+    <article class="focus-item">
+      <small>AI LAB</small>
+      <div>
+        <h2>AI video workflows</h2>
+        <p>ComfyUI, image-to-video workflows, product appearance consistency and video enhancement. Runtime validation is recorded explicitly for each model and node.</p>
+      </div>
+      <a href="/lab/">Explore ↗</a>
+    </article>
+    <article class="focus-item">
+      <small>BUILD</small>
+      <div>
+        <h2>Independent digital products</h2>
+        <p>A collection of practical WWZ web tools and open-source experiments, with project pages linking to available demos and source repositories.</p>
+      </div>
+      <a href="/projects/">Explore ↗</a>
+    </article>
+    <article class="focus-item">
+      <small>TECH</small>
+      <div>
+        <h2>Infrastructure and networking</h2>
+        <p>Linux, Docker, VPS, IPv4/IPv6 connectivity and deployment recovery notes, documented through technical articles.</p>
+      </div>
+      <a href="/blog.html">Explore ↗</a>
+    </article>
+  </section>
   <section class="wwz-practical-panel">
     <h2>How to read this page</h2>
     <div class="wwz-practical-grid">
@@ -72,12 +105,13 @@ h1{max-width:850px;margin:18px 0;font-size:clamp(2.8rem,7vw,5.8rem);line-height:
   const list = document.getElementById('focusList');
   try {
     const response = await fetch('/data/now.json', {cache:'no-cache'});
-    if (!response.ok) throw new Error('Could not load current focus data');
+    if (!response.ok) return;
     const data = await response.json();
     if (data.intro) intro.textContent = data.intro;
     if (data.updated) updated.textContent = 'UPDATED · ' + data.updated;
-    if (Array.isArray(data.focus)) {
-      list.innerHTML = data.focus.map(item => `
+    const items = Array.isArray(data.items) ? data.items : (Array.isArray(data.focus) ? data.focus : []);
+    if (items.length) {
+      list.innerHTML = items.map(item => `
         <article class="focus-item">
           <small>${item.category || 'FOCUS'}</small>
           <div>
@@ -88,8 +122,8 @@ h1{max-width:850px;margin:18px 0;font-size:clamp(2.8rem,7vw,5.8rem);line-height:
         </article>
       `).join('');
     }
-  } catch (error) {
-    list.innerHTML = '<p>Current focus records are temporarily unavailable. Please visit Works or Blog.</p>';
+  } catch (_) {
+    // Keep pre-rendered HTML on any network error
   }
 })();
 </script>
