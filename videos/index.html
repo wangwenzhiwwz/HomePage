@@ -49,12 +49,15 @@
         <!-- Filter Bar -->
         <div class="filter-bar" id="videoFilters" style="margin-top:28px;">
           <button class="filter-pill active" type="button" data-year="all" aria-pressed="true">All (18)</button>
-          <button class="filter-pill" type="button" data-year="2025" aria-pressed="false">2025</button>
-          <button class="filter-pill" type="button" data-year="2024" aria-pressed="false">2024</button>
-          <button class="filter-pill" type="button" data-year="2023" aria-pressed="false">2023</button>
-          <button class="filter-pill" type="button" data-year="2021" aria-pressed="false">2021</button>
+          <button class="filter-pill" type="button" data-year="2025" aria-pressed="false">2025 (3)</button>
+          <button class="filter-pill" type="button" data-year="2024" aria-pressed="false">2024 (9)</button>
+          <button class="filter-pill" type="button" data-year="2023" aria-pressed="false">2023 (5)</button>
+          <button class="filter-pill" type="button" data-year="2021" aria-pressed="false">2021 (1)</button>
         </div>
       </section>
+
+      <!-- Video Counter -->
+      <p id="videoCount" style="font-family:'SF Mono',Menlo,monospace;font-size:0.75rem;color:var(--ink-tertiary);margin:16px 0 20px;">共 18 部商业短片</p>
 
       <!-- Video Grid -->
       <div class="film-grid" id="videoGrid" style="margin-bottom:80px;">
@@ -336,9 +339,9 @@
             <h5>Navigation</h5>
             <ul>
               <li><a href="../index.html">Home</a></li>
-              <li><a href="../works.html">Works Gallery</a></li>
               <li><a href="../videos/">Videos</a></li>
-              <li><a href="../blog.html">Blog & Guides</a></li>
+              <li><a href="../works.html">Works Gallery</a></li>
+              <li><a href="../blog.html">Blog &amp; Guides</a></li>
               <li><a href="../about.html">About</a></li>
             </ul>
           </div>
@@ -374,59 +377,32 @@
 
   <script>
     document.addEventListener('DOMContentLoaded', () => {
-      const content = window.WWZ_CONTENT;
-      if (!content || !content.videos) return;
-
-      const grid = document.getElementById('videoGrid');
       const filters = document.getElementById('videoFilters');
-
-      const render = (year) => {
-        const filtered = year === 'all' ? content.videos : content.videos.filter(v => v.year === year);
-        grid.innerHTML = filtered.map(v => `
-          <div class="film-card js-video" data-video="${v.embed}" role="button" tabindex="0" aria-label="Play ${v.title}">
-            <div class="film-thumb">
-              <img src="../${v.image}" alt="${v.title}" loading="lazy" width="400" height="225">
-              <span class="film-play-btn"><i class="fa-solid fa-play"></i> Watch</span>
-            </div>
-            <div class="film-info">
-              <div class="film-meta">
-                <span>COMMERCIAL</span>
-                <span>${v.year}</span>
-              </div>
-              <h3>${v.title}</h3>
-              <p>${v.description}</p>
-            </div>
-          </div>
-        `).join('');
-
-        // Re-bind modal triggers
-        document.querySelectorAll('.js-video').forEach(btn => {
-          btn.addEventListener('click', (e) => {
-            e.preventDefault();
-            const modal = document.getElementById('videoModal');
-            const frame = document.getElementById('videoFrame');
-            if (!modal || !frame) return;
-            const src = btn.dataset.video;
-            const join = src.includes('?') ? '&' : '?';
-            frame.src = src + join + 'autoplay=1&rel=0';
-            modal.classList.add('open');
-            document.body.style.overflow = 'hidden';
-          });
-        });
-      };
-
-      render('all');
+      const cards = document.querySelectorAll('#videoGrid .film-card');
+      const count = document.getElementById('videoCount');
 
       filters?.addEventListener('click', (e) => {
         const btn = e.target.closest('.filter-pill');
         if (!btn) return;
+        const year = btn.dataset.year;
+
         filters.querySelectorAll('.filter-pill').forEach(b => {
           b.classList.remove('active');
           b.setAttribute('aria-pressed', 'false');
         });
         btn.classList.add('active');
         btn.setAttribute('aria-pressed', 'true');
-        render(btn.dataset.year);
+
+        let visible = 0;
+        cards.forEach(c => {
+          const match = year === 'all' || c.dataset.year === year;
+          c.style.display = match ? 'flex' : 'none';
+          if (match) visible++;
+        });
+
+        if (count) {
+          count.textContent = `共 ${visible} 部商业短片` + (year !== 'all' ? ` · ${year} 年度` : '');
+        }
       });
     });
   </script>

@@ -54,8 +54,8 @@
         </a>
         <nav class="apple-links" aria-label="Primary navigation">
           <a href="${ROOT || '/'}index.html" class="apple-link ${activeKey === 'home' ? 'active' : ''}" data-shell-nav="home" ${activeKey === 'home' ? 'aria-current="page"' : ''}>Home</a>
-          <a href="${ROOT || '/'}works.html" class="apple-link ${activeKey === 'works' ? 'active' : ''}" data-shell-nav="works" ${activeKey === 'works' ? 'aria-current="page"' : ''}>Works</a>
           <a href="${ROOT || '/'}videos/" class="apple-link ${activeKey === 'videos' ? 'active' : ''}" data-shell-nav="videos" ${activeKey === 'videos' ? 'aria-current="page"' : ''}>Videos</a>
+          <a href="${ROOT || '/'}works.html" class="apple-link ${activeKey === 'works' ? 'active' : ''}" data-shell-nav="works" ${activeKey === 'works' ? 'aria-current="page"' : ''}>Works</a>
           <a href="${ROOT || '/'}blog.html" class="apple-link ${activeKey === 'blog' ? 'active' : ''}" data-shell-nav="blog" ${activeKey === 'blog' ? 'aria-current="page"' : ''}>Blog</a>
           <a href="${ROOT || '/'}about.html" class="apple-link ${activeKey === 'about' ? 'active' : ''}" data-shell-nav="about" ${activeKey === 'about' ? 'aria-current="page"' : ''}>About</a>
         </nav>
@@ -72,8 +72,8 @@
       <div class="apple-mobile-drawer" id="appleMobileDrawer">
         <nav class="apple-mobile-nav">
           <a href="${ROOT || '/'}index.html" class="apple-mobile-link ${activeKey === 'home' ? 'active' : ''}" data-shell-nav="home">Home</a>
-          <a href="${ROOT || '/'}works.html" class="apple-mobile-link ${activeKey === 'works' ? 'active' : ''}" data-shell-nav="works">Works</a>
           <a href="${ROOT || '/'}videos/" class="apple-mobile-link ${activeKey === 'videos' ? 'active' : ''}" data-shell-nav="videos">Videos</a>
+          <a href="${ROOT || '/'}works.html" class="apple-mobile-link ${activeKey === 'works' ? 'active' : ''}" data-shell-nav="works">Works</a>
           <a href="${ROOT || '/'}blog.html" class="apple-mobile-link ${activeKey === 'blog' ? 'active' : ''}" data-shell-nav="blog">Blog</a>
           <a href="${ROOT || '/'}about.html" class="apple-mobile-link ${activeKey === 'about' ? 'active' : ''}" data-shell-nav="about">About</a>
         </nav>
@@ -341,7 +341,10 @@
             const src = btn.dataset.video;
             if (!src) return;
             const join = src.includes('?') ? '&' : '?';
-            videoFrame.src = src + join + 'autoplay=1&rel=0';
+            const params = src.includes('vimeo.com')
+              ? 'autoplay=1&dnt=1&playsinline=1'
+              : 'autoplay=1&rel=0&modestbranding=1&playsinline=1';
+            videoFrame.src = src + join + params;
             videoModal.classList.add('open');
             document.body.style.overflow = 'hidden';
             modalClose?.focus();
