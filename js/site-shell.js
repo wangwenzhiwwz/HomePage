@@ -71,39 +71,28 @@
         </div>
       </div>
       <div class="apple-mobile-drawer" id="appleMobileDrawer">
-        <div class="apple-drawer-top">
-          <div class="apple-drawer-brand-card">
-            <a href="${root}index.html" class="apple-drawer-brand" data-shell-nav="home">
-              <img src="${root}favicon.png" alt="WWZ Logo" width="32" height="32">
-              <div class="apple-drawer-brand-copy">
-                <strong>WWZ.iM</strong>
-                <small>Wang Wenzhi · Commercial Video &amp; Digital Systems</small>
-              </div>
-            </a>
-          </div>
-          <nav class="apple-mobile-nav">
-            <a href="${root}index.html" class="apple-mobile-link ${activeKey === 'home' ? 'active' : ''}" data-shell-nav="home" ${activeKey === 'home' ? 'aria-current="page"' : ''}>
-              <span>Home</span>
-              <span class="active-dot"><i class="fa-solid fa-chevron-right"></i></span>
-            </a>
-            <a href="${root}videos/" class="apple-mobile-link ${activeKey === 'videos' ? 'active' : ''}" data-shell-nav="videos" ${activeKey === 'videos' ? 'aria-current="page"' : ''}>
-              <span>Videos</span>
-              <span class="active-dot"><i class="fa-solid fa-chevron-right"></i></span>
-            </a>
-            <a href="${root}works.html" class="apple-mobile-link ${activeKey === 'works' ? 'active' : ''}" data-shell-nav="works" ${activeKey === 'works' ? 'aria-current="page"' : ''}>
-              <span>Works</span>
-              <span class="active-dot"><i class="fa-solid fa-chevron-right"></i></span>
-            </a>
-            <a href="${root}blog.html" class="apple-mobile-link ${activeKey === 'blog' ? 'active' : ''}" data-shell-nav="blog" ${activeKey === 'blog' ? 'aria-current="page"' : ''}>
-              <span>Blog</span>
-              <span class="active-dot"><i class="fa-solid fa-chevron-right"></i></span>
-            </a>
-            <a href="${root}about.html" class="apple-mobile-link ${activeKey === 'about' ? 'active' : ''}" data-shell-nav="about" ${activeKey === 'about' ? 'aria-current="page"' : ''}>
-              <span>About</span>
-              <span class="active-dot"><i class="fa-solid fa-chevron-right"></i></span>
-            </a>
-          </nav>
-        </div>
+        <nav class="apple-mobile-nav">
+          <a href="${root}index.html" class="apple-mobile-link ${activeKey === 'home' ? 'active' : ''}" data-shell-nav="home" ${activeKey === 'home' ? 'aria-current="page"' : ''}>
+            <span>Home</span>
+            <span class="active-dot"><i class="fa-solid fa-chevron-right"></i></span>
+          </a>
+          <a href="${root}videos/" class="apple-mobile-link ${activeKey === 'videos' ? 'active' : ''}" data-shell-nav="videos" ${activeKey === 'videos' ? 'aria-current="page"' : ''}>
+            <span>Videos</span>
+            <span class="active-dot"><i class="fa-solid fa-chevron-right"></i></span>
+          </a>
+          <a href="${root}works.html" class="apple-mobile-link ${activeKey === 'works' ? 'active' : ''}" data-shell-nav="works" ${activeKey === 'works' ? 'aria-current="page"' : ''}>
+            <span>Works</span>
+            <span class="active-dot"><i class="fa-solid fa-chevron-right"></i></span>
+          </a>
+          <a href="${root}blog.html" class="apple-mobile-link ${activeKey === 'blog' ? 'active' : ''}" data-shell-nav="blog" ${activeKey === 'blog' ? 'aria-current="page"' : ''}>
+            <span>Blog</span>
+            <span class="active-dot"><i class="fa-solid fa-chevron-right"></i></span>
+          </a>
+          <a href="${root}about.html" class="apple-mobile-link ${activeKey === 'about' ? 'active' : ''}" data-shell-nav="about" ${activeKey === 'about' ? 'aria-current="page"' : ''}>
+            <span>About</span>
+            <span class="active-dot"><i class="fa-solid fa-chevron-right"></i></span>
+          </a>
+        </nav>
         <div class="apple-mobile-footer">
           <span>WWZ.iM · Wang Wenzhi</span>
           <a href="https://github.com/wangwenzhiwwz" target="_blank" rel="noopener noreferrer">GitHub ↗</a>
@@ -179,7 +168,7 @@
       });
 
       // Close drawer on link click
-      mobileDrawer.querySelectorAll('.apple-mobile-link, .apple-drawer-brand').forEach(link => {
+      mobileDrawer.querySelectorAll('.apple-mobile-link').forEach(link => {
         link.addEventListener('click', () => {
           closeDrawer();
         });
