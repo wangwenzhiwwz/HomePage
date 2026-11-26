@@ -4,13 +4,37 @@
  */
 
 /* ==========================================================================
-   1. Homepage Hero (Qijishow-Inspired Kinetic Layout · Zero Images/Links)
+   1. Homepage Hero (Qijishow Layout & Typographic Scale · Zero Images/Links)
    ========================================================================== */
 
 .qj-hero {
   position: relative;
   overflow: hidden;
-  padding: clamp(32px, 4.5vw, 56px) 0 clamp(44px, 5vw, 68px);
+  min-height: calc(100dvh - 54px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: clamp(28px, 4vh, 48px) 0 clamp(36px, 5vh, 56px);
+}
+
+/* Subtle Architectural Grid Overlay */
+.qj-grid-overlay {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(to right, rgba(0, 0, 0, 0.032) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(0, 0, 0, 0.032) 1px, transparent 1px);
+  background-size: 38px 38px;
+  mask-image: linear-gradient(180deg, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.4) 80%, transparent 100%);
+  -webkit-mask-image: linear-gradient(180deg, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.4) 80%, transparent 100%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+:root[data-theme="dark"] .qj-grid-overlay {
+  background-image:
+    linear-gradient(to right, rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
 }
 
 /* 4 Ambient Floating Depth Spheres (Monochrome Studio) */
@@ -91,81 +115,37 @@
 .qj-hero-wrap {
   position: relative;
   z-index: 2;
+  width: min(1320px, calc(100% - 48px));
 }
 
 .qj-hero-stage {
   display: flex;
   flex-direction: column;
-  gap: clamp(32px, 4.5vw, 52px);
+  gap: clamp(44px, 6vh, 72px);
 }
 
-/* Top Kinetic Row */
+/* Top Kinetic Stage (Mirrors qijishow spatial scale & proportion) */
 .qj-hero-top {
-  display: grid;
-  grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
-  gap: clamp(28px, 4vw, 48px);
-  align-items: end;
+  position: relative;
+  display: block;
+  padding-top: clamp(8px, 2vh, 24px);
 }
 
 .qj-headline-block {
+  position: relative;
+  z-index: 2;
+  pointer-events: none;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
 }
 
-.hero-status-kicker {
-  display: inline-flex;
-  align-items: center;
-  gap: 9px;
-  padding: 6px 14px;
-  background-color: var(--surface);
-  border: 1px solid var(--line);
-  border-radius: var(--radius-pill);
-  font-family: "JetBrains Mono", Menlo, monospace;
-  font-size: var(--text-meta);
-  font-weight: 550;
-  letter-spacing: 0.04em;
-  color: var(--ink-secondary);
-  text-transform: uppercase;
-  margin-bottom: 20px;
-  box-shadow: var(--shadow-sm);
-}
-
-.qj-kicker-enter {
-  opacity: 0;
-  transform: translateY(12px);
-  animation: qj-fadeup 0.9s cubic-bezier(0.19, 1, 0.22, 1) 0.04s forwards;
-}
-
-.status-indicator {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 10px;
-  height: 10px;
-  position: relative;
-}
-
-.status-dot {
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  background-color: #10b981;
-  box-shadow: 0 0 8px rgba(16, 185, 129, 0.7);
-  animation: pulse-dot 2.5s infinite ease-in-out;
-}
-
-@keyframes pulse-dot {
-  0%, 100% { opacity: 1; transform: scale(1); }
-  50% { opacity: 0.6; transform: scale(0.85); }
-}
-
-/* Masked Line-Lift Typography (Qijishow .lmask signature) */
+/* Masked Line-Lift Typography (Qijishow Believe / Miracle Proportion) */
 .qj-display-title {
-  font-size: clamp(2.35rem, 5.2vw, 4.15rem);
-  line-height: 1.02;
-  letter-spacing: -0.04em;
-  font-weight: 800;
+  font-size: clamp(3.25rem, 8.6vw, 7.25rem);
+  line-height: 0.94;
+  letter-spacing: -0.045em;
+  font-weight: 850;
   color: var(--ink);
   margin: 0;
 }
@@ -174,7 +154,7 @@
   display: block;
   overflow: hidden;
   padding-bottom: 0.08em;
-  margin-bottom: -0.04em;
+  margin-bottom: -0.05em;
 }
 
 .qj-line {
@@ -199,24 +179,25 @@
   display: flex;
   flex-wrap: wrap;
   align-items: baseline;
-  gap: 16px;
-  margin-top: 24px;
+  gap: 20px;
+  margin-top: clamp(24px, 3.2vh, 36px);
   opacity: 0;
-  transform: translateY(16px);
-  animation: qj-fadeup 1.2s cubic-bezier(0.19, 1, 0.22, 1) 0.28s forwards;
+  transform: translateY(18px);
+  animation: qj-fadeup 1.2s cubic-bezier(0.19, 1, 0.22, 1) 0.26s forwards;
 }
 
 .qj-sub-brand {
-  font-size: var(--text-lead);
-  font-weight: 700;
-  letter-spacing: 0.14em;
+  font-size: 0.875rem;
+  font-weight: 400;
+  letter-spacing: 0.24em;
   color: var(--ink);
 }
 
 .qj-sub-roles {
   font-family: "JetBrains Mono", Menlo, monospace;
-  font-size: var(--text-meta);
-  letter-spacing: 0.1em;
+  font-size: 0.8125rem;
+  font-weight: 300;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--ink-secondary);
 }
@@ -228,27 +209,29 @@
   }
 }
 
-/* Interactive Totem + Living Eyes + Expandable Corner-Anchored Bubble */
+/* Interactive Totem + Living Eyes + Expandable Corner-Anchored Capsule Bubble */
 .qj-interactive-cluster {
-  position: relative;
+  position: absolute;
+  bottom: -14px;
+  left: clamp(460px, 39vw, 550px);
+  z-index: 3;
   display: flex;
   align-items: flex-end;
-  justify-content: flex-start;
-  gap: 14px;
-  min-height: 220px;
+  gap: 8px;
   --eye-x: 0px;
   --eye-y: 0px;
 }
 
 .qj-illo {
   position: relative;
-  width: 170px;
+  width: clamp(190px, 16.5vw, 232px);
   flex-shrink: 0;
   color: var(--ink);
   opacity: 0;
   clip-path: inset(0 0 100% 0);
-  transform: translateY(-22px);
+  transform: translateY(-28px);
   transition: opacity 0.45s ease, clip-path 0.65s cubic-bezier(0.22, 1, 0.36, 1), transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);
+  pointer-events: none;
 }
 
 .qj-illo.is-ready {
@@ -358,16 +341,16 @@
   46%, 47% { opacity: 1; transform: scaleX(1); }
 }
 
-/* Corner-Anchored Expandable Speech-Bubble Card (Qijishow banner-view inspired) */
+/* Corner-Anchored Sleek Pill Capsule Bubble (Exact qijishow banner-view geometry) */
 .qj-bubble-wrap {
   position: relative;
-  flex: 1 1 auto;
-  min-width: 240px;
-  max-width: 340px;
-  margin-bottom: 58px;
+  width: 288px;
+  height: 118px;
+  margin-bottom: 116px;
   opacity: 0;
-  transform: translateX(28px);
+  transform: translateX(36px);
   animation: qj-bubble-in 0.85s cubic-bezier(0.19, 1, 0.22, 1) 0.42s forwards;
+  transition: width 0.5s cubic-bezier(0.19, 1, 0.22, 1), height 0.5s cubic-bezier(0.19, 1, 0.22, 1);
 }
 
 @keyframes qj-bubble-in {
@@ -379,42 +362,52 @@
 
 .qj-bubble-view {
   position: relative;
-  padding: 16px 18px 14px;
-  border-radius: 26px;
+  width: 100%;
+  height: 100%;
+  padding: 18px 24px 12px;
+  border-radius: 64px;
   border-bottom-left-radius: 4px;
   background: var(--surface);
-  border: 1.5px solid var(--line-strong);
+  border: 2.5px solid var(--ink);
   box-shadow: var(--shadow-card);
   cursor: pointer;
   user-select: none;
   touch-action: pan-y;
-  transition: transform 0.45s cubic-bezier(0.19, 1, 0.22, 1), box-shadow 0.45s cubic-bezier(0.19, 1, 0.22, 1), border-color 0.35s ease, border-radius 0.4s ease;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: transform 0.45s cubic-bezier(0.19, 1, 0.22, 1), box-shadow 0.45s cubic-bezier(0.19, 1, 0.22, 1), border-color 0.35s ease, border-radius 0.45s ease;
 }
 
 :root[data-theme="dark"] .qj-bubble-view {
-  background: rgba(20, 20, 24, 0.92);
-  border-color: rgba(255, 255, 255, 0.22);
+  background: #141417;
+  border-color: rgba(255, 255, 255, 0.78);
 }
 
 @media (hover: hover) {
+  .qj-bubble-wrap.is-hovered {
+    width: 410px;
+    height: 164px;
+  }
   .qj-bubble-wrap.is-hovered .qj-bubble-view,
   .qj-bubble-view:focus-visible {
-    transform: translateY(-6px) scale(1.02);
-    border-color: var(--ink);
-    border-radius: 20px;
+    transform: translateY(-8px);
+    border-radius: 28px;
     border-bottom-left-radius: 4px;
-    box-shadow: 0 28px 34px -18px rgba(0, 0, 0, 0.22);
+    box-shadow: 0 32px 24px -18px rgba(0, 0, 0, 0.25);
   }
   :root[data-theme="dark"] .qj-bubble-wrap.is-hovered .qj-bubble-view,
   :root[data-theme="dark"] .qj-bubble-view:focus-visible {
-    border-color: rgba(255, 255, 255, 0.65);
-    box-shadow: 0 26px 32px -16px rgba(0, 0, 0, 0.85);
+    border-color: #ffffff;
+    box-shadow: 0 28px 26px -18px rgba(0, 0, 0, 0.85);
   }
 }
 
 .qj-bubble-slides {
   position: relative;
-  min-height: 92px;
+  flex: 1 1 auto;
+  overflow: hidden;
 }
 
 .qj-bubble-slide {
@@ -423,38 +416,44 @@
   opacity: 0;
   transform: translateX(14px);
   pointer-events: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   transition: opacity 0.42s cubic-bezier(0.19, 1, 0.22, 1), transform 0.42s cubic-bezier(0.19, 1, 0.22, 1);
 }
 
 .qj-bubble-slide.is-active {
-  position: relative;
   opacity: 1;
   transform: translateX(0);
   pointer-events: auto;
 }
 
-.qj-bubble-kicker {
-  display: block;
-  font-family: "JetBrains Mono", Menlo, monospace;
-  font-size: var(--text-meta);
-  letter-spacing: 0.06em;
-  color: var(--ink-tertiary);
-  margin-bottom: 4px;
-}
-
 .qj-bubble-title {
   display: block;
-  font-size: var(--text-card-title);
-  font-weight: 700;
+  font-size: clamp(1.05rem, 1.3vw, 1.25rem);
+  font-weight: 800;
+  letter-spacing: -0.02em;
   color: var(--ink);
-  margin-bottom: 4px;
+  line-height: 1.2;
 }
 
 .qj-bubble-desc {
   font-size: var(--text-card-desc);
-  line-height: 1.5;
+  line-height: 1.45;
   color: var(--ink-secondary);
-  margin: 0;
+  margin: 6px 0 0;
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  transition: opacity 0.35s ease, max-height 0.4s ease;
+}
+
+@media (hover: hover) {
+  .qj-bubble-wrap.is-hovered .qj-bubble-desc,
+  .qj-bubble-view:focus-visible .qj-bubble-desc {
+    max-height: 48px;
+    opacity: 1;
+  }
 }
 
 .qj-bubble-bar {
@@ -462,26 +461,25 @@
   align-items: center;
   justify-content: space-between;
   gap: 12px;
-  margin-top: 12px;
-  padding-top: 10px;
-  border-top: 1px solid var(--line);
+  padding-top: 4px;
 }
 
 .qj-bubble-caption {
   font-family: "JetBrains Mono", Menlo, monospace;
   font-size: var(--text-meta);
   color: var(--ink-tertiary);
+  white-space: nowrap;
 }
 
 .qj-bubble-dots {
   display: inline-flex;
   align-items: center;
-  gap: 7px;
+  gap: 6px;
 }
 
 .qj-dot {
-  width: 7px;
-  height: 7px;
+  width: 6px;
+  height: 6px;
   padding: 0;
   border-radius: 50%;
   background: var(--line-strong);
@@ -491,7 +489,7 @@
 }
 
 .qj-dot:hover {
-  transform: scale(1.4);
+  transform: scale(1.45);
   background: var(--ink-secondary);
 }
 
@@ -500,78 +498,71 @@
   background: var(--ink);
 }
 
-/* Bottom 4-Card Staggered Frosted Glass Strip (Qijishow .centrals .design_card inspired · Pure Guide) */
+/* Bottom 4-Card Staggered Frosted Glass Strip (Exact qijishow .centrals proportion) */
 .qj-centrals {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 16px;
+  gap: 20px;
 }
 
 .qj-guide-card {
   position: relative;
   text-align: left;
-  border-radius: var(--radius-xl);
-  background: rgba(255, 255, 255, 0.68);
-  -webkit-backdrop-filter: blur(14px);
-  backdrop-filter: blur(14px);
-  border: 1px solid rgba(255, 255, 255, 0.9);
+  height: 164px;
+  border-radius: 20px;
+  background: linear-gradient(157.87deg, rgba(255, 255, 255, 0.65), rgba(255, 255, 255, 0.48));
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.92);
   box-shadow: var(--shadow-card);
-  padding: 24px 24px 22px;
+  padding: 28px 30px;
   cursor: pointer;
   opacity: 0;
   transform: translateY(18px);
   animation: qj-fadeup 0.9s cubic-bezier(0.19, 1, 0.22, 1) var(--delay, 0.35s) forwards;
-  transition: transform 0.35s cubic-bezier(0.215, 0.61, 0.355, 1), box-shadow 0.35s ease, background-color 0.35s ease, border-color 0.35s ease;
+  transition: transform 0.3s cubic-bezier(0.215, 0.61, 0.355, 1), box-shadow 0.3s ease, background-color 0.35s ease, border-color 0.35s ease;
 }
 
 :root[data-theme="dark"] .qj-guide-card {
-  background: rgba(17, 17, 20, 0.78);
-  border-color: rgba(255, 255, 255, 0.09);
+  background: linear-gradient(157.87deg, rgba(20, 20, 24, 0.85), rgba(14, 14, 17, 0.72));
+  border-color: rgba(255, 255, 255, 0.1);
 }
 
 .qj-guide-card:hover,
 .qj-guide-card.is-selected {
   transform: translateY(-4px);
-  background: var(--surface);
-  border-color: var(--line-strong);
-  box-shadow: var(--shadow-hover);
+  background: rgba(255, 255, 255, 0.92);
+  box-shadow: 0 28px 28px -16px rgba(0, 0, 0, 0.16);
 }
 
 :root[data-theme="dark"] .qj-guide-card:hover,
 :root[data-theme="dark"] .qj-guide-card.is-selected {
-  background: #16161a;
+  background: #18181c;
   border-color: rgba(255, 255, 255, 0.24);
+  box-shadow: 0 28px 30px -16px rgba(0, 0, 0, 0.85);
 }
 
 .qj-guide-card-inner {
   position: relative;
   display: flex;
   flex-direction: column;
-  min-height: 102px;
-}
-
-.qj-guide-tag {
-  font-family: "JetBrains Mono", Menlo, monospace;
-  font-size: var(--text-meta);
-  letter-spacing: 0.06em;
-  color: var(--ink-tertiary);
-  margin-bottom: 10px;
+  height: 100%;
 }
 
 .qj-guide-heading {
-  font-size: clamp(1.3rem, 2vw, 1.65rem);
+  font-size: 1.75rem;
   font-weight: 850;
-  letter-spacing: -0.03em;
+  letter-spacing: -0.025em;
   color: var(--ink);
   margin: 0 0 6px;
 }
 
 .qj-guide-copy {
   font-size: var(--text-card-desc);
+  font-weight: 300;
   line-height: 1.5;
   color: var(--ink-secondary);
   margin: 0;
-  padding-right: 28px;
 }
 
 .qj-guide-cue {
@@ -579,7 +570,7 @@
   right: 0;
   bottom: 0;
   font-family: "JetBrains Mono", Menlo, monospace;
-  font-size: var(--text-lead);
+  font-size: 1.15rem;
   font-weight: 700;
   color: var(--ink);
   opacity: 0;
@@ -589,21 +580,19 @@
 
 .qj-guide-card:hover .qj-guide-cue,
 .qj-guide-card.is-selected .qj-guide-cue {
-  opacity: 0.85;
+  opacity: 0.78;
   transform: translateX(0);
 }
 
 @media (prefers-reduced-motion: reduce) {
   .hero-sphere,
-  .qj-kicker-enter,
   .qj-line,
   .qj-sub,
   .qj-totem-motion,
   .qj-eye i,
   .qj-eye::after,
   .qj-bubble-wrap,
-  .qj-guide-card,
-  .status-dot {
+  .qj-guide-card {
     animation: none !important;
     opacity: 1 !important;
     transform: none !important;
@@ -806,10 +795,15 @@
   gap: 4px;
 }
 
-@media (max-width: 992px) {
-  .qj-hero-top {
-    grid-template-columns: 1fr;
-    gap: 28px;
+@media (max-width: 1024px) {
+  .qj-interactive-cluster {
+    position: relative;
+    bottom: auto;
+    left: auto;
+    margin-top: 28px;
+  }
+  .qj-bubble-wrap {
+    margin-bottom: 52px;
   }
   .qj-centrals {
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -818,43 +812,56 @@
 
 @media (max-width: 640px) {
   .qj-hero {
+    min-height: calc(100dvh - 56px);
     padding: 20px 0 32px;
   }
+  .qj-hero-wrap {
+    width: calc(100% - 32px);
+  }
+  .qj-hero-stage {
+    gap: 28px;
+  }
   .qj-display-title {
-    font-size: clamp(2rem, 9.5vw, 2.75rem);
+    font-size: clamp(2.85rem, 13.5vw, 4.25rem);
   }
   .qj-interactive-cluster {
     flex-direction: row;
     align-items: flex-end;
     gap: 10px;
-    min-height: auto;
+    margin-top: 22px;
   }
   .qj-illo {
-    width: 84px;
+    width: 96px;
   }
   .qj-bubble-wrap {
     flex: 1 1 0;
+    width: auto;
+    height: auto;
     min-width: 0;
-    max-width: none;
-    margin-bottom: 14px;
+    margin-bottom: 24px;
   }
   .qj-bubble-view {
-    padding: 13px 14px 11px;
-    border-radius: 20px;
+    height: auto;
+    min-height: 92px;
+    padding: 13px 16px 10px;
+    border-radius: 26px;
     border-bottom-left-radius: 4px;
+    border-width: 2px;
   }
   .qj-bubble-slides {
-    min-height: 78px;
+    min-height: 44px;
   }
   .qj-centrals {
     grid-template-columns: 1fr;
     gap: 12px;
   }
   .qj-guide-card {
-    padding: 18px 20px;
+    height: auto;
+    min-height: 112px;
+    padding: 20px 22px;
   }
-  .qj-guide-card-inner {
-    min-height: auto;
+  .qj-guide-heading {
+    font-size: 1.45rem;
   }
   .bento-stage {
     grid-template-columns: 1fr;

@@ -43,8 +43,9 @@
   <!-- Content Container (Managed by site-shell for zero-flicker transitions) -->
   <main class="main-content" id="page-content">
     
-    <!-- Hero Section (Qijishow-Inspired Kinetic Editorial Layout · Zero Images & Zero Jump Links) -->
+    <!-- Hero Section (Qijishow Layout & Proportions · Zero Images & Zero Jump Links) -->
     <section class="hero-section qj-hero" id="home" aria-label="Studio Introduction">
+      <div class="qj-grid-overlay" aria-hidden="true"></div>
       <!-- 4 Ambient Floating Depth Spheres -->
       <div class="hero-spheres" aria-hidden="true">
         <span class="hero-sphere hero-sphere-1"></span>
@@ -56,46 +57,35 @@
       <div class="wrap qj-hero-wrap">
         <div class="qj-hero-stage" id="heroStage">
           
-          <!-- Top Display Stage: Masked Line-Lift Headline + Interactive Eye Sculpture + Floating Expanding Bubble -->
+          <!-- Top Display Stage: Giant Masked Headline + Anchored Sculpture & Capsule Bubble -->
           <div class="qj-hero-top">
             <div class="qj-headline-block">
-              <div class="hero-status-kicker qj-kicker-enter">
-                <span class="status-indicator"><span class="status-dot"></span></span>
-                <span>Commercial Director &amp; Creative Technologist</span>
-              </div>
-
               <h1 class="qj-display-title">
-                <span class="qj-lmask"><span class="qj-line">Commercial Video.</span></span>
-                <span class="qj-lmask"><span class="qj-line">Digital Systems.</span></span>
+                <span class="qj-lmask"><span class="qj-line">Visual.</span></span>
+                <span class="qj-lmask"><span class="qj-line">Systems.</span></span>
               </h1>
 
               <div class="qj-sub">
                 <span class="qj-sub-brand">WWZ.iM</span>
-                <span class="qj-sub-roles">DIRECTOR / CGI &amp; AI WORKFLOWS / WEB SYSTEMS</span>
+                <span class="qj-sub-roles">DIRECTOR / MOTION / AI WORKFLOWS / SYSTEMS</span>
               </div>
             </div>
 
-            <!-- Interactive Dual-Optic Studio Monolith with Living Cursor-Tracking Eyes + Expandable Guiding Bubble -->
+            <!-- Interactive Dual-Optic Monolith Anchored Beside Wordmark + Expandable Pill Capsule -->
             <div class="qj-interactive-cluster">
               <div class="qj-illo" id="heroIllo" aria-hidden="true">
                 <div class="qj-totem-motion">
                   <svg class="qj-totem-svg" viewBox="0 0 220 250" fill="none">
-                    <!-- Soft Ground Shadow -->
                     <ellipse cx="105" cy="232" rx="64" ry="7" fill="currentColor" fill-opacity="0.08"/>
-                    <!-- Sleek Machined Monolith Silhouette -->
                     <rect x="40" y="38" width="130" height="162" rx="44" class="totem-body" stroke="currentColor" stroke-width="1.8"/>
                     <rect x="48" y="46" width="114" height="146" rx="37" stroke="currentColor" stroke-opacity="0.1" stroke-width="1"/>
-                    <!-- Rangefinder Crest Accent -->
                     <rect x="86" y="28" width="38" height="10" rx="5" class="totem-crest" stroke="currentColor" stroke-width="1.6"/>
-                    <!-- Dual Machined Optical Lens Housings (Aligned with .qj-eye) -->
                     <circle cx="84" cy="110" r="18" stroke="currentColor" stroke-opacity="0.16" stroke-width="1"/>
                     <circle cx="84" cy="110" r="14" class="totem-socket"/>
                     <circle cx="126" cy="110" r="18" stroke="currentColor" stroke-opacity="0.16" stroke-width="1"/>
                     <circle cx="126" cy="110" r="14" class="totem-socket"/>
-                    <!-- Minimalist Optical Baseline Ticks -->
                     <line x1="84" y1="158" x2="126" y2="158" stroke="currentColor" stroke-opacity="0.2" stroke-width="1.5" stroke-linecap="round"/>
                     <circle cx="105" cy="158" r="2" fill="currentColor" fill-opacity="0.45"/>
-                    <!-- Floating Focus Node Bridging Toward Speech Bubble -->
                     <circle cx="188" cy="118" r="3.5" fill="currentColor" fill-opacity="0.75"/>
                   </svg>
                   <span class="qj-eye eye-left"><i></i></span>
@@ -103,29 +93,25 @@
                 </div>
               </div>
 
-              <!-- Expandable Speech-Bubble Card (Qijishow-Style Corner Anchor · Zero Images & Zero Links) -->
+              <!-- Expandable Pill Capsule Card (Corner-Anchored · Zero Images & Zero Links) -->
               <div class="qj-bubble-wrap" id="heroBubbleWrap" role="region" aria-label="Interactive studio focus guide">
                 <div class="qj-bubble-view" id="heroBubbleView" tabindex="0">
                   <div class="qj-bubble-slides" id="heroBubbleSlides">
                     <div class="qj-bubble-slide is-active" data-index="0">
-                      <span class="qj-bubble-kicker">01 / COMMERCIAL DIRECTION</span>
-                      <strong class="qj-bubble-title">Product Launch Films</strong>
-                      <p class="qj-bubble-desc">Rhythm, studio lighting, and tactile storytelling across 18 commercial campaigns below.</p>
+                      <strong class="qj-bubble-title">Commercial Direction</strong>
+                      <p class="qj-bubble-desc">18 product launch films &amp; storytelling campaigns below.</p>
                     </div>
                     <div class="qj-bubble-slide" data-index="1">
-                      <span class="qj-bubble-kicker">02 / PHOTOGRAPHY &amp; CGI</span>
-                      <strong class="qj-bubble-title">Blender 3D &amp; Visuals</strong>
-                      <p class="qj-bubble-desc">Procedural shaders, product rendering, and 81 curated visual studies in the archive.</p>
+                      <strong class="qj-bubble-title">Visuals &amp; 3D CGI</strong>
+                      <p class="qj-bubble-desc">81 curated photography &amp; Blender experiments.</p>
                     </div>
                     <div class="qj-bubble-slide" data-index="2">
-                      <span class="qj-bubble-kicker">03 / AI &amp; FIELD NOTES</span>
-                      <strong class="qj-bubble-title">ComfyUI &amp; Infrastructure</strong>
-                      <p class="qj-bubble-desc">Repeatable local AI pipelines, Linux provisioning, and IPv6 networking walkthroughs.</p>
+                      <strong class="qj-bubble-title">AI &amp; Field Notes</strong>
+                      <p class="qj-bubble-desc">ComfyUI pipelines, Linux provisioning &amp; IPv6 guides.</p>
                     </div>
                     <div class="qj-bubble-slide" data-index="3">
-                      <span class="qj-bubble-kicker">04 / INDEPENDENT TOOLS</span>
-                      <strong class="qj-bubble-title">Focused Web Utilities</strong>
-                      <p class="qj-bubble-desc">Lightweight browser tools built for daily network checks, configs, and workflows.</p>
+                      <strong class="qj-bubble-title">Independent Tools</strong>
+                      <p class="qj-bubble-desc">Lightweight web utilities &amp; open-source craft.</p>
                     </div>
                   </div>
                   <div class="qj-bubble-bar">
@@ -142,37 +128,33 @@
             </div>
           </div>
 
-          <!-- Bottom 4-Card Staggered Guiding Bento Strip (Inspired by qijishow .centrals · Non-Linking Pure Guide) -->
+          <!-- Bottom 4-Card Staggered Guiding Strip (Exact qijishow .centrals proportion · Non-Linking) -->
           <div class="qj-centrals" role="group" aria-label="Portfolio sections guide">
             <button type="button" class="qj-guide-card" data-guide-slide="0" style="--delay:0.32s">
               <div class="qj-guide-card-inner">
-                <span class="qj-guide-tag">01 / FILMS</span>
                 <h2 class="qj-guide-heading">CINEMA</h2>
-                <p class="qj-guide-copy">18 Commercial Reels &amp; Campaigns</p>
+                <p class="qj-guide-copy">18 Commercial Films</p>
                 <span class="qj-guide-cue" aria-hidden="true">01</span>
               </div>
             </button>
             <button type="button" class="qj-guide-card" data-guide-slide="1" style="--delay:0.4s">
               <div class="qj-guide-card-inner">
-                <span class="qj-guide-tag">02 / WORKS</span>
                 <h2 class="qj-guide-heading">VISUALS</h2>
-                <p class="qj-guide-copy">81 Photography &amp; Blender Works</p>
+                <p class="qj-guide-copy">81 Photography &amp; 3D</p>
                 <span class="qj-guide-cue" aria-hidden="true">02</span>
               </div>
             </button>
             <button type="button" class="qj-guide-card" data-guide-slide="2" style="--delay:0.48s">
               <div class="qj-guide-card-inner">
-                <span class="qj-guide-tag">03 / NOTES</span>
-                <h2 class="qj-guide-heading">SYSTEMS</h2>
-                <p class="qj-guide-copy">AI Workflows, Linux &amp; IPv6</p>
+                <h2 class="qj-guide-heading">NOTES</h2>
+                <p class="qj-guide-copy">AI &amp; Server Guides</p>
                 <span class="qj-guide-cue" aria-hidden="true">03</span>
               </div>
             </button>
             <button type="button" class="qj-guide-card" data-guide-slide="3" style="--delay:0.56s">
               <div class="qj-guide-card-inner">
-                <span class="qj-guide-tag">04 / TOOLS</span>
-                <h2 class="qj-guide-heading">UTILITY</h2>
-                <p class="qj-guide-copy">Independent Web Craft &amp; Open Source</p>
+                <h2 class="qj-guide-heading">TOOLS</h2>
+                <p class="qj-guide-copy">Independent Utilities</p>
                 <span class="qj-guide-cue" aria-hidden="true">04</span>
               </div>
             </button>
