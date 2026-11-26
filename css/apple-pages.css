@@ -209,22 +209,22 @@
   }
 }
 
-/* Interactive Totem + Living Eyes + Expandable Corner-Anchored Capsule Bubble */
+/* Interactive Designer Character + Living Eyes + Expandable Corner-Anchored Capsule Bubble */
 .qj-interactive-cluster {
   position: absolute;
-  bottom: -14px;
-  left: clamp(460px, 39vw, 550px);
+  bottom: -24px;
+  left: clamp(445px, 37vw, 520px);
   z-index: 3;
   display: flex;
   align-items: flex-end;
-  gap: 8px;
+  gap: 0;
   --eye-x: 0px;
   --eye-y: 0px;
 }
 
 .qj-illo {
   position: relative;
-  width: clamp(190px, 16.5vw, 232px);
+  width: clamp(165px, 14vw, 200px);
   flex-shrink: 0;
   color: var(--ink);
   opacity: 0;
@@ -243,14 +243,14 @@
 .qj-totem-motion {
   position: relative;
   width: 100%;
-  aspect-ratio: 220 / 250;
-  transform-origin: 48% 88%;
+  aspect-ratio: 240 / 340;
+  transform-origin: 45% 92%;
   animation: qj-breathe 5.4s ease-in-out infinite;
 }
 
 @keyframes qj-breathe {
   0%, 100% { transform: translateY(0) rotate(0deg); }
-  50% { transform: translateY(-3px) rotate(-0.35deg); }
+  50% { transform: translateY(-2.5px) rotate(-0.3deg); }
 }
 
 .qj-totem-svg {
@@ -259,36 +259,44 @@
   display: block;
 }
 
-.totem-body {
+.char-skin,
+.char-fill {
   fill: var(--surface);
 }
 
-.totem-crest {
+.char-tee {
+  fill: var(--bg-secondary);
+}
+
+.char-hair {
   fill: var(--bg-tertiary);
 }
 
-.totem-socket {
-  fill: var(--bg-secondary);
-  stroke: var(--line-strong);
-  stroke-width: 1.5;
+.char-lens {
+  fill: rgba(255, 255, 255, 0.65);
 }
 
-:root[data-theme="dark"] .totem-body {
-  fill: #121215;
+:root[data-theme="dark"] .char-skin,
+:root[data-theme="dark"] .char-fill {
+  fill: #141418;
 }
 
-:root[data-theme="dark"] .totem-crest {
-  fill: #1e1e22;
+:root[data-theme="dark"] .char-tee {
+  fill: #1f1f24;
 }
 
-:root[data-theme="dark"] .totem-socket {
-  fill: #050507;
+:root[data-theme="dark"] .char-hair {
+  fill: #27272e;
 }
 
-/* Living Cursor-Tracking & Blinking Eyes */
+:root[data-theme="dark"] .char-lens {
+  fill: rgba(10, 10, 12, 0.55);
+}
+
+/* Living Cursor-Tracking & Blinking Eyes inside Eyewear */
 .qj-eye {
   position: absolute;
-  width: 13.6%;
+  width: 8.75%;
   aspect-ratio: 1;
   border-radius: 50%;
   transform: translate(-50%, -50%);
@@ -296,20 +304,20 @@
 }
 
 .qj-eye.eye-left {
-  top: 44%;
-  left: 38.2%;
+  top: 22.35%;
+  left: 40%;
 }
 
 .qj-eye.eye-right {
-  top: 44%;
-  left: 57.3%;
+  top: 22.35%;
+  left: 50%;
 }
 
 .qj-eye i {
   position: absolute;
   top: 50%;
   left: 50%;
-  width: 36%;
+  width: 34%;
   aspect-ratio: 1;
   border-radius: 50%;
   background: var(--ink);
@@ -321,9 +329,9 @@
   content: "";
   position: absolute;
   top: 50%;
-  left: 14%;
-  right: 14%;
-  height: 2px;
+  left: 16%;
+  right: 16%;
+  height: 1.6px;
   border-radius: 2px;
   background: var(--ink);
   opacity: 0;
@@ -341,12 +349,13 @@
   46%, 47% { opacity: 1; transform: scaleX(1); }
 }
 
-/* Corner-Anchored Sleek Pill Capsule Bubble (Exact qijishow banner-view geometry) */
+/* Corner-Anchored Sleek Pill Capsule Bubble Resting on Character's Hand */
 .qj-bubble-wrap {
   position: relative;
+  margin-left: -10px;
   width: 288px;
   height: 118px;
-  margin-bottom: 116px;
+  margin-bottom: 184px;
   opacity: 0;
   transform: translateX(36px);
   animation: qj-bubble-in 0.85s cubic-bezier(0.19, 1, 0.22, 1) 0.42s forwards;
@@ -803,7 +812,7 @@
     margin-top: 28px;
   }
   .qj-bubble-wrap {
-    margin-bottom: 52px;
+    margin-bottom: 120px;
   }
   .qj-centrals {
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -827,18 +836,19 @@
   .qj-interactive-cluster {
     flex-direction: row;
     align-items: flex-end;
-    gap: 10px;
+    gap: 0;
     margin-top: 22px;
   }
   .qj-illo {
-    width: 96px;
+    width: 106px;
   }
   .qj-bubble-wrap {
     flex: 1 1 0;
     width: auto;
     height: auto;
     min-width: 0;
-    margin-bottom: 24px;
+    margin-left: -2px;
+    margin-bottom: 100px;
   }
   .qj-bubble-view {
     height: auto;
