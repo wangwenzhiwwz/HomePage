@@ -585,34 +585,6 @@
             <span class="kicker">05 / GET IN TOUCH</span>
             <h2>Let’s make something meaningful.</h2>
             <p>Available for commercial video directing, AI workflow consulting, independent digital product development, or technical collaboration.</p>
-
-            <div class="contact-actions-row">
-              <button class="btn btn-primary js-start-project" type="button" aria-expanded="false" aria-controls="homeProjectComposer"><i class="fa-regular fa-paper-plane"></i> Start a Project</button>
-              <button class="btn btn-secondary js-copy-email" type="button" id="copyContactEmail"><i class="fa-regular fa-copy"></i> Copy Email</button>
-            </div>
-
-            <div class="contact-composer" id="homeProjectComposer" hidden>
-              <div class="contact-composer-head">
-                <span class="contact-composer-label">Quick Inquiry Brief</span>
-                <button type="button" class="contact-composer-close js-close-composer" aria-label="Close inquiry brief"><i class="fa-solid fa-xmark"></i></button>
-              </div>
-              <div class="contact-scope-list" role="group" aria-label="Project scope">
-                <button type="button" class="scope-chip is-selected" data-scope="Commercial Film">Commercial Film</button>
-                <button type="button" class="scope-chip" data-scope="3D & CGI">3D &amp; CGI</button>
-                <button type="button" class="scope-chip" data-scope="AI Workflow">AI Workflow</button>
-                <button type="button" class="scope-chip" data-scope="Web Utility">Web Utility</button>
-              </div>
-              <div class="contact-field-grid">
-                <input type="text" class="contact-input js-inquiry-sender" placeholder="Your name, email, or handle (optional)" aria-label="Your name, email, or handle">
-                <textarea class="contact-input js-inquiry-note" rows="2" placeholder="Briefly describe timeline, deliverables, or goal..." aria-label="Project brief"></textarea>
-              </div>
-              <div class="contact-composer-actions">
-                <button type="button" class="btn btn-primary btn-sm js-copy-brief"><i class="fa-regular fa-copy"></i> Copy Brief &amp; Email</button>
-                <a href="mailto:wwz.im@outlook.com?subject=Project%20Enquiry" class="btn btn-secondary btn-sm js-launch-mailto"><i class="fa-regular fa-envelope"></i> Open Mail App</a>
-              </div>
-            </div>
-
-            <p id="contactStatus" class="contact-status js-contact-status" role="status" aria-live="polite"></p>
           </div>
 
           <div class="contact-social-pane">
@@ -646,16 +618,16 @@
               </span>
               <span class="social-pill-tail"><i class="fa-solid fa-arrow-up-right-from-square"></i></span>
             </a>
-            <button type="button" class="social-pill social-pill--action js-copy-email-pill" data-email="wwz.im@outlook.com">
+            <a href="mailto:wwz.im@outlook.com?subject=Project%20Enquiry" class="social-pill">
               <span class="social-pill-main">
                 <span class="social-pill-glyph"><i class="fa-regular fa-envelope"></i></span>
                 <span class="social-pill-text">
                   <span class="social-pill-title">wwz.im@outlook.com</span>
-                  <span class="social-pill-sub">Direct · Click to copy address</span>
+                  <span class="social-pill-sub">Direct · Open mail client</span>
                 </span>
               </span>
-              <span class="social-pill-tail"><i class="fa-regular fa-copy"></i> <span>Copy</span></span>
-            </button>
+              <span class="social-pill-tail"><i class="fa-regular fa-paper-plane"></i></span>
+            </a>
           </div>
         </div>
       </div>
