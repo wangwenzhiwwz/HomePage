@@ -35,24 +35,6 @@
 
   <link rel="stylesheet" href="css/site-system.css">
 
-  <style>
-    .about-avatar-frame {
-      width: clamp(140px, 18vw, 200px);
-      aspect-ratio: 1;
-      border-radius: 50%;
-      border: 1px solid var(--line-strong);
-      padding: 6px;
-      background: var(--surface);
-      box-shadow: var(--shadow-md);
-    }
-    .about-avatar-frame img {
-      width: 100%;
-      height: 100%;
-      border-radius: 50%;
-      object-fit: cover;
-    }
-  </style>
-
   <script src="js/site-theme.js" defer></script>
   <script src="data/site-content.js" defer></script>
   <script src="js/site-shell.js" defer></script>
@@ -62,15 +44,15 @@
 
   <main class="main-content" id="page-content">
     <div class="wrap">
-      
-      <!-- About Hero -->
-      <section style="padding: 48px 0 64px;">
+
+      <!-- About Hero Split -->
+      <section class="about-stage-hero">
         <div class="about-hero-grid">
-          <div>
-            <span class="kicker"><i class="fa-solid fa-user"></i> About · Wang Wenzhi</span>
-            <h1>Visual Stories.<br>Useful Systems.</h1>
+          <div data-reveal="left">
+            <span class="about-status-pill"><span class="about-status-dot" aria-hidden="true"></span> Studio · Creative &amp; Systems</span>
+            <h1 class="about-display-title">Visual Stories.<br>Useful Systems.</h1>
             <p class="about-lead">
-              Creative production and technical problem-solving, connected by curiosity, careful execution, and useful outcomes. Moving between visual storytelling and software engineering.
+              Creative direction and technical engineering connected by curiosity, careful craft, and repeatable execution — bridging commercial cinema, generative AI pipelines, and lightweight digital utilities.
             </p>
             <div style="display:flex;flex-wrap:wrap;gap:12px;">
               <a href="mailto:wwz.im@outlook.com?subject=Project%20Enquiry" class="btn btn-primary"><i class="fa-regular fa-paper-plane"></i> Send an Email</a>
@@ -79,126 +61,250 @@
             <p id="contactStatus" style="margin-top:12px;font-size:var(--text-ui);color:var(--ink-secondary)" role="status" aria-live="polite"></p>
           </div>
 
-          <div style="display:flex;justify-content:center;align-items:center;">
-            <div class="about-avatar-frame">
-              <img src="favicon.png" alt="Wang Wenzhi" width="200" height="200">
+          <div data-reveal="right" style="--reveal-delay:0.08s">
+            <div class="about-profile-card">
+              <div class="about-profile-top">
+                <div class="about-avatar-frame">
+                  <img src="favicon.png" alt="Wang Wenzhi monogram" width="76" height="76">
+                </div>
+                <div class="about-profile-id">
+                  <h2>Wang Wenzhi · WWZ.iM</h2>
+                  <p>DIRECTOR / CGI / AI WORKFLOWS / WEB</p>
+                </div>
+              </div>
+              <div class="about-metrics-grid">
+                <div class="about-metric-cell">
+                  <strong>18</strong>
+                  <span>Commercial Films</span>
+                </div>
+                <div class="about-metric-cell">
+                  <strong>81</strong>
+                  <span>Photography &amp; 3D</span>
+                </div>
+                <div class="about-metric-cell">
+                  <strong>6+</strong>
+                  <span>Web Utilities</span>
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </section>
 
-      <!-- 01 / Story & Principles -->
-      <section class="section-block">
-        <div class="section-head">
+    </div>
+
+    <!-- Full-Bleed Infinite Sliding Discipline Ticker -->
+    <div class="about-marquee-band" aria-hidden="true">
+      <div class="about-marquee-track">
+        <span class="about-marquee-item"><span class="about-marquee-dot"></span> Commercial Directing</span>
+        <span class="about-marquee-item"><span class="about-marquee-dot"></span> 3D CGI in Blender</span>
+        <span class="about-marquee-item"><span class="about-marquee-dot"></span> ComfyUI Video Pipelines</span>
+        <span class="about-marquee-item"><span class="about-marquee-dot"></span> Lightweight Web Craft</span>
+        <span class="about-marquee-item"><span class="about-marquee-dot"></span> Linux &amp; IPv6 Systems</span>
+        <span class="about-marquee-item"><span class="about-marquee-dot"></span> Open-Source Utilities</span>
+        <span class="about-marquee-item"><span class="about-marquee-dot"></span> Commercial Directing</span>
+        <span class="about-marquee-item"><span class="about-marquee-dot"></span> 3D CGI in Blender</span>
+        <span class="about-marquee-item"><span class="about-marquee-dot"></span> ComfyUI Video Pipelines</span>
+        <span class="about-marquee-item"><span class="about-marquee-dot"></span> Lightweight Web Craft</span>
+        <span class="about-marquee-item"><span class="about-marquee-dot"></span> Linux &amp; IPv6 Systems</span>
+        <span class="about-marquee-item"><span class="about-marquee-dot"></span> Open-Source Utilities</span>
+      </div>
+    </div>
+
+    <div class="wrap">
+
+      <!-- 01 / Principles -->
+      <section class="section-block" style="border-top:none;">
+        <div class="section-head" data-reveal="up">
           <div class="section-head-copy">
-            <span class="kicker">01 / THE STORY</span>
-            <h2>Different disciplines.<br>One way of thinking.</h2>
-            <p>My work moves between visual production and technical problem-solving. I enjoy understanding how things work, finding a clear direction, then bringing the details together into something useful and well-made.</p>
+            <span class="kicker">01 / PHILOSOPHY</span>
+            <h2>Different disciplines. One way of thinking.</h2>
+            <p>Whether directing a hardware launch film or provisioning an IPv6 edge node, clarity and repeatable detail come first.</p>
           </div>
         </div>
 
         <div class="about-grid-3">
-          <div class="bento-card about-card">
-            <span class="kicker">01 — SEE</span>
-            <h3>Visual Thinking</h3>
-            <p>Start with the feeling, the frame and the story. Make complex ideas clear through thoughtful visual communication and pacing.</p>
+          <div class="about-pillar-card" data-accent="coral" data-reveal="up" style="--reveal-delay:0.04s">
+            <span class="about-pillar-num">01 / SEE</span>
+            <h3>Visual Storytelling</h3>
+            <p>Begin with composition, pacing, and tangible physical light so complex hardware capabilities feel intuitive in seconds.</p>
           </div>
 
-          <div class="bento-card about-card">
-            <span class="kicker">02 — BUILD</span>
-            <h3>Practical Technology</h3>
-            <p>Turn ideas into working products — from websites and AI generation pipelines to servers, networks and connected tools.</p>
+          <div class="about-pillar-card" data-accent="indigo" data-reveal="up" style="--reveal-delay:0.12s">
+            <span class="about-pillar-num">02 / BUILD</span>
+            <h3>Practical Systems</h3>
+            <p>Turn messy recurring workflows into fast web utilities, reproducible ComfyUI pipelines, and self-hosted infrastructure.</p>
           </div>
 
-          <div class="bento-card about-card">
-            <span class="kicker">03 — REFINE</span>
-            <h3>Always Experimenting</h3>
-            <p>Test new workflows, learn from the results and refine the balance between high quality, speed and simplicity.</p>
-          </div>
-        </div>
-      </section>
-
-      <!-- 02 / What I Do -->
-      <section class="section-block">
-        <div class="section-head">
-          <div class="section-head-copy">
-            <span class="kicker">02 / WHAT I DO</span>
-            <h2>From the first idea to the final detail.</h2>
-            <p>A multidisciplinary practice across content, software and infrastructure. Making things work better and feel considered.</p>
-          </div>
-        </div>
-
-        <div class="about-grid-2">
-          <div class="bento-card about-card">
-            <span class="kicker">01 / CREATIVE</span>
-            <h3>Video &amp; Visual Production</h3>
-            <p>Commercial video planning, creative direction, scripting, product filming and editing. From product features to campaign stories, the goal is to communicate the value clearly and make every shot count.</p>
-          </div>
-
-          <div class="bento-card about-card">
-            <span class="kicker">02 / EMERGING TOOLS</span>
-            <h3>AI-Assisted Workflows</h3>
-            <p>Building practical image and video workflows with generative tools, ComfyUI, image-to-video techniques and video enhancement — with particular attention to product consistency and repeatability.</p>
-          </div>
-
-          <div class="bento-card about-card">
-            <span class="kicker">03 / DIGITAL</span>
-            <h3>Web &amp; Product Building</h3>
-            <p>Designing and developing lightweight websites, personal tools and focused digital experiences. I care about responsive layouts, useful interactions, clear information and maintainable code.</p>
-          </div>
-
-          <div class="bento-card about-card">
-            <span class="kicker">04 / INFRASTRUCTURE</span>
-            <h3>Networks &amp; Infrastructure</h3>
-            <p>Linux servers, VPS environments, IPv4/IPv6 networking, proxy connectivity, Docker-based services and self-hosted tools — with an emphasis on reliability, observability and safe changes.</p>
+          <div class="about-pillar-card" data-accent="emerald" data-reveal="up" style="--reveal-delay:0.2s">
+            <span class="about-pillar-num">03 / REFINE</span>
+            <h3>Measured Simplicity</h3>
+            <p>Strip away visual clutter and fragile dependencies until every interaction feels deliberate, fast, and maintainable.</p>
           </div>
         </div>
       </section>
 
-      <!-- 03 / How I Work -->
+      <!-- 02 / Interactive Sliding Capabilities Track -->
       <section class="section-block">
-        <div class="section-head">
+        <div class="section-head" data-reveal="up">
           <div class="section-head-copy">
-            <span class="kicker">03 / HOW I WORK</span>
-            <h2>Clear process. Careful execution.</h2>
-            <p>Good outcomes usually come from making the problem clear before choosing the tools.</p>
+            <span class="kicker">02 / CAPABILITIES</span>
+            <h2>Core disciplines across motion and code.</h2>
+            <p>Select any domain below to slide through deliverables and technical stack details.</p>
           </div>
         </div>
 
-        <div class="about-grid-4">
-          <div class="bento-card about-card">
-            <span class="badge" style="margin-bottom:4px;">STEP 01</span>
+        <div class="about-slider-shell" id="aboutSliderShell" data-reveal="up">
+          <div class="about-tabs-bar" role="tablist" aria-label="Studio capabilities">
+            <span class="about-tab-glider" aria-hidden="true"></span>
+            <button type="button" class="about-tab-btn" data-about-tab="0" role="tab" aria-selected="true">01 Cinema</button>
+            <button type="button" class="about-tab-btn" data-about-tab="1" role="tab" aria-selected="false">02 AI Workflows</button>
+            <button type="button" class="about-tab-btn" data-about-tab="2" role="tab" aria-selected="false">03 Web Products</button>
+            <button type="button" class="about-tab-btn" data-about-tab="3" role="tab" aria-selected="false">04 Infrastructure</button>
+          </div>
+
+          <div class="about-slider-viewport">
+            <div class="about-slider-track">
+              <!-- Slide 0: Cinema -->
+              <article class="about-slide-panel" aria-hidden="false">
+                <div class="about-slide-copy">
+                  <span class="kicker">COMMERCIAL DIRECTION &amp; CGI</span>
+                  <h3>Product Launch Films &amp; 3D Visuals</h3>
+                  <p>Full-cycle planning, storyboarding, lighting, macro shooting, Blender CGI simulation, and editorial post-production tailored for global consumer technology launches.</p>
+                  <div class="about-chip-cloud">
+                    <span class="badge">Storyboarding</span>
+                    <span class="badge">Macro Cinematography</span>
+                    <span class="badge">Blender 3D</span>
+                    <span class="badge">Color Grading</span>
+                  </div>
+                </div>
+                <div class="about-stack-box">
+                  <small>Production Focus</small>
+                  <ul class="about-stack-list">
+                    <li>Published Commercials<span>18 Films</span></li>
+                    <li>Photography &amp; CGI Studies<span>81 Works</span></li>
+                    <li>Finishing Engine<span>DaVinci · Blender</span></li>
+                  </ul>
+                </div>
+              </article>
+
+              <!-- Slide 1: AI Workflows -->
+              <article class="about-slide-panel" aria-hidden="true">
+                <div class="about-slide-copy">
+                  <span class="kicker">GENERATIVE VIDEO LAB</span>
+                  <h3>Controllable AI Video Pipelines</h3>
+                  <p>Building repeatable local ComfyUI workflows for image-to-video motion, physical hardware consistency, keyframes, and SeedVR2 restoration rather than one-off prompts.</p>
+                  <div class="about-chip-cloud">
+                    <span class="badge">ComfyUI</span>
+                    <span class="badge">Image-to-Video</span>
+                    <span class="badge">SeedVR2</span>
+                    <span class="badge">Product Consistency</span>
+                  </div>
+                </div>
+                <div class="about-stack-box">
+                  <small>Workflow Focus</small>
+                  <ul class="about-stack-list">
+                    <li>Pipeline Architecture<span>Local Node Graphs</span></li>
+                    <li>Temporal Enhancement<span>SeedVR2 Upscale</span></li>
+                    <li>Determinism<span>Locked Seed Matrix</span></li>
+                  </ul>
+                </div>
+              </article>
+
+              <!-- Slide 2: Web Products -->
+              <article class="about-slide-panel" aria-hidden="true">
+                <div class="about-slide-copy">
+                  <span class="kicker">WEB CRAFT &amp; OPEN SOURCE</span>
+                  <h3>Focused Independent Digital Tools</h3>
+                  <p>Designing zero-bloat web apps, interactive whiteboards, converters, and network inspection utilities engineered for instant responsiveness across desktop and mobile.</p>
+                  <div class="about-chip-cloud">
+                    <span class="badge">UI Architecture</span>
+                    <span class="badge">Zero-Dependency JS</span>
+                    <span class="badge">OLED Dark Mode</span>
+                    <span class="badge">Open Source</span>
+                  </div>
+                </div>
+                <div class="about-stack-box">
+                  <small>Shipped Ecosystem</small>
+                  <ul class="about-stack-list">
+                    <li>Utility Apps<span>APP · SUB · IP · RMB</span></li>
+                    <li>Whiteboard Canvas<span>WBoard (GitHub)</span></li>
+                    <li>Node Monitor<span>VPS Uptime Status</span></li>
+                  </ul>
+                </div>
+              </article>
+
+              <!-- Slide 3: Infrastructure -->
+              <article class="about-slide-panel" aria-hidden="true">
+                <div class="about-slide-copy">
+                  <span class="kicker">SERVERS &amp; NETWORKS</span>
+                  <h3>Linux Provisioning &amp; Edge Routing</h3>
+                  <p>Hands-on deployment across Debian and Ubuntu instances, dual-stack &amp; NAT64 routing diagnostics, TLS automation, container stacks, and documented rollback paths.</p>
+                  <div class="about-chip-cloud">
+                    <span class="badge">Debian / Ubuntu</span>
+                    <span class="badge">IPv6 · NAT64</span>
+                    <span class="badge">3X-UI · Hysteria 2</span>
+                    <span class="badge">Automated TLS</span>
+                  </div>
+                </div>
+                <div class="about-stack-box">
+                  <small>Field Documentation</small>
+                  <ul class="about-stack-list">
+                    <li>Published Guides<span>5 Deep Notes</span></li>
+                    <li>Verification Style<span>Rollback First</span></li>
+                    <li>Edge Hosting<span>Cloudflare · Pages</span></li>
+                  </ul>
+                </div>
+              </article>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 03 / Process Timeline -->
+      <section class="section-block">
+        <div class="section-head" data-reveal="up">
+          <div class="section-head-copy">
+            <span class="kicker">03 / WORKFLOW</span>
+            <h2>Clear process. Deliberate execution.</h2>
+            <p>Every project moves sequentially from clear problem framing to verifiable polish.</p>
+          </div>
+        </div>
+
+        <div class="about-timeline">
+          <div class="about-step-card" data-reveal="up" style="--reveal-delay:0.04s">
+            <span class="about-step-dot">01</span>
             <h3>Understand</h3>
-            <p>Clarify the goal, audience, constraints and what a successful result should achieve.</p>
+            <p>Frame the core goal, audience context, and technical constraints before picking any tool.</p>
           </div>
 
-          <div class="bento-card about-card">
-            <span class="badge" style="margin-bottom:4px;">STEP 02</span>
-            <h3>Plan</h3>
-            <p>Break the work into a clear structure, choose the right tools and identify dependencies.</p>
+          <div class="about-step-card" data-reveal="up" style="--reveal-delay:0.1s">
+            <span class="about-step-dot">02</span>
+            <h3>Architect</h3>
+            <p>Structure shots, data flows, or deployment topologies cleanly so iterations stay predictable.</p>
           </div>
 
-          <div class="bento-card about-card">
-            <span class="badge" style="margin-bottom:4px;">STEP 03</span>
-            <h3>Build &amp; Test</h3>
-            <p>Create in focused iterations, check real-world behavior and keep important details consistent.</p>
+          <div class="about-step-card" data-reveal="up" style="--reveal-delay:0.16s">
+            <span class="about-step-dot">03</span>
+            <h3>Build &amp; Verify</h3>
+            <p>Produce in tight cycles and verify real browser, hardware, or network edge cases directly.</p>
           </div>
 
-          <div class="bento-card about-card">
-            <span class="badge" style="margin-bottom:4px;">STEP 04</span>
+          <div class="about-step-card" data-reveal="up" style="--reveal-delay:0.22s">
+            <span class="about-step-dot">04</span>
             <h3>Refine</h3>
-            <p>Review the result, remove unnecessary complexity and document what matters for future use.</p>
+            <p>Trim visual noise, optimize responsiveness, and document everything needed for handoff.</p>
           </div>
         </div>
       </section>
 
       <!-- 04 / Connect Section -->
-      <section class="section-block" style="border-bottom:none;">
+      <section class="section-block" style="border-bottom:none;" data-reveal="up">
         <div class="contact-box">
           <div class="contact-copy">
             <span class="kicker">04 / COLLABORATION</span>
             <h2>Have a project in mind?</h2>
-            <p>For creative projects, video production, digital products, technical collaboration or simply a good conversation.</p>
+            <p>Available for commercial directing, AI workflow consulting, digital product builds, or technical collaboration.</p>
             <div class="contact-actions-row">
               <a href="mailto:wwz.im@outlook.com?subject=Project%20Enquiry" class="btn btn-primary"><i class="fa-regular fa-paper-plane"></i> Start a Project</a>
               <a href="https://github.com/wangwenzhiwwz" target="_blank" rel="noopener noreferrer" class="btn btn-secondary"><i class="fa-brands fa-github"></i> GitHub Profile</a>
@@ -258,11 +364,12 @@
         <div class="apple-footer-bottom">
           <span>© <span id="year">2026</span> WWZ.iM · Wang Wenzhi. All rights reserved.</span>
           <div class="apple-footer-socials">
-            <a href="#top">Back to top <i class="fa-solid fa-arrow-up" style="margin-left:4px"></i></a>
+            <a href="#page-content">Back to top <i class="fa-solid fa-arrow-up" style="margin-left:4px"></i></a>
           </div>
         </div>
       </div>
     </footer>
   </main>
+
 </body>
 </html>

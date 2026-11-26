@@ -671,6 +671,86 @@
     });
   };
 
+  // Directional Scroll Reveal (Slide Up / Left / Right Animations)
+  const initScrollReveals = () => {
+    const items = document.querySelectorAll('#page-content [data-reveal]');
+    if (!items.length) return;
+
+    const prefersReduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (prefersReduced || !('IntersectionObserver' in window)) {
+      items.forEach(el => el.classList.add('is-revealed'));
+      return;
+    }
+
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        entry.target.classList.add('is-revealed');
+        io.unobserve(entry.target);
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -36px 0px' });
+
+    items.forEach(el => {
+      const rect = el.getBoundingClientRect();
+      if (rect.top < window.innerHeight * 0.92) {
+        el.classList.add('is-revealed');
+      } else {
+        io.observe(el);
+      }
+    });
+  };
+
+  // About Page Sliding Discipline Tabs + Horizontal Carousel Track
+  const initAboutSlider = () => {
+    const shell = document.getElementById('aboutSliderShell');
+    if (!shell || shell.dataset.bound) return;
+    shell.dataset.bound = 'true';
+
+    const tabs = [...shell.querySelectorAll('.about-tab-btn')];
+    const glider = shell.querySelector('.about-tab-glider');
+    const track = shell.querySelector('.about-slider-track');
+    const panels = [...shell.querySelectorAll('.about-slide-panel')];
+    if (!tabs.length || !track || !panels.length) return;
+
+    const updateGlider = (btn) => {
+      if (!glider || !btn) return;
+      glider.style.setProperty('--glider-w', `${btn.offsetWidth}px`);
+      glider.style.setProperty('--glider-x', `${btn.offsetLeft - 5}px`);
+    };
+
+    const setSlide = (idx) => {
+      const safe = Math.max(0, Math.min(panels.length - 1, idx));
+      track.style.transform = `translateX(-${safe * 100}%)`;
+      tabs.forEach((btn, i) => btn.setAttribute('aria-selected', String(i === safe)));
+      panels.forEach((panel, i) => panel.setAttribute('aria-hidden', String(i !== safe)));
+      updateGlider(tabs[safe]);
+    };
+
+    tabs.forEach((btn, idx) => {
+      btn.addEventListener('click', () => setSlide(idx));
+      btn.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowRight') {
+          e.preventDefault();
+          const next = (idx + 1) % tabs.length;
+          setSlide(next);
+          tabs[next].focus();
+        } else if (e.key === 'ArrowLeft') {
+          e.preventDefault();
+          const prev = (idx - 1 + tabs.length) % tabs.length;
+          setSlide(prev);
+          tabs[prev].focus();
+        }
+      });
+    });
+
+    window.addEventListener('resize', () => {
+      const active = tabs.find(t => t.getAttribute('aria-selected') === 'true') || tabs[0];
+      updateGlider(active);
+    });
+
+    requestAnimationFrame(() => setSlide(0));
+  };
+
   const initPageComponents = () => {
     hydrateIcons(document);
 
@@ -849,9 +929,11 @@
       el.textContent = String(new Date().getFullYear());
     });
 
-    // 4. Shared Filters, Specular & Hero Kinetic
+    // 4. Shared Filters, Scroll Reveals, About Slider, Specular & Hero Kinetic
     initVideoFilters();
     initBlogFilters();
+    initScrollReveals();
+    initAboutSlider();
     initInteractiveSpecular();
     initHeroKinetic();
 
