@@ -585,31 +585,77 @@
             <span class="kicker">05 / GET IN TOUCH</span>
             <h2>Let’s make something meaningful.</h2>
             <p>Available for commercial video directing, AI workflow consulting, independent digital product development, or technical collaboration.</p>
-            
+
             <div class="contact-actions-row">
-              <a href="mailto:wwz.im@outlook.com?subject=Project%20Enquiry" class="btn btn-primary"><i class="fa-regular fa-paper-plane"></i> Start a Project</a>
+              <button class="btn btn-primary js-start-project" type="button" aria-expanded="false" aria-controls="homeProjectComposer"><i class="fa-regular fa-paper-plane"></i> Start a Project</button>
               <button class="btn btn-secondary js-copy-email" type="button" id="copyContactEmail"><i class="fa-regular fa-copy"></i> Copy Email</button>
             </div>
-            <p id="contactStatus" style="margin-top:12px;font-size:0.8rem;color:var(--ink-secondary)" role="status" aria-live="polite"></p>
+
+            <div class="contact-composer" id="homeProjectComposer" hidden>
+              <div class="contact-composer-head">
+                <span class="contact-composer-label">Quick Inquiry Brief</span>
+                <button type="button" class="contact-composer-close js-close-composer" aria-label="Close inquiry brief"><i class="fa-solid fa-xmark"></i></button>
+              </div>
+              <div class="contact-scope-list" role="group" aria-label="Project scope">
+                <button type="button" class="scope-chip is-selected" data-scope="Commercial Film">Commercial Film</button>
+                <button type="button" class="scope-chip" data-scope="3D & CGI">3D &amp; CGI</button>
+                <button type="button" class="scope-chip" data-scope="AI Workflow">AI Workflow</button>
+                <button type="button" class="scope-chip" data-scope="Web Utility">Web Utility</button>
+              </div>
+              <div class="contact-field-grid">
+                <input type="text" class="contact-input js-inquiry-sender" placeholder="Your name, email, or handle (optional)" aria-label="Your name, email, or handle">
+                <textarea class="contact-input js-inquiry-note" rows="2" placeholder="Briefly describe timeline, deliverables, or goal..." aria-label="Project brief"></textarea>
+              </div>
+              <div class="contact-composer-actions">
+                <button type="button" class="btn btn-primary btn-sm js-copy-brief"><i class="fa-regular fa-copy"></i> Copy Brief &amp; Email</button>
+                <a href="mailto:wwz.im@outlook.com?subject=Project%20Enquiry" class="btn btn-secondary btn-sm js-launch-mailto"><i class="fa-regular fa-envelope"></i> Open Mail App</a>
+              </div>
+            </div>
+
+            <p id="contactStatus" class="contact-status js-contact-status" role="status" aria-live="polite"></p>
           </div>
 
           <div class="contact-social-pane">
             <a href="https://github.com/wangwenzhiwwz" target="_blank" rel="noopener noreferrer" class="social-pill">
-              <span><i class="fa-brands fa-github" style="margin-right:8px"></i> GitHub</span>
-              <i class="fa-solid fa-arrow-up-right-from-square" style="font-size:0.75rem"></i>
+              <span class="social-pill-main">
+                <span class="social-pill-glyph"><i class="fa-brands fa-github"></i></span>
+                <span class="social-pill-text">
+                  <span class="social-pill-title">GitHub</span>
+                  <span class="social-pill-sub">@wangwenzhiwwz · Open Source &amp; Web</span>
+                </span>
+              </span>
+              <span class="social-pill-tail"><i class="fa-solid fa-arrow-up-right-from-square"></i></span>
             </a>
             <a href="https://www.youtube.com/@wangwenzhi" target="_blank" rel="noopener noreferrer" class="social-pill">
-              <span><i class="fa-brands fa-youtube" style="margin-right:8px"></i> YouTube</span>
-              <i class="fa-solid fa-arrow-up-right-from-square" style="font-size:0.75rem"></i>
+              <span class="social-pill-main">
+                <span class="social-pill-glyph"><i class="fa-brands fa-youtube"></i></span>
+                <span class="social-pill-text">
+                  <span class="social-pill-title">YouTube</span>
+                  <span class="social-pill-sub">@wangwenzhi · Commercial Showreel</span>
+                </span>
+              </span>
+              <span class="social-pill-tail"><i class="fa-solid fa-arrow-up-right-from-square"></i></span>
             </a>
             <a href="https://x.com/wwz_im" target="_blank" rel="noopener noreferrer" class="social-pill">
-              <span><i class="fa-brands fa-x-twitter" style="margin-right:8px"></i> X (Twitter)</span>
-              <i class="fa-solid fa-arrow-up-right-from-square" style="font-size:0.75rem"></i>
+              <span class="social-pill-main">
+                <span class="social-pill-glyph"><i class="fa-brands fa-x-twitter"></i></span>
+                <span class="social-pill-text">
+                  <span class="social-pill-title">X (Twitter)</span>
+                  <span class="social-pill-sub">@wwz_im · Visuals &amp; AI Notes</span>
+                </span>
+              </span>
+              <span class="social-pill-tail"><i class="fa-solid fa-arrow-up-right-from-square"></i></span>
             </a>
-            <a href="mailto:wwz.im@outlook.com" class="social-pill">
-              <span><i class="fa-regular fa-envelope" style="margin-right:8px"></i> wwz.im@outlook.com</span>
-              <i class="fa-solid fa-arrow-up-right-from-square" style="font-size:0.75rem"></i>
-            </a>
+            <button type="button" class="social-pill social-pill--action js-copy-email-pill" data-email="wwz.im@outlook.com">
+              <span class="social-pill-main">
+                <span class="social-pill-glyph"><i class="fa-regular fa-envelope"></i></span>
+                <span class="social-pill-text">
+                  <span class="social-pill-title">wwz.im@outlook.com</span>
+                  <span class="social-pill-sub">Direct · Click to copy address</span>
+                </span>
+              </span>
+              <span class="social-pill-tail"><i class="fa-regular fa-copy"></i> <span>Copy</span></span>
+            </button>
           </div>
         </div>
       </div>

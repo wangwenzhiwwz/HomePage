@@ -751,45 +751,188 @@
     requestAnimationFrame(() => setSlide(0));
   };
 
+  const copyToClipboard = async (text) => {
+    if (navigator.clipboard && window.isSecureContext) {
+      try {
+        await navigator.clipboard.writeText(text);
+        return true;
+      } catch (_) {}
+    }
+    try {
+      const temp = document.createElement('textarea');
+      temp.value = text;
+      temp.setAttribute('readonly', '');
+      temp.style.position = 'fixed';
+      temp.style.opacity = '0';
+      document.body.appendChild(temp);
+      temp.select();
+      const ok = document.execCommand('copy');
+      temp.remove();
+      return !!ok;
+    } catch (_) {
+      return false;
+    }
+  };
+
   const initPageComponents = () => {
     hydrateIcons(document);
 
-    // 1. Copy Email Button
-    const copyBtn = document.getElementById('copyContactEmail') || document.querySelector('.js-copy-email');
-    const copyStatus = document.getElementById('contactStatus');
-    if (copyBtn && !copyBtn.dataset.bound) {
+    // 1. Contact Copy Buttons, Quick Brief Composer & Direct Email Pills
+    const getStatusEl = (el) => {
+      const container = el.closest('.contact-copy, section, .contact-box') || document;
+      return container.querySelector('.js-contact-status') || document.getElementById('contactStatus');
+    };
+
+    const flashStatus = (statusEl, msg, duration = 3400) => {
+      if (!statusEl) return;
+      statusEl.textContent = msg;
+      clearTimeout(statusEl._timer);
+      if (msg) {
+        statusEl._timer = setTimeout(() => { statusEl.textContent = ''; }, duration);
+      }
+    };
+
+    document.querySelectorAll('.js-copy-email').forEach(copyBtn => {
+      if (copyBtn.dataset.bound) return;
       copyBtn.dataset.bound = 'true';
       copyBtn.addEventListener('click', async () => {
-        const email = 'wwz.im@outlook.com';
-        let success = false;
-        try {
-          if (navigator.clipboard && window.isSecureContext) {
-            await navigator.clipboard.writeText(email);
-            success = true;
-          } else {
-            const temp = document.createElement('textarea');
-            temp.value = email;
-            temp.style.position = 'fixed';
-            temp.style.opacity = '0';
-            document.body.appendChild(temp);
-            temp.select();
-            success = document.execCommand('copy');
-            temp.remove();
-          }
-        } catch (_) { success = false; }
-
-        if (copyStatus) {
-          copyStatus.textContent = success ? 'Email copied to clipboard!' : 'Please select wwz.im@outlook.com';
-        }
+        const email = copyBtn.dataset.email || 'wwz.im@outlook.com';
+        const success = await copyToClipboard(email);
+        const statusEl = getStatusEl(copyBtn);
+        flashStatus(statusEl, success ? `Copied ${email} to clipboard!` : `Email address: ${email}`);
         copyBtn.innerHTML = success
           ? `${renderIconSVG('fa-check')} Copied`
           : `${renderIconSVG('fa-copy')} Copy Email`;
-        setTimeout(() => {
+        clearTimeout(copyBtn._resetTimer);
+        copyBtn._resetTimer = setTimeout(() => {
           copyBtn.innerHTML = `${renderIconSVG('fa-copy')} Copy Email`;
-          if (copyStatus) copyStatus.textContent = '';
-        }, 3000);
+        }, 2600);
       });
-    }
+    });
+
+    document.querySelectorAll('.js-copy-email-pill').forEach(pill => {
+      if (pill.dataset.bound) return;
+      pill.dataset.bound = 'true';
+      pill.addEventListener('click', async () => {
+        const email = pill.dataset.email || 'wwz.im@outlook.com';
+        const success = await copyToClipboard(email);
+        const subEl = pill.querySelector('.social-pill-sub');
+        const tailEl = pill.querySelector('.social-pill-tail');
+        const statusEl = getStatusEl(pill);
+        flashStatus(statusEl, success ? `Copied ${email} to clipboard!` : `Email address: ${email}`);
+        if (success) {
+          pill.classList.add('is-copied');
+          if (subEl) subEl.textContent = 'Copied to clipboard';
+          if (tailEl) tailEl.innerHTML = `${renderIconSVG('fa-check')} <span>Copied</span>`;
+          clearTimeout(pill._resetTimer);
+          pill._resetTimer = setTimeout(() => {
+            pill.classList.remove('is-copied');
+            if (subEl) subEl.textContent = 'Direct · Click to copy address';
+            if (tailEl) tailEl.innerHTML = `${renderIconSVG('fa-copy')} <span>Copy</span>`;
+          }, 2600);
+        }
+      });
+    });
+
+    document.querySelectorAll('.contact-copy').forEach(copyArea => {
+      const toggleBtn = copyArea.querySelector('.js-start-project');
+      const composer = copyArea.querySelector('.contact-composer');
+      if (!toggleBtn || !composer || toggleBtn.dataset.bound) return;
+      toggleBtn.dataset.bound = 'true';
+
+      const closeBtn = composer.querySelector('.js-close-composer');
+      const chips = [...composer.querySelectorAll('.scope-chip')];
+      const senderInput = composer.querySelector('.js-inquiry-sender');
+      const noteInput = composer.querySelector('.js-inquiry-note');
+      const copyBriefBtn = composer.querySelector('.js-copy-brief');
+      const mailtoLink = composer.querySelector('.js-launch-mailto');
+      const statusEl = copyArea.querySelector('.js-contact-status');
+
+      const buildInquiryPayload = () => {
+        const scopes = chips.filter(c => c.classList.contains('is-selected')).map(c => c.dataset.scope || c.textContent.trim());
+        const scopeText = scopes.length ? scopes.join(', ') : 'General Project';
+        const sender = senderInput ? senderInput.value.trim() : '';
+        const note = noteInput ? noteInput.value.trim() : '';
+        const subject = `Project Enquiry — ${scopeText}`;
+        const lines = [`Scope: ${scopeText}`];
+        if (sender) lines.push(`From: ${sender}`);
+        if (note) lines.push(`Details: ${note}`);
+        return { scopeText, subject, body: lines.join('\n') };
+      };
+
+      const syncMailto = () => {
+        if (!mailtoLink) return;
+        const { subject, body } = buildInquiryPayload();
+        mailtoLink.href = `mailto:wwz.im@outlook.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+      };
+
+      const setOpen = (open, focusInput = false) => {
+        composer.hidden = !open;
+        toggleBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+        if (open) {
+          syncMailto();
+          if (focusInput && noteInput) {
+            requestAnimationFrame(() => noteInput.focus({ preventScroll: true }));
+          }
+        }
+      };
+
+      toggleBtn.addEventListener('click', () => setOpen(composer.hidden, true));
+      if (closeBtn) closeBtn.addEventListener('click', () => {
+        setOpen(false);
+        toggleBtn.focus();
+      });
+
+      chips.forEach(chip => {
+        chip.setAttribute('aria-pressed', chip.classList.contains('is-selected') ? 'true' : 'false');
+        chip.addEventListener('click', () => {
+          const isSelected = chip.classList.toggle('is-selected');
+          chip.setAttribute('aria-pressed', isSelected ? 'true' : 'false');
+          syncMailto();
+        });
+      });
+
+      [senderInput, noteInput].filter(Boolean).forEach(el => el.addEventListener('input', syncMailto));
+
+      if (copyBriefBtn) {
+        copyBriefBtn.addEventListener('click', async () => {
+          const { body } = buildInquiryPayload();
+          const fullText = `To: wwz.im@outlook.com\n${body}`;
+          const success = await copyToClipboard(fullText);
+          flashStatus(statusEl, success ? 'Brief & wwz.im@outlook.com copied — ready to send!' : 'Please copy details manually.');
+          if (success) {
+            copyBriefBtn.innerHTML = `${renderIconSVG('fa-check')} Copied Brief`;
+            clearTimeout(copyBriefBtn._resetTimer);
+            copyBriefBtn._resetTimer = setTimeout(() => {
+              copyBriefBtn.innerHTML = `${renderIconSVG('fa-copy')} Copy Brief & Email`;
+            }, 2600);
+          }
+        });
+      }
+
+      if (mailtoLink) {
+        mailtoLink.addEventListener('click', () => {
+          syncMailto();
+          flashStatus(statusEl, 'Opening your mail client — or use Copy Brief & Email above.');
+        });
+      }
+    });
+
+    document.querySelectorAll('.js-jump-inquiry').forEach(btn => {
+      if (btn.dataset.bound) return;
+      btn.dataset.bound = 'true';
+      btn.addEventListener('click', (e) => {
+        const target = document.getElementById('about-contact');
+        if (!target) return;
+        e.preventDefault();
+        target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        const toggle = target.querySelector('.js-start-project');
+        const composer = target.querySelector('.contact-composer');
+        if (toggle && composer && composer.hidden) {
+          setTimeout(() => toggle.click(), 320);
+        }
+      });
+    });
 
     // 2. Video Cinema Modal
     const videoModal = document.getElementById('videoModal');
