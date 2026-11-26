@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh-CN" data-theme="light">
+<html lang="en" data-theme="light">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
@@ -52,16 +52,16 @@
       padding-bottom: 36px;
     }
     .blog-header h1 {
-      font-size: clamp(2.2rem, 5vw, 3.6rem);
+      font-size: var(--text-display);
       font-weight: 750;
       letter-spacing: -0.035em;
-      line-height: 1.1;
+      line-height: 1.08;
       margin: 12px 0 14px;
       color: var(--ink);
     }
     .blog-lead {
       max-width: 640px;
-      font-size: 1.05rem;
+      font-size: var(--text-lead);
       line-height: 1.65;
       color: var(--ink-secondary);
       margin: 0;
@@ -186,14 +186,14 @@
       align-items: center;
       gap: 10px;
       font-family: var(--font-mono);
-      font-size: 0.72rem;
+      font-size: var(--text-meta);
       color: var(--ink-tertiary);
       margin-bottom: 10px;
       text-transform: uppercase;
       letter-spacing: 0.04em;
     }
     .editorial-card-body h3 {
-      font-size: 1.15rem;
+      font-size: var(--text-card-title);
       font-weight: 650;
       letter-spacing: -0.02em;
       line-height: 1.35;
@@ -201,8 +201,8 @@
       color: var(--ink);
     }
     .editorial-card-body p {
-      font-size: 0.9rem;
-      line-height: 1.65;
+      font-size: var(--text-card-desc);
+      line-height: 1.6;
       color: var(--ink-secondary);
       margin: 0 0 20px;
       flex-grow: 1;
@@ -211,7 +211,7 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      font-size: 0.84rem;
+      font-size: var(--text-ui);
       font-weight: 600;
       color: var(--ink);
       padding-top: 14px;
@@ -336,7 +336,7 @@
 
       <!-- Toolbar: Categories & Search -->
       <div class="blog-toolbar">
-        <div class="blog-filters" id="blogFilters" role="group" aria-label="文章分类筛选">
+        <div class="blog-filters" id="blogFilters" role="group" aria-label="Filter articles by category">
           <button class="filter-chip active" type="button" data-cat="all" aria-pressed="true">All (5)</button>
           <button class="filter-chip" type="button" data-cat="Infrastructure" aria-pressed="false">Infrastructure (1)</button>
           <button class="filter-chip" type="button" data-cat="Network" aria-pressed="false">Network (3)</button>
@@ -344,7 +344,7 @@
         </div>
         <div class="blog-search-box">
           <i class="fa-solid fa-magnifying-glass"></i>
-          <input type="search" class="blog-search-input" id="blogSearch" placeholder="Search notes..." aria-label="搜索技术文章">
+          <input type="search" class="blog-search-input" id="blogSearch" placeholder="Search notes..." aria-label="Search engineering notes">
         </div>
       </div>
 
@@ -352,16 +352,16 @@
       <div class="editorial-grid" id="blogGrid">
 
         <!-- 1. Linux Server Setup -->
-        <a href="articles/linux-server-setup/" class="editorial-card" data-category="Infrastructure">
+        <a href="articles/linux-server-setup/" class="editorial-card" data-category="Infrastructure" data-keywords="服务器初始化与部署指南 debian ubuntu xray linux">
           <div class="editorial-card-media">
-            <img src="articles/linux-server-setup/cover.png" alt="服务器初始化与部署指南" loading="lazy">
+            <img src="articles/linux-server-setup/cover.png" alt="Linux Server Setup &amp; Deployment Guide" loading="lazy">
           </div>
           <div class="editorial-card-body">
             <div class="editorial-card-meta">
-              <span>[ INFRASTRUCTURE ]</span> · <span>8 MIN READ</span>
+              <span>[ INFRASTRUCTURE · ZH ]</span> · <span>8 MIN READ</span>
             </div>
-            <h3>服务器初始化与部署指南：从系统构建到运维清单</h3>
-            <p>全新 Debian / Ubuntu 服务器快速配置、常用运维工具安装、Xray 面板与日常生产基线构建。</p>
+            <h3>Linux Server Setup &amp; Deployment Guide</h3>
+            <p>Quick provisioning for Debian and Ubuntu servers, essential system tools, Xray panel setup, and daily ops baselines.</p>
             <div class="editorial-card-footer">
               <span>Read Guide</span>
               <i class="fa-solid fa-arrow-right"></i>
@@ -370,16 +370,16 @@
         </a>
 
         <!-- 2. IPv6 NAT64 -->
-        <a href="articles/ipv6-nat64-guide/" class="editorial-card" data-category="Network">
+        <a href="articles/ipv6-nat64-guide/" class="editorial-card" data-category="Network" data-keywords="纯 ipv6 vps 访问 ipv4 dns64 nat64 双栈">
           <div class="editorial-card-media">
-            <img src="articles/ipv6-nat64-guide/cover.png" alt="纯 IPv6 VPS 如何访问 IPv4" loading="lazy">
+            <img src="articles/ipv6-nat64-guide/cover.png" alt="Accessing IPv4 from an IPv6-Only VPS" loading="lazy">
           </div>
           <div class="editorial-card-body">
             <div class="editorial-card-meta">
-              <span>[ NETWORK ]</span> · <span>8 MIN READ</span>
+              <span>[ NETWORK · ZH ]</span> · <span>8 MIN READ</span>
             </div>
-            <h3>纯 IPv6 VPS 如何访问 IPv4：NAT64 原理与回滚</h3>
-            <p>从地址与路由诊断开始，理解 DNS64/NAT64 分工，区分纯 IPv6 与双栈场景，建立安全验证和回滚流程。</p>
+            <h3>Accessing IPv4 from an IPv6-Only VPS: NAT64 &amp; Rollback</h3>
+            <p>Diagnose addressing and routing, separate DNS64 from NAT64 responsibilities, and set up safe verification and rollback.</p>
             <div class="editorial-card-footer">
               <span>Read Guide</span>
               <i class="fa-solid fa-arrow-right"></i>
@@ -388,16 +388,16 @@
         </a>
 
         <!-- 3. 3X-UI -->
-        <a href="articles/3x-ui/" class="editorial-card" data-category="Server">
+        <a href="articles/3x-ui/" class="editorial-card" data-category="Server" data-keywords="3x-ui 安装 tls 证书 多协议 流量统计">
           <div class="editorial-card-media">
-            <img src="articles/3x-ui/cover.png" alt="3X-UI 安装与 TLS 升级指南" loading="lazy">
+            <img src="articles/3x-ui/cover.png" alt="3X-UI Setup &amp; TLS Upgrade Guide" loading="lazy">
           </div>
           <div class="editorial-card-body">
             <div class="editorial-card-meta">
-              <span>[ SERVER ]</span> · <span>6 MIN READ</span>
+              <span>[ SERVER · ZH ]</span> · <span>6 MIN READ</span>
             </div>
-            <h3>3X-UI 安装与 TLS 升级指南</h3>
-            <p>3X-UI 面板一键安装、TLS 证书自动申请与安全加固。可视化管理多协议节点与实时流量统计。</p>
+            <h3>3X-UI Setup &amp; Automated TLS Upgrade Guide</h3>
+            <p>One-click 3X-UI panel installation, automated TLS certificate issuance, security hardening, and live traffic metrics.</p>
             <div class="editorial-card-footer">
               <span>Read Guide</span>
               <i class="fa-solid fa-arrow-right"></i>
@@ -406,16 +406,16 @@
         </a>
 
         <!-- 4. Hysteria 2 -->
-        <a href="articles/hysteria-2/" class="editorial-card" data-category="Network">
+        <a href="articles/hysteria-2/" class="editorial-card" data-category="Network" data-keywords="hysteria 2 部署 网络优化 udp bbr 拥塞控制">
           <div class="editorial-card-media">
-            <img src="articles/hysteria-2/cover.png" alt="Hysteria 2 部署与网络优化" loading="lazy">
+            <img src="articles/hysteria-2/cover.png" alt="Hysteria 2 Deployment &amp; Network Tuning" loading="lazy">
           </div>
           <div class="editorial-card-body">
             <div class="editorial-card-meta">
-              <span>[ NETWORK ]</span> · <span>7 MIN READ</span>
+              <span>[ NETWORK · ZH ]</span> · <span>7 MIN READ</span>
             </div>
-            <h3>Hysteria 2 部署与网络优化实践</h3>
-            <p>从服务端配置到客户端连接的完整工程实践，包含 UDP 吞吐优化与 BBR 拥塞控制调优。</p>
+            <h3>Hysteria 2 Deployment &amp; Network Optimization</h3>
+            <p>End-to-end engineering walkthrough covering server configuration, client setup, UDP throughput tuning, and BBR.</p>
             <div class="editorial-card-footer">
               <span>Read Guide</span>
               <i class="fa-solid fa-arrow-right"></i>
@@ -424,16 +424,16 @@
         </a>
 
         <!-- 5. Xiaomi BE6500 SSH -->
-        <a href="articles/be6500-ssh/" class="editorial-card" data-category="Network">
+        <a href="articles/be6500-ssh/" class="editorial-card" data-category="Network" data-keywords="小米路由器 be6500 解锁 ssh shellcrash mesh">
           <div class="editorial-card-media">
-            <img src="images/blog/shellcrash.jpg" alt="小米路由器 BE6500 解锁 SSH" loading="lazy">
+            <img src="images/blog/shellcrash.jpg" alt="Xiaomi Router BE6500 SSH &amp; ShellCrash Setup" loading="lazy">
           </div>
           <div class="editorial-card-body">
             <div class="editorial-card-meta">
-              <span>[ NETWORK ]</span> · <span>1 MIN READ</span>
+              <span>[ NETWORK · ZH ]</span> · <span>1 MIN READ</span>
             </div>
-            <h3>小米路由器 BE6500 解锁 SSH 安装 ShellCrash</h3>
-            <p>免刷固件保留官方 Mesh 与硬件加速功能，解锁 SSH 终端并安装 ShellCrash 网关代理。</p>
+            <h3>Xiaomi BE6500 Router: Unlock SSH &amp; Install ShellCrash</h3>
+            <p>Unlock SSH access and deploy ShellCrash gateway routing while preserving stock firmware, Mesh, and hardware acceleration.</p>
             <div class="editorial-card-footer">
               <span>Read Guide</span>
               <i class="fa-solid fa-arrow-right"></i>
@@ -442,7 +442,7 @@
         </a>
 
         <!-- Empty Filter State -->
-        <p class="blog-empty" id="blogEmpty" style="display:none;">没有找到匹配的技术笔记，试试其他分类或搜索关键词。</p>
+        <p class="blog-empty" id="blogEmpty" style="display:none;">No matching notes found. Try another category or keyword.</p>
 
       </div>
 
@@ -533,7 +533,7 @@
         let visibleCount = 0;
         cards.forEach(card => {
           const catMatch = currentCat === 'all' || card.dataset.category === currentCat;
-          const text = (card.innerText || '').toLowerCase();
+          const text = ((card.innerText || '') + ' ' + (card.dataset.keywords || '')).toLowerCase();
           const queryMatch = !currentQuery || text.includes(currentQuery);
           const isVisible = catMatch && queryMatch;
           card.style.display = isVisible ? 'flex' : 'none';

@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="zh-CN" data-theme="light">
+<html lang="en" data-theme="light">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5">
@@ -60,18 +60,18 @@
       
       <!-- About Hero -->
       <section style="padding: 48px 0 64px;">
-        <div style="display:grid;grid-template-columns:1.2fr 0.8fr;gap:48px;align-items:center;">
+        <div class="about-hero-grid">
           <div>
             <span class="kicker"><i class="fa-solid fa-user"></i> About · Wang Wenzhi</span>
             <h1>Visual Stories.<br>Useful Systems.</h1>
-            <p style="font-size:1.15rem;line-height:1.75;color:var(--ink-secondary);margin:20px 0 32px;max-width:540px;">
+            <p class="about-lead">
               Creative production and technical problem-solving, connected by curiosity, careful execution, and useful outcomes. Moving between visual storytelling and software engineering.
             </p>
             <div style="display:flex;flex-wrap:wrap;gap:12px;">
               <a href="mailto:wwz.im@outlook.com?subject=Project%20Enquiry" class="btn btn-primary"><i class="fa-regular fa-paper-plane"></i> Send an Email</a>
               <button class="btn btn-secondary js-copy-email" type="button" id="copyContactEmail"><i class="fa-regular fa-copy"></i> Copy Email</button>
             </div>
-            <p id="contactStatus" style="margin-top:12px;font-size:0.8rem;color:var(--ink-secondary)" role="status" aria-live="polite"></p>
+            <p id="contactStatus" style="margin-top:12px;font-size:var(--text-ui);color:var(--ink-secondary)" role="status" aria-live="polite"></p>
           </div>
 
           <div style="display:flex;justify-content:center;align-items:center;">
@@ -92,23 +92,23 @@
           </div>
         </div>
 
-        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px;">
-          <div class="bento-card" style="padding:28px;">
+        <div class="about-grid-3">
+          <div class="bento-card about-card">
             <span class="kicker">01 — SEE</span>
-            <h3 style="margin:12px 0 8px;">Visual Thinking</h3>
-            <p style="font-size:0.85rem;line-height:1.6;margin:0;">Start with the feeling, the frame and the story. Make complex ideas clear through thoughtful visual communication and pacing.</p>
+            <h3>Visual Thinking</h3>
+            <p>Start with the feeling, the frame and the story. Make complex ideas clear through thoughtful visual communication and pacing.</p>
           </div>
 
-          <div class="bento-card" style="padding:28px;">
+          <div class="bento-card about-card">
             <span class="kicker">02 — BUILD</span>
-            <h3 style="margin:12px 0 8px;">Practical Technology</h3>
-            <p style="font-size:0.85rem;line-height:1.6;margin:0;">Turn ideas into working products — from websites and AI generation pipelines to servers, networks and connected tools.</p>
+            <h3>Practical Technology</h3>
+            <p>Turn ideas into working products — from websites and AI generation pipelines to servers, networks and connected tools.</p>
           </div>
 
-          <div class="bento-card" style="padding:28px;">
+          <div class="bento-card about-card">
             <span class="kicker">03 — REFINE</span>
-            <h3 style="margin:12px 0 8px;">Always Experimenting</h3>
-            <p style="font-size:0.85rem;line-height:1.6;margin:0;">Test new workflows, learn from the results and refine the balance between high quality, speed and simplicity.</p>
+            <h3>Always Experimenting</h3>
+            <p>Test new workflows, learn from the results and refine the balance between high quality, speed and simplicity.</p>
           </div>
         </div>
       </section>
@@ -123,29 +123,29 @@
           </div>
         </div>
 
-        <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:24px;">
-          <div class="bento-card" style="padding:28px;">
+        <div class="about-grid-2">
+          <div class="bento-card about-card">
             <span class="kicker">01 / CREATIVE</span>
-            <h3 style="margin:12px 0 8px;">Video &amp; Visual Production</h3>
-            <p style="font-size:0.88rem;line-height:1.65;margin:0;">Commercial video planning, creative direction, scripting, product filming and editing. From product features to campaign stories, the goal is to communicate the value clearly and make every shot count.</p>
+            <h3>Video &amp; Visual Production</h3>
+            <p>Commercial video planning, creative direction, scripting, product filming and editing. From product features to campaign stories, the goal is to communicate the value clearly and make every shot count.</p>
           </div>
 
-          <div class="bento-card" style="padding:28px;">
+          <div class="bento-card about-card">
             <span class="kicker">02 / EMERGING TOOLS</span>
-            <h3 style="margin:12px 0 8px;">AI-Assisted Workflows</h3>
-            <p style="font-size:0.88rem;line-height:1.65;margin:0;">Building practical image and video workflows with generative tools, ComfyUI, image-to-video techniques and video enhancement — with particular attention to product consistency and repeatability.</p>
+            <h3>AI-Assisted Workflows</h3>
+            <p>Building practical image and video workflows with generative tools, ComfyUI, image-to-video techniques and video enhancement — with particular attention to product consistency and repeatability.</p>
           </div>
 
-          <div class="bento-card" style="padding:28px;">
+          <div class="bento-card about-card">
             <span class="kicker">03 / DIGITAL</span>
-            <h3 style="margin:12px 0 8px;">Web &amp; Product Building</h3>
-            <p style="font-size:0.88rem;line-height:1.65;margin:0;">Designing and developing lightweight websites, personal tools and focused digital experiences. I care about responsive layouts, useful interactions, clear information and maintainable code.</p>
+            <h3>Web &amp; Product Building</h3>
+            <p>Designing and developing lightweight websites, personal tools and focused digital experiences. I care about responsive layouts, useful interactions, clear information and maintainable code.</p>
           </div>
 
-          <div class="bento-card" style="padding:28px;">
+          <div class="bento-card about-card">
             <span class="kicker">04 / INFRASTRUCTURE</span>
-            <h3 style="margin:12px 0 8px;">Networks &amp; Infrastructure</h3>
-            <p style="font-size:0.88rem;line-height:1.65;margin:0;">Linux servers, VPS environments, IPv4/IPv6 networking, proxy connectivity, Docker-based services and self-hosted tools — with an emphasis on reliability, observability and safe changes.</p>
+            <h3>Networks &amp; Infrastructure</h3>
+            <p>Linux servers, VPS environments, IPv4/IPv6 networking, proxy connectivity, Docker-based services and self-hosted tools — with an emphasis on reliability, observability and safe changes.</p>
           </div>
         </div>
       </section>
@@ -160,29 +160,29 @@
           </div>
         </div>
 
-        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:20px;">
-          <div class="bento-card" style="padding:22px;">
-            <span class="badge" style="margin-bottom:12px;">STEP 01</span>
-            <h3 style="font-size:1.05rem;margin-bottom:6px;">Understand</h3>
-            <p style="font-size:0.82rem;line-height:1.55;margin:0;">Clarify the goal, audience, constraints and what a successful result should achieve.</p>
+        <div class="about-grid-4">
+          <div class="bento-card about-card">
+            <span class="badge" style="margin-bottom:4px;">STEP 01</span>
+            <h3>Understand</h3>
+            <p>Clarify the goal, audience, constraints and what a successful result should achieve.</p>
           </div>
 
-          <div class="bento-card" style="padding:22px;">
-            <span class="badge" style="margin-bottom:12px;">STEP 02</span>
-            <h3 style="font-size:1.05rem;margin-bottom:6px;">Plan</h3>
-            <p style="font-size:0.82rem;line-height:1.55;margin:0;">Break the work into a clear structure, choose the right tools and identify dependencies.</p>
+          <div class="bento-card about-card">
+            <span class="badge" style="margin-bottom:4px;">STEP 02</span>
+            <h3>Plan</h3>
+            <p>Break the work into a clear structure, choose the right tools and identify dependencies.</p>
           </div>
 
-          <div class="bento-card" style="padding:22px;">
-            <span class="badge" style="margin-bottom:12px;">STEP 03</span>
-            <h3 style="font-size:1.05rem;margin-bottom:6px;">Build &amp; Test</h3>
-            <p style="font-size:0.82rem;line-height:1.55;margin:0;">Create in focused iterations, check real-world behavior and keep important details consistent.</p>
+          <div class="bento-card about-card">
+            <span class="badge" style="margin-bottom:4px;">STEP 03</span>
+            <h3>Build &amp; Test</h3>
+            <p>Create in focused iterations, check real-world behavior and keep important details consistent.</p>
           </div>
 
-          <div class="bento-card" style="padding:22px;">
-            <span class="badge" style="margin-bottom:12px;">STEP 04</span>
-            <h3 style="font-size:1.05rem;margin-bottom:6px;">Refine</h3>
-            <p style="font-size:0.82rem;line-height:1.55;margin:0;">Review the result, remove unnecessary complexity and document what matters for future use.</p>
+          <div class="bento-card about-card">
+            <span class="badge" style="margin-bottom:4px;">STEP 04</span>
+            <h3>Refine</h3>
+            <p>Review the result, remove unnecessary complexity and document what matters for future use.</p>
           </div>
         </div>
       </section>

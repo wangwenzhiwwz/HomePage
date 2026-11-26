@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh-CN" data-theme="light">
+<html lang="en" data-theme="light">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
@@ -45,32 +45,32 @@
       <section style="padding: 48px 0 36px;">
         <span class="kicker"><i class="fa-solid fa-camera"></i> Works Gallery · Photography &amp; CGI</span>
         <h1>Visual Works &amp; Digital Craft.</h1>
-        <p style="font-size:1.05rem;max-width:640px;margin-top:12px;color:var(--ink-secondary)">Curated product photography, 3D CGI experiments in Blender, and commercial visual designs published on ZCOOL.</p>
+        <p style="font-size:var(--text-lead);max-width:640px;margin-top:12px;color:var(--ink-secondary)">Curated product photography, 3D CGI experiments in Blender, and commercial visual designs published on ZCOOL.</p>
         
         <!-- Controls & Filters -->
         <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px;margin-top:32px;">
-          <div class="filter-bar" role="group" aria-label="作品分类" style="margin-bottom:0;">
-            <button class="filter-pill active" type="button" data-filter="all" aria-pressed="true">全部 (81)</button>
-            <button class="filter-pill" type="button" data-filter="摄影" aria-pressed="false">摄影 (69)</button>
-            <button class="filter-pill" type="button" data-filter="三维" aria-pressed="false">三维 (11)</button>
-            <button class="filter-pill" type="button" data-filter="插画" aria-pressed="false">插画 (1)</button>
+          <div class="filter-bar" role="group" aria-label="Filter works by category" style="margin-bottom:0;">
+            <button class="filter-pill active" type="button" data-filter="all" aria-pressed="true">All (81)</button>
+            <button class="filter-pill" type="button" data-filter="摄影" aria-pressed="false">Photography (69)</button>
+            <button class="filter-pill" type="button" data-filter="三维" aria-pressed="false">3D CGI (11)</button>
+            <button class="filter-pill" type="button" data-filter="插画" aria-pressed="false">Illustration (1)</button>
           </div>
 
           <div style="display:flex;align-items:center;gap:12px;">
             <div style="position:relative;display:flex;align-items:center;">
               <i class="fa-solid fa-magnifying-glass" style="position:absolute;left:12px;color:var(--ink-tertiary);font-size:0.8rem"></i>
-              <input id="worksSearch" type="search" placeholder="搜索作品或标签" autocomplete="off" aria-label="搜索作品" style="height:38px;padding:0 14px 0 34px;border:1px solid var(--line);border-radius:var(--radius-pill);background:var(--surface);color:var(--ink);font-size:0.85rem;outline:none;">
+              <input id="worksSearch" type="search" placeholder="Search works or tags..." autocomplete="off" aria-label="Search works" style="height:38px;padding:0 14px 0 34px;border:1px solid var(--line);border-radius:var(--radius-pill);background:var(--surface);color:var(--ink);font-size:var(--text-ui);outline:none;">
             </div>
-            <select id="worksSort" aria-label="作品排序" style="height:38px;padding:0 14px;border:1px solid var(--line);border-radius:var(--radius-pill);background:var(--surface);color:var(--ink);font-size:0.85rem;outline:none;cursor:pointer;">
-              <option value="newest">最新发布</option>
-              <option value="oldest">最早发布</option>
+            <select id="worksSort" aria-label="Sort works" style="height:38px;padding:0 14px;border:1px solid var(--line);border-radius:var(--radius-pill);background:var(--surface);color:var(--ink);font-size:var(--text-ui);outline:none;cursor:pointer;">
+              <option value="newest">Newest first</option>
+              <option value="oldest">Oldest first</option>
             </select>
           </div>
         </div>
       </section>
 
       <!-- Counter -->
-      <p class="works-count" id="worksCount" role="status" aria-live="polite" style="font-family:'SF Mono',Menlo,monospace;font-size:0.75rem;color:var(--ink-tertiary);margin-bottom:16px;">正在载入作品…</p>
+      <p class="works-count" id="worksCount" role="status" aria-live="polite" style="font-family:'SF Mono',Menlo,monospace;font-size:var(--text-meta);color:var(--ink-tertiary);margin-bottom:16px;">Loading works…</p>
 
       <!-- Portfolio Grid -->
       <div class="portfolio-grid" id="portfolioGrid" style="margin-bottom:80px;">

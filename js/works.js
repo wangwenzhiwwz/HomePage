@@ -38,6 +38,14 @@ const diagnose = async (url, error) => {
   console.error('[WWZ Works] Image failed', { url, ...info, error: error?.message || 'Image decode/load error' });
 };
 
+const CATEGORY_LABELS = {
+  '摄影': 'Photography',
+  '三维': '3D CGI',
+  '插画': 'Illustration'
+};
+
+const formatCategory = (val) => CATEGORY_LABELS[val] || val || '';
+
 const failed = (img, url, error) => {
   img.dataset.imageState = 'error';
   img.classList.add('image-unavailable');
@@ -48,7 +56,7 @@ const failed = (img, url, error) => {
     if (!media.querySelector('.image-fallback')) {
       const hint = document.createElement('span');
       hint.className = 'image-fallback';
-      hint.textContent = '图片暂时无法显示';
+      hint.textContent = 'Image unavailable';
       media.append(hint);
     }
   }
@@ -75,7 +83,7 @@ const makeCard = (w, pos) => {
   link.href = w.url || '#';
   link.target = '_blank';
   link.rel = 'noopener noreferrer';
-  link.setAttribute('aria-label', '查看作品：' + (w.title || '未命名作品') + '（新窗口打开）');
+  link.setAttribute('aria-label', 'View work: ' + (w.title || 'Untitled work') + ' (opens in new tab)');
 
   const media = document.createElement('span');
   media.className = 'portfolio-media';
@@ -96,7 +104,7 @@ const makeCard = (w, pos) => {
     media.classList.add('image-unavailable');
     const hint = document.createElement('span');
     hint.className = 'image-fallback';
-    hint.textContent = '暂无图片';
+    hint.textContent = 'No preview';
     media.append(hint);
   }
 
@@ -109,7 +117,7 @@ const makeCard = (w, pos) => {
   const arrow = document.createElement('span');
 
   title.textContent = w.title || '';
-  meta.textContent = [w.category, w.subcategory].filter(Boolean).join(' · ');
+  meta.textContent = [formatCategory(w.category), formatCategory(w.subcategory)].filter(Boolean).join(' · ');
   arrow.className = 'portfolio-open';
   arrow.textContent = '↗';
   arrow.setAttribute('aria-hidden', 'true');
@@ -125,7 +133,7 @@ const render = () => {
   const q = search.value.trim().toLowerCase();
   visible = items.filter(w =>
     (category === 'all' || w.category === category) &&
-    (!q || [w.title, w.category, w.subcategory].join(' ').toLowerCase().includes(q))
+    (!q || [w.title, w.category, formatCategory(w.category), w.subcategory, formatCategory(w.subcategory)].join(' ').toLowerCase().includes(q))
   );
 
   if (sort.value === 'oldest') visible.reverse();
@@ -134,11 +142,11 @@ const render = () => {
   visible.forEach((w, i) => fragment.append(makeCard(w, i)));
   grid.replaceChildren(fragment);
 
-  count.textContent = '共 ' + visible.length + ' 件作品' + (q ? ' · 搜索结果' : '');
+  count.textContent = visible.length + (visible.length === 1 ? ' work' : ' works') + (q ? ' · Search results' : '');
   if (!visible.length) {
     const empty = document.createElement('p');
     empty.className = 'works-empty';
-    empty.textContent = '没有找到匹配的作品，试试其他关键词。';
+    empty.textContent = 'No matching works found. Try another keyword.';
     grid.append(empty);
   }
 };
@@ -172,7 +180,7 @@ fetch('data/works.json', { cache: 'no-cache' })
     render();
   })
   .catch(e => {
-    count.textContent = '作品数据载入失败，请稍后重试。';
+    count.textContent = 'Failed to load works data. Please try again later.';
     console.error('[WWZ Works] Data load failed', { url: 'data/works.json', error: e.message });
   });
 })();

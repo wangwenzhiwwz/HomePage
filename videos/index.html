@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh-CN" data-theme="light">
+<html lang="en" data-theme="light">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
@@ -46,7 +46,7 @@
       <section style="padding: 48px 0 36px;">
         <span class="kicker"><i class="fa-solid fa-film"></i> Commercial Film · Directing & Production</span>
         <h1>Commercial Video Works</h1>
-        <p style="font-size:1.1rem;max-width:640px;margin-top:12px;color:var(--ink-secondary)">A curated collection of commercial product films, technology showcases, and commercial storytelling crafted for international consumer tech brands.</p>
+        <p style="font-size:var(--text-lead);max-width:640px;margin-top:12px;color:var(--ink-secondary)">A curated collection of commercial product films, technology showcases, and commercial storytelling crafted for international consumer tech brands.</p>
         
         <!-- Filter Bar -->
         <div class="filter-bar" id="videoFilters" style="margin-top:28px;">
@@ -59,7 +59,7 @@
       </section>
 
       <!-- Video Counter -->
-      <p id="videoCount" style="font-family:'SF Mono',Menlo,monospace;font-size:0.75rem;color:var(--ink-tertiary);margin:16px 0 20px;">共 18 部商业短片</p>
+      <p id="videoCount" style="font-family:'SF Mono',Menlo,monospace;font-size:var(--text-meta);color:var(--ink-tertiary);margin:16px 0 20px;">18 commercial films</p>
 
       <!-- Video Grid -->
       <div class="film-grid" id="videoGrid" style="margin-bottom:80px;">
@@ -377,7 +377,7 @@
             <circle cx="18" cy="18" r="14" fill="none" stroke="rgba(255,255,255,0.16)" stroke-width="2.4"></circle>
             <circle class="spinner-arc" cx="18" cy="18" r="14" fill="none" stroke="#ffffff" stroke-width="2.4" stroke-linecap="round"></circle>
           </svg>
-          <span class="modal-spinner-text">正在加载影片…</span>
+          <span class="modal-spinner-text">Loading film…</span>
         </div>
       </div>
       <iframe id="videoFrame" title="Video Player" allow="autoplay; fullscreen; picture-in-picture; encrypted-media; accelerometer; gyroscope" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
@@ -413,7 +413,7 @@
         });
 
         if (count) {
-          count.textContent = `共 ${visible} 部商业短片` + (year !== 'all' ? ` · ${year} 年度` : '');
+          count.textContent = `${visible} ${visible === 1 ? 'commercial film' : 'commercial films'}` + (year !== 'all' ? ` · ${year}` : '');
         }
       });
     });

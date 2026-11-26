@@ -18,7 +18,7 @@
   jump.innerHTML = `
     <i class="fa-solid fa-note-sticky" aria-hidden="true"></i>
     <label for="wwz-article-select">切换文章</label>
-    <select id="wwz-article-select" aria-label="快速切换 Blog 文章">
+    <select id="wwz-article-select" aria-label="快速切换文章">
       ${content.posts.map(post => `<option value="${post.id}"${post === current ? " selected" : ""}>${post.title}</option>`).join("")}
     </select>
     <i class="fa-solid fa-chevron-down" aria-hidden="true"></i>`;
@@ -41,7 +41,7 @@
   section.setAttribute("aria-labelledby", "wwz-related-title");
   section.innerHTML = `
     <div class="wwz-related-heading">
-      <div><span>Keep reading</span><h2 id="wwz-related-title">继续浏览 Blog</h2></div>
+      <div><span>延伸阅读</span><h2 id="wwz-related-title">继续阅读更多技术文章</h2></div>
       <a href="${root}blog.html">查看全部 <i class="fa-solid fa-arrow-right"></i></a>
     </div>
     <div class="wwz-related-grid">

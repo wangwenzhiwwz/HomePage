@@ -407,7 +407,7 @@
       videoFrame.removeAttribute('src');
       if (modalPoster) modalPoster.classList.remove('is-hidden');
       if (modalPosterImg) modalPosterImg.removeAttribute('src');
-      if (modalSpinnerText) modalSpinnerText.textContent = '正在加载影片…';
+      if (modalSpinnerText) modalSpinnerText.textContent = 'Loading film…';
       document.body.style.overflow = '';
       if (lastFocusedElement && typeof lastFocusedElement.focus === 'function') {
         lastFocusedElement.focus();
@@ -435,7 +435,7 @@
             // 1. Immediately paint poster preview to eliminate perceived black screen
             const thumbImg = btn.querySelector('img') || document.getElementById('heroShowcaseImg');
             const posterSrc = btn.dataset.img || (thumbImg ? thumbImg.src : '');
-            if (modalSpinnerText) modalSpinnerText.textContent = '正在加载影片…';
+            if (modalSpinnerText) modalSpinnerText.textContent = 'Loading film…';
             if (modalPoster && modalPosterImg) {
               if (posterSrc) {
                 modalPosterImg.src = posterSrc;
@@ -473,7 +473,7 @@
             videoFrame.addEventListener('load', onIframeLoaded);
             slowTimer = setTimeout(() => {
               if (!ready && modalSpinnerText) {
-                modalSpinnerText.textContent = '正在连接片源…';
+                modalSpinnerText.textContent = 'Connecting stream…';
               }
             }, 1300);
             posterTimer = setTimeout(onIframeLoaded, 2400);

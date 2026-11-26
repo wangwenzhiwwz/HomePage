@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="zh-CN">
+<html lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -31,7 +31,7 @@
 <body data-content-root="../" data-active-page="lab">
   <main class="editorial-layout">
     <a href="../blog.html" class="editorial-back">
-      <i class="fa-solid fa-arrow-left"></i> 返回 Blog 列表
+      <i class="fa-solid fa-arrow-left"></i> Back to Blog
     </a>
 
     <header class="editorial-header">
@@ -40,31 +40,31 @@
         <span>AI LAB</span> · <span>WANG WENZHI</span>
       </div>
       <h1 class="editorial-title">AI Creation, Made Repeatable.</h1>
-      <p class="editorial-lead">实用型 AI 视频创作实验记录：重点不是单纯生成画面，而是构建可复现、可控且保持真实产品外观细节的工作流程。</p>
+      <p class="editorial-lead">Practical AI video experiment logs: focused not merely on generating frames, but on building repeatable, controllable workflows that preserve authentic physical product details.</p>
     </header>
 
     <article class="editorial-body">
       <section>
-        <h2>本地工作站环境基线</h2>
-        <p>已确认记录的环境参数与硬件规格：</p>
+        <h2>Local Workstation Baseline</h2>
+        <p>Verified local hardware configuration and runtime baseline:</p>
         <div class="specs">
           <div class="spec">
             <strong>RTX 5080</strong>
-            <div>NVIDIA GPU · 16 GB 专用显存</div>
+            <div>NVIDIA GPU · 16 GB Dedicated VRAM</div>
           </div>
           <div class="spec">
             <strong>128 GB</strong>
-            <div>系统内存规格</div>
+            <div>System Memory</div>
           </div>
           <div class="spec">
             <strong>ComfyUI</strong>
-            <div>本地工作流与节点体系</div>
+            <div>Local Node-Based Workflow Engine</div>
           </div>
         </div>
       </section>
 
       <section>
-        <h2>实验记录与工作流目录</h2>
+        <h2>Experiments &amp; Workflow Index</h2>
         <div class="resource-grid" id="experiments">
           <a class="resource" href="../topics/ai-comfyui/">
             <i class="fa-solid fa-flask-vial fa-2x"></i>
@@ -125,53 +125,53 @@
       </section>
 
       <section>
-        <h2>工作原则 (Principles)</h2>
+        <h2>Core Principles</h2>
         <div class="resource-grid">
           <div class="resource">
             <i class="fa-solid fa-cube fa-2x"></i>
             <div>
-              <strong>01 / 锁定产品主体</strong>
-              <div>在优化氛围或艺术风格之前，优先保持真机轮廓、按键与 Logo 材质稳定。</div>
+              <strong>01 / Lock Product Geometry</strong>
+              <div>Keep physical chassis contours, buttons, and brand marks faithful before tuning mood or visual atmosphere.</div>
             </div>
           </div>
           <div class="resource">
             <i class="fa-solid fa-code-branch fa-2x"></i>
             <div>
-              <strong>02 / 明确记录依赖</strong>
-              <div>记录模型文件名、自定义节点版本、输入输出与参数，不依赖未记录假设。</div>
+              <strong>02 / Track Every Dependency</strong>
+              <div>Document exact model filenames, custom-node versions, inputs, outputs, and seed parameters without undocumented assumptions.</div>
             </div>
           </div>
           <div class="resource">
             <i class="fa-solid fa-check-double fa-2x"></i>
             <div>
-              <strong>03 / 设定验收标准</strong>
-              <div>逐镜头评估视觉一致性、时间稳定性、伪影与商用可用性。</div>
+              <strong>03 / Define Acceptance Gates</strong>
+              <div>Audit every shot for visual identity, temporal stability, artifacts, and commercial readiness.</div>
             </div>
           </div>
           <div class="resource">
             <i class="fa-solid fa-rotate-left fa-2x"></i>
             <div>
-              <strong>04 / 保证回滚路径</strong>
-              <div>保留已知可用的基线工作流，当依赖升级异常时能够随时回退。</div>
+              <strong>04 / Preserve Rollback Paths</strong>
+              <div>Keep known-good baseline graphs on hand so any regression from node or model updates can revert immediately.</div>
             </div>
           </div>
         </div>
       </section>
 
       <section>
-        <h2>交付验收清单 (Checklist)</h2>
+        <h2>Delivery Acceptance Checklist</h2>
         <ul>
-          <li><strong>产品外形：</strong>机身轮廓和比例在全片中保持稳定，不发生几何漂移。</li>
-          <li><strong>镜头组件：</strong>摄像头模组、按键、接口、Logo 与参考图保持严密一致。</li>
-          <li><strong>画面连贯：</strong>无明显的逐帧闪烁、纹理爬行、零件复制或异常形变。</li>
-          <li><strong>分镜调度：</strong>运镜符合脚本规划，不遮挡关键产品卖点与特征。</li>
-          <li><strong>规格达标：</strong>输出分辨率、帧率、时长与编码格式满足交付需求。</li>
-          <li><strong>资产归档：</strong>模型依赖、关键参数与源素材已完整归档便于复现。</li>
+          <li><strong>Product Silhouette:</strong> Body proportions and chassis geometry remain stable across the entire clip with zero structural drift.</li>
+          <li><strong>Hardware Details:</strong> Camera islands, side keys, ports, and logos stay strictly faithful to studio reference shots.</li>
+          <li><strong>Temporal Continuity:</strong> Free from frame-to-frame flicker, texture crawling, duplicated parts, or unnatural warping.</li>
+          <li><strong>Camera Blocking:</strong> Motion matches storyboard intent without obscuring key product selling points.</li>
+          <li><strong>Delivery Specs:</strong> Output resolution, frame rate, duration, and codec meet commercial delivery requirements.</li>
+          <li><strong>Asset Archival:</strong> Model dependencies, key seeds, and source inputs are archived for reproducible re-renders.</li>
         </ul>
       </section>
 
       <section>
-        <h2>实验记录模板</h2>
+        <h2>Experiment Log Template</h2>
         <pre><code>Experiment:
 Date:
 Goal / shot:
@@ -185,12 +185,12 @@ Output path:
 Observed VRAM / runtime:
 Product identity check: PASS / RETEST / REJECT
 Known issues:
-Rollback / last known-good workflow:</code><button class="copy-btn" type="button"><i class="fa-solid fa-copy"></i> 复制</button><div class="copy-feedback">已复制！</div></pre>
+Rollback / last known-good workflow:</code><button class="copy-btn" type="button"><i class="fa-solid fa-copy"></i> Copy</button><div class="copy-feedback">Copied!</div></pre>
       </section>
     </article>
 
     <footer class="editorial-footer">
-      <a href="../blog.html" class="editorial-back"><i class="fa-solid fa-arrow-left"></i> 返回 Blog 列表</a>
+      <a href="../blog.html" class="editorial-back"><i class="fa-solid fa-arrow-left"></i> Back to Blog</a>
       <span>© 2026 WWZ.iM · Wang Wenzhi</span>
     </footer>
   </main>

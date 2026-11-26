@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="zh-CN" data-theme="light">
+<html lang="en" data-theme="light">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -96,15 +96,15 @@
       margin-bottom: 24px;
     }
     .notfound-card h1 {
-      font-size: clamp(2.2rem, 5vw, 3.4rem);
+      font-size: var(--text-display);
       font-weight: 750;
-      letter-spacing: -0.04em;
+      letter-spacing: -0.035em;
       line-height: 1.1;
       margin-bottom: 16px;
     }
     .notfound-card p {
       color: var(--ink-secondary);
-      font-size: 1.05rem;
+      font-size: var(--text-lead);
       line-height: 1.7;
       margin-bottom: 32px;
     }
@@ -126,7 +126,7 @@
       <p>The link may be outdated, or the address might have moved during our recent website architecture redesign.</p>
       <div class="notfound-actions">
         <a href="/" class="btn btn-primary">
-          <i class="fa-solid fa-house"></i> 返回首页 Home
+          <i class="fa-solid fa-house"></i> Back to Home
         </a>
         <a href="/videos/" class="btn btn-secondary">
           <i class="fa-solid fa-film"></i> Commercial Videos
