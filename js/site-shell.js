@@ -100,7 +100,7 @@
     const body = isFilled ? def.body : def;
     const attrs = isFilled
       ? 'fill="currentColor"'
-      : 'fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"';
+      : 'fill="none" stroke="currentColor" stroke-width="2.35" stroke-linecap="round" stroke-linejoin="round"';
     const cls = extraClass ? `wwz-ico ${extraClass}` : 'wwz-ico';
     const styleAttr = inlineStyle ? ` style="${inlineStyle}"` : '';
     return `<svg class="${cls}" viewBox="0 0 24 24" width="16" height="16" ${attrs} aria-hidden="true"${styleAttr}>${body}</svg>`;

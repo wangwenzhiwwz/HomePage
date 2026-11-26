@@ -1961,7 +1961,7 @@ html:has(.image-viewer[open]) {
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-  font-size: 1.08rem;
+  font-size: 1.2rem;
   color: rgb(var(--tool-rgb));
   background: linear-gradient(145deg, rgba(var(--tool-rgb), 0.14), rgba(var(--tool-rgb), 0.05));
   border: 1px solid rgba(var(--tool-rgb), 0.22);
