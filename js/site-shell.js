@@ -372,14 +372,42 @@
     const modalClose = document.getElementById('modalClose');
     const modalPoster = document.getElementById('modalPoster');
     const modalPosterImg = document.getElementById('modalPosterImg');
+    const modalSpinnerText = document.querySelector('#modalSpinner .modal-spinner-text, #modalSpinner span');
     let lastFocusedElement = null;
+    let posterTimer = null;
+    let slowTimer = null;
+    let idleTimer = null;
+    let activeLoadHandler = null;
+
+    const clearModalTimers = () => {
+      if (posterTimer) { clearTimeout(posterTimer); posterTimer = null; }
+      if (slowTimer) { clearTimeout(slowTimer); slowTimer = null; }
+      if (idleTimer) { clearTimeout(idleTimer); idleTimer = null; }
+      if (activeLoadHandler && videoFrame) {
+        videoFrame.removeEventListener('load', activeLoadHandler);
+        activeLoadHandler = null;
+      }
+    };
+
+    const wakeModalControls = () => {
+      if (!videoModal) return;
+      videoModal.classList.remove('is-idle');
+      if (idleTimer) clearTimeout(idleTimer);
+      if (videoModal.classList.contains('open')) {
+        idleTimer = setTimeout(() => {
+          videoModal.classList.add('is-idle');
+        }, 2200);
+      }
+    };
 
     const closeVideo = () => {
       if (!videoModal || !videoFrame) return;
-      videoModal.classList.remove('open');
+      clearModalTimers();
+      videoModal.classList.remove('open', 'is-idle');
       videoFrame.removeAttribute('src');
       if (modalPoster) modalPoster.classList.remove('is-hidden');
       if (modalPosterImg) modalPosterImg.removeAttribute('src');
+      if (modalSpinnerText) modalSpinnerText.textContent = '正在加载影片…';
       document.body.style.overflow = '';
       if (lastFocusedElement && typeof lastFocusedElement.focus === 'function') {
         lastFocusedElement.focus();
@@ -401,11 +429,13 @@
             e.preventDefault();
             const src = btn.dataset.video;
             if (!src) return;
+            clearModalTimers();
             lastFocusedElement = btn;
 
             // 1. Immediately paint poster preview to eliminate perceived black screen
             const thumbImg = btn.querySelector('img') || document.getElementById('heroShowcaseImg');
             const posterSrc = btn.dataset.img || (thumbImg ? thumbImg.src : '');
+            if (modalSpinnerText) modalSpinnerText.textContent = '正在加载影片…';
             if (modalPoster && modalPosterImg) {
               if (posterSrc) {
                 modalPosterImg.src = posterSrc;
@@ -416,13 +446,13 @@
               modalPoster.classList.remove('is-hidden');
             }
 
-            // 2. Embed parameters tailored for fast playback & autohiding overlays
+            // 2. Embed parameters tailored for fast playback & minimal overlays
             const join = src.includes('?') ? '&' : '?';
             let params = '';
             if (src.includes('vimeo.com')) {
-              params = 'autoplay=1&dnt=1&playsinline=1&title=0&byline=0&portrait=0&badge=0&autopause=0';
+              params = 'autoplay=1&dnt=1&playsinline=1&title=0&byline=0&portrait=0&badge=0&transparent=0&autopause=0';
             } else {
-              params = 'autoplay=1&rel=0&modestbranding=1&playsinline=1&iv_load_policy=3&fs=1&enablejsapi=1';
+              params = 'autoplay=1&rel=0&modestbranding=1&playsinline=1&iv_load_policy=3&cc_load_policy=0&color=white&fs=1&enablejsapi=1';
             }
 
             // 3. Smooth fade-out of poster once player iframe finishes loading
@@ -430,17 +460,27 @@
             const onIframeLoaded = () => {
               if (ready) return;
               ready = true;
-              videoFrame.removeEventListener('load', onIframeLoaded);
+              clearModalTimers();
               setTimeout(() => {
-                if (modalPoster) modalPoster.classList.add('is-hidden');
-              }, 300);
+                if (modalPoster && videoModal.classList.contains('open')) {
+                  modalPoster.classList.add('is-hidden');
+                }
+                wakeModalControls();
+              }, 180);
             };
 
+            activeLoadHandler = onIframeLoaded;
             videoFrame.addEventListener('load', onIframeLoaded);
-            setTimeout(onIframeLoaded, 2500);
+            slowTimer = setTimeout(() => {
+              if (!ready && modalSpinnerText) {
+                modalSpinnerText.textContent = '正在连接片源…';
+              }
+            }, 1300);
+            posterTimer = setTimeout(onIframeLoaded, 2400);
 
             videoFrame.src = src + join + params;
             videoModal.classList.add('open');
+            wakeModalControls();
             document.body.style.overflow = 'hidden';
             modalClose?.focus();
           });
@@ -454,6 +494,8 @@
 
       if (!videoModal.dataset.bound) {
         videoModal.dataset.bound = 'true';
+        videoModal.addEventListener('mousemove', wakeModalControls, { passive: true });
+        videoModal.addEventListener('touchstart', wakeModalControls, { passive: true });
         videoModal.addEventListener('click', (e) => {
           if (e.target === videoModal) closeVideo();
         });
