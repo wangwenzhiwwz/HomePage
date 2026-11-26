@@ -10,11 +10,11 @@
 .qj-hero {
   position: relative;
   overflow: hidden;
-  min-height: calc(100dvh - 74px);
+  min-height: clamp(500px, 68vh, 660px);
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding: clamp(24px, 3.6vh, 44px) 0 clamp(32px, 4.5vh, 52px);
+  padding: clamp(22px, 3.6vh, 42px) 0 clamp(38px, 4.8vh, 56px);
 }
 
 /* Subtle Architectural Grid Overlay */
@@ -115,20 +115,20 @@
 .qj-hero-wrap {
   position: relative;
   z-index: 2;
-  width: min(1200px, calc(100% - 48px));
+  width: min(1380px, calc(100% - 64px));
 }
 
 .qj-hero-stage {
   display: flex;
   flex-direction: column;
-  gap: clamp(44px, 6vh, 72px);
+  gap: clamp(36px, 4.8vh, 56px);
 }
 
 /* Top Kinetic Stage (Mirrors qijishow spatial scale & proportion) */
 .qj-hero-top {
   position: relative;
   display: block;
-  padding-top: clamp(8px, 2vh, 24px);
+  padding-top: clamp(4px, 1.5vh, 18px);
 }
 
 .qj-headline-block {
@@ -142,7 +142,7 @@
 
 /* Masked Line-Lift Typography (Qijishow Believe / Miracle Proportion) */
 .qj-display-title {
-  font-size: clamp(3.15rem, 8.2vw, 6.9rem);
+  font-size: clamp(3.3rem, 7.1vw, 7.65rem);
   line-height: 0.94;
   letter-spacing: -0.045em;
   font-weight: 850;
@@ -212,19 +212,20 @@
 /* Interactive Designer Character + Living Eyes + Expandable Corner-Anchored Capsule Bubble */
 .qj-interactive-cluster {
   position: absolute;
-  bottom: -26px;
-  left: clamp(376px, 30.8vw, 446px);
+  bottom: -24px;
+  left: clamp(390px, 30vw, 520px);
   z-index: 3;
   display: flex;
   align-items: flex-end;
   gap: 0;
+  --illo-w: clamp(178px, 13.6vw, 224px);
   --eye-x: 0px;
   --eye-y: 0px;
 }
 
 .qj-illo {
   position: relative;
-  width: clamp(168px, 14.5vw, 206px);
+  width: var(--illo-w);
   flex-shrink: 0;
   color: var(--ink);
   opacity: 0;
@@ -369,9 +370,9 @@
 .qj-bubble-wrap {
   position: relative;
   margin-left: -18px;
-  width: 288px;
-  height: 118px;
-  margin-bottom: clamp(148px, 12.6vw, 179px);
+  width: clamp(300px, 23vw, 356px);
+  height: clamp(120px, 9.2vw, 138px);
+  margin-bottom: calc(var(--illo-w) * 0.875);
   opacity: 0;
   transform: translateX(36px);
   animation: qj-bubble-in 0.85s cubic-bezier(0.19, 1, 0.22, 1) 0.42s forwards;
@@ -534,7 +535,7 @@
 .qj-guide-card {
   position: relative;
   text-align: left;
-  height: 160px;
+  height: clamp(160px, 12vw, 182px);
   border-radius: 20px;
   background: linear-gradient(157.87deg, rgba(255, 255, 255, 0.78), rgba(255, 255, 255, 0.58));
   -webkit-backdrop-filter: blur(14px);

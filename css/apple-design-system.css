@@ -141,7 +141,7 @@ html {
   -webkit-text-size-adjust: 100%;
   text-size-adjust: 100%;
   scroll-behavior: smooth;
-  scroll-padding-top: 80px;
+  scroll-padding-top: 88px;
   background-color: var(--bg);
   color: var(--ink);
   transition: background-color var(--duration-normal) var(--ease), color var(--duration-normal) var(--ease);
@@ -237,7 +237,7 @@ code, kbd, samp, pre {
 
 /* Layout Container */
 .wrap {
-  width: min(1200px, calc(100% - 48px));
+  width: min(1380px, calc(100% - 64px));
   margin: 0 auto;
 }
 
@@ -250,7 +250,7 @@ code, kbd, samp, pre {
 main.main-content,
 #page-content {
   min-height: calc(100vh - 180px);
-  padding-top: 74px;
+  padding-top: 86px;
   opacity: 1;
   transform: translateY(0);
   transition: opacity 0.2s var(--ease), transform 0.2s var(--ease);
@@ -330,7 +330,7 @@ main.main-content,
   left: 0;
   right: 0;
   z-index: 1000;
-  height: 74px;
+  height: 86px;
   background-color: transparent;
   -webkit-backdrop-filter: none;
   backdrop-filter: none;
@@ -341,7 +341,7 @@ main.main-content,
 
 #wwz-header.is-scrolled,
 .apple-nav.is-scrolled {
-  height: 64px;
+  height: 70px;
   background: rgba(247, 247, 245, 0.82);
   -webkit-backdrop-filter: blur(22px) saturate(180%);
   backdrop-filter: blur(22px) saturate(180%);
@@ -365,7 +365,7 @@ main.main-content,
 
 .apple-nav-inner {
   position: relative;
-  width: min(1200px, calc(100% - 48px));
+  width: min(1380px, calc(100% - 64px));
   height: 100%;
   margin: 0 auto;
   display: flex;
@@ -380,16 +380,16 @@ main.main-content,
   pointer-events: auto;
 }
 
-/* Unified 44px Frosted Brand Capsule */
+/* Unified 50px Frosted Brand Capsule */
 .apple-brand {
   display: inline-flex;
   align-items: center;
   gap: 10px;
-  height: 44px;
-  padding: 0 16px 0 8px;
+  height: 50px;
+  padding: 0 18px 0 10px;
   border-radius: var(--radius-pill);
   font-weight: 750;
-  font-size: 0.95rem;
+  font-size: 1.02rem;
   letter-spacing: -0.02em;
   color: var(--ink);
   text-decoration: none;
@@ -442,9 +442,9 @@ main.main-content,
 }
 
 .apple-brand img {
-  width: 28px;
-  height: 28px;
-  border-radius: 7px;
+  width: 30px;
+  height: 30px;
+  border-radius: 8px;
   object-fit: cover;
   flex-shrink: 0;
 }
@@ -455,18 +455,18 @@ main.main-content,
   line-height: 1;
 }
 
-/* Apple & Mobbin Centered Segmented Frosted Capsule (44px height) */
+/* Apple & Mobbin Centered Segmented Frosted Capsule (50px height) */
 .apple-links {
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
   display: flex;
   align-items: center;
-  gap: 4px;
-  height: 44px;
+  gap: 6px;
+  height: 50px;
   list-style: none;
   margin: 0;
-  padding: 4px;
+  padding: 5px;
   border-radius: var(--radius-pill);
   background: rgba(255, 255, 255, 0.76);
   -webkit-backdrop-filter: blur(24px) saturate(190%) contrast(96%);
@@ -501,13 +501,13 @@ main.main-content,
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  height: 34px;
-  font-size: 0.92rem;
-  font-weight: 550;
+  height: 38px;
+  font-size: 0.98rem;
+  font-weight: 560;
   letter-spacing: -0.01em;
   color: var(--ink-secondary);
   text-decoration: none;
-  padding: 0 19px;
+  padding: 0 24px;
   border-radius: var(--radius-pill);
   transition: color var(--duration-fast) var(--ease), background-color var(--duration-fast) var(--ease), border-color var(--duration-fast) var(--ease), box-shadow var(--duration-fast) var(--ease), transform var(--duration-fast) var(--ease);
   border: 1px solid transparent;
@@ -558,10 +558,10 @@ main.main-content,
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 44px;
-  height: 44px;
+  width: 48px;
+  height: 48px;
   border-radius: 50%;
-  font-size: 1.05rem;
+  font-size: 1.2rem;
   color: var(--ink-secondary);
   background: rgba(255, 255, 255, 0.74);
   -webkit-backdrop-filter: blur(22px) saturate(180%);
@@ -662,11 +662,11 @@ main.main-content,
 /* Mobile Sheet Drawer (Starts cleanly right beneath header) */
 .apple-mobile-drawer {
   position: fixed;
-  top: 62px;
+  top: 64px;
   left: 0;
   right: 0;
   bottom: 0;
-  height: calc(100dvh - 62px);
+  height: calc(100dvh - 64px);
   z-index: 998;
   background-color: var(--bg);
   padding: 20px 20px calc(24px + env(safe-area-inset-bottom));
@@ -794,7 +794,7 @@ body.drawer-locked {
 @media (max-width: 768px) {
   #wwz-header,
   .apple-nav {
-    height: 62px;
+    height: 64px;
     background: rgba(247, 247, 245, 0.88);
     -webkit-backdrop-filter: blur(20px) saturate(180%);
     backdrop-filter: blur(20px) saturate(180%);
@@ -824,9 +824,9 @@ body.drawer-locked {
   }
 
   .apple-brand {
-    height: 40px;
+    height: 42px;
     padding: 0 12px 0 6px;
-    font-size: 0.92rem;
+    font-size: 0.96rem;
     background: transparent;
     -webkit-backdrop-filter: none;
     backdrop-filter: none;
@@ -835,14 +835,14 @@ body.drawer-locked {
   }
 
   .apple-brand img {
-    width: 26px;
-    height: 26px;
+    width: 28px;
+    height: 28px;
   }
 
   .apple-icon-btn,
   .apple-menu-toggle {
-    width: 40px;
-    height: 40px;
+    width: 42px;
+    height: 42px;
   }
 
   .apple-links {
