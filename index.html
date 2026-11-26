@@ -43,96 +43,139 @@
   <!-- Content Container (Managed by site-shell for zero-flicker transitions) -->
   <main class="main-content" id="page-content">
     
-    <!-- Hero Section (Interactive Studio Instrument & Editorial Guide) -->
-    <section class="hero-section" id="home">
-      <div class="wrap">
-        <div class="hero-grid">
-          
-          <!-- Left: Editorial Orientation & Guiding Lead (Zero Links) -->
-          <div class="hero-intro">
-            <div class="hero-status-kicker">
-              <span class="status-indicator"><span class="status-dot"></span></span>
-              <span>Commercial Director &amp; Creative Technologist</span>
-            </div>
-            
-            <h1 class="hero-title">Commercial Video.<br>Digital Systems.</h1>
-            <p class="hero-lead">Directing product films, designing generative pipelines, and engineering independent web utilities — crafted with clarity, rhythm, and technical restraint.</p>
+    <!-- Hero Section (Qijishow-Inspired Kinetic Editorial Layout · Zero Images & Zero Jump Links) -->
+    <section class="hero-section qj-hero" id="home" aria-label="Studio Introduction">
+      <!-- 4 Ambient Floating Depth Spheres -->
+      <div class="hero-spheres" aria-hidden="true">
+        <span class="hero-sphere hero-sphere-1"></span>
+        <span class="hero-sphere hero-sphere-2"></span>
+        <span class="hero-sphere hero-sphere-3"></span>
+        <span class="hero-sphere hero-sphere-4"></span>
+      </div>
 
-            <div class="hero-guide-strip" aria-hidden="true">
-              <div class="hero-scroll-cue">
-                <span class="scroll-track"><span class="scroll-runner"></span></span>
-                <span class="scroll-label">Scroll to explore</span>
+      <div class="wrap qj-hero-wrap">
+        <div class="qj-hero-stage" id="heroStage">
+          
+          <!-- Top Display Stage: Masked Line-Lift Headline + Interactive Eye Sculpture + Floating Expanding Bubble -->
+          <div class="qj-hero-top">
+            <div class="qj-headline-block">
+              <div class="hero-status-kicker qj-kicker-enter">
+                <span class="status-indicator"><span class="status-dot"></span></span>
+                <span>Commercial Director &amp; Creative Technologist</span>
               </div>
-              <span class="hero-index-map">01 Film · 02 Works · 03 Notes · 04 Tools</span>
+
+              <h1 class="qj-display-title">
+                <span class="qj-lmask"><span class="qj-line">Commercial Video.</span></span>
+                <span class="qj-lmask"><span class="qj-line">Digital Systems.</span></span>
+              </h1>
+
+              <div class="qj-sub">
+                <span class="qj-sub-brand">WWZ.iM</span>
+                <span class="qj-sub-roles">DIRECTOR / CGI &amp; AI WORKFLOWS / WEB SYSTEMS</span>
+              </div>
+            </div>
+
+            <!-- Interactive Dual-Optic Studio Monolith with Living Cursor-Tracking Eyes + Expandable Guiding Bubble -->
+            <div class="qj-interactive-cluster">
+              <div class="qj-illo" id="heroIllo" aria-hidden="true">
+                <div class="qj-totem-motion">
+                  <svg class="qj-totem-svg" viewBox="0 0 220 250" fill="none">
+                    <!-- Soft Ground Shadow -->
+                    <ellipse cx="105" cy="232" rx="64" ry="7" fill="currentColor" fill-opacity="0.08"/>
+                    <!-- Sleek Machined Monolith Silhouette -->
+                    <rect x="40" y="38" width="130" height="162" rx="44" class="totem-body" stroke="currentColor" stroke-width="1.8"/>
+                    <rect x="48" y="46" width="114" height="146" rx="37" stroke="currentColor" stroke-opacity="0.1" stroke-width="1"/>
+                    <!-- Rangefinder Crest Accent -->
+                    <rect x="86" y="28" width="38" height="10" rx="5" class="totem-crest" stroke="currentColor" stroke-width="1.6"/>
+                    <!-- Dual Machined Optical Lens Housings (Aligned with .qj-eye) -->
+                    <circle cx="84" cy="110" r="18" stroke="currentColor" stroke-opacity="0.16" stroke-width="1"/>
+                    <circle cx="84" cy="110" r="14" class="totem-socket"/>
+                    <circle cx="126" cy="110" r="18" stroke="currentColor" stroke-opacity="0.16" stroke-width="1"/>
+                    <circle cx="126" cy="110" r="14" class="totem-socket"/>
+                    <!-- Minimalist Optical Baseline Ticks -->
+                    <line x1="84" y1="158" x2="126" y2="158" stroke="currentColor" stroke-opacity="0.2" stroke-width="1.5" stroke-linecap="round"/>
+                    <circle cx="105" cy="158" r="2" fill="currentColor" fill-opacity="0.45"/>
+                    <!-- Floating Focus Node Bridging Toward Speech Bubble -->
+                    <circle cx="188" cy="118" r="3.5" fill="currentColor" fill-opacity="0.75"/>
+                  </svg>
+                  <span class="qj-eye eye-left"><i></i></span>
+                  <span class="qj-eye eye-right"><i></i></span>
+                </div>
+              </div>
+
+              <!-- Expandable Speech-Bubble Card (Qijishow-Style Corner Anchor · Zero Images & Zero Links) -->
+              <div class="qj-bubble-wrap" id="heroBubbleWrap" role="region" aria-label="Interactive studio focus guide">
+                <div class="qj-bubble-view" id="heroBubbleView" tabindex="0">
+                  <div class="qj-bubble-slides" id="heroBubbleSlides">
+                    <div class="qj-bubble-slide is-active" data-index="0">
+                      <span class="qj-bubble-kicker">01 / COMMERCIAL DIRECTION</span>
+                      <strong class="qj-bubble-title">Product Launch Films</strong>
+                      <p class="qj-bubble-desc">Rhythm, studio lighting, and tactile storytelling across 18 commercial campaigns below.</p>
+                    </div>
+                    <div class="qj-bubble-slide" data-index="1">
+                      <span class="qj-bubble-kicker">02 / PHOTOGRAPHY &amp; CGI</span>
+                      <strong class="qj-bubble-title">Blender 3D &amp; Visuals</strong>
+                      <p class="qj-bubble-desc">Procedural shaders, product rendering, and 81 curated visual studies in the archive.</p>
+                    </div>
+                    <div class="qj-bubble-slide" data-index="2">
+                      <span class="qj-bubble-kicker">03 / AI &amp; FIELD NOTES</span>
+                      <strong class="qj-bubble-title">ComfyUI &amp; Infrastructure</strong>
+                      <p class="qj-bubble-desc">Repeatable local AI pipelines, Linux provisioning, and IPv6 networking walkthroughs.</p>
+                    </div>
+                    <div class="qj-bubble-slide" data-index="3">
+                      <span class="qj-bubble-kicker">04 / INDEPENDENT TOOLS</span>
+                      <strong class="qj-bubble-title">Focused Web Utilities</strong>
+                      <p class="qj-bubble-desc">Lightweight browser tools built for daily network checks, configs, and workflows.</p>
+                    </div>
+                  </div>
+                  <div class="qj-bubble-bar">
+                    <span class="qj-bubble-caption" id="heroBubbleCaption">01 · Commercial Direction</span>
+                    <div class="qj-bubble-dots" id="heroBubbleDots" role="tablist" aria-label="Switch studio highlight">
+                      <button type="button" class="qj-dot is-active" data-slide="0" aria-label="Slide 1" aria-selected="true"></button>
+                      <button type="button" class="qj-dot" data-slide="1" aria-label="Slide 2" aria-selected="false"></button>
+                      <button type="button" class="qj-dot" data-slide="2" aria-label="Slide 3" aria-selected="false"></button>
+                      <button type="button" class="qj-dot" data-slide="3" aria-label="Slide 4" aria-selected="false"></button>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
 
-          <!-- Right: Interactive Monochrome Studio Instrument (Zero Images, Zero Links) -->
-          <div class="hero-showcase">
-            <div class="showcase-nav" role="tablist" aria-label="Studio discipline lens">
-              <button class="showcase-tab active" type="button" role="tab" aria-selected="true"
-                data-mode="direction"
-                data-kicker="01 / COMMERCIAL DIRECTION"
-                data-spec="24FPS · ANAMORPHIC"
-                data-title="Visual Storytelling &amp; Product Films"
-                data-desc="Motion pacing, lighting craft, and launch narratives — explore commercial reels in Section 01 below.">01 · Direction</button>
-              <button class="showcase-tab" type="button" role="tab" aria-selected="false"
-                data-mode="ai"
-                data-kicker="02 / AI &amp; 3D VISUALS"
-                data-spec="COMFYUI · BLENDER"
-                data-title="Generative Pipelines &amp; CGI Craft"
-                data-desc="Repeatable AI workflows and 3D product rendering — explore visual works and lab notes below.">02 · AI &amp; CGI</button>
-              <button class="showcase-tab" type="button" role="tab" aria-selected="false"
-                data-mode="systems"
-                data-kicker="03 / WEB &amp; INFRASTRUCTURE"
-                data-spec="EDGE · IPV6 · TOOLS"
-                data-title="Independent Utilities &amp; Field Notes"
-                data-desc="Lightweight web tools, network architecture, and deployment guides curated in the sections below.">03 · Systems</button>
-            </div>
-
-            <div class="hero-instrument" id="heroInstrument" data-mode="direction" tabindex="0" role="region" aria-label="Interactive studio compass — move cursor or click to switch discipline focus">
-              <div class="instrument-grid-bg" aria-hidden="true"></div>
-              <div class="instrument-spotlight" aria-hidden="true"></div>
-
-              <div class="instrument-top">
-                <span class="instrument-badge" id="instrumentKicker">01 / COMMERCIAL DIRECTION</span>
-                <span class="instrument-telemetry" id="instrumentTelemetry">24FPS · ANAMORPHIC · 00, 00</span>
+          <!-- Bottom 4-Card Staggered Guiding Bento Strip (Inspired by qijishow .centrals · Non-Linking Pure Guide) -->
+          <div class="qj-centrals" role="group" aria-label="Portfolio sections guide">
+            <button type="button" class="qj-guide-card" data-guide-slide="0" style="--delay:0.32s">
+              <div class="qj-guide-card-inner">
+                <span class="qj-guide-tag">01 / FILMS</span>
+                <h2 class="qj-guide-heading">CINEMA</h2>
+                <p class="qj-guide-copy">18 Commercial Reels &amp; Campaigns</p>
+                <span class="qj-guide-cue" aria-hidden="true">01</span>
               </div>
-
-              <div class="instrument-stage" aria-hidden="true">
-                <svg class="instrument-reticle" viewBox="0 0 320 320" fill="none">
-                  <!-- Outer Degree Ring -->
-                  <g class="reticle-outer">
-                    <circle cx="160" cy="160" r="134" stroke="currentColor" stroke-opacity="0.22" stroke-width="1"/>
-                    <circle cx="160" cy="160" r="126" stroke="currentColor" stroke-opacity="0.4" stroke-width="1.1" stroke-dasharray="2 10"/>
-                    <line x1="160" y1="16" x2="160" y2="28" stroke="currentColor" stroke-opacity="0.45" stroke-width="1.2"/>
-                    <line x1="160" y1="292" x2="160" y2="304" stroke="currentColor" stroke-opacity="0.45" stroke-width="1.2"/>
-                    <line x1="16" y1="160" x2="28" y2="160" stroke="currentColor" stroke-opacity="0.45" stroke-width="1.2"/>
-                    <line x1="292" y1="160" x2="304" y2="160" stroke="currentColor" stroke-opacity="0.45" stroke-width="1.2"/>
-                  </g>
-                  <!-- Middle Kinetic Ring -->
-                  <g class="reticle-mid">
-                    <circle cx="160" cy="160" r="92" stroke="currentColor" stroke-opacity="0.34" stroke-width="1.1" stroke-dasharray="48 18 12 18"/>
-                    <rect x="95" y="95" width="130" height="130" rx="16" stroke="currentColor" stroke-opacity="0.22" stroke-width="1.1" class="reticle-frame"/>
-                  </g>
-                  <!-- Inner Parallax Focal Iris -->
-                  <g class="reticle-core">
-                    <circle cx="160" cy="160" r="46" stroke="currentColor" stroke-opacity="0.46" stroke-width="1.2"/>
-                    <circle cx="160" cy="160" r="22" stroke="currentColor" stroke-opacity="0.68" stroke-width="1.3" stroke-dasharray="4 4"/>
-                    <line x1="142" y1="160" x2="152" y2="160" stroke="currentColor" stroke-opacity="0.72" stroke-width="1.3"/>
-                    <line x1="168" y1="160" x2="178" y2="160" stroke="currentColor" stroke-opacity="0.72" stroke-width="1.3"/>
-                    <line x1="160" y1="142" x2="160" y2="152" stroke="currentColor" stroke-opacity="0.72" stroke-width="1.3"/>
-                    <line x1="160" y1="168" x2="160" y2="178" stroke="currentColor" stroke-opacity="0.72" stroke-width="1.3"/>
-                    <circle cx="160" cy="160" r="4" fill="currentColor" class="reticle-dot"/>
-                  </g>
-                </svg>
+            </button>
+            <button type="button" class="qj-guide-card" data-guide-slide="1" style="--delay:0.4s">
+              <div class="qj-guide-card-inner">
+                <span class="qj-guide-tag">02 / WORKS</span>
+                <h2 class="qj-guide-heading">VISUALS</h2>
+                <p class="qj-guide-copy">81 Photography &amp; Blender Works</p>
+                <span class="qj-guide-cue" aria-hidden="true">02</span>
               </div>
-
-              <div class="instrument-bottom">
-                <h2 class="instrument-title" id="instrumentTitle">Visual Storytelling &amp; Product Films</h2>
-                <p class="instrument-desc" id="instrumentDesc">Motion pacing, lighting craft, and launch narratives — explore commercial reels in Section 01 below.</p>
+            </button>
+            <button type="button" class="qj-guide-card" data-guide-slide="2" style="--delay:0.48s">
+              <div class="qj-guide-card-inner">
+                <span class="qj-guide-tag">03 / NOTES</span>
+                <h2 class="qj-guide-heading">SYSTEMS</h2>
+                <p class="qj-guide-copy">AI Workflows, Linux &amp; IPv6</p>
+                <span class="qj-guide-cue" aria-hidden="true">03</span>
               </div>
-            </div>
+            </button>
+            <button type="button" class="qj-guide-card" data-guide-slide="3" style="--delay:0.56s">
+              <div class="qj-guide-card-inner">
+                <span class="qj-guide-tag">04 / TOOLS</span>
+                <h2 class="qj-guide-heading">UTILITY</h2>
+                <p class="qj-guide-copy">Independent Web Craft &amp; Open Source</p>
+                <span class="qj-guide-cue" aria-hidden="true">04</span>
+              </div>
+            </button>
           </div>
 
         </div>

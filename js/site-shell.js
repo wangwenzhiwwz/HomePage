@@ -275,115 +275,170 @@
     });
   };
 
-  // Interactive Monochrome Studio Instrument (Pure Guiding Experience)
-  const initHeroInstrument = () => {
-    const tabs = document.querySelectorAll('.showcase-tab[data-mode]');
-    const instrument = document.getElementById('heroInstrument');
-    const kickerEl = document.getElementById('instrumentKicker');
-    const telemetryEl = document.getElementById('instrumentTelemetry');
-    const titleEl = document.getElementById('instrumentTitle');
-    const descEl = document.getElementById('instrumentDesc');
-    const bottomEl = instrument?.querySelector('.instrument-bottom');
+  // Qijishow-Inspired Hero Animations (Living Cursor Eyes, Expandable Bubble, Staggered Guide Cards)
+  const initHeroKinetic = () => {
+    const stage = document.getElementById('heroStage');
+    const illo = document.getElementById('heroIllo');
+    const bubbleWrap = document.getElementById('heroBubbleWrap');
+    const bubbleView = document.getElementById('heroBubbleView');
+    const slides = document.querySelectorAll('#heroBubbleSlides .qj-bubble-slide');
+    const dots = document.querySelectorAll('#heroBubbleDots .qj-dot');
+    const captionEl = document.getElementById('heroBubbleCaption');
+    const guideCards = document.querySelectorAll('.qj-guide-card[data-guide-slide]');
 
-    if (!tabs.length || !instrument) return;
+    if (!stage || !illo) return;
 
-    let currentSpec = tabs[0].dataset.spec || '24FPS · ANAMORPHIC';
-    let modeIndex = 0;
+    // 1. Trigger top-down organic mascot reveal after headline lift
+    requestAnimationFrame(() => {
+      setTimeout(() => {
+        illo.classList.add('is-ready');
+      }, 240);
+    });
 
-    const activateTab = (tab) => {
-      tabs.forEach((t, idx) => {
-        const isTarget = t === tab;
-        t.classList.toggle('active', isTarget);
-        t.setAttribute('aria-selected', String(isTarget));
-        if (isTarget) modeIndex = idx;
+    // 2. Living cursor-tracking pupils with lerp damping
+    if (!stage.dataset.eyeBound) {
+      stage.dataset.eyeBound = 'true';
+      const clampVal = (v, min, max) => Math.min(max, Math.max(min, v));
+      let tEyeX = 0, tEyeY = 0, cEyeX = 0, cEyeY = 0;
+
+      window.addEventListener('pointermove', (e) => {
+        const r = stage.getBoundingClientRect();
+        if (!r.width || !r.height) return;
+        tEyeX = clampVal(((e.clientX - r.left) / r.width) * 2 - 1, -1, 1);
+        tEyeY = clampVal(((e.clientY - r.top) / r.height) * 2 - 1, -1, 1);
+      }, { passive: true });
+
+      window.addEventListener('pointerleave', () => {
+        tEyeX = 0;
+        tEyeY = 0;
       });
 
-      const mode = tab.dataset.mode || 'direction';
-      const kickerText = tab.dataset.kicker || '';
-      currentSpec = tab.dataset.spec || '';
-      const titleText = tab.dataset.title || '';
-      const descText = tab.dataset.desc || '';
+      const tickEyes = () => {
+        if (!document.body.contains(illo)) return;
+        cEyeX += (tEyeX * 2.8 - cEyeX) * 0.12;
+        cEyeY += (tEyeY * 2.8 - cEyeY) * 0.12;
+        illo.style.setProperty('--eye-x', `${cEyeX.toFixed(2)}px`);
+        illo.style.setProperty('--eye-y', `${cEyeY.toFixed(2)}px`);
+        requestAnimationFrame(tickEyes);
+      };
+      requestAnimationFrame(tickEyes);
+    }
 
-      instrument.dataset.mode = mode;
-      instrument.style.setProperty('--rot-o', `${modeIndex * 30}deg`);
-      instrument.style.setProperty('--rot-i', `${modeIndex * -45}deg`);
+    // 3. Expandable Speech-Bubble Slides + Dot Controls + Guide Card Sync
+    if (!slides.length || !bubbleView) return;
 
-      instrument.classList.remove('is-pulsing');
-      void instrument.offsetWidth;
-      instrument.classList.add('is-pulsing');
+    const captions = [
+      '01 · Commercial Direction',
+      '02 · Photography & CGI',
+      '03 · AI & Field Notes',
+      '04 · Independent Tools'
+    ];
+    let currentSlide = 0;
+    let autoplayTimer = null;
+    const prefersReduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-      if (bottomEl) bottomEl.classList.add('is-switching');
-      setTimeout(() => {
-        if (kickerEl) kickerEl.textContent = kickerText;
-        if (telemetryEl) telemetryEl.textContent = `${currentSpec} · 00, 00`;
-        if (titleEl) titleEl.textContent = titleText;
-        if (descEl) descEl.textContent = descText;
-        if (bottomEl) bottomEl.classList.remove('is-switching');
-      }, 130);
+    const goSlide = (nextIdx) => {
+      const targetIdx = ((nextIdx % slides.length) + slides.length) % slides.length;
+      currentSlide = targetIdx;
+
+      slides.forEach((s, i) => s.classList.toggle('is-active', i === targetIdx));
+      dots.forEach((d, i) => {
+        const active = i === targetIdx;
+        d.classList.toggle('is-active', active);
+        d.setAttribute('aria-selected', String(active));
+      });
+      guideCards.forEach((c, i) => c.classList.toggle('is-selected', i === targetIdx));
+      if (captionEl) captionEl.textContent = captions[targetIdx] || '';
     };
 
-    tabs.forEach(tab => {
-      if (tab.dataset.bound) return;
-      tab.dataset.bound = 'true';
-      tab.addEventListener('click', (e) => {
-        e.preventDefault();
-        activateTab(tab);
+    const scheduleAuto = () => {
+      if (prefersReduced) return;
+      if (autoplayTimer) clearInterval(autoplayTimer);
+      autoplayTimer = setInterval(() => {
+        if (!bubbleWrap?.classList.contains('is-hovered')) {
+          goSlide(currentSlide + 1);
+        }
+      }, 5500);
+    };
+
+    dots.forEach((dot) => {
+      if (dot.dataset.bound) return;
+      dot.dataset.bound = 'true';
+      dot.addEventListener('click', (e) => {
+        e.stopPropagation();
+        goSlide(parseInt(dot.dataset.slide || '0', 10));
+        scheduleAuto();
       });
     });
 
-    if (!instrument.dataset.bound) {
-      instrument.dataset.bound = 'true';
-      let rafId = null;
-
-      instrument.addEventListener('pointermove', (e) => {
-        if (rafId) cancelAnimationFrame(rafId);
-        rafId = requestAnimationFrame(() => {
-          const rect = instrument.getBoundingClientRect();
-          const x = Math.max(0, Math.min(rect.width, e.clientX - rect.left));
-          const y = Math.max(0, Math.min(rect.height, e.clientY - rect.top));
-          const nx = ((x / rect.width) - 0.5) * 2;
-          const ny = ((y / rect.height) - 0.5) * 2;
-
-          instrument.style.setProperty('--ix', `${x.toFixed(1)}px`);
-          instrument.style.setProperty('--iy', `${y.toFixed(1)}px`);
-          instrument.style.setProperty('--px', `${(nx * 10).toFixed(1)}px`);
-          instrument.style.setProperty('--py', `${(ny * 10).toFixed(1)}px`);
-          instrument.style.setProperty('--rot-o', `${(modeIndex * 30 + nx * 14).toFixed(1)}deg`);
-          instrument.style.setProperty('--rot-i', `${(modeIndex * -45 + ny * -18).toFixed(1)}deg`);
-
-          if (telemetryEl) {
-            const cx = Math.round(nx * 50);
-            const cy = Math.round(ny * 50);
-            const fmt = (n) => (n >= 0 ? `+${String(n).padStart(2, '0')}` : `-${String(Math.abs(n)).padStart(2, '0')}`);
-            telemetryEl.textContent = `${currentSpec} · ${fmt(cx)}, ${fmt(cy)}`;
-          }
-        });
+    guideCards.forEach((card) => {
+      if (card.dataset.bound) return;
+      card.dataset.bound = 'true';
+      const idx = parseInt(card.dataset.guideSlide || '0', 10);
+      card.addEventListener('click', () => {
+        goSlide(idx);
+        scheduleAuto();
       });
-
-      instrument.addEventListener('pointerleave', () => {
-        if (rafId) cancelAnimationFrame(rafId);
-        instrument.style.setProperty('--ix', '50%');
-        instrument.style.setProperty('--iy', '50%');
-        instrument.style.setProperty('--px', '0px');
-        instrument.style.setProperty('--py', '0px');
-        instrument.style.setProperty('--rot-o', `${modeIndex * 30}deg`);
-        instrument.style.setProperty('--rot-i', `${modeIndex * -45}deg`);
-        if (telemetryEl) telemetryEl.textContent = `${currentSpec} · 00, 00`;
+      card.addEventListener('mouseenter', () => {
+        goSlide(idx);
       });
+    });
 
-      instrument.addEventListener('click', () => {
-        const nextTab = tabs[(modeIndex + 1) % tabs.length];
-        if (nextTab) activateTab(nextTab);
+    // Pointer-move geometric hit test for stable hover expansion (prevents dot-click hover flicker)
+    if (bubbleWrap && !bubbleWrap.dataset.bound) {
+      bubbleWrap.dataset.bound = 'true';
+      if (window.matchMedia && window.matchMedia('(hover: hover)').matches) {
+        let hoverOn = false;
+        const setHover = (on) => {
+          if (on === hoverOn) return;
+          hoverOn = on;
+          bubbleWrap.classList.toggle('is-hovered', on);
+        };
+        window.addEventListener('pointermove', (e) => {
+          const r = bubbleView.getBoundingClientRect();
+          const pad = hoverOn ? 12 : 0;
+          setHover(
+            e.clientX >= r.left - pad &&
+            e.clientX <= r.right + pad &&
+            e.clientY >= r.top - pad &&
+            e.clientY <= r.bottom + pad
+          );
+        }, { passive: true });
+        document.addEventListener('mouseleave', () => setHover(false));
+      }
+
+      // Click or swipe horizontally to advance slides
+      let pointerStartX = null;
+      bubbleView.addEventListener('pointerdown', (e) => {
+        if (e.target.closest('.qj-dot')) return;
+        pointerStartX = e.clientX;
       });
-
-      instrument.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter' || e.key === ' ') {
+      bubbleView.addEventListener('pointerup', (e) => {
+        if (e.target.closest('.qj-dot') || pointerStartX === null) return;
+        const dx = e.clientX - pointerStartX;
+        pointerStartX = null;
+        if (Math.abs(dx) > 36) {
+          goSlide(dx < 0 ? currentSlide + 1 : currentSlide - 1);
+        } else {
+          goSlide(currentSlide + 1);
+        }
+        scheduleAuto();
+      });
+      bubbleView.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowRight' || e.key === 'Enter' || e.key === ' ') {
           e.preventDefault();
-          const nextTab = tabs[(modeIndex + 1) % tabs.length];
-          if (nextTab) activateTab(nextTab);
+          goSlide(currentSlide + 1);
+          scheduleAuto();
+        } else if (e.key === 'ArrowLeft') {
+          e.preventDefault();
+          goSlide(currentSlide - 1);
+          scheduleAuto();
         }
       });
     }
+
+    goSlide(0);
+    scheduleAuto();
   };
 
   // Component Initializer (Runs on initial page load and after every PJAX route change)
@@ -569,9 +624,9 @@
       el.textContent = String(new Date().getFullYear());
     });
 
-    // 4. Interactive Specular & Hero Studio Instrument
+    // 4. Interactive Specular & Qijishow-Inspired Hero Motion
     initInteractiveSpecular();
-    initHeroInstrument();
+    initHeroKinetic();
 
     // 5. Works Gallery Initializer if on works.html
     if (window.WWZWorksInit && typeof window.WWZWorksInit === 'function') {
