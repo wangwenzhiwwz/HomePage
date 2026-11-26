@@ -43,12 +43,12 @@
   <!-- Content Container (Managed by site-shell for zero-flicker transitions) -->
   <main class="main-content" id="page-content">
     
-    <!-- Hero Section (Mobbin Minimalist Stage) -->
+    <!-- Hero Section (Interactive Studio Instrument & Editorial Guide) -->
     <section class="hero-section" id="home">
       <div class="wrap">
         <div class="hero-grid">
           
-          <!-- Left: Editorial Headline & Bio -->
+          <!-- Left: Editorial Orientation & Guiding Lead (Zero Links) -->
           <div class="hero-intro">
             <div class="hero-status-kicker">
               <span class="status-indicator"><span class="status-dot"></span></span>
@@ -56,58 +56,81 @@
             </div>
             
             <h1 class="hero-title">Commercial Video.<br>Digital Systems.</h1>
-            <p class="hero-lead">Crafting cinematic product films, generative AI pipelines, and independent digital utilities — merging visual storytelling with technical precision.</p>
-            
-            <div class="hero-actions">
-              <a href="#films" class="btn btn-primary"><i class="fa-solid fa-play" style="font-size:0.75rem"></i> Featured Films</a>
-              <a href="works.html" class="btn btn-secondary">Selected Works</a>
-            </div>
+            <p class="hero-lead">Directing product films, designing generative pipelines, and engineering independent web utilities — crafted with clarity, rhythm, and technical restraint.</p>
 
-            <div class="hero-meta-summary">
-              <span class="meta-item"><i class="fa-solid fa-film"></i> Commercial Direction</span>
-              <span class="meta-dot">/</span>
-              <span class="meta-item"><i class="fa-solid fa-cube"></i> CGI &amp; Visuals</span>
-              <span class="meta-dot">/</span>
-              <span class="meta-item"><i class="fa-solid fa-code"></i> AI &amp; Web Systems</span>
+            <div class="hero-guide-strip" aria-hidden="true">
+              <div class="hero-scroll-cue">
+                <span class="scroll-track"><span class="scroll-runner"></span></span>
+                <span class="scroll-label">Scroll to explore</span>
+              </div>
+              <span class="hero-index-map">01 Film · 02 Works · 03 Notes · 04 Tools</span>
             </div>
           </div>
 
-          <!-- Right: Flagship Showcase with Interactive Segment Switcher -->
+          <!-- Right: Interactive Monochrome Studio Instrument (Zero Images, Zero Links) -->
           <div class="hero-showcase">
-            <div class="showcase-nav" role="tablist" aria-label="Featured film selector">
+            <div class="showcase-nav" role="tablist" aria-label="Studio discipline lens">
               <button class="showcase-tab active" type="button" role="tab" aria-selected="true"
-                data-video="https://player.vimeo.com/video/1149403074"
-                data-img="images/videos/rugone-xever-7.jpg"
-                data-title="RugOne Xever 7"
-                data-desc="Cinematic launch campaign for rugged outdoor performance"
-                data-badge="Featured Commercial · 2025">RugOne Xever 7</button>
+                data-mode="direction"
+                data-kicker="01 / COMMERCIAL DIRECTION"
+                data-spec="24FPS · ANAMORPHIC"
+                data-title="Visual Storytelling &amp; Product Films"
+                data-desc="Motion pacing, lighting craft, and launch narratives — explore commercial reels in Section 01 below.">01 · Direction</button>
               <button class="showcase-tab" type="button" role="tab" aria-selected="false"
-                data-video="https://www.youtube.com/embed/a7RQgUMkpwI"
-                data-img="images/videos/armor-34-pro.jpg"
-                data-title="Ulefone Armor 34 Pro"
-                data-desc="Flagship launch film with dual camping lights"
-                data-badge="Product Film · 2024">Armor 34 Pro</button>
+                data-mode="ai"
+                data-kicker="02 / AI &amp; 3D VISUALS"
+                data-spec="COMFYUI · BLENDER"
+                data-title="Generative Pipelines &amp; CGI Craft"
+                data-desc="Repeatable AI workflows and 3D product rendering — explore visual works and lab notes below.">02 · AI &amp; CGI</button>
               <button class="showcase-tab" type="button" role="tab" aria-selected="false"
-                data-video="https://www.youtube.com/embed/H74qBMmDK5I"
-                data-img="images/videos/armor-28.jpg"
-                data-title="Ulefone Armor 28"
-                data-desc="World's Most Powerful Rugged Phone Ever!"
-                data-badge="Commercial · 2025">Armor 28</button>
+                data-mode="systems"
+                data-kicker="03 / WEB &amp; INFRASTRUCTURE"
+                data-spec="EDGE · IPV6 · TOOLS"
+                data-title="Independent Utilities &amp; Field Notes"
+                data-desc="Lightweight web tools, network architecture, and deployment guides curated in the sections below.">03 · Systems</button>
             </div>
 
-            <div class="showcase-card js-video" id="heroShowcaseCard"
-                 data-video="https://player.vimeo.com/video/1149403074"
-                 role="button" tabindex="0" aria-label="Play featured film RugOne Xever 7">
-              <img id="heroShowcaseImg" src="images/videos/rugone-xever-7.jpg" alt="RugOne Xever 7 Commercial" loading="eager" width="640" height="360">
-              <div class="showcase-overlay">
-                <span class="showcase-badge" id="heroShowcaseBadge"><i class="fa-solid fa-film"></i> Featured Commercial · 2025</span>
-                <div class="showcase-bottom">
-                  <div>
-                    <h3 id="heroShowcaseTitle">RugOne Xever 7</h3>
-                    <p id="heroShowcaseDesc">Cinematic launch campaign for rugged outdoor performance</p>
-                  </div>
-                  <span class="bento-play-pill"><i class="fa-solid fa-play"></i> Watch Film</span>
-                </div>
+            <div class="hero-instrument" id="heroInstrument" data-mode="direction" tabindex="0" role="region" aria-label="Interactive studio compass — move cursor or click to switch discipline focus">
+              <div class="instrument-grid-bg" aria-hidden="true"></div>
+              <div class="instrument-spotlight" aria-hidden="true"></div>
+
+              <div class="instrument-top">
+                <span class="instrument-badge" id="instrumentKicker">01 / COMMERCIAL DIRECTION</span>
+                <span class="instrument-telemetry" id="instrumentTelemetry">24FPS · ANAMORPHIC · 00, 00</span>
+              </div>
+
+              <div class="instrument-stage" aria-hidden="true">
+                <svg class="instrument-reticle" viewBox="0 0 320 320" fill="none">
+                  <!-- Outer Degree Ring -->
+                  <g class="reticle-outer">
+                    <circle cx="160" cy="160" r="134" stroke="currentColor" stroke-opacity="0.22" stroke-width="1"/>
+                    <circle cx="160" cy="160" r="126" stroke="currentColor" stroke-opacity="0.4" stroke-width="1.1" stroke-dasharray="2 10"/>
+                    <line x1="160" y1="16" x2="160" y2="28" stroke="currentColor" stroke-opacity="0.45" stroke-width="1.2"/>
+                    <line x1="160" y1="292" x2="160" y2="304" stroke="currentColor" stroke-opacity="0.45" stroke-width="1.2"/>
+                    <line x1="16" y1="160" x2="28" y2="160" stroke="currentColor" stroke-opacity="0.45" stroke-width="1.2"/>
+                    <line x1="292" y1="160" x2="304" y2="160" stroke="currentColor" stroke-opacity="0.45" stroke-width="1.2"/>
+                  </g>
+                  <!-- Middle Kinetic Ring -->
+                  <g class="reticle-mid">
+                    <circle cx="160" cy="160" r="92" stroke="currentColor" stroke-opacity="0.34" stroke-width="1.1" stroke-dasharray="48 18 12 18"/>
+                    <rect x="95" y="95" width="130" height="130" rx="16" stroke="currentColor" stroke-opacity="0.22" stroke-width="1.1" class="reticle-frame"/>
+                  </g>
+                  <!-- Inner Parallax Focal Iris -->
+                  <g class="reticle-core">
+                    <circle cx="160" cy="160" r="46" stroke="currentColor" stroke-opacity="0.46" stroke-width="1.2"/>
+                    <circle cx="160" cy="160" r="22" stroke="currentColor" stroke-opacity="0.68" stroke-width="1.3" stroke-dasharray="4 4"/>
+                    <line x1="142" y1="160" x2="152" y2="160" stroke="currentColor" stroke-opacity="0.72" stroke-width="1.3"/>
+                    <line x1="168" y1="160" x2="178" y2="160" stroke="currentColor" stroke-opacity="0.72" stroke-width="1.3"/>
+                    <line x1="160" y1="142" x2="160" y2="152" stroke="currentColor" stroke-opacity="0.72" stroke-width="1.3"/>
+                    <line x1="160" y1="168" x2="160" y2="178" stroke="currentColor" stroke-opacity="0.72" stroke-width="1.3"/>
+                    <circle cx="160" cy="160" r="4" fill="currentColor" class="reticle-dot"/>
+                  </g>
+                </svg>
+              </div>
+
+              <div class="instrument-bottom">
+                <h2 class="instrument-title" id="instrumentTitle">Visual Storytelling &amp; Product Films</h2>
+                <p class="instrument-desc" id="instrumentDesc">Motion pacing, lighting craft, and launch narratives — explore commercial reels in Section 01 below.</p>
               </div>
             </div>
           </div>

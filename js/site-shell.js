@@ -275,56 +275,115 @@
     });
   };
 
-  // Mobbin Interactive Hero Showcase Tab Switcher
-  const initHeroShowcaseTabs = () => {
-    const tabs = document.querySelectorAll('.showcase-tab');
-    const card = document.getElementById('heroShowcaseCard');
-    const img = document.getElementById('heroShowcaseImg');
-    const title = document.getElementById('heroShowcaseTitle');
-    const desc = document.getElementById('heroShowcaseDesc');
-    const badge = document.getElementById('heroShowcaseBadge');
+  // Interactive Monochrome Studio Instrument (Pure Guiding Experience)
+  const initHeroInstrument = () => {
+    const tabs = document.querySelectorAll('.showcase-tab[data-mode]');
+    const instrument = document.getElementById('heroInstrument');
+    const kickerEl = document.getElementById('instrumentKicker');
+    const telemetryEl = document.getElementById('instrumentTelemetry');
+    const titleEl = document.getElementById('instrumentTitle');
+    const descEl = document.getElementById('instrumentDesc');
+    const bottomEl = instrument?.querySelector('.instrument-bottom');
 
-    if (!tabs.length || !card) return;
+    if (!tabs.length || !instrument) return;
+
+    let currentSpec = tabs[0].dataset.spec || '24FPS · ANAMORPHIC';
+    let modeIndex = 0;
+
+    const activateTab = (tab) => {
+      tabs.forEach((t, idx) => {
+        const isTarget = t === tab;
+        t.classList.toggle('active', isTarget);
+        t.setAttribute('aria-selected', String(isTarget));
+        if (isTarget) modeIndex = idx;
+      });
+
+      const mode = tab.dataset.mode || 'direction';
+      const kickerText = tab.dataset.kicker || '';
+      currentSpec = tab.dataset.spec || '';
+      const titleText = tab.dataset.title || '';
+      const descText = tab.dataset.desc || '';
+
+      instrument.dataset.mode = mode;
+      instrument.style.setProperty('--rot-o', `${modeIndex * 30}deg`);
+      instrument.style.setProperty('--rot-i', `${modeIndex * -45}deg`);
+
+      instrument.classList.remove('is-pulsing');
+      void instrument.offsetWidth;
+      instrument.classList.add('is-pulsing');
+
+      if (bottomEl) bottomEl.classList.add('is-switching');
+      setTimeout(() => {
+        if (kickerEl) kickerEl.textContent = kickerText;
+        if (telemetryEl) telemetryEl.textContent = `${currentSpec} · 00, 00`;
+        if (titleEl) titleEl.textContent = titleText;
+        if (descEl) descEl.textContent = descText;
+        if (bottomEl) bottomEl.classList.remove('is-switching');
+      }, 130);
+    };
 
     tabs.forEach(tab => {
       if (tab.dataset.bound) return;
       tab.dataset.bound = 'true';
-
       tab.addEventListener('click', (e) => {
         e.preventDefault();
-        tabs.forEach(t => {
-          t.classList.remove('active');
-          t.setAttribute('aria-selected', 'false');
-        });
-        tab.classList.add('active');
-        tab.setAttribute('aria-selected', 'true');
-
-        const videoUrl = tab.dataset.video;
-        const imgSrc = tab.dataset.img;
-        const titleText = tab.dataset.title;
-        const descText = tab.dataset.desc;
-        const badgeText = tab.dataset.badge;
-
-        // Smooth subtle fade transition
-        const overlay = card.querySelector('.showcase-overlay');
-        if (img) img.style.opacity = '0.3';
-        if (overlay) overlay.style.opacity = '0.4';
-
-        setTimeout(() => {
-          if (img && imgSrc) img.src = imgSrc;
-          if (card && videoUrl) {
-            card.dataset.video = videoUrl;
-            card.setAttribute('aria-label', `Play featured film ${titleText || 'Commercial'}`);
-          }
-          if (title && titleText) title.textContent = titleText;
-          if (desc && descText) desc.textContent = descText;
-          if (badge && badgeText) badge.innerHTML = `<i class="fa-solid fa-film"></i> ${badgeText}`;
-
-          if (img) img.style.opacity = '0.9';
-          if (overlay) overlay.style.opacity = '1';
-        }, 140);
+        activateTab(tab);
       });
     });
+
+    if (!instrument.dataset.bound) {
+      instrument.dataset.bound = 'true';
+      let rafId = null;
+
+      instrument.addEventListener('pointermove', (e) => {
+        if (rafId) cancelAnimationFrame(rafId);
+        rafId = requestAnimationFrame(() => {
+          const rect = instrument.getBoundingClientRect();
+          const x = Math.max(0, Math.min(rect.width, e.clientX - rect.left));
+          const y = Math.max(0, Math.min(rect.height, e.clientY - rect.top));
+          const nx = ((x / rect.width) - 0.5) * 2;
+          const ny = ((y / rect.height) - 0.5) * 2;
+
+          instrument.style.setProperty('--ix', `${x.toFixed(1)}px`);
+          instrument.style.setProperty('--iy', `${y.toFixed(1)}px`);
+          instrument.style.setProperty('--px', `${(nx * 10).toFixed(1)}px`);
+          instrument.style.setProperty('--py', `${(ny * 10).toFixed(1)}px`);
+          instrument.style.setProperty('--rot-o', `${(modeIndex * 30 + nx * 14).toFixed(1)}deg`);
+          instrument.style.setProperty('--rot-i', `${(modeIndex * -45 + ny * -18).toFixed(1)}deg`);
+
+          if (telemetryEl) {
+            const cx = Math.round(nx * 50);
+            const cy = Math.round(ny * 50);
+            const fmt = (n) => (n >= 0 ? `+${String(n).padStart(2, '0')}` : `-${String(Math.abs(n)).padStart(2, '0')}`);
+            telemetryEl.textContent = `${currentSpec} · ${fmt(cx)}, ${fmt(cy)}`;
+          }
+        });
+      });
+
+      instrument.addEventListener('pointerleave', () => {
+        if (rafId) cancelAnimationFrame(rafId);
+        instrument.style.setProperty('--ix', '50%');
+        instrument.style.setProperty('--iy', '50%');
+        instrument.style.setProperty('--px', '0px');
+        instrument.style.setProperty('--py', '0px');
+        instrument.style.setProperty('--rot-o', `${modeIndex * 30}deg`);
+        instrument.style.setProperty('--rot-i', `${modeIndex * -45}deg`);
+        if (telemetryEl) telemetryEl.textContent = `${currentSpec} · 00, 00`;
+      });
+
+      instrument.addEventListener('click', () => {
+        const nextTab = tabs[(modeIndex + 1) % tabs.length];
+        if (nextTab) activateTab(nextTab);
+      });
+
+      instrument.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          const nextTab = tabs[(modeIndex + 1) % tabs.length];
+          if (nextTab) activateTab(nextTab);
+        }
+      });
+    }
   };
 
   // Component Initializer (Runs on initial page load and after every PJAX route change)
@@ -433,7 +492,7 @@
             lastFocusedElement = btn;
 
             // 1. Immediately paint poster preview to eliminate perceived black screen
-            const thumbImg = btn.querySelector('img') || document.getElementById('heroShowcaseImg');
+            const thumbImg = btn.querySelector('img');
             const posterSrc = btn.dataset.img || (thumbImg ? thumbImg.src : '');
             if (modalSpinnerText) modalSpinnerText.textContent = 'Loading film…';
             if (modalPoster && modalPosterImg) {
@@ -510,9 +569,9 @@
       el.textContent = String(new Date().getFullYear());
     });
 
-    // 4. Interactive Specular & Hero Showcase Tabs
+    // 4. Interactive Specular & Hero Studio Instrument
     initInteractiveSpecular();
-    initHeroShowcaseTabs();
+    initHeroInstrument();
 
     // 5. Works Gallery Initializer if on works.html
     if (window.WWZWorksInit && typeof window.WWZWorksInit === 'function') {
