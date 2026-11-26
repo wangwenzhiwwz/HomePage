@@ -10,7 +10,7 @@
 .qj-hero {
   position: relative;
   overflow: hidden;
-  min-height: calc(100dvh - 64px);
+  min-height: calc(100dvh - 74px);
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -839,7 +839,7 @@
 
 @media (max-width: 640px) {
   .qj-hero {
-    min-height: calc(100dvh - 56px);
+    min-height: calc(100dvh - 62px);
     padding: 20px 0 32px;
   }
   .qj-hero-wrap {
