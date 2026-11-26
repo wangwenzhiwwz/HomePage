@@ -78,6 +78,7 @@
     'fa-sliders': '<line x1="4" y1="6" x2="20" y2="6"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="18" x2="20" y2="18"/><circle cx="9" cy="6" r="2" fill="currentColor"/><circle cx="15" cy="12" r="2" fill="currentColor"/><circle cx="8" cy="18" r="2" fill="currentColor"/>',
     'fa-sun': '<circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.93 4.93l1.41 1.41m11.32 11.32l1.41 1.41M2 12h2m16 0h2M4.93 19.07l1.41-1.41m11.32-11.32l1.41-1.41"/>',
     'fa-terminal': '<polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/>',
+    'fa-thumbtack': '<path d="M12 17v5"/><path d="M9 10.76a2 2 0 0 1-1.11 1.79l-1.78.9A2 2 0 0 0 5 15.24V16a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-.76a2 2 0 0 0-1.11-1.79l-1.78-.9A2 2 0 0 1 15 10.76V7a1 1 0 0 1 1-1 2 2 0 0 0 0-4H8a2 2 0 0 0 0 4 1 1 0 0 1 1 1z"/>',
     'fa-triangle-exclamation': '<path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><circle cx="12" cy="17" r="0.8" fill="currentColor"/>',
     'fa-user': '<path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>',
     'fa-user-astronaut': '<circle cx="12" cy="9" r="5"/><path d="M5 20a7 7 0 0 1 14 0"/><circle cx="12" cy="9" r="2.2"/>',
@@ -821,16 +822,31 @@
     let posterTimer = null;
     let slowTimer = null;
     let idleTimer = null;
+    let qualityTimers = [];
     let activeLoadHandler = null;
 
     const clearModalTimers = () => {
       if (posterTimer) { clearTimeout(posterTimer); posterTimer = null; }
       if (slowTimer) { clearTimeout(slowTimer); slowTimer = null; }
       if (idleTimer) { clearTimeout(idleTimer); idleTimer = null; }
+      while (qualityTimers.length) clearTimeout(qualityTimers.pop());
       if (activeLoadHandler && videoFrame) {
         videoFrame.removeEventListener('load', activeLoadHandler);
         activeLoadHandler = null;
       }
+    };
+
+    const requestHighestVideoQuality = (frame, src) => {
+      if (!frame || !frame.contentWindow) return;
+      try {
+        if (src.includes('vimeo.com')) {
+          frame.contentWindow.postMessage(JSON.stringify({ method: 'setQuality', value: '4k' }), 'https://player.vimeo.com');
+        } else {
+          frame.contentWindow.postMessage(JSON.stringify({ event: 'listening', id: 1, channel: 'widget' }), 'https://www.youtube.com');
+          frame.contentWindow.postMessage(JSON.stringify({ event: 'command', func: 'setPlaybackQualityRange', args: ['highres', 'highres'] }), 'https://www.youtube.com');
+          frame.contentWindow.postMessage(JSON.stringify({ event: 'command', func: 'setPlaybackQuality', args: ['highres'] }), 'https://www.youtube.com');
+        }
+      } catch (_) {}
     };
 
     const wakeModalControls = () => {
@@ -890,15 +906,22 @@
             }
 
             const join = src.includes('?') ? '&' : '?';
-            const params = src.includes('vimeo.com')
-              ? 'autoplay=1&dnt=1&playsinline=1&title=0&byline=0&portrait=0&badge=0&transparent=0&autopause=0'
-              : 'autoplay=1&rel=0&modestbranding=1&playsinline=1&iv_load_policy=3&cc_load_policy=0&color=white&fs=1&enablejsapi=1';
+            const isVimeo = src.includes('vimeo.com');
+            const originParam = (!isVimeo && location.origin && location.origin !== 'null')
+              ? `&origin=${encodeURIComponent(location.origin)}`
+              : '';
+            const params = isVimeo
+              ? 'autoplay=1&quality=4k&dnt=1&playsinline=1&title=0&byline=0&portrait=0&badge=0&transparent=0&autopause=0'
+              : `autoplay=1&rel=0&modestbranding=1&playsinline=1&iv_load_policy=3&cc_load_policy=0&color=white&fs=1&vq=hd2160&enablejsapi=1${originParam}`;
 
             let ready = false;
             const onIframeLoaded = () => {
               if (ready) return;
               ready = true;
               clearModalTimers();
+              requestHighestVideoQuality(videoFrame, src);
+              qualityTimers.push(setTimeout(() => requestHighestVideoQuality(videoFrame, src), 450));
+              qualityTimers.push(setTimeout(() => requestHighestVideoQuality(videoFrame, src), 1200));
               setTimeout(() => {
                 if (modalPoster && videoModal.classList.contains('open')) {
                   modalPoster.classList.add('is-hidden');
