@@ -220,9 +220,12 @@
         btn.addEventListener('click', () => {
           const isDark = document.documentElement.dataset.theme === 'dark';
           const newTheme = isDark ? 'light' : 'dark';
+          const bg = newTheme === 'dark' ? '#000000' : '#f7f7f5';
           document.documentElement.dataset.theme = newTheme;
           document.documentElement.dataset.themeMode = newTheme;
           document.documentElement.style.colorScheme = newTheme;
+          document.documentElement.style.backgroundColor = bg;
+          document.querySelector('meta[name="theme-color"]')?.setAttribute('content', bg);
           try { localStorage.setItem('wwz-theme-mode', newTheme); } catch (_) {}
           updateThemeIcons();
         });
