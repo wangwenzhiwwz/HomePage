@@ -5,8 +5,9 @@
  * page render from this shared registry automatically.
  */
 window.WWZ_CONTENT = {
-  featuredVideoId: "rugone-xever-7",
+  featuredVideoId: "rugone-xever-8",
   videos: [
+    { id:"rugone-xever-8", title:"RugOne Xever 8", description:"Hot-Swappable Battery & SonicX Super Speaker", summary:"Commercial launch film highlighting RugOne Xever 8's hot-swappable Bridge Power Cell and 117dB SonicX Super Speaker.", year:"2026", image:"images/videos/rugone-xever-8.jpg", embed:"https://www.youtube.com/embed/8LMjtoJVIac" },
     { id:"rugone-xever-7", title:"RugOne Xever 7", description:"Commercial Film", summary:"A cinematic campaign shaped around rugged performance, precise product detail, and an energetic outdoor visual language.", year:"2024", image:"images/videos/rugone-xever-7.jpg", embed:"https://player.vimeo.com/video/1149403074" },
     { id:"armor-34-pro", title:"Ulefone Armor 34 Pro", description:"Projector Phone Commercial", year:"2025", image:"images/videos/armor-34-pro.jpg", embed:"https://www.youtube.com/embed/a7RQgUMkpwI" },
     { id:"rugking-2-pro", title:"Ulefone RugKing 2 Pro", description:"The 5.45' Compact Rugged Beast", year:"2025", image:"images/videos/rugking-2-pro.jpg", embed:"https://www.youtube.com/embed/tOT3JojcKVE" },
