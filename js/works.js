@@ -1,16 +1,85 @@
 (() => {
 'use strict';
 
-const initWorks = () => {
-  const $ = id => document.getElementById(id);
-  const grid = $('portfolioGrid');
-  const count = $('worksCount');
-  const search = $('worksSearch');
-  const sort = $('worksSort');
+const CATEGORY_LABELS = {
+  '摄影': 'Photography',
+  '三维': '3D CGI',
+  '插画': 'Illustration'
+};
 
-  if (!grid || !count || !search || !sort) {
-    return;
+const formatCategory = (val) => CATEGORY_LABELS[val] || val || '';
+
+const getRoot = () => {
+  const customRoot = document.body?.dataset?.contentRoot;
+  if (typeof customRoot === 'string') return customRoot;
+  return '';
+};
+
+const imagePath = (value) => {
+  const raw = String(value || '').trim();
+  if (!/^\/images\/works\/[^/]+\.jpg$/i.test(raw)) {
+    throw Error('Invalid local JPG path: ' + raw);
   }
+  const rel = getRoot() + raw.replace(/^\//, '');
+  if (/[()]/.test(rel)) {
+    return rel.replace(/\(/g, '%28').replace(/\)/g, '%29') + '?v=20261112';
+  }
+  return rel;
+};
+
+const isValidWorksArray = (data) =>
+  Array.isArray(data) &&
+  data.length > 0 &&
+  data.every(w => w && w.title && w.category && w.url && (w.image === null || /^\/images\/works\/[^/]+\.jpg$/i.test(w.image)));
+
+const fetchWithTimeout = async (url, timeoutMs = 8000) => {
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), timeoutMs);
+  try {
+    const res = await fetch(url, { cache: 'default', signal: controller.signal });
+    if (!res.ok) throw Error(`${url} HTTP ${res.status}`);
+    return await res.json();
+  } finally {
+    clearTimeout(timer);
+  }
+};
+
+const loadWorksData = async () => {
+  if (isValidWorksArray(window.__WWZ_WORKS_CACHE)) {
+    return window.__WWZ_WORKS_CACHE;
+  }
+  if (isValidWorksArray(window.WWZ_WORKS)) {
+    window.__WWZ_WORKS_CACHE = window.WWZ_WORKS;
+    return window.WWZ_WORKS;
+  }
+
+  const urls = [getRoot() + 'data/works.json', '/data/works.json'];
+  let lastError = null;
+  for (let attempt = 0; attempt < 3; attempt++) {
+    for (const url of new Set(urls)) {
+      try {
+        const data = await fetchWithTimeout(url, 8000);
+        if (!isValidWorksArray(data)) throw Error('Invalid works schema');
+        window.__WWZ_WORKS_CACHE = data;
+        return data;
+      } catch (err) {
+        lastError = err;
+      }
+    }
+    if (attempt < 2) {
+      await new Promise(r => setTimeout(r, 400 * (attempt + 1)));
+    }
+  }
+  throw lastError || Error('Failed to load works data');
+};
+
+const initWorks = () => {
+  const grid = document.getElementById('portfolioGrid');
+  const count = document.getElementById('worksCount');
+  const search = document.getElementById('worksSearch');
+  const sort = document.getElementById('worksSort');
+
+  if (!grid || !count || !search || !sort) return;
   if (grid.dataset.worksInitialized === 'true') return;
   grid.dataset.worksInitialized = 'true';
 
@@ -18,38 +87,7 @@ const initWorks = () => {
   let visible = [];
   let category = 'all';
 
-  const imagePath = value => {
-    const path = String(value || '').trim();
-    if (!/^\/images\/works\/[^/]+\.jpg$/i.test(path)) {
-      throw Error('Invalid local JPG path: ' + path);
-    }
-    if (/[()]/.test(path)) {
-      return path.replace(/\(/g, '%28').replace(/\)/g, '%29') + '?v=20261112';
-    }
-    return path;
-  };
-
-  const diagnose = async (url, error) => {
-    let info = { status: 'unknown', contentType: 'unknown' };
-    try {
-      const r = await fetch(url, { cache: 'no-store' });
-      info = { status: r.status, contentType: r.headers.get('content-type') || 'unknown' };
-      if (r.body) await r.body.cancel();
-    } catch (e) {
-      info.error = e.message;
-    }
-    console.error('[WWZ Works] Image failed', { url, ...info, error: error?.message || 'Image decode/load error' });
-  };
-
-  const CATEGORY_LABELS = {
-    '摄影': 'Photography',
-    '三维': '3D CGI',
-    '插画': 'Illustration'
-  };
-
-  const formatCategory = (val) => CATEGORY_LABELS[val] || val || '';
-
-  const failed = (img, url, error) => {
+  const markUnavailable = (img) => {
     img.dataset.imageState = 'error';
     img.classList.add('image-unavailable');
     img.removeAttribute('src');
@@ -59,20 +97,34 @@ const initWorks = () => {
       if (!media.querySelector('.image-fallback')) {
         const hint = document.createElement('span');
         hint.className = 'image-fallback';
-        hint.textContent = 'Image unavailable';
+        hint.textContent = 'Preview unavailable';
         media.append(hint);
       }
     }
-    diagnose(url, error);
   };
 
   const bindImage = (img, url) => {
     img.dataset.imageState = 'loading';
-    img.addEventListener('load', () => {
+    let retried = false;
+    const onLoad = () => {
       img.dataset.imageState = 'loaded';
       img.classList.remove('image-unavailable');
-    }, { once: true });
-    img.addEventListener('error', e => failed(img, url, e), { once: true });
+      img.closest('.portfolio-media')?.classList.add('is-loaded');
+    };
+    const onError = () => {
+      if (!retried) {
+        retried = true;
+        setTimeout(() => {
+          if (!document.body.contains(img)) return;
+          const sep = url.includes('?') ? '&' : '?';
+          img.src = url + sep + 'retry=1';
+        }, 800);
+        return;
+      }
+      markUnavailable(img);
+    };
+    img.addEventListener('load', onLoad, { once: true });
+    img.addEventListener('error', onError);
     img.src = url;
   };
 
@@ -96,7 +148,7 @@ const initWorks = () => {
     img.alt = w.title || '';
     img.width = 800;
     img.height = 600;
-    img.loading = pos < 6 ? 'eager' : 'lazy';
+    img.loading = pos < 9 ? 'eager' : 'lazy';
     img.decoding = 'async';
     if (pos < 6) img.fetchPriority = 'high';
 
@@ -133,6 +185,7 @@ const initWorks = () => {
   };
 
   const render = () => {
+    if (!document.body.contains(grid)) return;
     const q = search.value.trim().toLowerCase();
     visible = items.filter(w =>
       (category === 'all' || w.category === category) &&
@@ -154,10 +207,11 @@ const initWorks = () => {
     }
   };
 
-  document.querySelectorAll('[data-filter]').forEach(btn => {
+  const filters = document.querySelector('.works-toolbar .filter-bar') || document;
+  filters.querySelectorAll('[data-filter]').forEach(btn => {
     btn.addEventListener('click', () => {
       category = btn.dataset.filter;
-      document.querySelectorAll('[data-filter]').forEach(x => {
+      filters.querySelectorAll('[data-filter]').forEach(x => {
         x.classList.toggle('active', x === btn);
         x.setAttribute('aria-pressed', String(x === btn));
       });
@@ -168,24 +222,37 @@ const initWorks = () => {
   search.addEventListener('input', render);
   sort.addEventListener('change', render);
 
-  fetch('data/works.json', { cache: 'no-cache' })
-    .then(r => {
-      if (!r.ok) throw Error('data/works.json HTTP ' + r.status);
-      return r.json();
-    })
-    .then(data => {
-      if (!Array.isArray(data) || data.length !== 81) {
-        throw Error('Expected 81 works, got ' + (Array.isArray(data) ? data.length : 'non-array'));
-      }
-      const bad = data.filter(w => !w || !w.title || !w.category || !w.url || (w.image !== null && !/^\/images\/works\/[^/]+\.jpg$/i.test(w.image)));
-      if (bad.length) throw Error('Invalid work records/local JPG paths: ' + bad.length);
-      items = data;
-      render();
-    })
-    .catch(e => {
-      count.textContent = 'Failed to load works data. Please try again later.';
-      console.error('[WWZ Works] Data load failed', { url: 'data/works.json', error: e.message });
-    });
+  const boot = () => {
+    count.textContent = 'Loading works…';
+    loadWorksData()
+      .then(data => {
+        if (!document.body.contains(grid)) return;
+        items = data;
+        render();
+      })
+      .catch(err => {
+        if (!document.body.contains(grid)) return;
+        console.error('[WWZ Works] Data load failed', err);
+        count.textContent = 'Unable to load works right now.';
+        const retryWrap = document.createElement('div');
+        retryWrap.className = 'works-empty';
+        const msg = document.createElement('p');
+        msg.textContent = 'Network hiccup while loading the works gallery.';
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'btn btn-secondary';
+        btn.style.marginTop = '12px';
+        btn.textContent = 'Retry Loading Works';
+        btn.addEventListener('click', () => {
+          retryWrap.remove();
+          boot();
+        });
+        retryWrap.append(msg, btn);
+        grid.replaceChildren(retryWrap);
+      });
+  };
+
+  boot();
 };
 
 window.WWZWorksInit = initWorks;

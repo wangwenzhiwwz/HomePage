@@ -917,15 +917,23 @@
 
   const loadScriptOnce = (src) =>
     new Promise((resolve) => {
-      if (document.querySelector(`script[src="${src}"], script[data-pjax-src="${src}"]`)) {
-        resolve();
+      const existing = document.querySelector(`script[src="${src}"], script[data-pjax-src="${src}"]`);
+      if (existing && existing.dataset.loaded === 'true') {
+        resolve(true);
         return;
       }
+      if (existing) existing.remove();
       const s = document.createElement('script');
       s.src = src;
       s.dataset.pjaxSrc = src;
-      s.onload = () => resolve();
-      s.onerror = () => resolve();
+      s.onload = () => {
+        s.dataset.loaded = 'true';
+        resolve(true);
+      };
+      s.onerror = () => {
+        s.remove();
+        resolve(false);
+      };
       document.head.appendChild(s);
     });
 
@@ -1002,8 +1010,13 @@
       }
 
       const nextRoot = getRoot();
-      if (nextMain.querySelector('#portfolioGrid') && !window.WWZWorksInit) {
-        await loadScriptOnce(`${nextRoot}js/works.js`);
+      if (nextMain.querySelector('#portfolioGrid')) {
+        if (!window.WWZ_WORKS) {
+          await loadScriptOnce(`${nextRoot}data/works-data.js`);
+        }
+        if (!window.WWZWorksInit) {
+          await loadScriptOnce(`${nextRoot}js/works.js`);
+        }
       }
       if (/\/articles\//.test(targetUrl.pathname) && !window.WWZArticleNavInit) {
         await loadScriptOnce(`${nextRoot}js/article-nav.js`);
