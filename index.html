@@ -71,55 +71,87 @@
               </div>
             </div>
 
-            <!-- Editorial Minimalist Line-Art Character with Living Cursor-Tracking Eyes + Expandable Pill Capsule -->
+            <!-- Editorial 1:1 Line-Art Character with Living Cursor-Tracking Eyes + Expandable Pill Capsule -->
             <div class="qj-interactive-cluster">
               <div class="qj-illo" id="heroIllo" aria-hidden="true">
                 <div class="qj-totem-motion">
-                  <svg class="qj-totem-svg" viewBox="0 0 240 340" fill="none">
+                  <svg class="qj-totem-svg" viewBox="0 0 250 400" fill="none">
+                    <defs>
+                      <linearGradient id="qjHairShade" x1="0%" y1="15%" x2="88%" y2="88%">
+                        <stop offset="0%" class="qj-stop-hair-shade"/>
+                        <stop offset="48%" class="qj-stop-hair-mid"/>
+                        <stop offset="100%" class="qj-stop-hair-light"/>
+                      </linearGradient>
+                      <linearGradient id="qjFaceShade" x1="8%" y1="52%" x2="72%" y2="28%">
+                        <stop offset="0%" class="qj-stop-face-shade"/>
+                        <stop offset="45%" class="qj-stop-face-light"/>
+                        <stop offset="100%" class="qj-stop-face-light"/>
+                      </linearGradient>
+                      <linearGradient id="qjTeeShade" x1="0%" y1="45%" x2="62%" y2="40%">
+                        <stop offset="0%" class="qj-stop-tee-shade"/>
+                        <stop offset="32%" class="qj-stop-tee-light"/>
+                        <stop offset="100%" class="qj-stop-tee-light"/>
+                      </linearGradient>
+                    </defs>
+
                     <!-- Soft Ground Shadow -->
-                    <ellipse cx="106" cy="322" rx="46" ry="5.5" fill="currentColor" fill-opacity="0.09"/>
+                    <ellipse cx="148" cy="382" rx="44" ry="5.5" fill="currentColor" fill-opacity="0.08"/>
 
-                    <!-- Back Leg & Sneaker (Relaxed Crossed Stance) -->
-                    <path d="M97 196 C95 242, 91 278, 86 312" stroke="currentColor" stroke-width="2.1" stroke-linecap="round"/>
-                    <path d="M78 313 C78 308, 88 307, 94 313 C95 316, 79 316, 78 313 Z" class="char-fill" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
+                    <!-- Long Slender Crossed Stick Legs & Minimalist Oval Shoes -->
+                    <!-- Planted straight leg (behind at ankle cross) -->
+                    <path d="M128 223 C138 272, 134 322, 129 369" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/>
+                    <!-- Planted horizontal oval sneaker -->
+                    <ellipse cx="142" cy="375" rx="14.5" ry="6.6" transform="rotate(3 142 375)" class="char-skin" stroke="currentColor" stroke-width="2.3"/>
 
-                    <!-- Front Crossed Leg & Sneaker -->
-                    <path d="M119 195 C129 236, 108 274, 115 315" stroke="currentColor" stroke-width="2.1" stroke-linecap="round"/>
-                    <path d="M111 316 C113 310, 126 311, 130 317 C131 320, 111 319, 111 316 Z" class="char-fill" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
+                    <!-- Swept crossed front leg (curves outward-left then crosses to right tiptoe) -->
+                    <path d="M105 227 C101 278, 124 318, 171 360" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/>
+                    <!-- Tiptoe tilted oval sneaker -->
+                    <ellipse cx="171" cy="364" rx="7" ry="14.5" transform="rotate(20 171 364)" class="char-skin" stroke="currentColor" stroke-width="2.3"/>
 
-                    <!-- Left Relaxed Arm -->
-                    <path d="M81 124 C63 137, 56 156, 65 168 C69 172, 74 169, 73 163" class="char-skin" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <!-- Left Arm Leaning Gently Upright Against Headline -->
+                    <path d="M74 171 C67 187, 44 189, 42 168 L42 158" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/>
+                    <ellipse cx="41.5" cy="152" rx="4.7" ry="10.2" transform="rotate(-4 41.5 152)" class="char-skin" stroke="currentColor" stroke-width="2.3"/>
 
-                    <!-- Studio Oversized Tee / Torso -->
-                    <path d="M77 122 Q106 112 135 122 L147 148 L135 151 L133 197 Q106 204 79 197 L77 151 L65 147 Z" class="char-tee" stroke="currentColor" stroke-width="2.1" stroke-linejoin="round"/>
-                    <path d="M95 117 Q106 125 117 117" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+                    <!-- Right Outstretched Arm Cradling Speech Capsule -->
+                    <path d="M137 190 C164 198, 194 190, 214 179" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/>
+                    <ellipse cx="223" cy="177" rx="10.2" ry="5.1" transform="rotate(-8 223 177)" class="char-skin" stroke="currentColor" stroke-width="2.3"/>
 
-                    <!-- Right Extended Arm Holding/Presenting Bubble -->
-                    <path d="M141 139 C170 138, 194 126, 218 111" stroke="currentColor" stroke-width="2.1" stroke-linecap="round"/>
-                    <ellipse cx="220" cy="110" rx="5.5" ry="4" transform="rotate(-24 220 110)" class="char-skin" stroke="currentColor" stroke-width="1.8"/>
+                    <!-- Relaxed Crewneck T-Shirt (Gentle Lean Silhouette) -->
+                    <path d="M93 146 Q105 144 117 147 L154 181 L143 193 L134 189 L142 221 Q115 229 88 231 L82 174 L62 177 L60 163 Z" class="char-tee" stroke="currentColor" stroke-width="2.4" stroke-linejoin="round"/>
+                    <!-- Crew Collar -->
+                    <path d="M94 146.5 Q105 157.5 117 147.5" stroke="currentColor" stroke-width="2.1" stroke-linecap="round"/>
+                    <path d="M97 147 Q105 153 114 147.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-opacity="0.65"/>
 
-                    <!-- Neck -->
-                    <path d="M100 100 L100 116 M113 100 L113 116" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/>
+                    <!-- Neck Stem -->
+                    <path d="M104 126 L104 148" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/>
 
-                    <!-- Ear & Head -->
-                    <circle cx="80" cy="79" r="5.5" class="char-skin" stroke="currentColor" stroke-width="1.8"/>
-                    <ellipse cx="107" cy="74" rx="26" ry="29" class="char-skin" stroke="currentColor" stroke-width="2.1"/>
+                    <!-- Tilted Curly-Haired Head & Round Glasses -->
+                    <g transform="rotate(9 109 89)">
+                      <!-- Fluffy Cloud Curly Hair Halo -->
+                      <path d="M68 95 C56 89, 57 74, 67 69 C63 57, 72 44, 84 44 C88 31, 102 27, 113 33 C121 23, 137 25, 143 38 C156 38, 165 50, 158 63 C165 71, 161 86, 150 92 C148 97, 142 100, 136 98 L77 98 C72 99, 69 97, 68 95 Z" class="char-hair" stroke="currentColor" stroke-width="2.4" stroke-linejoin="round"/>
 
-                    <!-- Stylized Tousled Designer Hair -->
-                    <path d="M79 68 C74 52, 82 37, 97 35 C104 28, 118 29, 125 37 C136 39, 141 51, 134 62 C127 54, 117 50, 105 52 C94 53, 86 58, 79 68 Z" class="char-hair" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
-                    <path d="M92 43 Q104 37 116 42" stroke="currentColor" stroke-opacity="0.35" stroke-width="1.4" stroke-linecap="round"/>
+                      <!-- Face Oval -->
+                      <ellipse cx="109" cy="89" rx="39.5" ry="36.5" class="char-face" stroke="currentColor" stroke-width="2.5"/>
 
-                    <!-- Minimalist Round Eyewear Frames -->
-                    <circle cx="96" cy="76" r="10.5" class="char-lens" stroke="currentColor" stroke-width="1.8"/>
-                    <circle cx="120" cy="76" r="10.5" class="char-lens" stroke="currentColor" stroke-width="1.8"/>
-                    <path d="M106.5 76 Q108 74.5 109.5 76" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
-                    <line x1="81" y1="75" x2="85.5" y2="75.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+                      <!-- Delicate Forehead Curl Scallops -->
+                      <path d="M72 72 C75 63, 84 61, 89 65 C93 56, 104 54, 111 59 C118 52, 129 53, 134 61 C141 60, 147 67, 146 75" class="char-hair" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"/>
 
-                    <!-- Subtle Nose & Warm Editorial Half-Smile -->
-                    <path d="M109 79 Q112 84 107.5 87" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-                    <path d="M102 93 Q109 97 116 92" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/>
+                      <!-- Gentle Eyebrows -->
+                      <path d="M84 71 Q90.5 67 97 70" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/>
+                      <path d="M121 70 Q127.5 67 134 71" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/>
+
+                      <!-- Minimalist Round Glasses -->
+                      <circle cx="91" cy="90" r="14" class="char-lens" stroke="currentColor" stroke-width="2.2"/>
+                      <circle cx="127" cy="90" r="14" class="char-lens" stroke="currentColor" stroke-width="2.2"/>
+                      <path d="M105 89 Q109 85.5 113 89" stroke="currentColor" stroke-width="2.1" stroke-linecap="round"/>
+                      <path d="M70 85.5 L77 88.5" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/>
+                      <path d="M141 88.5 L148 85.5" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/>
+
+                      <!-- Warm Half-Smile -->
+                      <path d="M103 110 Q109 115.5 115 110" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    </g>
                   </svg>
-                  <!-- Living Cursor-Tracking & Blinking Eyes inside Glasses -->
+                  <!-- Living Cursor-Tracking & Blinking Eyes inside Round Glasses -->
                   <span class="qj-eye eye-left"><i></i></span>
                   <span class="qj-eye eye-right"><i></i></span>
                 </div>

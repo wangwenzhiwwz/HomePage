@@ -212,8 +212,8 @@
 /* Interactive Designer Character + Living Eyes + Expandable Corner-Anchored Capsule Bubble */
 .qj-interactive-cluster {
   position: absolute;
-  bottom: -24px;
-  left: clamp(445px, 37vw, 520px);
+  bottom: -26px;
+  left: clamp(385px, 32.2vw, 464px);
   z-index: 3;
   display: flex;
   align-items: flex-end;
@@ -224,7 +224,7 @@
 
 .qj-illo {
   position: relative;
-  width: clamp(165px, 14vw, 200px);
+  width: clamp(168px, 14.5vw, 206px);
   flex-shrink: 0;
   color: var(--ink);
   opacity: 0;
@@ -243,8 +243,8 @@
 .qj-totem-motion {
   position: relative;
   width: 100%;
-  aspect-ratio: 240 / 340;
-  transform-origin: 45% 92%;
+  aspect-ratio: 250 / 400;
+  transform-origin: 55% 94%;
   animation: qj-breathe 5.4s ease-in-out infinite;
 }
 
@@ -264,39 +264,55 @@
   fill: var(--surface);
 }
 
+.char-face {
+  fill: url(#qjFaceShade);
+}
+
 .char-tee {
-  fill: var(--bg-secondary);
+  fill: url(#qjTeeShade);
 }
 
 .char-hair {
-  fill: var(--bg-tertiary);
+  fill: url(#qjHairShade);
 }
 
 .char-lens {
-  fill: rgba(255, 255, 255, 0.65);
+  fill: rgba(255, 255, 255, 0.72);
 }
+
+.qj-stop-hair-shade { stop-color: #d7d8dc; }
+.qj-stop-hair-mid { stop-color: #ebecef; }
+.qj-stop-hair-light { stop-color: #ffffff; }
+
+.qj-stop-face-shade { stop-color: #e2e3e7; }
+.qj-stop-face-light { stop-color: #ffffff; }
+
+.qj-stop-tee-shade { stop-color: #dcdddf; }
+.qj-stop-tee-light { stop-color: #ffffff; }
 
 :root[data-theme="dark"] .char-skin,
 :root[data-theme="dark"] .char-fill {
   fill: #141418;
 }
 
-:root[data-theme="dark"] .char-tee {
-  fill: #1f1f24;
-}
+:root[data-theme="dark"] .qj-stop-hair-shade { stop-color: #16161b; }
+:root[data-theme="dark"] .qj-stop-hair-mid { stop-color: #24242b; }
+:root[data-theme="dark"] .qj-stop-hair-light { stop-color: #32323a; }
 
-:root[data-theme="dark"] .char-hair {
-  fill: #27272e;
-}
+:root[data-theme="dark"] .qj-stop-face-shade { stop-color: #121216; }
+:root[data-theme="dark"] .qj-stop-face-light { stop-color: #1d1d22; }
+
+:root[data-theme="dark"] .qj-stop-tee-shade { stop-color: #121216; }
+:root[data-theme="dark"] .qj-stop-tee-light { stop-color: #1f1f25; }
 
 :root[data-theme="dark"] .char-lens {
-  fill: rgba(10, 10, 12, 0.55);
+  fill: rgba(12, 12, 16, 0.55);
 }
 
-/* Living Cursor-Tracking & Blinking Eyes inside Eyewear */
+/* Living Cursor-Tracking & Blinking Eyes inside Round Eyewear */
 .qj-eye {
   position: absolute;
-  width: 8.75%;
+  width: 11.2%;
   aspect-ratio: 1;
   border-radius: 50%;
   transform: translate(-50%, -50%);
@@ -304,20 +320,20 @@
 }
 
 .qj-eye.eye-left {
-  top: 22.35%;
-  left: 40%;
+  top: 21.79%;
+  left: 36.43%;
 }
 
 .qj-eye.eye-right {
-  top: 22.35%;
-  left: 50%;
+  top: 23.2%;
+  left: 50.65%;
 }
 
 .qj-eye i {
   position: absolute;
   top: 50%;
   left: 50%;
-  width: 34%;
+  width: 30%;
   aspect-ratio: 1;
   border-radius: 50%;
   background: var(--ink);
@@ -331,11 +347,11 @@
   top: 50%;
   left: 16%;
   right: 16%;
-  height: 1.6px;
+  height: 1.8px;
   border-radius: 2px;
   background: var(--ink);
   opacity: 0;
-  transform: scaleX(0.4);
+  transform: rotate(9deg) scaleX(0.4);
   animation: qj-blink-lid 5.6s infinite;
 }
 
@@ -345,17 +361,17 @@
 }
 
 @keyframes qj-blink-lid {
-  0%, 45%, 48%, 100% { opacity: 0; transform: scaleX(0.4); }
-  46%, 47% { opacity: 1; transform: scaleX(1); }
+  0%, 45%, 48%, 100% { opacity: 0; transform: rotate(9deg) scaleX(0.4); }
+  46%, 47% { opacity: 1; transform: rotate(9deg) scaleX(1); }
 }
 
 /* Corner-Anchored Sleek Pill Capsule Bubble Resting on Character's Hand */
 .qj-bubble-wrap {
   position: relative;
-  margin-left: -10px;
+  margin-left: -18px;
   width: 288px;
   height: 118px;
-  margin-bottom: 184px;
+  margin-bottom: clamp(148px, 12.6vw, 179px);
   opacity: 0;
   transform: translateX(36px);
   animation: qj-bubble-in 0.85s cubic-bezier(0.19, 1, 0.22, 1) 0.42s forwards;
@@ -840,15 +856,15 @@
     margin-top: 22px;
   }
   .qj-illo {
-    width: 106px;
+    width: 112px;
   }
   .qj-bubble-wrap {
     flex: 1 1 0;
     width: auto;
     height: auto;
     min-width: 0;
-    margin-left: -2px;
-    margin-bottom: 100px;
+    margin-left: -8px;
+    margin-bottom: 98px;
   }
   .qj-bubble-view {
     height: auto;
