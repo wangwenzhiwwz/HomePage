@@ -25,11 +25,20 @@
 <meta name="description" content="A living snapshot of Wang Wenzhi's current focus across commercial video, AI video workflows, independent digital products and infrastructure.">
 <link rel="canonical" href="https://wwz.im/now.html">
 <link rel="icon" href="favicon.ico">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="WWZ.iM">
+<meta property="og:title" content="Now · Current Focus &amp; Ongoing Work | WWZ.iM">
+<meta property="og:description" content="A living snapshot of Wang Wenzhi's current focus across commercial video, AI workflows, and infrastructure.">
+<meta property="og:url" content="https://wwz.im/now.html">
+<meta name="twitter:card" content="summary">
 <link rel="stylesheet" href="css/site-system.css">
+<script src="js/site-theme.js" defer></script>
+<script src="data/site-content.js" defer></script>
+<script src="js/site-shell.js" defer></script>
 <style>
 :root{--now-bg:var(--bg);--now-ink:var(--ink);--now-muted:var(--ink-secondary);--now-line:var(--line);--now-card:var(--surface)}
 body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;line-height:1.7}
-.now-wrap{width:min(100% - 40px,1040px);margin:0 auto;padding:76px 0 100px}
+.now-wrap{width:min(1200px,calc(100% - 48px));margin:0 auto;padding:96px 0 100px}
 .eyebrow{font:600 var(--text-meta,.75rem) ui-monospace,monospace;letter-spacing:.14em;color:var(--now-muted);text-transform:uppercase}
 h1{max-width:850px;margin:18px 0;font-size:var(--text-display,clamp(2rem,4.2vw,3.35rem));line-height:1.06;letter-spacing:-.04em}
 .lead{max-width:780px;color:var(--now-muted);font-size:var(--text-lead,clamp(.98rem,1.4vw,1.125rem));line-height:1.72}
@@ -42,11 +51,11 @@ h1{max-width:850px;margin:18px 0;font-size:var(--text-display,clamp(2rem,4.2vw,3
 .focus-item a{justify-self:end;font-size:var(--text-ui,.875rem);font-weight:700}
 .note{margin-top:36px;padding:22px;border:1px solid var(--now-line);border-radius:18px;background:var(--now-card);color:var(--now-muted);font-size:var(--text-card-desc,.875rem);line-height:1.7}
 .now-foot{display:flex;justify-content:space-between;gap:18px;padding-top:24px;color:var(--now-muted);font-size:var(--text-meta,.75rem)}
-@media(max-width:700px){.now-wrap{width:calc(100% - 28px);padding:76px 0 72px}.focus-item{grid-template-columns:1fr;gap:10px}.focus-item a{justify-self:start}.now-foot{flex-direction:column}}
+@media(max-width:700px){.now-wrap{width:calc(100% - 32px);padding:80px 0 72px}.focus-item{grid-template-columns:1fr;gap:10px}.focus-item a{justify-self:start}.now-foot{flex-direction:column}}
 </style>
 </head>
-<body data-content-root="/" data-active-page="now">
-<main class="now-wrap">
+<body data-content-root="" data-active-page="blog">
+<main class="now-wrap" id="page-content">
   <div class="eyebrow">A living snapshot · WWZ.iM</div>
   <h1>What I’m<br>working around.</h1>
   <p class="lead" id="nowIntro">A concise snapshot of the areas currently represented across WWZ.iM.</p>

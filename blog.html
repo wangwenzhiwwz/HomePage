@@ -9,6 +9,13 @@
   <meta name="description" content="Technical field notes, ComfyUI local video workstations, Linux server setups, IPv6 networking, and independent digital tools by Wang Wenzhi.">
   <link rel="canonical" href="https://wwz.im/blog.html">
   <link rel="icon" href="favicon.ico">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="WWZ.iM">
+  <meta property="og:title" content="Engineering Notes &amp; Technical Guides | WWZ.iM">
+  <meta property="og:description" content="Practical documentation across Linux servers, network protocols, and generative AI production workflows.">
+  <meta property="og:url" content="https://wwz.im/blog.html">
+  <meta property="og:image" content="https://wwz.im/articles/linux-server-setup/cover.png">
+  <meta name="twitter:card" content="summary_large_image">
   <script data-theme-bootstrap>
     (() => {
       const root = document.documentElement;
@@ -26,8 +33,6 @@
     })();
   </script>
 
-  <link rel="preconnect" href="https://cdnjs.cloudflare.com">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   <link rel="stylesheet" href="css/site-system.css">
 
   <script src="js/site-theme.js" defer></script>
@@ -35,16 +40,16 @@
   <script src="js/site-shell.js" defer></script>
 
   <style>
-    /* Editorial Blog Specific Styles */
+    /* Editorial Blog Specific Styles (aligned to global 1200px grid) */
     .blog-wrap {
-      width: min(1120px, calc(100% - 40px));
+      width: min(1200px, calc(100% - 48px));
       margin: 0 auto;
-      padding: 48px 0 96px;
+      padding: 48px 0 80px;
     }
     @media (max-width: 640px) {
       .blog-wrap {
-        width: calc(100% - 28px);
-        padding: 32px 0 64px;
+        width: calc(100% - 32px);
+        padding: 32px 0 56px;
       }
     }
 
@@ -108,11 +113,13 @@
       display: flex;
       align-items: center;
     }
-    .blog-search-box i {
+    .blog-search-box i,
+    .blog-search-box .wwz-ico {
       position: absolute;
       left: 14px;
       color: var(--ink-tertiary);
       font-size: 0.85rem;
+      pointer-events: none;
     }
     .blog-search-input {
       height: 38px;
@@ -122,12 +129,11 @@
       background-color: var(--surface);
       color: var(--ink);
       font-size: 0.86rem;
-      outline: none;
       transition: border-color var(--duration-fast) var(--ease);
       width: 220px;
     }
-    .blog-search-input:focus {
-      border-color: var(--ink);
+    .blog-search-input:hover {
+      border-color: var(--line-strong);
     }
 
     /* Grid of Editorial Cards */
@@ -185,8 +191,9 @@
       display: flex;
       align-items: center;
       gap: 10px;
-      font-family: var(--font-mono);
+      font-family: "JetBrains Mono", Menlo, monospace;
       font-size: var(--text-meta);
+      font-variant-numeric: tabular-nums;
       color: var(--ink-tertiary);
       margin-bottom: 10px;
       text-transform: uppercase;
@@ -217,10 +224,12 @@
       padding-top: 14px;
       border-top: 1px solid var(--line);
     }
-    .editorial-card-footer i {
+    .editorial-card-footer i,
+    .editorial-card-footer .wwz-ico {
       transition: transform 0.2s var(--ease);
     }
-    .editorial-card:hover .editorial-card-footer i {
+    .editorial-card:hover .editorial-card-footer i,
+    .editorial-card:hover .editorial-card-footer .wwz-ico {
       transform: translateX(4px);
     }
 
@@ -518,51 +527,5 @@
       </div>
     </footer>
   </main>
-
-  <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      const filters = document.getElementById('blogFilters');
-      const cards = document.querySelectorAll('#blogGrid .editorial-card');
-      const search = document.getElementById('blogSearch');
-      const empty = document.getElementById('blogEmpty');
-
-      let currentCat = 'all';
-      let currentQuery = '';
-
-      const applyFilters = () => {
-        let visibleCount = 0;
-        cards.forEach(card => {
-          const catMatch = currentCat === 'all' || card.dataset.category === currentCat;
-          const text = ((card.innerText || '') + ' ' + (card.dataset.keywords || '')).toLowerCase();
-          const queryMatch = !currentQuery || text.includes(currentQuery);
-          const isVisible = catMatch && queryMatch;
-          card.style.display = isVisible ? 'flex' : 'none';
-          if (isVisible) visibleCount++;
-        });
-
-        if (empty) {
-          empty.style.display = visibleCount === 0 ? 'block' : 'none';
-        }
-      };
-
-      filters?.addEventListener('click', (e) => {
-        const btn = e.target.closest('.filter-chip');
-        if (!btn) return;
-        currentCat = btn.dataset.cat;
-        filters.querySelectorAll('.filter-chip').forEach(b => {
-          b.classList.remove('active');
-          b.setAttribute('aria-pressed', 'false');
-        });
-        btn.classList.add('active');
-        btn.setAttribute('aria-pressed', 'true');
-        applyFilters();
-      });
-
-      search?.addEventListener('input', (e) => {
-        currentQuery = (e.target.value || '').trim().toLowerCase();
-        applyFilters();
-      });
-    });
-  </script>
 </body>
 </html>

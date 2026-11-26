@@ -9,6 +9,13 @@
   <meta name="description" content="Explore selected visual work, photography, 3D CGI artwork and independent digital products by Wang Wenzhi.">
   <link rel="canonical" href="https://wwz.im/works.html">
   <link rel="icon" href="favicon.ico">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="WWZ.iM">
+  <meta property="og:title" content="Works — Creative Portfolio &amp; Digital Projects | WWZ.iM">
+  <meta property="og:description" content="Explore 81 curated photography, 3D CGI artworks in Blender, and commercial visual designs by Wang Wenzhi.">
+  <meta property="og:url" content="https://wwz.im/works.html">
+  <meta property="og:image" content="https://wwz.im/images/works/697970e161d5bba4nq2u776271.jpg">
+  <meta name="twitter:card" content="summary_large_image">
   <script data-theme-bootstrap>
     (() => {
       const root = document.documentElement;
@@ -26,8 +33,6 @@
     })();
   </script>
 
-  <link rel="preconnect" href="https://cdnjs.cloudflare.com">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   <link rel="stylesheet" href="css/site-system.css">
 
   <script src="js/site-theme.js" defer></script>
@@ -41,14 +46,14 @@
   <main class="main-content" id="page-content">
     <div class="wrap">
       
-      <!-- Clean Apple Header -->
-      <section style="padding: 48px 0 36px;">
+      <!-- Header -->
+      <section class="page-hero-head">
         <span class="kicker"><i class="fa-solid fa-camera"></i> Works Gallery · Photography &amp; CGI</span>
         <h1>Visual Works &amp; Digital Craft.</h1>
-        <p style="font-size:var(--text-lead);max-width:640px;margin-top:12px;color:var(--ink-secondary)">Curated product photography, 3D CGI experiments in Blender, and commercial visual designs published on ZCOOL.</p>
+        <p class="page-hero-lead">Curated product photography, 3D CGI experiments in Blender, and commercial visual designs published on ZCOOL.</p>
         
         <!-- Controls & Filters -->
-        <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px;margin-top:32px;">
+        <div class="works-toolbar">
           <div class="filter-bar" role="group" aria-label="Filter works by category" style="margin-bottom:0;">
             <button class="filter-pill active" type="button" data-filter="all" aria-pressed="true">All (81)</button>
             <button class="filter-pill" type="button" data-filter="摄影" aria-pressed="false">Photography (69)</button>
@@ -57,11 +62,11 @@
           </div>
 
           <div style="display:flex;align-items:center;gap:12px;">
-            <div style="position:relative;display:flex;align-items:center;">
-              <i class="fa-solid fa-magnifying-glass" style="position:absolute;left:12px;color:var(--ink-tertiary);font-size:0.8rem"></i>
-              <input id="worksSearch" type="search" placeholder="Search works or tags..." autocomplete="off" aria-label="Search works" style="height:38px;padding:0 14px 0 34px;border:1px solid var(--line);border-radius:var(--radius-pill);background:var(--surface);color:var(--ink);font-size:var(--text-ui);outline:none;">
+            <div class="works-search-pill">
+              <i class="fa-solid fa-magnifying-glass"></i>
+              <input id="worksSearch" class="works-search-input" type="search" placeholder="Search works or tags..." autocomplete="off" aria-label="Search works">
             </div>
-            <select id="worksSort" aria-label="Sort works" style="height:38px;padding:0 14px;border:1px solid var(--line);border-radius:var(--radius-pill);background:var(--surface);color:var(--ink);font-size:var(--text-ui);outline:none;cursor:pointer;">
+            <select id="worksSort" class="works-sort-select" aria-label="Sort works">
               <option value="newest">Newest first</option>
               <option value="oldest">Oldest first</option>
             </select>
@@ -70,7 +75,7 @@
       </section>
 
       <!-- Counter -->
-      <p class="works-count" id="worksCount" role="status" aria-live="polite" style="font-family:'SF Mono',Menlo,monospace;font-size:var(--text-meta);color:var(--ink-tertiary);margin-bottom:16px;">Loading works…</p>
+      <p class="works-count page-count-readout" id="worksCount" role="status" aria-live="polite" style="margin:0 0 16px;">Loading works…</p>
 
       <!-- Portfolio Grid -->
       <div class="portfolio-grid" id="portfolioGrid" style="margin-bottom:80px;">
@@ -78,7 +83,7 @@
       </div>
 
       <!-- External Links -->
-      <div style="display:flex;gap:16px;flex-wrap:wrap;padding:36px 0;border-top:1px solid var(--line);">
+      <div class="page-ext-links">
         <a href="https://www.zcool.com.cn/u/ZNjI3OTUyN=" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">
           <i class="fa-solid fa-arrow-up-right-from-square"></i> View ZCOOL Profile ↗
         </a>

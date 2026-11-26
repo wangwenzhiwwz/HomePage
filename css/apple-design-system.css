@@ -213,6 +213,18 @@ img {
   height: auto;
 }
 
+.wwz-ico {
+  width: 1em;
+  height: 1em;
+  display: inline-block;
+  vertical-align: -0.14em;
+  flex-shrink: 0;
+}
+
+.fa-2x {
+  font-size: 2em;
+}
+
 code, kbd, samp, pre {
   font-family: "JetBrains Mono", "SF Mono", Menlo, Consolas, monospace;
   font-size: 0.88em;
@@ -878,6 +890,7 @@ body.drawer-locked {
   font-weight: 600;
   letter-spacing: 0.06em;
   text-transform: uppercase;
+  font-variant-numeric: tabular-nums;
   color: var(--ink-tertiary);
   margin-bottom: 10px;
 }
@@ -888,6 +901,7 @@ body.drawer-locked {
   padding: 4px 10px;
   font-size: var(--text-meta);
   font-weight: 600;
+  font-variant-numeric: tabular-nums;
   border-radius: var(--radius-pill);
   background-color: var(--bg-tertiary);
   border: 1px solid var(--line);
@@ -969,7 +983,8 @@ body.drawer-locked {
   transition: transform var(--duration-fast) var(--ease), background-color var(--duration-fast) var(--ease), border-color var(--duration-fast) var(--ease), box-shadow var(--duration-fast) var(--ease);
 }
 
-.section-head-link i {
+.section-head-link i,
+.section-head-link .wwz-ico {
   font-size: 0.78em;
   color: var(--ink-secondary);
   transition: transform var(--duration-fast) var(--ease), color var(--duration-fast) var(--ease);
@@ -982,7 +997,8 @@ body.drawer-locked {
   transform: translateY(-1px);
 }
 
-.section-head-link:hover i {
+.section-head-link:hover i,
+.section-head-link:hover .wwz-ico {
   transform: translateX(2px);
   color: var(--ink);
 }

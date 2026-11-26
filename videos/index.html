@@ -9,6 +9,13 @@
   <meta name="description" content="Selected commercial videos, product showcases and creative motion projects directed and produced by Wang Wenzhi for global brands.">
   <link rel="canonical" href="https://wwz.im/videos/">
   <link rel="icon" href="../favicon.ico">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="WWZ.iM">
+  <meta property="og:title" content="Commercial Video Portfolio &amp; Product Films | Wang Wenzhi">
+  <meta property="og:description" content="18 commercial product films, technology showcases, and commercial storytelling for global consumer tech brands.">
+  <meta property="og:url" content="https://wwz.im/videos/">
+  <meta property="og:image" content="https://wwz.im/images/videos/armor-34-pro.jpg">
+  <meta name="twitter:card" content="summary_large_image">
   <script data-theme-bootstrap>
     (() => {
       const root = document.documentElement;
@@ -26,10 +33,8 @@
     })();
   </script>
 
-  <link rel="preconnect" href="https://cdnjs.cloudflare.com">
   <link rel="preconnect" href="https://www.youtube.com">
   <link rel="preconnect" href="https://player.vimeo.com">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   <link rel="stylesheet" href="../css/site-system.css">
 
   <script src="../js/site-theme.js" defer></script>
@@ -43,10 +48,10 @@
     <div class="wrap">
       
       <!-- Single Clean Header -->
-      <section style="padding: 48px 0 36px;">
-        <span class="kicker"><i class="fa-solid fa-film"></i> Commercial Film · Directing & Production</span>
+      <section class="page-hero-head">
+        <span class="kicker"><i class="fa-solid fa-film"></i> Commercial Film · Directing &amp; Production</span>
         <h1>Commercial Video Works</h1>
-        <p style="font-size:var(--text-lead);max-width:640px;margin-top:12px;color:var(--ink-secondary)">A curated collection of commercial product films, technology showcases, and commercial storytelling crafted for international consumer tech brands.</p>
+        <p class="page-hero-lead">A curated collection of commercial product films, technology showcases, and commercial storytelling crafted for international consumer tech brands.</p>
         
         <!-- Filter Bar -->
         <div class="filter-bar" id="videoFilters" style="margin-top:28px;">
@@ -59,7 +64,7 @@
       </section>
 
       <!-- Video Counter -->
-      <p id="videoCount" style="font-family:'SF Mono',Menlo,monospace;font-size:var(--text-meta);color:var(--ink-tertiary);margin:16px 0 20px;">18 commercial films</p>
+      <p id="videoCount" class="page-count-readout">18 commercial films</p>
 
       <!-- Video Grid -->
       <div class="film-grid" id="videoGrid" style="margin-bottom:80px;">
@@ -318,7 +323,7 @@
       </div>
 
       <!-- External Links -->
-      <div style="display:flex;gap:16px;flex-wrap:wrap;padding:36px 0;border-top:1px solid var(--line);">
+      <div class="page-ext-links">
         <a href="https://www.youtube.com/@wangwenzhi" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">
           <i class="fa-brands fa-youtube"></i> YouTube Channel ↗
         </a>
@@ -386,37 +391,5 @@
       <i class="fa-solid fa-xmark"></i>
     </button>
   </div>
-
-  <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      const filters = document.getElementById('videoFilters');
-      const cards = document.querySelectorAll('#videoGrid .film-card');
-      const count = document.getElementById('videoCount');
-
-      filters?.addEventListener('click', (e) => {
-        const btn = e.target.closest('.filter-pill');
-        if (!btn) return;
-        const year = btn.dataset.year;
-
-        filters.querySelectorAll('.filter-pill').forEach(b => {
-          b.classList.remove('active');
-          b.setAttribute('aria-pressed', 'false');
-        });
-        btn.classList.add('active');
-        btn.setAttribute('aria-pressed', 'true');
-
-        let visible = 0;
-        cards.forEach(c => {
-          const match = year === 'all' || c.dataset.year === year;
-          c.style.display = match ? 'flex' : 'none';
-          if (match) visible++;
-        });
-
-        if (count) {
-          count.textContent = `${visible} ${visible === 1 ? 'commercial film' : 'commercial films'}` + (year !== 'all' ? ` · ${year}` : '');
-        }
-      });
-    });
-  </script>
 </body>
 </html>
