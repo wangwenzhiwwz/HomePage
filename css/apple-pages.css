@@ -567,27 +567,10 @@
   z-index: 0;
 }
 
-.qj-guide-card::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 20px;
-  right: 20px;
-  height: 2px;
-  border-radius: 0 0 4px 4px;
-  opacity: 0;
-  transition: opacity 0.32s ease, left 0.32s ease, right 0.32s ease;
-  pointer-events: none;
-  z-index: 1;
-}
-
 .qj-guide-card[data-guide-slide="0"]::before {
   background: radial-gradient(circle at 88% 18%, rgba(255, 107, 107, 0.9), transparent 60%),
               radial-gradient(circle at 14% 90%, rgba(255, 184, 108, 0.82), transparent 62%),
               linear-gradient(135deg, rgba(255, 107, 107, 0.38), rgba(244, 114, 182, 0.34));
-}
-.qj-guide-card[data-guide-slide="0"]::after {
-  background: linear-gradient(90deg, #ff6b6b, #ffb86c, #f472b6);
 }
 
 .qj-guide-card[data-guide-slide="1"]::before {
@@ -595,26 +578,17 @@
               radial-gradient(circle at 16% 88%, rgba(56, 189, 248, 0.85), transparent 62%),
               linear-gradient(135deg, rgba(129, 140, 248, 0.36), rgba(168, 85, 247, 0.38));
 }
-.qj-guide-card[data-guide-slide="1"]::after {
-  background: linear-gradient(90deg, #6366f1, #a855f7, #38bdf8);
-}
 
 .qj-guide-card[data-guide-slide="2"]::before {
   background: radial-gradient(circle at 88% 20%, rgba(16, 185, 129, 0.88), transparent 60%),
               radial-gradient(circle at 15% 88%, rgba(59, 130, 246, 0.8), transparent 62%),
               linear-gradient(135deg, rgba(20, 184, 166, 0.38), rgba(56, 189, 248, 0.34));
 }
-.qj-guide-card[data-guide-slide="2"]::after {
-  background: linear-gradient(90deg, #10b981, #14b8a6, #3b82f6);
-}
 
 .qj-guide-card[data-guide-slide="3"]::before {
   background: radial-gradient(circle at 86% 18%, rgba(236, 72, 153, 0.88), transparent 60%),
               radial-gradient(circle at 16% 88%, rgba(245, 158, 11, 0.84), transparent 62%),
               linear-gradient(135deg, rgba(245, 158, 11, 0.36), rgba(139, 92, 246, 0.36));
-}
-.qj-guide-card[data-guide-slide="3"]::after {
-  background: linear-gradient(90deg, #f59e0b, #ec4899, #8b5cf6);
 }
 
 :root[data-theme="dark"] .qj-guide-card {
@@ -645,11 +619,6 @@
   .qj-guide-card:hover::before {
     opacity: 0.44;
     transform: scale(1.04);
-  }
-  .qj-guide-card:hover::after {
-    opacity: 0.96;
-    left: 0;
-    right: 0;
   }
   :root[data-theme="dark"] .qj-guide-card:hover {
     background: rgba(20, 20, 26, 0.88);
