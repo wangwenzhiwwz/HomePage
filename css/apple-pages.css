@@ -1129,15 +1129,15 @@
   gap: 5px;
   padding: 5px 11px;
   border-radius: var(--radius-pill);
-  background-color: rgba(17, 17, 20, 0.78);
+  background: linear-gradient(135deg, rgba(249, 115, 22, 0.94), rgba(234, 88, 12, 0.94));
   -webkit-backdrop-filter: blur(10px);
   backdrop-filter: blur(10px);
   color: #ffffff;
   font-size: 0.72rem;
-  font-weight: 600;
+  font-weight: 650;
   letter-spacing: 0.02em;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  box-shadow: 0 4px 14px rgba(234, 88, 12, 0.35);
   pointer-events: none;
 }
 
