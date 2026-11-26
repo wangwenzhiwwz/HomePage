@@ -5,8 +5,9 @@
  * page render from this shared registry automatically.
  */
 window.WWZ_CONTENT = {
-  featuredVideoId: "armor-watch-ultra",
+  featuredVideoId: "armor-35-pro",
   videos: [
+    { id:"armor-35-pro", title:"Ulefone Armor 35 Pro", description:"A 1.2km Laser Rangefinder Built Into a Rugged Beast!", summary:"Flagship commercial film highlighting the 1.2km Time-of-Flight laser rangefinder, 11,000mAh battery, and night vision optics built into Armor 35 Pro.", year:"2026", image:"images/videos/armor-35-pro.jpg", embed:"https://www.youtube.com/embed/PFT-YgtQyBo" },
     { id:"armor-watch-ultra", title:"Armor Watch Ultra", description:"Rugged GPS Smartwatch with Offline Maps", summary:"Outdoor commercial showcasing Armor Watch Ultra's offline GPS mapping, rugged AMOLED build, and integrated Super Torch.", year:"2026", image:"images/videos/armor-watch-ultra.jpg", embed:"https://www.youtube.com/embed/AibRjV4R-3k" },
     { id:"rugone-xever-8", title:"RugOne Xever 8", description:"Hot-Swappable Battery & SonicX Super Speaker", summary:"Commercial launch film highlighting RugOne Xever 8's hot-swappable Bridge Power Cell and 117dB SonicX Super Speaker.", year:"2026", image:"images/videos/rugone-xever-8.jpg", embed:"https://www.youtube.com/embed/8LMjtoJVIac" },
     { id:"rugone-xever-7", title:"RugOne Xever 7", description:"Commercial Film", summary:"A cinematic campaign shaped around rugged performance, precise product detail, and an energetic outdoor visual language.", year:"2024", image:"images/videos/rugone-xever-7.jpg", embed:"https://player.vimeo.com/video/1149403074" },
