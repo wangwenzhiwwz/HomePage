@@ -1,0 +1,243 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="light dark">
+  <meta name="theme-color" content="#f7f7f5">
+  <script data-theme-bootstrap>
+    (() => {
+      const root = document.documentElement;
+      let mode = 'system';
+      try { mode = localStorage.getItem('wwz-theme-mode') || 'system'; } catch (_) {}
+      if (!['light', 'dark'].includes(mode)) mode = 'system';
+      const theme = mode === 'system' ? (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : mode;
+      const background = theme === 'dark' ? '#000000' : '#f7f7f5';
+      root.dataset.theme = theme;
+      root.dataset.themeMode = mode;
+      root.style.colorScheme = theme;
+      root.style.backgroundColor = background;
+      root.style.setProperty('--wwz-initial-bg', background);
+      document.querySelector('meta[name="theme-color"]').setAttribute('content', background);
+    })();
+  </script>
+  <script src="../../js/site-theme.js" defer></script>
+  <title>2026 Chrome 浏览器插件推荐 | WWZ.iM</title>
+  <meta name="description" content="精选 7 款高频实用的 2026 Chrome 浏览器扩展程序：AdGuard、沉浸式翻译、YouTube Auto HD、Auto Refresh Plus、Save to Notion、Dark Reader 与草料二维码。">
+  <meta name="author" content="Wang Wenzhi">
+  <link rel="canonical" href="https://wwz.im/articles/chrome-extensions/">
+  <link rel="icon" href="../../favicon.ico">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="2026 Chrome 浏览器插件推荐 | WWZ.iM">
+  <meta property="og:url" content="https://wwz.im/articles/chrome-extensions/">
+  <meta property="og:description" content="整理 7 款实用高效的 Google Chrome 扩展程序及官方 Chrome Web Store 直链推荐。">
+  <meta property="og:image" content="https://wwz.im/articles/chrome-extensions/cover.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="2026 Chrome 浏览器插件推荐 | WWZ.iM">
+  <meta name="twitter:description" content="整理 7 款实用高效的 Google Chrome 扩展程序及官方 Chrome Web Store 直链推荐。">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "2026 Chrome 浏览器插件推荐",
+    "description": "整理 7 款实用高效的 Google Chrome 扩展程序，覆盖广告拦截、双语翻译、高清视频、页面监控、Notion 剪藏、暗色主题与二维码工具。",
+    "datePublished": "2026-11-26",
+    "author": {
+      "@type": "Person",
+      "name": "Wang Wenzhi"
+    },
+    "mainEntityOfPage": "https://wwz.im/articles/chrome-extensions/",
+    "publisher": {
+      "@type": "Organization",
+      "name": "WWZ.iM"
+    }
+  }
+  </script>
+  <link rel="stylesheet" href="../../css/site-system.css">
+</head>
+<body data-content-root="../../" data-active-page="blog">
+  <main id="page-content" class="editorial-layout">
+    <a href="../../blog.html" class="editorial-back">
+      <i class="fa-solid fa-arrow-left"></i> 返回文章列表
+    </a>
+
+    <header class="editorial-header">
+      <div class="notion-page-icon" aria-hidden="true">
+        <img src="icon.svg" alt="" width="40" height="40">
+      </div>
+      <div class="editorial-meta">
+        <span class="editorial-badge">TOOLS · CHROME · EXTENSIONS</span>
+        <span>2026-11-26</span> · <span>4 MIN READ</span> · <span>WANG WENZHI</span>
+      </div>
+      <h1 class="editorial-title">2026 Chrome 浏览器插件推荐</h1>
+      <p class="editorial-lead">Chrome 最大的优势在于支持众多强大好用的扩展程序（Extensions）。整理日常高频使用的 7 款实用谷歌浏览器插件，附官方商店直达链接。</p>
+      <img src="cover.jpg" alt="2026 Chrome 浏览器插件推荐封面" class="editorial-cover">
+    </header>
+
+    <article class="editorial-body">
+      <figure class="editorial-figure">
+        <img src="extensions-overview.png" alt="Chrome Web Store 扩展商店概览" loading="lazy">
+      </figure>
+
+      <a class="notion-bookmark" href="https://chromewebstore.google.com/" target="_blank" rel="noopener noreferrer">
+        <div class="notion-bookmark-body">
+          <div class="notion-bookmark-title">Chrome Web Store</div>
+          <div class="notion-bookmark-desc">官方谷歌浏览器扩展程序与主题应用商店。</div>
+          <div class="notion-bookmark-url">
+            <img src="icons/cws.png" alt="">
+            <span>https://chromewebstore.google.com/</span>
+          </div>
+        </div>
+        <div class="notion-bookmark-thumb">
+          <img src="icons/cws.png" alt="Chrome Web Store" loading="lazy">
+        </div>
+      </a>
+
+      <section id="adguard">
+        <h2>1. AdGuard 广告拦截器</h2>
+        <p>一款无与伦比的广告拦截扩展，用以对抗各式广告与弹窗。可以拦截 Facebook、YouTube 和其它所有网站的广告。</p>
+        <a class="notion-bookmark" href="https://chromewebstore.google.com/detail/adguard-adblocker/bgnkhhnnamicmpeenaelnjfhikgbkllg" target="_blank" rel="noopener noreferrer">
+          <div class="notion-bookmark-body">
+            <div class="notion-bookmark-title">AdGuard AdBlocker</div>
+            <div class="notion-bookmark-desc">Unmatched adblock extension against advertising and pop-ups. Blocks ads on Facebook, YouTube and all other websites.</div>
+            <div class="notion-bookmark-url">
+              <img src="icons/cws.png" alt="">
+              <span>https://chromewebstore.google.com/detail/adguard-adblocker/bgnkhhnnamicmpeenaelnjfhikgbkllg</span>
+            </div>
+          </div>
+          <div class="notion-bookmark-thumb">
+            <img src="icons/adguard.png" alt="AdGuard AdBlocker" loading="lazy">
+          </div>
+        </a>
+      </section>
+
+      <section id="immersive-translate">
+        <h2>2. 沉浸式翻译：双语对照网页翻译 &amp; PDF 文档翻译</h2>
+        <p>沉浸式网页双语翻译扩展，支持 PDF 翻译、双语 Epub 电子书制作、YouTube / Netflix / Udemy 等平台双语字幕，支持 DeepL / Google 等多个翻译服务，免费使用。</p>
+        <a class="notion-bookmark" href="https://chromewebstore.google.com/detail/immersive-translate-web-p/bpoadfkcbjbfhfodiogcnhhhpibjhbnh" target="_blank" rel="noopener noreferrer">
+          <div class="notion-bookmark-body">
+            <div class="notion-bookmark-title">Immersive Translate: Web Page &amp; PDF Translation</div>
+            <div class="notion-bookmark-desc">Bilingual web page translation, also supports PDF, Epub eBook, Video subtitles translation, free to use.</div>
+            <div class="notion-bookmark-url">
+              <img src="icons/cws.png" alt="">
+              <span>https://chromewebstore.google.com/detail/immersive-translate-web-p/bpoadfkcbjbfhfodiogcnhhhpibjhbnh</span>
+            </div>
+          </div>
+          <div class="notion-bookmark-thumb">
+            <img src="icons/immersive.png" alt="Immersive Translate" loading="lazy">
+          </div>
+        </a>
+      </section>
+
+      <section id="youtube-auto-hd">
+        <h2>3. 为 YouTube 自动播放高清视频</h2>
+        <p>设置你的默认 YouTube™ 视频质量，支持根据帧率自动匹配高清与最高分辨率播放。</p>
+        <a class="notion-bookmark" href="https://chromewebstore.google.com/detail/youtube-auto-hd-+-fps/fcphghnknhkimeagdglkljinmpbagone" target="_blank" rel="noopener noreferrer">
+          <div class="notion-bookmark-body">
+            <div class="notion-bookmark-title">YouTube Auto HD + FPS - Chrome Web Store</div>
+            <div class="notion-bookmark-desc">Automatically set the video quality on YouTube according to its FPS!</div>
+            <div class="notion-bookmark-url">
+              <img src="icons/cws.png" alt="">
+              <span>https://chromewebstore.google.com/detail/youtube-auto-hd-+-fps/fcphghnknhkimeagdglkljinmpbagone</span>
+            </div>
+          </div>
+          <div class="notion-bookmark-thumb">
+            <img src="icons/ythd.png" alt="YouTube Auto HD + FPS" loading="lazy">
+          </div>
+        </a>
+      </section>
+
+      <section id="auto-refresh-plus">
+        <h2>4. Auto Refresh Plus | Page Monitor</h2>
+        <p>使用强大的页面监控与关键词检测功能自动刷新页面，适合抢票、库存变化及状态盯屏场景。</p>
+        <a class="notion-bookmark" href="https://chromewebstore.google.com/detail/auto-refresh-plus-page-mo/hgeljhfekpckiiplhkigfehkdpldcggm" target="_blank" rel="noopener noreferrer">
+          <div class="notion-bookmark-body">
+            <div class="notion-bookmark-title">Auto Refresh Plus | Page Monitor</div>
+            <div class="notion-bookmark-desc">Refresh page automatically with powerful page monitor features.</div>
+            <div class="notion-bookmark-url">
+              <img src="icons/cws.png" alt="">
+              <span>https://chromewebstore.google.com/detail/auto-refresh-plus-page-mo/hgeljhfekpckiiplhkigfehkdpldcggm</span>
+            </div>
+          </div>
+          <div class="notion-bookmark-thumb">
+            <img src="icons/autorefresh.png" alt="Auto Refresh Plus" loading="lazy">
+          </div>
+        </a>
+      </section>
+
+      <section id="save-to-notion">
+        <h2>5. Save.to - Save to Notion</h2>
+        <p>Save the Web to Notion — 一键将网页正文、链接与结构化字段剪藏保存到你的 Notion 数据库。</p>
+        <a class="notion-bookmark" href="https://chromewebstore.google.com/detail/saveto-save-to-notion/ldmmifpegigmeammaeckplhnjbbpccmm" target="_blank" rel="noopener noreferrer">
+          <div class="notion-bookmark-body">
+            <div class="notion-bookmark-title">Save.to - Save to Notion - Chrome Web Store</div>
+            <div class="notion-bookmark-desc">Save the Web to Notion</div>
+            <div class="notion-bookmark-url">
+              <img src="icons/cws.png" alt="">
+              <span>https://chromewebstore.google.com/detail/saveto-save-to-notion/ldmmifpegigmeammaeckplhnjbbpccmm</span>
+            </div>
+          </div>
+          <div class="notion-bookmark-thumb">
+            <img src="icons/saveto.png" alt="Save to Notion" loading="lazy">
+          </div>
+        </a>
+      </section>
+
+      <section id="dark-reader">
+        <h2>6. Dark Reader</h2>
+        <p>适用于所有网站的暗色主题。关爱眼睛，就使用 Dark Reader 进行日常及夜间浏览。</p>
+        <a class="notion-bookmark" href="https://chromewebstore.google.com/detail/dark-reader/eimadpbcbfnmbkopoojfekhnkhdbieeh" target="_blank" rel="noopener noreferrer">
+          <div class="notion-bookmark-body">
+            <div class="notion-bookmark-title">Dark Reader</div>
+            <div class="notion-bookmark-desc">Dark mode for every website. Take care of your eyes, use dark theme for night and daily browsing.</div>
+            <div class="notion-bookmark-url">
+              <img src="icons/cws.png" alt="">
+              <span>https://chromewebstore.google.com/detail/dark-reader/eimadpbcbfnmbkopoojfekhnkhdbieeh</span>
+            </div>
+          </div>
+          <div class="notion-bookmark-thumb">
+            <img src="icons/darkreader.png" alt="Dark Reader" loading="lazy">
+          </div>
+        </a>
+      </section>
+
+      <section id="caoliao-qr">
+        <h2>7. 草料二维码 - 快速生码和解码工具</h2>
+        <p>草料二维码官方开发的免费工具插件，提供简单、专业、快捷的当前网页二维码生成与图片解码功能。</p>
+        <a class="notion-bookmark" href="https://chromewebstore.google.com/detail/%E8%8D%89%E6%96%99%E4%BA%8C%E7%BB%B4%E7%A0%81-%E5%BF%AB%E9%80%9F%E7%94%9F%E7%A0%81%E5%92%8C%E8%A7%A3%E7%A0%81%E5%B7%A5%E5%85%B7/moombeodfomdpjnpocobemoiaemednkg" target="_blank" rel="noopener noreferrer">
+          <div class="notion-bookmark-body">
+            <div class="notion-bookmark-title">草料二维码-快速生码和解码工具</div>
+            <div class="notion-bookmark-desc">草料二维码官方开发的免费工具插件，提供简单、专业、快捷的二维码生成和解码功能。</div>
+            <div class="notion-bookmark-url">
+              <img src="icons/cws.png" alt="">
+              <span>https://chromewebstore.google.com/detail/草料二维码-快速生码和解码工具/moombeodfomdpjnpocobemoiaemednkg</span>
+            </div>
+          </div>
+          <div class="notion-bookmark-thumb">
+            <img src="icons/caoliao.png" alt="草料二维码" loading="lazy">
+          </div>
+        </a>
+      </section>
+
+      <!-- Article Read Next Navigation -->
+      <nav class="article-nav" aria-label="相关文章导航">
+        <a href="../hiddify-vpn/" class="article-nav-card prev">
+          <small><i class="fa-solid fa-arrow-left"></i> 下一篇</small>
+          <strong>Hiddify 全平台 VPN 客户端指南</strong>
+        </a>
+        <a href="../linux-server-setup/" class="article-nav-card next">
+          <small>相关阅读 <i class="fa-solid fa-arrow-right"></i></small>
+          <strong>服务器初始化与部署指南</strong>
+        </a>
+      </nav>
+    </article>
+
+    <footer class="editorial-footer">
+      <a href="../../blog.html" class="editorial-back"><i class="fa-solid fa-arrow-left"></i> 返回文章列表</a>
+      <span>© 2026 WWZ.iM · Wang Wenzhi</span>
+    </footer>
+  </main>
+
+  <script src="../../js/site-shell.js"></script>
+</body>
+</html>
