@@ -1,0 +1,304 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="light dark">
+  <meta name="theme-color" content="#f7f7f5">
+  <script data-theme-bootstrap>
+    (() => {
+      const root = document.documentElement;
+      let mode = 'system';
+      try { mode = localStorage.getItem('wwz-theme-mode') || 'system'; } catch (_) {}
+      if (!['light', 'dark'].includes(mode)) mode = 'system';
+      const theme = mode === 'system' ? (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : mode;
+      const background = theme === 'dark' ? '#000000' : '#f7f7f5';
+      root.dataset.theme = theme;
+      root.dataset.themeMode = mode;
+      root.style.colorScheme = theme;
+      root.style.backgroundColor = background;
+      root.style.setProperty('--wwz-initial-bg', background);
+      document.querySelector('meta[name="theme-color"]').setAttribute('content', background);
+    })();
+  </script>
+  <script src="../../js/site-theme.js" defer></script>
+  <title>Hiddify 全平台 VPN 客户端指南 | WWZ.iM</title>
+  <meta name="description" content="VPN 代理软件与全平台客户端选择指南：涵盖 Hiddify、Sing-Box、V2rayN、V2rayNG、Shadowrocket 下载对比及 iOS 局域网分流配置。">
+  <meta name="author" content="Wang Wenzhi">
+  <link rel="canonical" href="https://wwz.im/articles/hiddify-vpn/">
+  <link rel="icon" href="../../favicon.ico">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Hiddify 全平台 VPN 客户端指南 | WWZ.iM">
+  <meta property="og:url" content="https://wwz.im/articles/hiddify-vpn/">
+  <meta property="og:description" content="不同平台设备下的科学上网代理客户端选择指南：覆盖 Android、Windows、iOS 与 macOS 下载直链与分流技巧。">
+  <meta property="og:image" content="https://wwz.im/articles/hiddify-vpn/cover.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Hiddify 全平台 VPN 客户端指南 | WWZ.iM">
+  <meta name="twitter:description" content="不同平台设备下的科学上网代理客户端选择指南：覆盖 Android、Windows、iOS 与 macOS 下载直链与分流技巧。">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "Hiddify 全平台 VPN 客户端指南",
+    "description": "不同平台设备下的科学上网代理软件指南，按订阅格式与系统平台快速选择 Hiddify、Sing-Box、V2rayN 或 Shadowrocket。",
+    "datePublished": "2026-11-24",
+    "author": {
+      "@type": "Person",
+      "name": "Wang Wenzhi"
+    },
+    "mainEntityOfPage": "https://wwz.im/articles/hiddify-vpn/",
+    "publisher": {
+      "@type": "Organization",
+      "name": "WWZ.iM"
+    }
+  }
+  </script>
+  <link rel="stylesheet" href="../../css/site-system.css">
+</head>
+<body data-content-root="../../" data-active-page="blog">
+  <main id="page-content" class="editorial-layout">
+    <a href="../../blog.html" class="editorial-back">
+      <i class="fa-solid fa-arrow-left"></i> 返回文章列表
+    </a>
+
+    <header class="editorial-header">
+      <div class="editorial-meta">
+        <span class="editorial-badge">NETWORK · VPN · HIDDIFY</span>
+        <span>2026-11-24</span> · <span>6 MIN READ</span> · <span>WANG WENZHI</span>
+      </div>
+      <h1 class="editorial-title">💡 Hiddify 全平台 VPN 客户端</h1>
+      <p class="editorial-lead">不同平台设备下的科学上网代理软件指南：根据订阅协议与使用场景选择最合适的全平台客户端。</p>
+      <img src="cover.png" alt="Hiddify 全平台 VPN 客户端封面" class="editorial-cover">
+    </header>
+
+    <article class="editorial-body">
+      <div class="callout">
+        <strong>💡 Hiddify 全平台 VPN 客户端 | WWZ.iM</strong> — 涵盖 Android、Windows、iOS、macOS 各平台常用客户端，兼容 Clash、Sing-box 与 V2Ray 订阅格式。
+      </div>
+
+      <figure class="editorial-figure">
+        <img src="clients-diagram.png" alt="Hiddify Next 桌面端与移动端界面预览" loading="lazy">
+      </figure>
+
+      <section id="download">
+        <h2>一、直接下载与客户端对照</h2>
+        <p>可按当前使用的操作系统与订阅链接格式选择对应客户端，快速获取官方发布版本：</p>
+
+        <div class="resource-grid">
+          <a class="resource" href="https://github.com/hiddify/hiddify-app/releases" target="_blank" rel="noopener noreferrer">
+            <i class="fa-brands fa-github"></i>
+            <div><strong>Hiddify App Releases</strong><span>全平台开源客户端官方 GitHub 发布页</span></div>
+          </a>
+          <a class="resource" href="https://v2rayn.2dust.link/" target="_blank" rel="noopener noreferrer">
+            <i class="fa-brands fa-windows"></i>
+            <div><strong>V2rayN（Windows / macOS）</strong><span>常用 V2Ray / Sing-box 核心桌面客户端</span></div>
+          </a>
+          <a class="resource" href="https://www.wwz.im/article/Sing-Box" target="_blank" rel="noopener noreferrer">
+            <i class="fa-solid fa-layer-group"></i>
+            <div><strong>Sing-Box 客户端</strong><span>通用代理核心与多平台配置指南</span></div>
+          </a>
+          <a class="resource" href="https://apps.apple.com/us/app/shadowrocket/id932747118" target="_blank" rel="noopener noreferrer">
+            <i class="fa-brands fa-apple"></i>
+            <div><strong>Shadowrocket（iOS）</strong><span>App Store 小火箭官方应用页</span></div>
+          </a>
+        </div>
+
+        <div class="editorial-table-wrap">
+          <table class="editorial-table">
+            <thead>
+              <tr>
+                <th>系统平台</th>
+                <th>Clash 订阅（默认）</th>
+                <th>SingBox 订阅</th>
+                <th>V2Ray 订阅</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Android</strong></td>
+                <td><a href="https://github.com/hiddify/hiddify-app/releases" target="_blank" rel="noopener noreferrer">Hiddify-Android</a></td>
+                <td><a href="https://www.wwz.im/article/Sing-Box" target="_blank" rel="noopener noreferrer">Sing-Box</a></td>
+                <td><a href="https://v2rayng.2dust.link/" target="_blank" rel="noopener noreferrer">V2rayNG</a></td>
+              </tr>
+              <tr>
+                <td><strong>Windows</strong></td>
+                <td><a href="https://github.com/hiddify/hiddify-app/releases" target="_blank" rel="noopener noreferrer">Hiddify-Windows</a></td>
+                <td><a href="https://v2rayn.2dust.link/" target="_blank" rel="noopener noreferrer">V2rayN Windows</a></td>
+                <td><a href="https://v2rayn.2dust.link/" target="_blank" rel="noopener noreferrer">V2rayN Windows</a></td>
+              </tr>
+              <tr>
+                <td><strong>iOS</strong></td>
+                <td><a href="https://apps.apple.com/us/app/hiddify-proxy-vpn/id6596777532" target="_blank" rel="noopener noreferrer">Hiddify-iOS</a></td>
+                <td><a href="https://www.wwz.im/article/Sing-Box" target="_blank" rel="noopener noreferrer">Sing-Box</a></td>
+                <td><a href="https://apps.apple.com/us/app/shadowrocket/id932747118" target="_blank" rel="noopener noreferrer">Shadowrocket</a></td>
+              </tr>
+              <tr>
+                <td><strong>macOS</strong></td>
+                <td><a href="https://github.com/hiddify/hiddify-app/releases" target="_blank" rel="noopener noreferrer">Hiddify-MacOS</a></td>
+                <td><a href="https://v2rayn.2dust.link/" target="_blank" rel="noopener noreferrer">V2rayN Windows</a></td>
+                <td><a href="https://v2rayn.2dust.link/" target="_blank" rel="noopener noreferrer">V2rayN Windows</a></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <p>附：常用网页翻译工具参考 <a href="https://translate.yandex.com/translate" target="_blank" rel="noopener noreferrer">Yandex Translate</a>。</p>
+      </section>
+
+      <section id="intro">
+        <h2>二、前言</h2>
+        <p>目前各种科学上网协议不断增多，客户端软件也越来越丰富，使用前可按以下两点快速判断：</p>
+        <ul>
+          <li>先确定你所持有的订阅类型，再选择对应支持的客户端软件，日常默认常用 V2Ray 订阅。</li>
+          <li>优先推荐使用 <strong>Hiddify</strong> 直接导入 Clash 订阅，跨平台界面一致且维护成本低。</li>
+        </ul>
+        <div class="editorial-video-wrap">
+          <iframe src="https://www.youtube.com/embed/boAFTSxDTTs?rel=0&amp;start=5" title="Hiddify 客户端视频教程" allow="autoplay; fullscreen; picture-in-picture; encrypted-media; accelerometer; gyroscope" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe>
+        </div>
+      </section>
+
+      <section id="hiddify">
+        <h2>三、Hiddify App 是什么？</h2>
+        <div class="editorial-brand-plate">
+          <img src="hiddify-logo.png" alt="Hiddify Logo" loading="lazy">
+        </div>
+        <p>一款基于 <a href="https://github.com/SagerNet/sing-box" target="_blank" rel="noopener noreferrer">Sing-box</a> 通用代理核心构建的跨平台代理客户端。Hiddify 提供了非常全面的代理功能，例如基于延迟自动选择节点、TUN 全局虚拟网卡模式、使用远程订阅配置文件等。它无广告且代码开源，为用户提供了安全、私密的多协议互联网访问体验。</p>
+
+        <h3>🚀 主要特性</h3>
+        <ul>
+          <li>✈️ <strong>多平台客户端</strong>：支持 Android、iOS、Windows、macOS 和 Linux</li>
+          <li>⭐ <strong>简洁直观的用户界面</strong>：零广告、上手快速</li>
+          <li>🔎 <strong>自动选路</strong>：支持基于延迟自动切换可用节点</li>
+          <li>🟡 <strong>全面的协议支持</strong>：Vless、Vmess、Reality、TUIC、Wireguard、Hysteria、SSH</li>
+          <li>🟡 <strong>多格式订阅兼容</strong>：Sing-box、V2ray、Clash、Clash.Meta</li>
+          <li>🔄 <strong>支持自动更新订阅</strong>：定时拉取最新节点清单</li>
+          <li>🔎 <strong>用量可视化</strong>：可显示包含剩余天数和流量使用情况的配置文件信息</li>
+          <li>🛡️ <strong>开源且由社区驱动</strong>：透明可审计，持续迭代</li>
+          <li>🌙 <strong>外观适配</strong>：原生支持深色与浅色模式</li>
+          <li>⚙️ <strong>生态兼容</strong>：兼容主流代理管理面板</li>
+          <li>⭐ <strong>多地区规则配置</strong>：内置面向不同网络环境的分流规则支持</li>
+        </ul>
+      </section>
+
+      <section id="free-vpn">
+        <h2>四、免费 VPN 备选推荐</h2>
+        <p>若仅需临时应急或零配置接入，可尝试以下基于 Cloudflare WARP 生态的开源免费客户端：</p>
+        <div class="resource-grid">
+          <a class="resource" href="https://github.com/NIKJOO/WarpOnWarp-Windows-Client/releases" target="_blank" rel="noopener noreferrer">
+            <i class="fa-brands fa-windows"></i>
+            <div><strong>WarpOnWarp Windows</strong><span>PC 端开源免费客户端下载</span></div>
+          </a>
+          <a class="resource" href="https://github.com/bepass-org/oblivion/releases" target="_blank" rel="noopener noreferrer">
+            <i class="fa-brands fa-android"></i>
+            <div><strong>Oblivion Android</strong><span>安卓手机端开源免费客户端下载</span></div>
+          </a>
+          <a class="resource" href="https://one.one.one.one/" target="_blank" rel="noopener noreferrer">
+            <i class="fa-solid fa-bolt"></i>
+            <div><strong>1.1.1.1 Official</strong><span>Cloudflare WARP 全平台官方应用</span></div>
+          </a>
+        </div>
+      </section>
+
+      <section id="usage">
+        <h2>五、使用方法与教程</h2>
+        <div class="resource-grid">
+          <a class="resource" href="https://binghe.gitbook.io/quan-ping-tai-fan-qiang-gong-ju/0/windows" target="_blank" rel="noopener noreferrer">
+            <i class="fa-brands fa-windows"></i>
+            <div><strong>Windows 客户端教程</strong><span>详细图文安装与导入说明</span></div>
+          </a>
+          <a class="resource" href="https://binghe.gitbook.io/quan-ping-tai-fan-qiang-gong-ju/0/mac" target="_blank" rel="noopener noreferrer">
+            <i class="fa-brands fa-apple"></i>
+            <div><strong>Mac 客户端教程</strong><span>macOS 代理配置与使用指南</span></div>
+          </a>
+          <a class="resource" href="https://binghe.gitbook.io/quan-ping-tai-fan-qiang-gong-ju/0/iphone" target="_blank" rel="noopener noreferrer">
+            <i class="fa-solid fa-book-open"></i>
+            <div><strong>iPhone 客户端教程</strong><span>iOS 端配置方法与常见说明</span></div>
+          </a>
+        </div>
+
+        <h3>如何实现 iOS 小火箭同时访问家里局域网并兼顾出国分流</h3>
+        <div class="callout">
+          <p><strong>📌 核心思路：</strong> 通过在 Shadowrocket 配置文件中将内网网段从“跳过代理 / 旁路路由”移交至指定 Socks5 策略，只需一个 VPN 工具即可同时外网访问家庭局域网（<code>192.168.x.x</code>）与日常国内外分流：</p>
+          <ol>
+            <li>将自己的家庭公网 IP 绑定动态域名（DDNS）。</li>
+            <li>在路由器 OpenWrt 的 Passwall 服务端开启 Socks 服务器，设置端口与认证信息。</li>
+            <li>在 Shadowrocket（小火箭）中新增 Socks5 节点，服务器填写动态域名并填入对应端口与凭据。</li>
+            <li>修改当前使用的 Shadowrocket 配置文件：在 <strong>通用</strong> 设置中，分别将 <code>跳过代理</code> 和 <code>TUN 旁路路由</code> 内的 <code>192.168.0.0/16</code> 删除；随后在 <strong>规则</strong> 列表中找到（或新增）类型 <code>IP-CIDR</code>、地址 <code>192.168.0.0/16</code> 的规则，将策略设为第 3 步添加的 Socks5 节点并开启“不解析域名”。</li>
+          </ol>
+          <p style="margin-bottom:0;"><strong>补充提示：</strong>多数小火箭规则已自带 <code>192.168.0.0/16</code> 条目，直接在规则中搜索并修改策略即可，避免重复添加导致规则冲突。主页可自由选择日常出国节点，不影响回家访问内网设备。</p>
+        </div>
+      </section>
+
+      <section id="official-links">
+        <h2>六、官方地址直达</h2>
+        <div class="resource-grid" style="margin-bottom:20px;">
+          <a class="resource" href="https://nodecats.com/clash-download/" target="_blank" rel="noopener noreferrer">
+            <i class="fa-solid fa-compass"></i>
+            <div><strong>科学上网软件下载聚合页</strong><span>nodecats.com/clash-download</span></div>
+          </a>
+          <a class="resource" href="https://github.com/2dust/clashN/releases" target="_blank" rel="noopener noreferrer">
+            <i class="fa-brands fa-github"></i>
+            <div><strong>clashN Releases</strong><span>github.com/2dust/clashN</span></div>
+          </a>
+        </div>
+
+        <div class="editorial-table-wrap">
+          <table class="editorial-table">
+            <thead>
+              <tr>
+                <th>推荐工具</th>
+                <th>大致介绍</th>
+                <th>项目原地址 / 指南</th>
+                <th>软件下载</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>V2rayN</strong></td>
+                <td>Windows 客户端</td>
+                <td><a href="https://github.com/2dust/v2rayN/releases" target="_blank" rel="noopener noreferrer">GitHub Releases</a></td>
+                <td><a href="https://pan.wwz.im/s/d8qLgXoXoqw59Cw" target="_blank" rel="noopener noreferrer">网盘镜像直链</a></td>
+              </tr>
+              <tr>
+                <td><strong>Shadowrocket</strong></td>
+                <td>iOS VPN 应用</td>
+                <td><a href="https://youtu.be/0hphAq3_yL8" target="_blank" rel="noopener noreferrer">申请免费美区 Apple ID</a></td>
+                <td><a href="https://apps.apple.com/us/app/shadowrocket/id932747118" target="_blank" rel="noopener noreferrer">App Store 下载</a></td>
+              </tr>
+              <tr>
+                <td><strong>V2rayNG</strong></td>
+                <td>Android 客户端</td>
+                <td><a href="https://github.com/2dust/v2rayNG/releases" target="_blank" rel="noopener noreferrer">GitHub Releases</a></td>
+                <td><a href="https://pan.wwz.im/s/PFK75g8GRMAF4Gx" target="_blank" rel="noopener noreferrer">网盘镜像直链</a></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="callout">
+          <strong>订阅转换工具推荐：</strong> 如果需要将 V2Ray、Hysteria2 或通用订阅转换为 Clash / Mihomo 格式，可使用本站内置工具 <a href="../../projects/sub/"><strong>SUB.WWZ.iM — Clash.Meta 节点转换器</strong></a>。
+        </div>
+      </section>
+
+      <!-- Article Read Next Navigation -->
+      <nav class="article-nav" aria-label="相关文章导航">
+        <a href="../linux-server-setup/" class="article-nav-card prev">
+          <small><i class="fa-solid fa-arrow-left"></i> 下一篇</small>
+          <strong>服务器初始化与部署指南</strong>
+        </a>
+        <a href="../be6500-ssh/" class="article-nav-card next">
+          <small>相关阅读 <i class="fa-solid fa-arrow-right"></i></small>
+          <strong>小米路由器 BE6500 解锁 SSH 安装 ShellCrash</strong>
+        </a>
+      </nav>
+    </article>
+
+    <footer class="editorial-footer">
+      <a href="../../blog.html" class="editorial-back"><i class="fa-solid fa-arrow-left"></i> 返回文章列表</a>
+      <span>© 2026 WWZ.iM · Wang Wenzhi</span>
+    </footer>
+  </main>
+
+  <script src="../../js/site-shell.js"></script>
+</body>
+</html>
