@@ -2254,49 +2254,151 @@ html:has(.image-viewer[open]) {
 }
 
 /* ==========================================================================
-   8. Unified Editorial Subpage & Article Architecture
+   8. Unified Editorial Subpage & Notion-Style Article Architecture
    ========================================================================== */
 
 .editorial-layout {
-  width: min(820px, calc(100% - 40px));
+  width: min(1140px, calc(100% - 48px));
   margin: 0 auto;
-  padding: 84px 0 96px;
+  padding: 28px 0 96px;
 }
-@media (max-width: 640px) {
+@media (max-width: 768px) {
   .editorial-layout {
     width: calc(100% - 28px);
-    padding: 72px 0 64px;
+    padding: 20px 0 64px;
   }
+}
+
+.notion-topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 22px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--line-subtle);
+}
+
+.notion-breadcrumb {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  min-width: 0;
+  font-size: 0.84rem;
+  color: var(--ink-secondary);
+}
+
+.notion-crumb-sep {
+  color: var(--ink-tertiary);
+  user-select: none;
+}
+
+.notion-crumb-current {
+  color: var(--ink);
+  font-weight: 550;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 420px;
+}
+
+.notion-crumb-cat {
+  color: var(--ink-secondary);
+  font-size: 0.78rem;
+  font-family: var(--font-mono);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.notion-topbar-meta {
+  font-family: var(--font-mono);
+  font-size: 0.76rem;
+  color: var(--ink-tertiary);
+  white-space: nowrap;
+  flex-shrink: 0;
 }
 
 .editorial-back {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
-  font-family: var(--font-mono);
-  font-size: 0.82rem;
+  gap: 6px;
+  font-size: 0.84rem;
   font-weight: 550;
   color: var(--ink-secondary);
   text-decoration: none;
-  padding: 6px 16px;
-  border-radius: var(--radius-pill);
-  background: var(--surface);
-  border: 1px solid var(--line);
-  margin-bottom: 32px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
+  padding: 4px 10px;
+  border-radius: 6px;
+  background: transparent;
+  border: 1px solid transparent;
+  margin-bottom: 0;
   transition: all var(--duration-fast) var(--ease);
+}
+.editorial-layout:not([data-notion-enhanced]) > .editorial-back {
+  margin-bottom: 28px;
+  background: var(--surface);
+  border-color: var(--line);
+  border-radius: var(--radius-pill);
+  padding: 6px 14px;
 }
 .editorial-back:hover {
   color: var(--ink);
   background: var(--surface-hover);
-  border-color: var(--line-strong);
-  transform: translateX(-3px);
-  box-shadow: var(--shadow-sm);
 }
 
 .editorial-header {
+  display: flex;
+  flex-direction: column;
   margin-bottom: 36px;
+  padding-bottom: 28px;
+  border-bottom: 1px solid var(--line);
 }
+
+.editorial-cover {
+  order: -3;
+  width: 100%;
+  height: clamp(200px, 27vw, 300px);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--line);
+  object-fit: cover;
+  display: block;
+  background-color: var(--surface);
+  margin-bottom: 24px;
+}
+
+.notion-page-icon {
+  order: -2;
+  width: 68px;
+  height: 68px;
+  border-radius: 16px;
+  background-color: var(--surface);
+  border: 1px solid var(--line);
+  box-shadow: 0 0 0 4px var(--bg), 0 8px 20px rgba(0, 0, 0, 0.08);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  line-height: 1;
+  margin-bottom: 18px;
+  position: relative;
+  z-index: 2;
+}
+
+.editorial-header.has-cover .notion-page-icon {
+  margin: -58px 0 16px 0;
+}
+
+.editorial-title {
+  order: -1;
+  font-size: clamp(1.95rem, 3.8vw, 2.75rem);
+  font-weight: 760;
+  letter-spacing: -0.032em;
+  line-height: 1.15;
+  color: var(--ink);
+  margin: 0 0 16px;
+  max-width: 820px;
+}
+
 .editorial-meta {
   display: flex;
   align-items: center;
@@ -2305,86 +2407,189 @@ html:has(.image-viewer[open]) {
   font-family: var(--font-mono);
   font-size: var(--text-meta);
   color: var(--ink-tertiary);
-  margin-bottom: 16px;
+  margin-bottom: 18px;
   text-transform: uppercase;
 }
+
+.notion-properties {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 24px;
+  padding: 12px 16px;
+  margin: 0 0 18px;
+  border-radius: 10px;
+  background-color: var(--surface);
+  border: 1px solid var(--line);
+  max-width: 820px;
+}
+
+.notion-prop {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.82rem;
+}
+
+.notion-prop-key {
+  color: var(--ink-tertiary);
+  font-family: var(--font-mono);
+  font-size: 0.74rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.notion-prop-val {
+  color: var(--ink);
+  font-weight: 550;
+}
+
 .editorial-badge {
   display: inline-flex;
   align-items: center;
-  padding: 3px 10px;
-  border-radius: var(--radius-pill);
+  padding: 3px 9px;
+  border-radius: 6px;
   border: 1px solid var(--line);
-  background-color: var(--surface);
+  background-color: var(--bg-secondary);
+  font-family: var(--font-mono);
+  font-size: 0.74rem;
   font-weight: 600;
   color: var(--ink);
-  letter-spacing: 0.04em;
-}
-.editorial-title {
-  font-size: clamp(1.95rem, 4vw, 3rem);
-  font-weight: 750;
-  letter-spacing: -0.035em;
-  line-height: 1.12;
-  color: var(--ink);
-  margin: 0 0 16px;
-}
-.editorial-lead {
-  font-size: var(--text-lead);
-  line-height: 1.75;
-  color: var(--ink-secondary);
-  margin: 0 0 28px;
-}
-.editorial-cover {
-  width: 100%;
-  aspect-ratio: 16 / 9;
-  border-radius: var(--radius-lg);
-  border: 1px solid var(--line);
-  object-fit: cover;
-  display: block;
-  background-color: var(--surface);
+  letter-spacing: 0.03em;
 }
 
-/* Editorial Body Typography */
+.editorial-lead {
+  order: 1;
+  font-size: var(--text-lead);
+  line-height: 1.72;
+  color: var(--ink-secondary);
+  margin: 0;
+  max-width: 760px;
+}
+
+.notion-content-row {
+  display: grid;
+  grid-template-columns: minmax(0, 760px) 230px;
+  gap: 56px;
+  justify-content: space-between;
+  align-items: start;
+}
+
+.notion-content-row.is-single {
+  grid-template-columns: minmax(0, 780px);
+}
+
+.notion-toc {
+  position: sticky;
+  top: 104px;
+  padding: 4px 0 4px 16px;
+  border-left: 1px solid var(--line);
+}
+
+.notion-toc-label {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ink-tertiary);
+  margin-bottom: 10px;
+}
+
+.notion-toc-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.notion-toc-link {
+  display: block;
+  padding: 4px 8px;
+  border-radius: 6px;
+  font-size: 0.81rem;
+  line-height: 1.4;
+  color: var(--ink-secondary);
+  text-decoration: none;
+  transition: all var(--duration-fast) var(--ease);
+}
+
+.notion-toc-link.is-sub {
+  padding-left: 18px;
+  font-size: 0.77rem;
+  color: var(--ink-tertiary);
+}
+
+.notion-toc-link:hover {
+  color: var(--ink);
+  background-color: var(--surface-hover);
+}
+
+.notion-toc-link.is-active {
+  color: var(--ink);
+  font-weight: 600;
+  background-color: var(--bg-secondary);
+}
+
+@media (max-width: 1080px) {
+  .notion-content-row {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 32px;
+  }
+  .notion-toc {
+    display: none;
+  }
+  .notion-topbar-meta {
+    display: none;
+  }
+}
+
+/* Editorial Body Typography (Notion Document Blocks) */
 .editorial-body {
   font-size: var(--text-body);
-  line-height: 1.82;
+  line-height: 1.8;
   color: var(--ink-secondary);
-  padding-top: 16px;
+  padding-top: 4px;
+  min-width: 0;
 }
 .editorial-body section {
-  margin-bottom: 40px;
+  margin-bottom: 36px;
 }
 .editorial-body h2 {
-  font-size: clamp(1.45rem, 3.5vw, 1.85rem);
+  font-size: clamp(1.38rem, 3vw, 1.7rem);
   font-weight: 700;
-  letter-spacing: -0.025em;
+  letter-spacing: -0.024em;
   color: var(--ink);
-  margin: 44px 0 16px;
-  padding-bottom: 12px;
-  border-bottom: 1px solid var(--line);
+  margin: 40px 0 14px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--line-subtle);
+  scroll-margin-top: 100px;
 }
 .editorial-body h3 {
-  font-size: 1.22rem;
+  font-size: 1.16rem;
   font-weight: 650;
-  letter-spacing: -0.02em;
+  letter-spacing: -0.018em;
   color: var(--ink);
-  margin: 32px 0 12px;
+  margin: 28px 0 10px;
+  scroll-margin-top: 100px;
 }
 .editorial-body h4 {
-  font-size: 1.1rem;
+  font-size: 1.04rem;
   font-weight: 600;
   color: var(--ink);
-  margin: 24px 0 10px;
+  margin: 22px 0 8px;
 }
 .editorial-body p {
-  margin: 0 0 20px;
+  margin: 0 0 18px;
 }
 .editorial-body ul, .editorial-body ol {
   padding-left: 24px;
-  margin: 0 0 24px;
+  margin: 0 0 22px;
 }
 .editorial-body li {
-  margin-bottom: 8px;
-  line-height: 1.8;
+  margin-bottom: 7px;
+  line-height: 1.76;
 }
 .editorial-body strong {
   color: var(--ink);
@@ -2392,23 +2597,22 @@ html:has(.image-viewer[open]) {
 }
 .editorial-body code:not(pre code) {
   font-family: var(--font-mono);
-  font-size: 0.88em;
-  background-color: var(--surface-hover);
+  font-size: 0.87em;
+  background-color: var(--bg-secondary);
   color: var(--ink);
   padding: 2px 6px;
-  border-radius: 6px;
+  border-radius: 5px;
   border: 1px solid var(--line);
 }
 .editorial-body .callout,
 .editorial-body .notice {
-  padding: 18px 22px;
-  border-radius: var(--radius-md);
+  padding: 16px 20px;
+  border-radius: 10px;
   border: 1px solid var(--line);
-  border-left: 3.5px solid var(--ink);
-  background-color: var(--surface);
-  margin: 28px 0;
-  font-size: 0.96rem;
-  line-height: 1.75;
+  background-color: var(--bg-secondary);
+  margin: 24px 0;
+  font-size: 0.95rem;
+  line-height: 1.72;
 }
 .editorial-body .callout strong,
 .editorial-body .notice strong {
@@ -2720,26 +2924,14 @@ html:has(.image-viewer[open]) {
 
 pre {
   position: relative;
-  background: var(--bg-tertiary);
+  background: var(--bg-secondary);
   color: var(--ink);
-  padding: 3rem 1.5rem 1.5rem 1.5rem;
-  border-radius: var(--radius-md);
-  margin: 1.8rem 0;
+  padding: 20px 22px;
+  border-radius: 10px;
+  margin: 20px 0;
   border: 1px solid var(--line);
   overflow-x: auto;
   font-family: "JetBrains Mono", Menlo, monospace;
-}
-
-pre::before {
-  content: '';
-  position: absolute;
-  top: 16px;
-  left: 18px;
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  background: var(--line-strong);
-  box-shadow: 16px 0 0 var(--line-strong), 32px 0 0 var(--line-strong);
 }
 
 pre code {

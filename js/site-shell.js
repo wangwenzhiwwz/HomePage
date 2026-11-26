@@ -701,6 +701,165 @@
     });
   };
 
+  let notionTocObserver = null;
+
+  const initNotionArticleLayout = () => {
+    const layout = document.querySelector('.editorial-layout');
+    const body = layout?.querySelector('.editorial-body');
+    const header = layout?.querySelector('.editorial-header');
+    if (!layout || !body || !header || layout.dataset.notionEnhanced === 'true') return;
+    layout.dataset.notionEnhanced = 'true';
+
+    if (notionTocObserver) {
+      notionTocObserver.disconnect();
+      notionTocObserver = null;
+    }
+
+    const titleEl = header.querySelector('.editorial-title');
+    const coverEl = header.querySelector('.editorial-cover');
+    if (coverEl) header.classList.add('has-cover');
+
+    // 1. Pop leading emoji out of H1 into overlapping Notion page icon tile
+    if (titleEl && !header.querySelector('.notion-page-icon')) {
+      const rawTitle = titleEl.textContent.trim();
+      const emojiMatch = rawTitle.match(/^(\p{Extended_Pictographic}(?:\uFE0F|\u200D\p{Extended_Pictographic})*)\s+(.+)$/u);
+      const iconGlyph = emojiMatch ? emojiMatch[1] : '📄';
+      if (emojiMatch) titleEl.textContent = emojiMatch[2];
+      const iconTile = document.createElement('div');
+      iconTile.className = 'notion-page-icon';
+      iconTile.setAttribute('aria-hidden', 'true');
+      iconTile.textContent = iconGlyph;
+      header.prepend(iconTile);
+    }
+
+    // 2. Transform back pill + metadata into Notion breadcrumb bar & structured properties strip
+    const backLink = layout.querySelector(':scope > .editorial-back');
+    const metaEl = header.querySelector('.editorial-meta');
+    const badgeText = metaEl?.querySelector('.editorial-badge')?.textContent.trim() || 'Article';
+    const metaSpans = metaEl
+      ? [...metaEl.querySelectorAll('span:not(.editorial-badge)')].map(s => s.textContent.trim()).filter(Boolean)
+      : [];
+    const readTimeText = metaSpans.find(s => /MIN READ/i.test(s)) || '';
+
+    if (backLink && !layout.querySelector('.notion-topbar')) {
+      const topbar = document.createElement('div');
+      topbar.className = 'notion-topbar';
+
+      const crumb = document.createElement('div');
+      crumb.className = 'notion-breadcrumb';
+      backLink.innerHTML = `${renderIconSVG('fa-arrow-left')} <span>Blog</span>`;
+
+      const sep1 = document.createElement('span');
+      sep1.className = 'notion-crumb-sep';
+      sep1.textContent = '/';
+
+      const catSpan = document.createElement('span');
+      catSpan.className = 'notion-crumb-cat';
+      catSpan.textContent = badgeText.split('·')[0].trim();
+
+      const sep2 = document.createElement('span');
+      sep2.className = 'notion-crumb-sep';
+      sep2.textContent = '/';
+
+      const currentSpan = document.createElement('span');
+      currentSpan.className = 'notion-crumb-current';
+      currentSpan.textContent = titleEl ? titleEl.textContent.trim() : document.title;
+
+      crumb.append(backLink, sep1, catSpan, sep2, currentSpan);
+      topbar.append(crumb);
+
+      if (readTimeText) {
+        const topMeta = document.createElement('span');
+        topMeta.className = 'notion-topbar-meta';
+        topMeta.textContent = readTimeText;
+        topbar.append(topMeta);
+      }
+
+      layout.prepend(topbar);
+    }
+
+    if (metaEl && !header.querySelector('.notion-properties')) {
+      const props = document.createElement('div');
+      props.className = 'notion-properties';
+      const items = [{ key: 'Category', value: badgeText, badge: true }];
+      if (metaSpans[0]) items.push({ key: 'Date', value: metaSpans[0] });
+      if (metaSpans[1]) items.push({ key: 'Read', value: metaSpans[1] });
+      if (metaSpans[2]) items.push({ key: 'Author', value: metaSpans[2] });
+
+      items.forEach(item => {
+        const row = document.createElement('div');
+        row.className = 'notion-prop';
+        const k = document.createElement('span');
+        k.className = 'notion-prop-key';
+        k.textContent = item.key;
+        const v = document.createElement('span');
+        v.className = item.badge ? 'editorial-badge' : 'notion-prop-val';
+        v.textContent = item.value;
+        row.append(k, v);
+        props.append(row);
+      });
+      metaEl.replaceWith(props);
+    }
+
+    // 3. Build 2-column Notion workspace (prose column + sticky right Outline TOC)
+    if (!body.closest('.notion-content-row')) {
+      const row = document.createElement('div');
+      row.className = 'notion-content-row';
+      body.parentNode.insertBefore(row, body);
+      row.append(body);
+
+      const headings = [...body.querySelectorAll('h2, h3')];
+      if (headings.length >= 2) {
+        const toc = document.createElement('aside');
+        toc.className = 'notion-toc';
+        toc.setAttribute('aria-label', 'Table of contents');
+
+        const label = document.createElement('div');
+        label.className = 'notion-toc-label';
+        label.textContent = 'On this page';
+        toc.append(label);
+
+        const list = document.createElement('ul');
+        list.className = 'notion-toc-list';
+
+        const linkMap = new Map();
+        headings.forEach((h, idx) => {
+          const id = h.id || h.closest('section')?.id || `section-${idx + 1}`;
+          if (!h.id) h.id = id;
+          const li = document.createElement('li');
+          const a = document.createElement('a');
+          a.className = h.tagName === 'H3' ? 'notion-toc-link is-sub' : 'notion-toc-link';
+          a.href = `#${id}`;
+          a.textContent = h.textContent.trim();
+          li.append(a);
+          list.append(li);
+          linkMap.set(h, a);
+        });
+
+        toc.append(list);
+        row.append(toc);
+
+        const setActive = (targetHeading) => {
+          linkMap.forEach((a, h) => a.classList.toggle('is-active', h === targetHeading));
+        };
+        setActive(headings[0]);
+
+        notionTocObserver = new IntersectionObserver((entries) => {
+          const visible = entries
+            .filter(entry => entry.isIntersecting)
+            .sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top);
+          if (visible.length) {
+            setActive(visible[0].target);
+          }
+        }, { rootMargin: '-96px 0px -65% 0px', threshold: 0.1 });
+
+        headings.forEach(h => notionTocObserver.observe(h));
+      } else {
+        row.classList.add('is-single');
+      }
+    }
+  };
+
   // About Page Sliding Discipline Tabs + Horizontal Carousel Track
   const initAboutSlider = () => {
     const shell = document.getElementById('aboutSliderShell');
@@ -971,10 +1130,11 @@
       el.textContent = String(new Date().getFullYear());
     });
 
-    // 4. Shared Filters, Scroll Reveals, About Slider, Specular & Hero Kinetic
+    // 4. Shared Filters, Scroll Reveals, Notion Article Layout, About Slider, Specular & Hero Kinetic
     initVideoFilters();
     initBlogFilters();
     initScrollReveals();
+    initNotionArticleLayout();
     initAboutSlider();
     initInteractiveSpecular();
     initHeroKinetic();
