@@ -10,11 +10,11 @@
 .qj-hero {
   position: relative;
   overflow: hidden;
-  min-height: clamp(500px, 68vh, 660px);
+  min-height: clamp(640px, 84vh, 840px);
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding: clamp(22px, 3.6vh, 42px) 0 clamp(38px, 4.8vh, 56px);
+  padding: clamp(36px, 5.5vh, 64px) 0 clamp(48px, 6.5vh, 76px);
 }
 
 /* Subtle Architectural Grid Overlay */
@@ -121,14 +121,14 @@
 .qj-hero-stage {
   display: flex;
   flex-direction: column;
-  gap: clamp(36px, 4.8vh, 56px);
+  gap: clamp(52px, 6.8vh, 84px);
 }
 
 /* Top Kinetic Stage (Mirrors qijishow spatial scale & proportion) */
 .qj-hero-top {
   position: relative;
   display: block;
-  padding-top: clamp(4px, 1.5vh, 18px);
+  padding-top: clamp(10px, 2vh, 24px);
 }
 
 .qj-headline-block {
@@ -180,7 +180,7 @@
   flex-wrap: wrap;
   align-items: baseline;
   gap: 20px;
-  margin-top: clamp(24px, 3.2vh, 36px);
+  margin-top: clamp(28px, 3.8vh, 44px);
   opacity: 0;
   transform: translateY(18px);
   animation: qj-fadeup 1.2s cubic-bezier(0.19, 1, 0.22, 1) 0.26s forwards;
@@ -218,7 +218,7 @@
   display: flex;
   align-items: flex-end;
   gap: 0;
-  --illo-w: clamp(178px, 13.6vw, 224px);
+  --illo-w: clamp(186px, 14.5vw, 236px);
   --eye-x: 0px;
   --eye-y: 0px;
 }
@@ -535,7 +535,7 @@
 .qj-guide-card {
   position: relative;
   text-align: left;
-  height: clamp(160px, 12vw, 182px);
+  height: clamp(176px, 13.5vw, 196px);
   border-radius: 20px;
   background: linear-gradient(157.87deg, rgba(255, 255, 255, 0.78), rgba(255, 255, 255, 0.58));
   -webkit-backdrop-filter: blur(14px);
