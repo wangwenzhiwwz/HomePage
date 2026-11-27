@@ -137,11 +137,31 @@
     return bar;
   };
 
+  const getThemeMeta = () => {
+    if (window.WWZTheme && typeof window.WWZTheme.getState === 'function') {
+      return window.WWZTheme.getState();
+    }
+    const mode = document.documentElement.dataset.themeMode || 'system';
+    const theme = document.documentElement.dataset.theme || 'light';
+    return { mode, theme };
+  };
+
   const buildNavHTML = (activeKey) => {
     const root = getRoot();
-    const isDark = document.documentElement.dataset.theme === 'dark';
+    const { mode, theme } = getThemeMeta();
+    const isDark = theme === 'dark';
     const themeIcon = isDark ? ICON_SUN : ICON_MOON;
-    const themeLabel = isDark ? 'Switch to light mode' : 'Switch to dark mode';
+    const themeLabel = mode === 'system'
+      ? `Auto (${isDark ? 'Dark' : 'Light'}) — Click to switch`
+      : `${isDark ? 'Dark' : 'Light'} Mode — Click to switch`;
+
+    const mobileItems = [
+      { key: 'home', href: `${root}index.html`, label: 'Home', sub: 'Studio Overview', icon: 'fa-house' },
+      { key: 'videos', href: `${root}videos/`, label: 'Videos', sub: '21 Commercial Films', icon: 'fa-film' },
+      { key: 'works', href: `${root}works.html`, label: 'Works', sub: '81 Visual Works', icon: 'fa-icons' },
+      { key: 'blog', href: `${root}blog.html`, label: 'Blog', sub: '7 Technical Guides', icon: 'fa-book-open' },
+      { key: 'about', href: `${root}about.html`, label: 'About', sub: 'Bio & Stack', icon: 'fa-user' }
+    ];
 
     return `
       <div class="apple-nav-inner">
@@ -158,7 +178,7 @@
         </nav>
         <div class="apple-controls">
           <button class="apple-icon-btn" type="button" data-shell-theme aria-label="${themeLabel}" title="${themeLabel}">
-            ${themeIcon}
+            ${themeIcon}<span class="theme-auto-dot" aria-hidden="true"></span>
           </button>
           <button class="apple-menu-toggle" type="button" id="appleMenuToggle" aria-label="Open mobile menu" aria-expanded="false">
             <span></span>
@@ -167,28 +187,30 @@
         </div>
       </div>
       <div class="apple-mobile-drawer" id="appleMobileDrawer">
-        <nav class="apple-mobile-nav">
-          <a href="${root}index.html" class="apple-mobile-link ${activeKey === 'home' ? 'active' : ''}" data-shell-nav="home" ${activeKey === 'home' ? 'aria-current="page"' : ''}>
-            <span>Home</span>
-            <span class="active-dot">${renderIconSVG('fa-chevron-right')}</span>
-          </a>
-          <a href="${root}videos/" class="apple-mobile-link ${activeKey === 'videos' ? 'active' : ''}" data-shell-nav="videos" ${activeKey === 'videos' ? 'aria-current="page"' : ''}>
-            <span>Videos</span>
-            <span class="active-dot">${renderIconSVG('fa-chevron-right')}</span>
-          </a>
-          <a href="${root}works.html" class="apple-mobile-link ${activeKey === 'works' ? 'active' : ''}" data-shell-nav="works" ${activeKey === 'works' ? 'aria-current="page"' : ''}>
-            <span>Works</span>
-            <span class="active-dot">${renderIconSVG('fa-chevron-right')}</span>
-          </a>
-          <a href="${root}blog.html" class="apple-mobile-link ${activeKey === 'blog' ? 'active' : ''}" data-shell-nav="blog" ${activeKey === 'blog' ? 'aria-current="page"' : ''}>
-            <span>Blog</span>
-            <span class="active-dot">${renderIconSVG('fa-chevron-right')}</span>
-          </a>
-          <a href="${root}about.html" class="apple-mobile-link ${activeKey === 'about' ? 'active' : ''}" data-shell-nav="about" ${activeKey === 'about' ? 'aria-current="page"' : ''}>
-            <span>About</span>
-            <span class="active-dot">${renderIconSVG('fa-chevron-right')}</span>
-          </a>
+        <nav class="apple-mobile-nav" aria-label="Mobile navigation">
+          ${mobileItems.map(item => {
+            const isActive = activeKey === item.key;
+            return `
+              <a href="${item.href}" class="apple-mobile-link ${isActive ? 'active' : ''}" data-shell-nav="${item.key}" ${isActive ? 'aria-current="page"' : ''}>
+                <span class="mobile-link-main">
+                  <span class="mobile-link-icon" aria-hidden="true">${renderIconSVG(item.icon)}</span>
+                  <span class="mobile-link-text">
+                    <strong>${item.label}</strong>
+                    <small>${item.sub}</small>
+                  </span>
+                </span>
+                <span class="active-dot">${renderIconSVG('fa-chevron-right')}</span>
+              </a>`;
+          }).join('')}
         </nav>
+        <div class="apple-mobile-appearance">
+          <span class="apple-mobile-app-label">Appearance</span>
+          <div class="mobile-theme-seg" role="group" aria-label="Theme appearance">
+            <button type="button" class="mobile-theme-opt ${mode === 'system' ? 'is-active' : ''}" data-set-theme="system" aria-pressed="${mode === 'system'}">Auto</button>
+            <button type="button" class="mobile-theme-opt ${mode === 'light' ? 'is-active' : ''}" data-set-theme="light" aria-pressed="${mode === 'light'}">Light</button>
+            <button type="button" class="mobile-theme-opt ${mode === 'dark' ? 'is-active' : ''}" data-set-theme="dark" aria-pressed="${mode === 'dark'}">Dark</button>
+          </div>
+        </div>
         <div class="apple-mobile-footer">
           <span>WWZ.iM · Wang Wenzhi</span>
           <a href="https://github.com/wangwenzhiwwz" target="_blank" rel="noopener noreferrer">GitHub ↗</a>
@@ -198,17 +220,27 @@
   };
 
   const updateThemeIcons = (pulse = false) => {
-    const isDark = document.documentElement.dataset.theme === 'dark';
+    const { mode, theme } = getThemeMeta();
+    const isDark = theme === 'dark';
     const icon = isDark ? ICON_SUN : ICON_MOON;
-    const label = isDark ? 'Switch to light mode' : 'Switch to dark mode';
+    const label = mode === 'system'
+      ? `Auto (${isDark ? 'Dark' : 'Light'}) — Click to switch`
+      : `${isDark ? 'Dark' : 'Light'} Mode — Click to switch`;
+
     document.querySelectorAll('[data-shell-theme]').forEach(btn => {
-      btn.innerHTML = icon;
+      btn.innerHTML = `${icon}<span class="theme-auto-dot" aria-hidden="true"></span>`;
       btn.setAttribute('aria-label', label);
       btn.title = label;
       if (pulse) {
         btn.classList.add('icon-pulse');
         setTimeout(() => btn.classList.remove('icon-pulse'), 400);
       }
+    });
+
+    document.querySelectorAll('.mobile-theme-opt[data-set-theme]').forEach(opt => {
+      const match = opt.dataset.setTheme === mode;
+      opt.classList.toggle('is-active', match);
+      opt.setAttribute('aria-pressed', String(match));
     });
   };
 
@@ -325,6 +357,11 @@
       if (!btn.dataset.bound) {
         btn.dataset.bound = 'true';
         btn.addEventListener('click', () => {
+          if (window.WWZTheme && typeof window.WWZTheme.cycle === 'function') {
+            window.WWZTheme.cycle();
+            updateThemeIcons(true);
+            return;
+          }
           const isDark = document.documentElement.dataset.theme === 'dark';
           const newTheme = isDark ? 'light' : 'dark';
           const bg = newTheme === 'dark' ? '#000000' : '#f7f7f5';
@@ -335,6 +372,19 @@
           document.querySelector('meta[name="theme-color"]')?.setAttribute('content', bg);
           try { localStorage.setItem('wwz-theme-mode', newTheme); } catch (_) {}
           updateThemeIcons(true);
+        });
+      }
+    });
+
+    header.querySelectorAll('.mobile-theme-opt[data-set-theme]').forEach(opt => {
+      if (!opt.dataset.bound) {
+        opt.dataset.bound = 'true';
+        opt.addEventListener('click', () => {
+          const targetMode = opt.dataset.setTheme;
+          if (window.WWZTheme && typeof window.WWZTheme.setMode === 'function') {
+            window.WWZTheme.setMode(targetMode, true);
+            updateThemeIcons(false);
+          }
         });
       }
     });
