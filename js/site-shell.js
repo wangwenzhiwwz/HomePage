@@ -1201,12 +1201,9 @@
     initInteractiveSpecular();
     initHeroKinetic();
 
-    // 5. Works Gallery & Article Navigation Initializers
+    // 5. Works Gallery Initializer
     if (window.WWZWorksInit && typeof window.WWZWorksInit === 'function') {
       window.WWZWorksInit();
-    }
-    if (window.WWZArticleNavInit && typeof window.WWZArticleNavInit === 'function') {
-      window.WWZArticleNavInit();
     }
 
     // 6. Article Code Block Copy & Back-to-Top Floating Button
@@ -1363,9 +1360,6 @@
         if (!window.WWZWorksInit) {
           await loadScriptOnce(`${nextRoot}js/works.js`);
         }
-      }
-      if (/\/articles\//.test(targetUrl.pathname) && !window.WWZArticleNavInit) {
-        await loadScriptOnce(`${nextRoot}js/article-nav.js`);
       }
 
       mountNav();
