@@ -156,11 +156,15 @@
       ? `Auto (${isDark ? 'Dark' : 'Light'}) — Click to switch`
       : `${isDark ? 'Dark' : 'Light'} Mode — Click to switch`;
 
+    const videoCount = window.WWZ_CONTENT?.videos?.length || 21;
+    const worksCount = (Array.isArray(window.WWZ_WORKS) && window.WWZ_WORKS.length) || 81;
+    const postCount = window.WWZ_CONTENT?.posts?.length || 7;
+
     const mobileItems = [
       { key: 'home', href: `${root}index.html`, label: 'Home', sub: 'Studio Overview', icon: 'fa-house' },
-      { key: 'videos', href: `${root}videos/`, label: 'Videos', sub: '21 Commercial Films', icon: 'fa-film' },
-      { key: 'works', href: `${root}works.html`, label: 'Works', sub: '81 Visual Works', icon: 'fa-icons' },
-      { key: 'blog', href: `${root}blog.html`, label: 'Blog', sub: '7 Technical Guides', icon: 'fa-book-open' },
+      { key: 'videos', href: `${root}videos/`, label: 'Videos', sub: `${videoCount} Commercial Films`, icon: 'fa-film' },
+      { key: 'works', href: `${root}works.html`, label: 'Works', sub: `${worksCount} Visual Works`, icon: 'fa-icons' },
+      { key: 'blog', href: `${root}blog.html`, label: 'Blog', sub: `${postCount} Technical Guides`, icon: 'fa-book-open' },
       { key: 'about', href: `${root}about.html`, label: 'About', sub: 'Bio & Stack', icon: 'fa-user' }
     ];
 

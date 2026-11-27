@@ -1,0 +1,22 @@
+name: Site Quality & SEO Check
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Verify pre-network theme startup across all pages
+        run: node scripts/check-theme-startup.mjs
+      - name: Verify links, SEO metadata, feeds, and image size budgets
+        run: node scripts/check-site.mjs

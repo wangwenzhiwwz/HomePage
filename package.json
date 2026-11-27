@@ -1,0 +1,12 @@
+{
+  "name": "wwz-im-homepage",
+  "version": "2.0.0",
+  "private": true,
+  "description": "WWZ.iM official studio portfolio, technical notes, and independent web utilities",
+  "scripts": {
+    "sync": "node scripts/sync-site.mjs",
+    "check:theme": "node scripts/check-theme-startup.mjs",
+    "check:site": "node scripts/check-site.mjs",
+    "check": "node scripts/check-theme-startup.mjs && node scripts/check-site.mjs"
+  }
+}
