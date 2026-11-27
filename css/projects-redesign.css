@@ -236,17 +236,20 @@
   min-height: 310px;
   overflow: hidden;
   padding: 22px;
-  border: 1px solid var(--line);
+  border: 1px solid transparent;
   border-radius: 23px;
-  background: var(--surface);
+  background: var(--glass-surface);
+  -webkit-backdrop-filter: var(--glass-blur-card);
+  backdrop-filter: var(--glass-blur-card);
+  box-shadow: var(--shadow-card);
   color: var(--ink);
   text-decoration: none;
-  transition: transform .32s var(--ease), border-color .32s, box-shadow .32s;
+  transition: transform .32s var(--ease), background-color .32s, box-shadow .32s;
 }
 
 .project-card:hover {
   transform: translateY(-5px);
-  border-color: var(--line-strong);
+  background: var(--glass-surface-hover);
   box-shadow: var(--shadow-hover);
 }
 
@@ -535,10 +538,12 @@
 .wwz-practical-panel {
   margin: 32px 0;
   padding: 26px;
-  border: 1px solid var(--line);
+  border: 1px solid transparent;
   border-radius: 22px;
-  background: var(--surface);
-  box-shadow: var(--shadow-sm);
+  background: var(--glass-surface);
+  -webkit-backdrop-filter: var(--glass-blur-card);
+  backdrop-filter: var(--glass-blur-card);
+  box-shadow: var(--shadow-card);
 }
 
 .wwz-practical-panel h2 {
@@ -576,8 +581,9 @@
 .wwz-practical-card {
   padding: 18px;
   border-radius: 16px;
-  border: 1px solid var(--line);
+  border: 1px solid transparent;
   background: var(--bg-secondary);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
 }
 
 .wwz-practical-card small {

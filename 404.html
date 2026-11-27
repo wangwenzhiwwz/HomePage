@@ -75,10 +75,11 @@
       width: 100%;
       text-align: center;
       padding: 56px 40px;
-      border: 1px solid var(--line);
+      border: 1px solid transparent;
       border-radius: var(--radius-xl);
-      background: var(--surface);
-      backdrop-filter: blur(24px);
+      background: var(--glass-surface);
+      -webkit-backdrop-filter: var(--glass-blur);
+      backdrop-filter: var(--glass-blur);
       box-shadow: var(--shadow-lg);
     }
     @media (max-width: 640px) {

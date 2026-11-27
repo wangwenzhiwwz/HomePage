@@ -91,8 +91,11 @@
     .filter-chip {
       padding: 7px 16px;
       border-radius: var(--radius-pill);
-      border: 1px solid var(--line);
-      background-color: var(--surface);
+      border: 1px solid transparent;
+      background: var(--glass-pill);
+      -webkit-backdrop-filter: var(--glass-blur-card);
+      backdrop-filter: var(--glass-blur-card);
+      box-shadow: var(--shadow-sm);
       color: var(--ink-secondary);
       font-size: 0.84rem;
       font-weight: 550;
@@ -101,12 +104,13 @@
     }
     .filter-chip:hover {
       color: var(--ink);
-      border-color: var(--line-strong);
+      background: var(--glass-surface-hover);
+      box-shadow: var(--shadow-card);
     }
     .filter-chip.active {
       background-color: var(--ink);
       color: var(--bg);
-      border-color: var(--ink);
+      border-color: transparent;
     }
     .blog-search-box {
       position: relative;
@@ -125,15 +129,19 @@
       height: 38px;
       padding: 0 16px 0 38px;
       border-radius: var(--radius-pill);
-      border: 1px solid var(--line);
-      background-color: var(--surface);
+      border: 1px solid transparent;
+      background: var(--glass-pill);
+      -webkit-backdrop-filter: var(--glass-blur-card);
+      backdrop-filter: var(--glass-blur-card);
+      box-shadow: var(--shadow-sm);
       color: var(--ink);
       font-size: 0.86rem;
-      transition: border-color var(--duration-fast) var(--ease);
+      transition: background-color var(--duration-fast) var(--ease), box-shadow var(--duration-fast) var(--ease);
       width: 220px;
     }
     .blog-search-input:hover {
-      border-color: var(--line-strong);
+      background: var(--glass-surface-hover);
+      box-shadow: var(--shadow-card);
     }
 
     /* Grid of Editorial Cards */
@@ -152,25 +160,27 @@
     .editorial-card {
       display: flex;
       flex-direction: column;
-      border: 1px solid var(--line);
+      border: 1px solid transparent;
       border-radius: var(--radius-lg);
-      background-color: var(--surface);
+      background: var(--glass-surface);
+      -webkit-backdrop-filter: var(--glass-blur-card);
+      backdrop-filter: var(--glass-blur-card);
+      box-shadow: var(--shadow-card);
       overflow: hidden;
       text-decoration: none;
       color: inherit;
-      transition: transform var(--duration-normal) var(--ease), box-shadow var(--duration-normal) var(--ease), border-color var(--duration-normal) var(--ease);
+      transition: transform var(--duration-normal) var(--ease), box-shadow var(--duration-normal) var(--ease), background-color var(--duration-normal) var(--ease);
     }
     .editorial-card:hover {
       transform: translateY(-3px);
+      background: var(--glass-surface-hover);
       box-shadow: var(--shadow-hover);
-      border-color: var(--line-strong);
     }
     .editorial-card-media {
       position: relative;
       aspect-ratio: 16 / 9;
       background-color: var(--bg-tertiary);
       overflow: hidden;
-      border-bottom: 1px solid var(--line);
     }
     .editorial-card-media img {
       width: 100%;
@@ -274,16 +284,19 @@
       gap: 14px;
       padding: 14px 16px;
       border-radius: var(--radius-md);
-      border: 1px solid var(--line);
-      background-color: var(--surface);
+      border: 1px solid transparent;
+      background: var(--glass-surface);
+      -webkit-backdrop-filter: var(--glass-blur-card);
+      backdrop-filter: var(--glass-blur-card);
+      box-shadow: var(--shadow-card);
       text-decoration: none;
       color: inherit;
       transition: all var(--duration-fast) var(--ease);
     }
     .gateway-compact-card:hover {
-      border-color: var(--line-strong);
+      background: var(--glass-surface-hover);
       transform: translateY(-2px);
-      box-shadow: var(--shadow-sm);
+      box-shadow: var(--shadow-hover);
     }
     .gateway-icon {
       width: 36px;
