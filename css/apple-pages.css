@@ -2970,9 +2970,11 @@ html:has(.image-viewer[open]) {
   border-color: var(--line-strong);
   transform: translateY(-2px);
 }
-.resource i {
+.resource i,
+.resource .wwz-ico {
   font-size: 1.4rem;
   color: var(--ink);
+  flex-shrink: 0;
 }
 .resource strong {
   display: block;
