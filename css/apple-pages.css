@@ -1828,6 +1828,7 @@ html:has(.image-viewer[open]) {
 }
 
 .blog-card-media {
+  position: relative;
   aspect-ratio: 16 / 9;
   background-color: var(--bg-tertiary);
   border-bottom: 1px solid var(--line-subtle);
