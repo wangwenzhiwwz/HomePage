@@ -801,12 +801,18 @@
       metaEl.replaceWith(props);
     }
 
-    // 3. Build 2-column Notion workspace (prose column + sticky right Outline TOC)
-    if (!body.closest('.notion-content-row')) {
-      const row = document.createElement('div');
-      row.className = 'notion-content-row';
-      body.parentNode.insertBefore(row, body);
-      row.append(body);
+    // 3. Build symmetric Notion workspace (Left Floating TOC + Centered Main Column + Right Mirror Spacer)
+    if (!body.closest('.notion-workspace')) {
+      const workspace = document.createElement('div');
+      workspace.className = 'notion-workspace';
+
+      const centerCol = document.createElement('div');
+      centerCol.className = 'notion-center-col';
+
+      const footerEl = layout.querySelector(':scope > .editorial-footer');
+      header.parentNode.insertBefore(workspace, header);
+      centerCol.append(header, body);
+      if (footerEl) centerCol.append(footerEl);
 
       const headings = [...body.querySelectorAll('h2, h3')];
       if (headings.length >= 2) {
@@ -837,7 +843,12 @@
         });
 
         toc.append(list);
-        row.append(toc);
+
+        const rightSpacer = document.createElement('div');
+        rightSpacer.className = 'notion-rail-spacer';
+        rightSpacer.setAttribute('aria-hidden', 'true');
+
+        workspace.append(toc, centerCol, rightSpacer);
 
         const setActive = (targetHeading) => {
           linkMap.forEach((a, h) => a.classList.toggle('is-active', h === targetHeading));
@@ -855,7 +866,8 @@
 
         headings.forEach(h => notionTocObserver.observe(h));
       } else {
-        row.classList.add('is-single');
+        workspace.classList.add('is-single');
+        workspace.append(centerCol);
       }
     }
   };
