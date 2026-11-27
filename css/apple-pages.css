@@ -2063,6 +2063,53 @@ html:has(.image-viewer[open]) {
   gap: 6px;
 }
 
+.tool-card--multi > .tool-card-foot {
+  position: static;
+  z-index: auto;
+}
+
+.tool-card-primary {
+  text-decoration: none;
+}
+
+.tool-card-primary::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+}
+
+.tool-spec-link {
+  position: relative;
+  z-index: 3;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 10px;
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--line);
+  background-color: var(--bg-secondary);
+  font-family: "JetBrains Mono", Menlo, monospace;
+  font-size: 0.74rem;
+  font-weight: 550;
+  color: var(--ink-secondary);
+  text-decoration: none;
+  transition: all var(--duration-fast) var(--ease);
+}
+
+.tool-spec-link:hover {
+  color: var(--ink);
+  border-color: var(--line-strong);
+  background-color: var(--surface-hover);
+}
+
+.tool-spec-link:focus-visible,
+.tool-card-primary:focus-visible {
+  outline: 2px solid var(--line-focus);
+  outline-offset: 2px;
+  border-radius: 6px;
+}
+
 .tool-card-link .wwz-ico,
 .tool-card-link i {
   font-size: 0.78em;
