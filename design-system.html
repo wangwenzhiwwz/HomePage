@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex,follow">
   <meta name="color-scheme" content="light dark">
   <meta name="theme-color" content="#f7f7f5">
   <script data-theme-bootstrap>
-    // Inline intentionally: the initial canvas must not wait for a network request.
     (() => {
       const root = document.documentElement;
       let mode = 'system';
@@ -19,310 +20,92 @@
       root.style.backgroundColor = background;
       root.style.setProperty('--wwz-initial-bg', background);
       document.querySelector('meta[name="theme-color"]').setAttribute('content', background);
-      document.querySelector('meta[name="color-scheme"]').setAttribute('content', theme);
     })();
   </script>
-  <style data-theme-startup>
-    html { --wwz-initial-bg:#f7f7f5; background:var(--wwz-initial-bg); color-scheme:light; }
-    @media (prefers-color-scheme:dark) { html { --wwz-initial-bg:#000000; color-scheme:dark; } }
-    html:not([data-theme-ready]), html:not([data-theme-ready]) body { background:var(--wwz-initial-bg) !important; background-image:none !important; }
-    html:not([data-theme-ready]), html:not([data-theme-ready]) * { transition:none !important; }
-  </style>
   <script src="js/site-theme.js" defer></script>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Design System - WWZ.iM</title>
-    <meta name="description" content="WWZ.iM Design System - Colors, Typography, Components, and UI Kit.">
-    <meta name="author" content="Wang Wenzhi">
-    <link rel="icon" href="favicon.ico">
-    <link rel="stylesheet" href="css/site-system.css">
-
-    <style>
-        .style-section {
-            margin-bottom: 60px;
-        }
-
-        .style-section h2 {
-            font-size: 1.5rem;
-            margin-bottom: 30px;
-            padding-bottom: 15px;
-            border-bottom: 1px solid var(--glass-border);
-        }
-
-        .color-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-            gap: 20px;
-        }
-
-        .color-swatch {
-            border-radius: 16px;
-            overflow: hidden;
-            background: var(--glass-bg);
-            border: 1px solid var(--glass-border);
-        }
-
-        .color-preview {
-            height: 80px;
-        }
-
-        .color-info {
-            padding: 12px;
-            font-size: 0.8rem;
-        }
-
-        .color-name {
-            font-weight: 600;
-            margin-bottom: 4px;
-        }
-
-        .color-value {
-            font-family: var(--font-mono);
-            color: var(--text-secondary);
-            font-size: 0.75rem;
-        }
-
-        .typo-sample {
-            margin-bottom: 30px;
-            padding: 20px;
-            background: var(--glass-bg);
-            border-radius: 16px;
-            border: 1px solid var(--glass-border);
-        }
-
-        .typo-label {
-            font-size: 0.75rem;
-            color: var(--text-secondary);
-            font-family: var(--font-mono);
-            margin-bottom: 10px;
-        }
-
-        .component-demo {
-            padding: 30px;
-            background: var(--glass-bg);
-            border-radius: 16px;
-            border: 1px solid var(--glass-border);
-            margin-bottom: 20px;
-        }
-
-        .component-demo h4 {
-            font-size: 0.9rem;
-            color: var(--text-secondary);
-            margin-bottom: 20px;
-            font-weight: 600;
-        }
-
-        .back-link {
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            color: var(--text-secondary);
-            font-weight: 600;
-            margin-bottom: 30px;
-            transition: all 0.3s ease;
-        }
-
-        .back-link:hover {
-            color: var(--accent-color);
-            transform: translateX(-5px);
-        }
-
-        .icon-grid {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 15px;
-        }
-
-        .icon-item {
-            width: 50px;
-            height: 50px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: var(--pill-bg);
-            border-radius: 12px;
-            font-size: 1.2rem;
-            transition: all 0.3s ease;
-        }
-
-        .icon-item:hover {
-            background: var(--accent-color);
-            color: white;
-            transform: scale(1.1);
-        }
-    </style>
-    <link rel="stylesheet" href="css/site-system.css?v=20261113-brand-palette">
+  <title>Design System · WWZ.iM</title>
+  <meta name="description" content="WWZ.iM Design System — Frosted glass tokens, typography scale, monochrome palette, and UI components.">
+  <meta name="author" content="Wang Wenzhi">
+  <link rel="canonical" href="https://wwz.im/design-system.html">
+  <link rel="icon" href="favicon.ico">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Design System · WWZ.iM">
+  <meta property="og:description" content="WWZ.iM Design System — Frosted glass tokens, typography scale, monochrome palette, and UI components.">
+  <meta property="og:image" content="https://wwz.im/favicon.png">
+  <link rel="stylesheet" href="css/site-system.css">
+  <script src="js/site-shell.js" defer></script>
+  <style>
+    .ds-wrap { width: min(1160px, calc(100% - 48px)); margin: 0 auto; padding: 108px 0 84px; }
+    .ds-section { margin-top: 48px; }
+    .ds-section h2 { font-size: 1.45rem; margin-bottom: 18px; padding-bottom: 12px; border-bottom: 1px solid var(--line); }
+    .ds-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)); gap: 16px; }
+    .ds-swatch { border-radius: 16px; overflow: hidden; background: var(--glass-surface); backdrop-filter: var(--glass-blur-card); box-shadow: var(--shadow-card); }
+    .ds-preview { height: 76px; border-bottom: 1px solid var(--line-subtle); }
+    .ds-info { padding: 12px; font-size: 0.82rem; }
+    .ds-name { font-weight: 650; color: var(--ink); margin-bottom: 4px; }
+    .ds-val { font-family: "JetBrains Mono", Menlo, monospace; font-size: 0.75rem; color: var(--ink-secondary); }
+    .ds-demo { padding: 26px; border-radius: 18px; background: var(--glass-surface); backdrop-filter: var(--glass-blur-card); box-shadow: var(--shadow-card); margin-bottom: 16px; }
+    .ds-icons { display: flex; flex-wrap: wrap; gap: 12px; }
+    .ds-icon-item { width: 46px; height: 46px; display: inline-flex; align-items: center; justify-content: center; border-radius: 12px; background: var(--glass-pill); box-shadow: var(--shadow-sm); color: var(--ink); }
+    @media (max-width: 640px) { .ds-wrap { width: calc(100% - 32px); padding: 88px 0 64px; } }
+  </style>
 </head>
-
 <body data-active-page="none">
-    <div class="cursor-dot"></div>
-    <div class="cursor-circle"></div>
+  <a class="skip" href="#page-content">Skip to content</a>
+  <main id="page-content" class="ds-wrap">
+    <span class="kicker">DESIGN TOKENS · SYSTEM</span>
+    <h1>WWZ.iM Design System</h1>
+    <p class="page-hero-lead">Apple-minimalist monochrome palette, frosted glass surfaces, and unified responsive typography.</p>
 
-    <div id="loader">
-        <div class="loader-spinner"></div>
-    </div>
+    <section class="ds-section">
+      <h2>Palette &amp; Surfaces</h2>
+      <div class="ds-grid">
+        <div class="ds-swatch"><div class="ds-preview" style="background: #f5f5f3;"></div><div class="ds-info"><div class="ds-name">Light Canvas</div><div class="ds-val">#f5f5f3</div></div></div>
+        <div class="ds-swatch"><div class="ds-preview" style="background: #000000;"></div><div class="ds-info"><div class="ds-name">Dark Canvas</div><div class="ds-val">#000000</div></div></div>
+        <div class="ds-swatch"><div class="ds-preview" style="background: rgba(255,255,255,0.68);"></div><div class="ds-info"><div class="ds-name">Frosted Light</div><div class="ds-val">rgba(255,255,255,0.68)</div></div></div>
+        <div class="ds-swatch"><div class="ds-preview" style="background: rgba(24,24,29,0.62);"></div><div class="ds-info"><div class="ds-name">Frosted Dark</div><div class="ds-val">rgba(24,24,29,0.62)</div></div></div>
+        <div class="ds-swatch"><div class="ds-preview" style="background: #111111;"></div><div class="ds-info"><div class="ds-name">Primary Ink</div><div class="ds-val">#111111 / #ffffff</div></div></div>
+      </div>
+    </section>
 
-    <button id="theme-btn-desktop" class="d-none d-lg-flex" title="Toggle Theme" data-hover>
-        <i class="fa-solid fa-moon"></i>
-    </button>
+    <section class="ds-section">
+      <h2>Typography Scale</h2>
+      <div class="ds-demo">
+        <div class="ds-val" style="margin-bottom:8px;">Display / H2 / Body / Mono</div>
+        <p style="font-size: var(--text-h2); font-weight: 700; color: var(--ink); margin-bottom: 10px;">Visual Stories. Useful Systems.</p>
+        <p style="margin-bottom: 8px;">Body copy maintains crisp readability across light and pure black dark mode.</p>
+        <code>const theme = window.WWZTheme.getState();</code>
+      </div>
+    </section>
 
-    <aside class="sidebar glass-panel" id="sidebar"></aside>
+    <section class="ds-section">
+      <h2>Controls &amp; Pills</h2>
+      <div class="ds-demo" style="display:flex; flex-wrap:wrap; gap:10px; align-items:center;">
+        <button type="button" class="btn btn-primary">Primary Action</button>
+        <button type="button" class="btn btn-secondary">Frosted Secondary</button>
+        <button type="button" class="filter-pill active" aria-pressed="true">Active Filter</button>
+        <button type="button" class="filter-pill" aria-pressed="false">Filter Pill</button>
+        <span class="badge">Badge Token</span>
+      </div>
+    </section>
 
-    <main id="page-content" class="main-content">
-        <a href="index.html" class="back-link" data-hover>
-            <i class="fa-solid fa-arrow-left"></i>
-            Back to Home
-        </a>
-
-        <h1 class="section-title">Design System</h1>
-
-        <!-- Colors -->
-        <section class="style-section">
-            <h2><i class="fa-solid fa-palette me-2"></i>Colors</h2>
-            <div class="color-grid">
-                <div class="color-swatch">
-                    <div class="color-preview" style="background: #6366f1;"></div>
-                    <div class="color-info">
-                        <div class="color-name">Accent</div>
-                        <div class="color-value">#6366f1</div>
-                    </div>
-                </div>
-                <div class="color-swatch">
-                    <div class="color-preview" style="background: #8b5cf6;"></div>
-                    <div class="color-info">
-                        <div class="color-name">Purple</div>
-                        <div class="color-value">#8b5cf6</div>
-                    </div>
-                </div>
-                <div class="color-swatch">
-                    <div class="color-preview" style="background: #ec4899;"></div>
-                    <div class="color-info">
-                        <div class="color-name">Pink</div>
-                        <div class="color-value">#ec4899</div>
-                    </div>
-                </div>
-                <div class="color-swatch">
-                    <div class="color-preview" style="background: #0a0a0a;"></div>
-                    <div class="color-info">
-                        <div class="color-name">Dark BG</div>
-                        <div class="color-value">#0a0a0a</div>
-                    </div>
-                </div>
-                <div class="color-swatch">
-                    <div class="color-preview" style="background: #f5f5f7;"></div>
-                    <div class="color-info">
-                        <div class="color-name">Light BG</div>
-                        <div class="color-value">#f5f5f7</div>
-                    </div>
-                </div>
-                <div class="color-swatch">
-                    <div class="color-preview" style="background: rgba(20, 20, 20, 0.65);"></div>
-                    <div class="color-info">
-                        <div class="color-name">Glass</div>
-                        <div class="color-value">rgba(20,20,20,0.65)</div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Typography -->
-        <section class="style-section">
-            <h2><i class="fa-solid fa-font me-2"></i>Typography</h2>
-
-            <div class="typo-sample">
-                <div class="typo-label">Font: Inter / Display</div>
-                <h1 style="font-size: 3rem; margin: 0;">Heading 1</h1>
-            </div>
-
-            <div class="typo-sample">
-                <div class="typo-label">Font: Inter / Heading</div>
-                <h2 style="font-size: 2rem; margin: 0;">Heading 2</h2>
-            </div>
-
-            <div class="typo-sample">
-                <div class="typo-label">Font: Inter / Body</div>
-                <p style="margin: 0;">The quick brown fox jumps over the lazy dog. Design system typography check.</p>
-            </div>
-
-            <div class="typo-sample">
-                <div class="typo-label">Font: JetBrains Mono / Code</div>
-                <code style="font-size: 1rem;">const greeting = "Hello, World!";</code>
-            </div>
-        </section>
-
-        <!-- Components -->
-        <section class="style-section">
-            <h2><i class="fa-solid fa-cube me-2"></i>Components</h2>
-
-            <div class="component-demo">
-                <h4>Buttons</h4>
-                <div class="d-flex gap-3 flex-wrap">
-                    <button class="btn btn-light" data-hover>Primary Button</button>
-                    <button class="btn btn-outline-secondary" data-hover>Secondary</button>
-                    <a href="#" class="tech-tag" data-hover>Tag / Pill</a>
-                </div>
-            </div>
-
-            <div class="component-demo">
-                <h4>Form Elements</h4>
-                <div class="row g-3">
-                    <div class="col-md-6">
-                        <input type="text" class="form-control" placeholder="Text input">
-                    </div>
-                    <div class="col-md-6">
-                        <input type="email" class="form-control" placeholder="Email input">
-                    </div>
-                    <div class="col-12">
-                        <textarea class="form-control" rows="3" placeholder="Textarea"></textarea>
-                    </div>
-                </div>
-            </div>
-
-            <div class="component-demo">
-                <h4>Glass Card</h4>
-                <div class="glass-card" style="max-width: 300px;" data-hover>
-                    <h5>Card Title</h5>
-                    <p class="text-secondary mb-0">This is a glass card component with hover effects.</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- Icons -->
-        <section class="style-section">
-            <h2><i class="fa-solid fa-icons me-2"></i>Icons</h2>
-            <p class="text-secondary mb-4">Using Font Awesome 6</p>
-            <div class="icon-grid">
-                <div class="icon-item" data-hover><i class="fa-solid fa-house"></i></div>
-                <div class="icon-item" data-hover><i class="fa-solid fa-film"></i></div>
-                <div class="icon-item" data-hover><i class="fa-solid fa-layer-group"></i></div>
-                <div class="icon-item" data-hover><i class="fa-solid fa-user-astronaut"></i></div>
-                <div class="icon-item" data-hover><i class="fa-solid fa-paper-plane"></i></div>
-                <div class="icon-item" data-hover><i class="fa-solid fa-palette"></i></div>
-                <div class="icon-item" data-hover><i class="fa-solid fa-compass"></i></div>
-                <div class="icon-item" data-hover><i class="fa-solid fa-bolt"></i></div>
-                <div class="icon-item" data-hover><i class="fa-solid fa-moon"></i></div>
-                <div class="icon-item" data-hover><i class="fa-solid fa-sun"></i></div>
-                <div class="icon-item" data-hover><i class="fa-brands fa-github"></i></div>
-                <div class="icon-item" data-hover><i class="fa-brands fa-x-twitter"></i></div>
-            </div>
-        </section>
-
-        <footer>
-            <p>&copy; <span id="copyright-year"></span> WWZ.iM. Crafted with passion.</p>
-        </footer>
-    </main>
-
-    <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.1/js/bootstrap.bundle.min.js"></script>
-    <script src="js/legacy-interactions.js"></script>
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            WWZ.initCommon();
-
-            document.querySelectorAll('[data-hover]').forEach(el => {
-                el.addEventListener('mouseenter', () => document.body.classList.add('hovering'));
-                el.addEventListener('mouseleave', () => document.body.classList.remove('hovering'));
-            });
-        });
-    </script>
-    <script src="js/site-shell.js?v=20261031-native-nav"></script>
+    <section class="ds-section">
+      <h2>Inline SVG Icon Engine</h2>
+      <div class="ds-icons">
+        <div class="ds-icon-item"><i class="fa-solid fa-house"></i></div>
+        <div class="ds-icon-item"><i class="fa-solid fa-film"></i></div>
+        <div class="ds-icon-item"><i class="fa-solid fa-layer-group"></i></div>
+        <div class="ds-icon-item"><i class="fa-solid fa-user-astronaut"></i></div>
+        <div class="ds-icon-item"><i class="fa-solid fa-paper-plane"></i></div>
+        <div class="ds-icon-item"><i class="fa-solid fa-palette"></i></div>
+        <div class="ds-icon-item"><i class="fa-solid fa-compass"></i></div>
+        <div class="ds-icon-item"><i class="fa-solid fa-bolt"></i></div>
+        <div class="ds-icon-item"><i class="fa-solid fa-moon"></i></div>
+        <div class="ds-icon-item"><i class="fa-solid fa-sun"></i></div>
+        <div class="ds-icon-item"><i class="fa-brands fa-github"></i></div>
+        <div class="ds-icon-item"><i class="fa-brands fa-x-twitter"></i></div>
+      </div>
+    </section>
+  </main>
 </body>
 </html>

@@ -1058,6 +1058,8 @@
 }
 
 .film-card {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 340px;
   background: var(--glass-surface);
   -webkit-backdrop-filter: var(--glass-blur-card);
   backdrop-filter: var(--glass-blur-card);
@@ -1412,6 +1414,8 @@
 }
 
 .portfolio-item {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 340px;
   background: var(--glass-surface);
   -webkit-backdrop-filter: var(--glass-blur-card);
   backdrop-filter: var(--glass-blur-card);
@@ -1826,6 +1830,8 @@ html:has(.image-viewer[open]) {
 }
 
 .blog-card {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 380px;
   background: var(--glass-surface);
   -webkit-backdrop-filter: var(--glass-blur-card);
   backdrop-filter: var(--glass-blur-card);

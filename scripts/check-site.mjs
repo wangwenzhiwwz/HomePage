@@ -115,6 +115,12 @@ for (const [from, to] of Object.entries(redirects)) {
   if (!sitesWorker.includes(from) && !sitesWorker.includes(routeKey)) errors.push('Missing in sites-worker.js: ' + from);
 }
 
+// Check CSS bundle has no @import waterfall
+const siteSystemCss = readFileSync(resolve(root, 'css/site-system.css'), 'utf8');
+if (/@import\s+url\(/i.test(siteSystemCss)) {
+  errors.push('css/site-system.css: contains @import waterfall; run npm run sync');
+}
+
 // Check sitemap.xml & rss.xml completeness
 for (const feedFile of ['sitemap.xml', 'rss.xml']) {
   const feedPath = resolve(root, feedFile);
