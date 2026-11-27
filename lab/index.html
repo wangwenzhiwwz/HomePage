@@ -32,6 +32,7 @@
   <meta property="og:url" content="https://wwz.im/lab/">
   <meta name="twitter:card" content="summary">
   <link rel="stylesheet" href="../css/site-system.css">
+  <script src="../js/site-theme.js" defer></script>
 </head>
 <body data-content-root="../" data-active-page="lab">
   <main class="editorial-layout" id="page-content">
@@ -200,7 +201,6 @@ Rollback / last known-good workflow:</code><button class="copy-btn" type="button
     </footer>
   </main>
 
-  <script src="../js/site-theme.js"></script>
   <script src="../js/site-shell.js"></script>
   <script>
   (async () => {
@@ -223,6 +223,7 @@ Rollback / last known-good workflow:</code><button class="copy-btn" type="button
           </div>
         </a>
       `).join('');
+      if (window.WWZShellHydrateIcons) window.WWZShellHydrateIcons(root);
     } catch (_) {
       // Keep pre-rendered HTML on any network error
     }

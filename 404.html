@@ -72,13 +72,22 @@
     }
     .notfound-card {
       max-width: 580px;
+      width: 100%;
       text-align: center;
       padding: 56px 40px;
       border: 1px solid var(--line);
       border-radius: var(--radius-xl);
       background: var(--surface);
       backdrop-filter: blur(24px);
-      box-shadow: 0 20px 48px -12px var(--shadow-sm);
+      box-shadow: var(--shadow-lg);
+    }
+    @media (max-width: 640px) {
+      .notfound-main {
+        padding: 88px 16px 48px;
+      }
+      .notfound-card {
+        padding: 34px 20px;
+      }
     }
     .notfound-badge {
       display: inline-flex;

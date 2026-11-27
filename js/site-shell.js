@@ -121,6 +121,7 @@
       if (svg) el.replaceWith(svg);
     });
   };
+  window.WWZShellHydrateIcons = hydrateIcons;
 
   // SVGs for Theme Toggle
   const ICON_MOON = renderIconSVG('fa-moon', 'theme-icon-svg');
@@ -832,9 +833,22 @@
       const props = document.createElement('div');
       props.className = 'notion-properties';
       const items = [{ key: 'Category', value: badgeText, badge: true }];
-      if (metaSpans[0]) items.push({ key: 'Date', value: metaSpans[0] });
-      if (metaSpans[1]) items.push({ key: 'Read', value: metaSpans[1] });
-      if (metaSpans[2]) items.push({ key: 'Author', value: metaSpans[2] });
+      const extraLabels = [];
+      metaSpans.forEach((val, idx) => {
+        if (/^\d{4}-\d{2}-\d{2}/.test(val)) {
+          items.push({ key: 'Date', value: val });
+        } else if (/min\s*read/i.test(val)) {
+          items.push({ key: 'Read', value: val });
+        } else {
+          extraLabels.push(val);
+        }
+      });
+      if (extraLabels.length === 1) {
+        items.push({ key: 'Author', value: extraLabels[0] });
+      } else if (extraLabels.length >= 2) {
+        items.push({ key: 'Section', value: extraLabels[0] });
+        items.push({ key: 'Author', value: extraLabels[extraLabels.length - 1] });
+      }
 
       items.forEach(item => {
         const row = document.createElement('div');
@@ -1362,6 +1376,9 @@
         }
       }
 
+      if (window.WWZTheme && typeof window.WWZTheme.refresh === 'function') {
+        window.WWZTheme.refresh();
+      }
       mountNav();
       initPageComponents();
 

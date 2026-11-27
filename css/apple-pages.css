@@ -155,8 +155,8 @@
 .qj-lmask {
   display: block;
   overflow: hidden;
-  padding-bottom: 0.08em;
-  margin-bottom: -0.05em;
+  padding-bottom: 0.22em;
+  margin-bottom: -0.18em;
 }
 
 .qj-line {
@@ -376,7 +376,7 @@
   height: clamp(120px, 9.2vw, 138px);
   margin-bottom: calc(var(--illo-w) * 0.875);
   opacity: 0;
-  transform: translateX(36px);
+  transform: translateY(14px);
   animation: qj-bubble-in 0.85s cubic-bezier(0.19, 1, 0.22, 1) 0.42s forwards;
   transition: width 0.5s cubic-bezier(0.19, 1, 0.22, 1), height 0.5s cubic-bezier(0.19, 1, 0.22, 1);
 }
@@ -384,7 +384,7 @@
 @keyframes qj-bubble-in {
   to {
     opacity: 1;
-    transform: translateX(0);
+    transform: translateY(0);
   }
 }
 
@@ -980,19 +980,21 @@
   .qj-interactive-cluster {
     flex-direction: row;
     align-items: flex-end;
+    max-width: 100%;
     gap: 0;
     margin-top: 22px;
   }
   .qj-illo {
-    width: 112px;
+    width: 96px;
   }
   .qj-bubble-wrap {
     flex: 1 1 0;
     width: auto;
     height: auto;
     min-width: 0;
-    margin-left: -8px;
-    margin-bottom: 98px;
+    max-width: calc(100% - 88px);
+    margin-left: -6px;
+    margin-bottom: 84px;
   }
   .qj-bubble-view {
     height: auto;
@@ -3731,6 +3733,10 @@ pre code {
 }
 
 @media (max-width: 768px) {
+  [data-reveal="left"],
+  [data-reveal="right"] {
+    transform: translateY(20px);
+  }
   .about-hero-grid,
   .about-grid-3,
   .about-timeline {

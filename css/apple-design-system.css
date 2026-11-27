@@ -149,6 +149,7 @@ html {
   text-size-adjust: 100%;
   scroll-behavior: smooth;
   scroll-padding-top: 88px;
+  overflow-x: clip;
   background-color: var(--bg);
   color: var(--ink);
   transition: background-color var(--duration-normal) var(--ease), color var(--duration-normal) var(--ease);
@@ -696,7 +697,7 @@ main.main-content,
   max-height: calc(100dvh - 88px);
   z-index: 998;
   border-radius: 22px;
-  background: rgba(255, 255, 255, 0.96);
+  background: rgba(255, 255, 255, 0.985);
   -webkit-backdrop-filter: blur(28px) saturate(180%);
   backdrop-filter: blur(28px) saturate(180%);
   border: 1px solid rgba(0, 0, 0, 0.09);
@@ -716,7 +717,7 @@ main.main-content,
 }
 
 :root[data-theme="dark"] .apple-mobile-drawer {
-  background: rgba(14, 14, 18, 0.96);
+  background: rgba(14, 14, 18, 0.985);
   border-color: rgba(255, 255, 255, 0.14);
   box-shadow: 0 24px 56px -10px rgba(0, 0, 0, 0.88), inset 0 1px 0 rgba(255, 255, 255, 0.08);
 }

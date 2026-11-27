@@ -18,7 +18,8 @@
     }, 320);
   };
 
-  const getSystemTheme = () => (media.matches ? 'dark' : 'light');
+  const getSystemMedia = () => matchMedia('(prefers-color-scheme: dark)');
+  const getSystemTheme = () => (getSystemMedia().matches ? 'dark' : 'light');
 
   const apply = (animate = false) => {
     const systemTheme = getSystemTheme();
@@ -34,7 +35,7 @@
     document.querySelectorAll('[data-shell-theme]').forEach(button => {
       const label = mode === 'system'
         ? `Auto (${theme === 'dark' ? 'Dark' : 'Light'}) — Click to switch`
-        : `${theme === 'dark' ? 'Dark' : 'Light'} Mode — Click to switch`;
+        : `${theme === 'dark' ? 'Dark' : 'Light'} Mode — Click to return to Auto`;
       button.setAttribute('aria-label', label);
       button.title = label;
     });
@@ -63,28 +64,35 @@
       apply(false);
     },
     cycle() {
-      const sys = getSystemTheme();
-      const order = ['system', sys === 'dark' ? 'light' : 'dark', sys];
-      mode = order[(order.indexOf(mode) + 1) % order.length];
+      const opposite = getSystemTheme() === 'dark' ? 'light' : 'dark';
+      mode = mode === opposite ? 'system' : opposite;
       try { localStorage.setItem(key, mode); } catch (_) {}
       apply(true);
     }
   };
 
+  const syncSystem = (animate = false) => {
+    if (mode !== 'system') return;
+    const expected = getSystemTheme();
+    if (root.dataset.theme !== expected || root.dataset.themeMode !== 'system') {
+      apply(animate);
+    }
+  };
+
+  const mediaQuery = getSystemMedia();
   const onMediaChange = () => { if (mode === 'system') apply(true); };
-  if (typeof media.addEventListener === 'function') {
-    media.addEventListener('change', onMediaChange);
-  } else if (typeof media.addListener === 'function') {
-    media.addListener(onMediaChange);
+  if (typeof mediaQuery.addEventListener === 'function') {
+    mediaQuery.addEventListener('change', onMediaChange);
+  } else if (typeof mediaQuery.addListener === 'function') {
+    mediaQuery.addListener(onMediaChange);
   }
 
   document.addEventListener('visibilitychange', () => {
-    if (!document.hidden && mode === 'system') apply(false);
+    if (!document.hidden) syncSystem(true);
   });
 
-  addEventListener('pageshow', () => {
-    if (mode === 'system') apply(false);
-  });
+  addEventListener('pageshow', () => syncSystem(false));
+  addEventListener('focus', () => syncSystem(true));
 
   addEventListener('storage', event => {
     if (event.key !== key && event.key !== null) return;
